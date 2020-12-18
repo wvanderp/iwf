@@ -1,0 +1,40 @@
+{
+  "name": "iwf",
+  "version": "0.1.0",
+  "description": "improved wikidata format",
+  "main": "index.ts",
+  "keywords": [
+    "wikidata"
+  ],
+  "author": "wvdp",
+  "license": "MIT",
+  "dependencies": {
+    "@wmde/wikibase-datamodel-types": "git+https://github.com/wvanderp/WikibaseDataModelTypes.git"
+  },
+  "devDependencies": {
+    "@types/deep-diff": "^1.0.0",
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.2.0",
+    "@types/node": "^14.14.14",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-compat": "^3.9.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-ramda": "^2.5.1",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "eslint-plugin-unicorn": "^24.0.0",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  },
+  "scripts": {
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "coverage": "nyc --reporter=lcov --all -- npm run test",
+    "lint": "eslint --ext ts,tsx,json,js src/"
+  }
+}
