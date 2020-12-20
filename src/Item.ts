@@ -5,7 +5,7 @@ import Claim from './Claim';
 import Description from './Description';
 import Label from './Label';
 import SideLink from './SideLink';
-import dateFormatter from './utils/DateFormater';
+import dateFormatter from './utils/dateFormatter';
 import normalizeOutput from './utils/normalizeOutput';
 
 export default class Item {

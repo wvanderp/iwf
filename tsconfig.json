@@ -72,7 +72,8 @@
     "./nyc_output",
     "coverage",
     "diff",
-    "tests"
+    "tests",
+    "./test.ts"
   ],
   "filesGlob": ["./src/**/*.ts"]
 }
