@@ -1,0 +1,1 @@
+{"version":3,"file":"Label.d.ts","sourceRoot":"","sources":["../src/Label.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,mBAAmB,EAAE,MAAM,gCAAgC,CAAC;AAGrE,MAAM,CAAC,OAAO,OAAO,KAAK;IACtB,QAAQ,EAAE,MAAM,CAAC;IAEjB,KAAK,EAAE,MAAM,CAAC;gBAEF,KAAK,EAAE,mBAAmB;IAKtC,MAAM,IAAI,mBAAmB;CAMhC"}

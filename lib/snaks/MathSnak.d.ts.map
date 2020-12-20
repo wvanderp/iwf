@@ -1,0 +1,1 @@
+{"version":3,"file":"MathSnak.d.ts","sourceRoot":"","sources":["../../src/snaks/MathSnak.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,QAAQ,IAAI,gBAAgB,EAAC,MAAM,gCAAgC,CAAC;AAC5E,OAAO,IAAI,MAAM,SAAS,CAAC;AAG3B,MAAM,CAAC,OAAO,OAAO,QAAS,SAAQ,IAAI;IACtC,KAAK,EAAE,MAAM,GAAG,SAAS,CAAA;gBAEb,IAAI,EAAE,gBAAgB;IAMlC,MAAM,IAAI,gBAAgB;CAY7B"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"ExternalIdentifierSnak.d.ts","sourceRoot":"","sources":["../../src/snaks/ExternalIdentifierSnak.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,sBAAsB,IAAI,8BAA8B,EAAC,MAAM,gCAAgC,CAAC;AACxG,OAAO,IAAI,MAAM,SAAS,CAAC;AAG3B,MAAM,CAAC,OAAO,OAAO,sBAAuB,SAAQ,IAAI;IACpD,EAAE,EAAE,MAAM,GAAG,IAAI,CAAA;gBAEL,IAAI,EAAE,8BAA8B;IAMhD,MAAM,IAAI,8BAA8B;CAY3C"}

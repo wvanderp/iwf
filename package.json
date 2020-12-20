@@ -2,7 +2,8 @@
   "name": "iwf",
   "version": "0.1.0",
   "description": "improved wikidata format",
-  "main": "index.ts",
+  "main": "./lib/index.js",
+  "types": "./lib",
   "keywords": [
     "wikidata"
   ],
@@ -10,6 +11,10 @@
   "license": "MIT",
   "dependencies": {
     "@wmde/wikibase-datamodel-types": "git+https://github.com/wvanderp/WikibaseDataModelTypes.git"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/wvanderp/iwf.git"
   },
   "devDependencies": {
     "@types/deep-diff": "^1.0.0",
@@ -30,11 +35,13 @@
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "rimraf": "3.0.2"
   },
   "scripts": {
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "coverage": "nyc --reporter=lcov --all -- npm run test",
-    "lint": "eslint --ext ts,tsx,json,js src/"
+    "lint": "eslint --ext ts,tsx,json,js src/",
+    "build": "rimraf lib && tsc"
   }
 }

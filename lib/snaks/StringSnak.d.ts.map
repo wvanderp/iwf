@@ -1,0 +1,1 @@
+{"version":3,"file":"StringSnak.d.ts","sourceRoot":"","sources":["../../src/snaks/StringSnak.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,UAAU,IAAI,kBAAkB,EAAC,MAAM,gCAAgC,CAAC;AAChF,OAAO,IAAI,MAAM,SAAS,CAAC;AAG3B,MAAM,CAAC,OAAO,OAAO,UAAW,SAAQ,IAAI;IACxC,KAAK,EAAE,MAAM,GAAE,SAAS,CAAA;gBAEZ,IAAI,EAAE,kBAAkB;IAMpC,MAAM,IAAI,kBAAkB;CAY/B"}
