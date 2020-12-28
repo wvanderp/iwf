@@ -21,9 +21,9 @@ export default class QuantitySnak extends Snak {
     constructor(snak: WikidataQuantitySnak) {
         super(snak);
 
-        const amount = snak.datavalue?.value.amount
+        const amount = snak.datavalue?.value.amount;
         const upperBound = snak.datavalue?.value.upperBound;
-        const lowerBound = snak.datavalue?.value.lowerBound ;
+        const lowerBound = snak.datavalue?.value.lowerBound;
 
         this._amount = amount;
         this._upperBound = upperBound;
@@ -32,29 +32,28 @@ export default class QuantitySnak extends Snak {
         this.unit = snak.datavalue?.value.unit;
     }
 
-    get amount (){
+    get amount(): number {
         return Number(this._amount);
     }
 
-    set amount (number: number){
-        this._amount = formatNumber(number)
+    set amount(number: number) {
+        this._amount = formatNumber(number);
     }
 
-
-    get upperBound (){
+    get upperBound(): number {
         return Number(this._upperBound);
     }
 
-    set upperBound (number: number){
-        this._upperBound = formatNumber(number)
+    set upperBound(number: number) {
+        this._upperBound = formatNumber(number);
     }
 
-    get lowerBound (){
+    get lowerBound(): number {
         return Number(this._lowerBound);
     }
 
-    set lowerBound (number: number){
-        this._lowerBound = formatNumber(number)
+    set lowerBound(number: number) {
+        this._lowerBound = formatNumber(number);
     }
 
     toJSON(): WikidataQuantitySnak {

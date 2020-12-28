@@ -3,7 +3,6 @@ import Snak from './Snak';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
 
-
 export default class Reference {
     hash: string;
 

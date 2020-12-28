@@ -102,6 +102,6 @@ export default class Item {
                 .map((sitelink) => sitelink.toJSON())
                 .reduce((accumulator, value) => ({...accumulator, [value.site]: value}), {})
 
-        }) as any as WikidataItem;
+        }) as WikidataItem;
     }
 }
