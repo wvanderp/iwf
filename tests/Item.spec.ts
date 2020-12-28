@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import Item from '../src/Item';
 
 describe('load data into the model', () => {
-    for (const file of [fs.readdirSync(path.resolve(__dirname, './data/'))[0]]) {
+    for (const file of fs.readdirSync(path.resolve(__dirname, './data/'))) {
         it(`should Ingest normal wikidata object from ${file}`, function () {
             const item = JSON.parse(fs.readFileSync(path.resolve(__dirname, `./data/${file}`)).toString('utf-8'));
             // eslint-disable-next-line no-new

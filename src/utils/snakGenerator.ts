@@ -12,7 +12,8 @@ import {
     MathSnak as WikidataMathSnak,
     TabularDataSnak as WikidataTabularDataSnak,
     MusicalNotationSnak as WikidataMusicSnak,
-    GeoShapeSnak as WikidataGeoShapeSnak
+    GeoShapeSnak as WikidataGeoShapeSnak,
+    WikibasePropertySnak as WikidataWikibasePropertySnak
 } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 
@@ -29,6 +30,7 @@ import TabularDataSnak from '../snaks/TabularDataSnak';
 import TimeSnak from '../snaks/TimeSnak';
 import URLSnak from '../snaks/UrlSnak';
 import WikibaseItemSnak from '../snaks/WikibaseItemSnak';
+import WikibasePropertySnak from '../snaks/WikibasePropertySnak';
 
 export default function snakGenerator(snak: wikidataSnak): Snak {
     switch (snak.datatype) {
@@ -82,6 +84,10 @@ export default function snakGenerator(snak: wikidataSnak): Snak {
 
         case 'geo-shape': {
             return new GeoShapeSnak(snak as WikidataGeoShapeSnak);
+        }
+
+        case 'wikibase-property': {
+            return new WikibasePropertySnak(snak as WikidataWikibasePropertySnak);
         }
 
         default: {
