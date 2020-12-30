@@ -1,10 +1,11 @@
 import { SiteLink as WikidataSiteLink } from '@wmde/wikibase-datamodel-types';
-export default class SideLink {
+export default class SiteLink {
     site: string;
     title: string;
     badges: string[];
-    url: string;
+    _url: string | undefined;
     constructor(siteLink: WikidataSiteLink);
+    get url(): string;
     toJSON(): WikidataSiteLink;
 }
-//# sourceMappingURL=SideLink.d.ts.map
+//# sourceMappingURL=SiteLink.d.ts.map

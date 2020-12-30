@@ -4,7 +4,7 @@ import Alias from './Alias';
 import Claim from './Claim';
 import Description from './Description';
 import Label from './Label';
-import SideLink from './SideLink';
+import SiteLink from './SiteLink';
 import dateFormatter from './utils/dateFormatter';
 import normalizeOutput from './utils/normalizeOutput';
 
@@ -31,7 +31,7 @@ export default class Item {
 
     claims: Claim[];
 
-    sitelinks: SideLink[]
+    sitelinks: SiteLink[]
 
     constructor(item: WikidataItem) {
         this.pageid = item.pageid;
@@ -55,7 +55,7 @@ export default class Item {
             .flat()
             .map((claim) => new Claim(claim));
 
-        this.sitelinks = Object.values(item.sitelinks).map((sitelink) => new SideLink(sitelink));
+        this.sitelinks = Object.values(item.sitelinks).map((siteLink) => new SiteLink(siteLink));
     }
 
     toJSON(): WikidataItem {
@@ -99,7 +99,7 @@ export default class Item {
                 }, {}),
 
             sitelinks: this.sitelinks
-                .map((sitelink) => sitelink.toJSON())
+                .map((siteLink) => siteLink.toJSON())
                 .reduce((accumulator, value) => ({...accumulator, [value.site]: value}), {})
 
         }) as WikidataItem;

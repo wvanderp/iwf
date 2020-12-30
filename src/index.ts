@@ -4,7 +4,7 @@ export {default as Description} from './Description';
 export {default as Item} from './Item';
 export {default as Label} from './Label';
 export {default as Reference} from './Reference';
-export {default as SideLink} from './SideLink';
+export {default as SiteLink} from './SiteLink';
 export {default as Snak} from './Snak';
 
 export {default as CommonsMediaSnak} from './snaks/CommonsMediaSnak';

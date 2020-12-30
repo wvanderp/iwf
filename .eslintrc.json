@@ -135,6 +135,6 @@
     "no-await-in-loop": "off",
     "no-console": "off",
     "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
-    "unicorn/no-reduce": "off"
+    "unicorn/no-array-reduce": "off"
   }
 }

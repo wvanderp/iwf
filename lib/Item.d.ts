@@ -3,7 +3,7 @@ import Alias from './Alias';
 import Claim from './Claim';
 import Description from './Description';
 import Label from './Label';
-import SideLink from './SideLink';
+import SiteLink from './SiteLink';
 export default class Item {
     pageid: number;
     ns: number;
@@ -16,7 +16,7 @@ export default class Item {
     descriptions: Description[];
     aliases: Alias[];
     claims: Claim[];
-    sitelinks: SideLink[];
+    sitelinks: SiteLink[];
     constructor(item: WikidataItem);
     toJSON(): WikidataItem;
 }
