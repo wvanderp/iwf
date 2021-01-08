@@ -13,11 +13,6 @@ const mathSnak = {
 };
 
 describe('Math Snak', () => {
-    it('should Ingest normal snak object', () => {
-        // eslint-disable-next-line no-new
-        new MathSnak(mathSnak);
-    });
-
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new MathSnak(mathSnak);

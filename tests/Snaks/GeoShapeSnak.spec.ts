@@ -13,11 +13,6 @@ const geoShapeSnak = {
 };
 
 describe('Commons Media Snak', () => {
-    it('should Ingest normal snak object', () => {
-        // eslint-disable-next-line no-new
-        new GeoShapeSnak(geoShapeSnak);
-    });
-
     it('should return the right commons link', () => {
         const snak = new GeoShapeSnak(geoShapeSnak);
 

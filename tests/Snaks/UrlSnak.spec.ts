@@ -13,11 +13,6 @@ const urlSnak = {
 };
 
 describe('URL Snak', () => {
-    it('should Ingest normal snak object', () => {
-        // eslint-disable-next-line no-new
-        new URLSnak(urlSnak);
-    });
-
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new URLSnak(urlSnak);

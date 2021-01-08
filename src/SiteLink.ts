@@ -22,8 +22,11 @@ export default class SiteLink {
     get url(): string {
         if (this._url !== undefined) return this._url;
 
-        const template = siteDetails[this.site].pageUrl;
-        return template.replace('$1', this.title);
+        const url = siteDetails[this.site]
+            .pageUrl
+            .replace('$1', this.title);
+
+        return `https:${url}`;
     }
 
     toJSON(): WikidataSiteLink {

@@ -59,11 +59,6 @@ const claim: wikidataClaim = {
 };
 
 describe('Claim', () => {
-    it('should Ingest normal claim object', () => {
-        // eslint-disable-next-line no-new
-        new Claim(claim);
-    });
-
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const claimObject = new Claim(claim);

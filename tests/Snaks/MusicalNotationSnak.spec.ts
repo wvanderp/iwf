@@ -13,11 +13,6 @@ const musicalNotationSnak = {
 };
 
 describe('Musical Notation Snak', () => {
-    it('should Ingest normal snak object', () => {
-        // eslint-disable-next-line no-new
-        new MusicalNotationSnak(musicalNotationSnak);
-    });
-
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new MusicalNotationSnak(musicalNotationSnak);

@@ -1,34 +1,34 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import WikibaseItemSnak from '../../src/snaks/WikibaseItemSnak';
+import WikibasePropertySnak from '../../src/snaks/WikibasePropertySnak';
 
-const wikibaseItemSnak = {
+const wikibasePropertySnak = {
     snaktype: 'value' as const,
-    property: 'P150',
+    property: 'P1963',
     datavalue: {
         value: {
-            'entity-type': 'item' as const,
-            'numeric-id': 158893,
-            id: 'Q158893'
+            'entity-type': 'property' as const,
+            'numeric-id': 18,
+            id: 'P18'
         },
         type: 'wikibase-entityid' as const
     },
-    datatype: 'wikibase-item' as const
+    datatype: 'wikibase-property' as const
 };
 
 describe('Wikibase Item Snak', () => {
     describe('get ID', () => {
-        it('should return the id including the Q when there is a ID', () => {
-            const snak = new WikibaseItemSnak(wikibaseItemSnak);
+        it('should return the id including the P when there is a ID', () => {
+            const snak = new WikibasePropertySnak(wikibasePropertySnak);
 
-            expect(snak.id).to.equal(`Q${wikibaseItemSnak.datavalue.value['numeric-id']}`);
+            expect(snak.id).to.equal(`P${wikibasePropertySnak.datavalue.value['numeric-id']}`);
         });
 
         it('should return undefined when there is no value', () => {
-            const snak = new WikibaseItemSnak({
+            const snak = new WikibasePropertySnak({
                 snaktype: 'novalue',
                 property: 'P150',
-                datatype: 'wikibase-item' as const
+                datatype: 'wikibase-property' as const
             });
 
             expect(snak.id).to.equal(undefined);
@@ -37,16 +37,16 @@ describe('Wikibase Item Snak', () => {
 
     describe('set ID', () => {
         it('should set both the id as numericID', () => {
-            const snak = new WikibaseItemSnak(wikibaseItemSnak);
+            const snak = new WikibasePropertySnak(wikibasePropertySnak);
 
-            snak.id = 'Q1234';
+            snak.id = 'P1234';
 
-            expect(snak.id).to.equal('Q1234');
+            expect(snak.id).to.equal('P1234');
             expect(snak.numericID).to.equal(1234);
         });
 
         it('should set both the id as numericID to undefined', () => {
-            const snak = new WikibaseItemSnak(wikibaseItemSnak);
+            const snak = new WikibasePropertySnak(wikibasePropertySnak);
 
             snak.id = undefined;
 
@@ -57,16 +57,16 @@ describe('Wikibase Item Snak', () => {
 
     describe('set numeric ID', () => {
         it('should set both the id as numericID', () => {
-            const snak = new WikibaseItemSnak(wikibaseItemSnak);
+            const snak = new WikibasePropertySnak(wikibasePropertySnak);
 
             snak.numericID = 1234;
 
-            expect(snak.id).to.equal('Q1234');
+            expect(snak.id).to.equal('P1234');
             expect(snak.numericID).to.equal(1234);
         });
 
         it('should set both the id as numericID to undefined', () => {
-            const snak = new WikibaseItemSnak(wikibaseItemSnak);
+            const snak = new WikibasePropertySnak(wikibasePropertySnak);
 
             snak.numericID = undefined;
 
@@ -77,9 +77,9 @@ describe('Wikibase Item Snak', () => {
 
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const snak = new WikibaseItemSnak(wikibaseItemSnak);
+            const snak = new WikibasePropertySnak(wikibasePropertySnak);
 
-            expect(snak.toJSON()).to.deep.equal(wikibaseItemSnak);
+            expect(snak.toJSON()).to.deep.equal(wikibasePropertySnak);
         });
     });
 });

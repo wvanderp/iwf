@@ -13,11 +13,6 @@ const tabularDataSnak = {
 };
 
 describe('Tabular Data Snak', () => {
-    it('should Ingest normal snak object', () => {
-        // eslint-disable-next-line no-new
-        new TabularDataSnak(tabularDataSnak);
-    });
-
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new TabularDataSnak(tabularDataSnak);

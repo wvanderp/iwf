@@ -39,11 +39,6 @@ const reference : wikidataReference = {
 };
 
 describe('Reference', () => {
-    it('should Ingest normal Reference object', () => {
-        // eslint-disable-next-line no-new
-        new Reference(reference);
-    });
-
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const referenceObject = new Reference(reference);

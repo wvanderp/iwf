@@ -13,11 +13,6 @@ const commonsSnak = {
 };
 
 describe('Commons Media Snak', () => {
-    it('should Ingest normal snak object', () => {
-        // eslint-disable-next-line no-new
-        new CommonsMediaSnak(commonsSnak);
-    });
-
     it('should return the right image link', () => {
         const snak = new CommonsMediaSnak(commonsSnak);
 

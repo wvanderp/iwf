@@ -3,16 +3,38 @@ import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
 export default class WikibasePropertySnak extends Snak {
-    numericID: number | undefined
+    private _numericID: number | undefined
 
     constructor(snak: WikidataWikibasePropertySnak) {
         super(snak);
 
-        this.numericID = snak.datavalue?.value['numeric-id'];
+        this._numericID = snak.datavalue?.value['numeric-id'];
     }
 
     public get id() : string| undefined {
-        return this.hasValue ? `P${this.numericID}` : undefined;
+        return this.hasValue ? `P${this._numericID}` : undefined;
+    }
+
+    public set id(value: string | undefined) {
+        if (value === undefined) {
+            this._numericID = undefined;
+            this.snaktype = 'novalue';
+            return;
+        }
+
+        this._numericID = Number.parseInt(value.slice(1), 10);
+    }
+
+    public get numericID() : number | undefined {
+        return this._numericID;
+    }
+
+    public set numericID(value: number | undefined) {
+        if (value === undefined) {
+            this.snaktype = 'novalue';
+        }
+
+        this._numericID = value;
     }
 
     toJSON(): WikidataWikibasePropertySnak {
@@ -22,7 +44,7 @@ export default class WikibasePropertySnak extends Snak {
             datavalue: {
                 value: {
                     'entity-type': 'property' as const,
-                    'numeric-id': this.numericID,
+                    'numeric-id': this._numericID,
                     id: this.id
                 },
                 type: 'wikibase-entityid' as const

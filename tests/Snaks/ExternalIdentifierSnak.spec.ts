@@ -13,11 +13,6 @@ const ExternalSnak = {
 };
 
 describe('External Identifier Snak', () => {
-    it('should Ingest normal snak object', () => {
-        // eslint-disable-next-line no-new
-        new ExternalIdentifierSnak(ExternalSnak);
-    });
-
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new ExternalIdentifierSnak(ExternalSnak);

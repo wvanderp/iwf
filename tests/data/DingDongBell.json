@@ -1,0 +1,457 @@
+{
+    "entities": {
+        "Q5278123": {
+            "pageid": 5047402,
+            "ns": 0,
+            "title": "Q5278123",
+            "lastrevid": 1281663034,
+            "modified": "2020-09-24T15:32:03Z",
+            "type": "item",
+            "id": "Q5278123",
+            "labels": {
+                "en": {
+                    "language": "en",
+                    "value": "Ding Dong Bell"
+                },
+                "da": {
+                    "language": "da",
+                    "value": "Ding Dong Bell"
+                },
+                "en-gb": {
+                    "language": "en-gb",
+                    "value": "Ding Dong Bell"
+                },
+                "es": {
+                    "language": "es",
+                    "value": "Ding Dong Bell"
+                }
+            },
+            "descriptions": {
+                "en": {
+                    "language": "en",
+                    "value": "English language nursery rhyme"
+                },
+                "en-gb": {
+                    "language": "en-gb",
+                    "value": "English language nursery rhyme"
+                }
+            },
+            "aliases": {},
+            "claims": {
+                "P31": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P31",
+                            "hash": "a3873a845402a499157d399b85239ea826efd44d",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 1123037,
+                                    "id": "Q1123037"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$1fcb58b7-4a0d-c8db-e7f1-fa96af697f38",
+                        "rank": "normal"
+                    },
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P31",
+                            "hash": "492dc7effebe1332de30fb54d4816f0a645fdcaa",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 943929,
+                                    "id": "Q943929"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$053a87fc-43ac-1e8b-5afe-df338a65d85e",
+                        "rank": "normal"
+                    }
+                ],
+                "P1829": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P1829",
+                            "hash": "661763c311575b2805ace13425413d521660643d",
+                            "datavalue": {
+                                "value": "12853",
+                                "type": "string"
+                            },
+                            "datatype": "external-id"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$A58C725B-296E-4FD9-A291-66F397FE4051",
+                        "rank": "normal"
+                    }
+                ],
+                "P1476": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P1476",
+                            "hash": "ec8d7bac10e0f2835fa17d16471633247c20c462",
+                            "datavalue": {
+                                "value": {
+                                    "text": "Ding Dong Bell",
+                                    "language": "en"
+                                },
+                                "type": "monolingualtext"
+                            },
+                            "datatype": "monolingualtext"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$56ca9376-4761-5b02-2e70-9b9c7698ee7d",
+                        "rank": "normal"
+                    }
+                ],
+                "P495": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P495",
+                            "hash": "f22b65529f04812dab8e052ad61b917f13b10f50",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 21,
+                                    "id": "Q21"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$ca38208c-4ea0-c833-cbec-69bdc0718aad",
+                        "rank": "normal"
+                    },
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P495",
+                            "hash": "a6998ee0d0157864c24ed6f5a3d07d87aac9b009",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 179876,
+                                    "id": "Q179876"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$8772477a-4936-fb4a-3bd2-f53e0d8ffa38",
+                        "rank": "normal"
+                    }
+                ],
+                "P1249": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P1249",
+                            "hash": "8f8d0dc87d2e6ba595e4c807f648931e0ca913d3",
+                            "datavalue": {
+                                "value": {
+                                    "time": "+1580-00-00T00:00:00Z",
+                                    "timezone": 0,
+                                    "before": 0,
+                                    "after": 0,
+                                    "precision": 9,
+                                    "calendarmodel": "http://www.wikidata.org/entity/Q1985786"
+                                },
+                                "type": "time"
+                            },
+                            "datatype": "time"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$79a4e736-4cc2-84e4-886c-cf3cff1509aa",
+                        "rank": "normal"
+                    }
+                ],
+                "P51": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P51",
+                            "hash": "5303ecee846b0aeea7b44bebb8b2619cd70fad7b",
+                            "datavalue": {
+                                "value": "Ding Dong Bell.ogg",
+                                "type": "string"
+                            },
+                            "datatype": "commonsMedia"
+                        },
+                        "type": "statement",
+                        "qualifiers": {
+                            "P2096": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P2096",
+                                    "hash": "ec326c121086fee25ba254c447c7ab9237705352",
+                                    "datavalue": {
+                                        "value": {
+                                            "text": "Tune for Ding Dong Bell",
+                                            "language": "en"
+                                        },
+                                        "type": "monolingualtext"
+                                    },
+                                    "datatype": "monolingualtext"
+                                }
+                            ]
+                        },
+                        "qualifiers-order": [
+                            "P2096"
+                        ],
+                        "id": "Q5278123$d0bb386c-4fc5-e9ce-42b2-635fe57380ac",
+                        "rank": "normal"
+                    }
+                ],
+                "P50": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "somevalue",
+                            "property": "P50",
+                            "hash": "550406f72367231639323fe7a9c11b2dc8f2c426",
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$852cdd04-4d92-98b1-c1fa-a5cf73555add",
+                        "rank": "normal"
+                    }
+                ],
+                "P3030": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P3030",
+                            "hash": "519634a48c1523d8b1873d569b7a910f0838fa0e",
+                            "datavalue": {
+                                "value": "DingDongBell.jpg",
+                                "type": "string"
+                            },
+                            "datatype": "commonsMedia"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$4b2d6e3a-429f-8c11-08f8-756fca9f79e0",
+                        "rank": "normal"
+                    }
+                ],
+                "P407": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P407",
+                            "hash": "daf1c4fcb58181b02dff9cc89deb084004ddae4b",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 1860,
+                                    "id": "Q1860"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$7F3EADC4-3DD7-4BAF-A408-4BAAC472E891",
+                        "rank": "normal",
+                        "references": [
+                            {
+                                "hash": "fa278ebfc458360e5aed63d5058cca83c46134f1",
+                                "snaks": {
+                                    "P143": [
+                                        {
+                                            "snaktype": "value",
+                                            "property": "P143",
+                                            "hash": "e4f6d9441d0600513c4533c672b5ab472dc73694",
+                                            "datavalue": {
+                                                "value": {
+                                                    "entity-type": "item",
+                                                    "numeric-id": 328,
+                                                    "id": "Q328"
+                                                },
+                                                "type": "wikibase-entityid"
+                                            },
+                                            "datatype": "wikibase-item"
+                                        }
+                                    ]
+                                },
+                                "snaks-order": [
+                                    "P143"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "P6883": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P6883",
+                            "hash": "d813fae15ef428d66b055653a7bf2c00c435b304",
+                            "datavalue": {
+                                "value": "\\relative c' { \\key d \\minor f c f2 | a8 bes g a f2 | f4 c8 c f2 | a8 bes g a f2 | a4 bes8 bes c2 | d8 c bes d c4 c8 c | a g a bes c4 c | d8 c bes d c4 a | f8 e f g a4 g | a8 g a bes c d c bes | a4 g f2 }",
+                                "type": "string"
+                            },
+                            "datatype": "musical-notation"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$0a94a6b6-4428-b04c-eeed-a9e7f03d19ab",
+                        "rank": "normal"
+                    }
+                ],
+                "P571": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P571",
+                            "hash": "cb2ecb536beaf671baed4d8eca7da321f7307730",
+                            "datavalue": {
+                                "value": {
+                                    "time": "+1600-00-00T00:00:00Z",
+                                    "timezone": 0,
+                                    "before": 0,
+                                    "after": 0,
+                                    "precision": 7,
+                                    "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                                },
+                                "type": "time"
+                            },
+                            "datatype": "time"
+                        },
+                        "type": "statement",
+                        "qualifiers": {
+                            "P1326": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P1326",
+                                    "hash": "d8885d19ef3700510b30306785e67f22349ce5d6",
+                                    "datavalue": {
+                                        "value": {
+                                            "time": "+1580-00-00T00:00:00Z",
+                                            "timezone": 0,
+                                            "before": 0,
+                                            "after": 0,
+                                            "precision": 9,
+                                            "calendarmodel": "http://www.wikidata.org/entity/Q1985786"
+                                        },
+                                        "type": "time"
+                                    },
+                                    "datatype": "time"
+                                }
+                            ],
+                            "P1552": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P1552",
+                                    "hash": "598ec3764fbadd3e57133f1dc0581fa0ad6068b1",
+                                    "datavalue": {
+                                        "value": {
+                                            "entity-type": "item",
+                                            "numeric-id": 912595,
+                                            "id": "Q912595"
+                                        },
+                                        "type": "wikibase-entityid"
+                                    },
+                                    "datatype": "wikibase-item"
+                                }
+                            ]
+                        },
+                        "qualifiers-order": [
+                            "P1326",
+                            "P1552"
+                        ],
+                        "id": "Q5278123$fcbe2a89-48a5-9247-dd84-ae9ef9ac29af",
+                        "rank": "normal"
+                    }
+                ],
+                "P1343": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P1343",
+                            "hash": "4ce5a5f8642139470654701d0ef6a99acaa1d396",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 66689232,
+                                    "id": "Q66689232"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$89eeac79-4bfe-2d38-3114-5d93acb4967b",
+                        "rank": "normal"
+                    },
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P1343",
+                            "hash": "672d0ae3cb5822fe23b2976600b41a26056a2014",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 99574690,
+                                    "id": "Q99574690"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "qualifiers": {
+                            "P577": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P577",
+                                    "hash": "75cf831d6500d5d8e12daf7918a11c3d87f20d6a",
+                                    "datavalue": {
+                                        "value": {
+                                            "time": "+1797-00-00T00:00:00Z",
+                                            "timezone": 0,
+                                            "before": 0,
+                                            "after": 0,
+                                            "precision": 9,
+                                            "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                                        },
+                                        "type": "time"
+                                    },
+                                    "datatype": "time"
+                                }
+                            ]
+                        },
+                        "qualifiers-order": [
+                            "P577"
+                        ],
+                        "id": "Q5278123$1072713b-4a69-0d0d-906c-3cc0d267fc9e",
+                        "rank": "normal"
+                    }
+                ]
+            },
+            "sitelinks": {
+                "dawiki": {
+                    "site": "dawiki",
+                    "title": "Ding Dong Bell",
+                    "badges": []
+                },
+                "enwiki": {
+                    "site": "enwiki",
+                    "title": "Ding Dong Bell",
+                    "badges": []
+                }
+            }
+        }
+    }
+}

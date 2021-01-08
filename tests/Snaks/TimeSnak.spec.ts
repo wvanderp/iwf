@@ -20,11 +20,6 @@ const timeSnak = {
 };
 
 describe('Time Snak', () => {
-    it('should Ingest normal snak object', () => {
-        // eslint-disable-next-line no-new
-        new TimeSnak(timeSnak);
-    });
-
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new TimeSnak(timeSnak);

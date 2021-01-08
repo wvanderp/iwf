@@ -13,11 +13,6 @@ const stringSnak = {
 };
 
 describe('String Snak', () => {
-    it('should Ingest normal snak object', () => {
-        // eslint-disable-next-line no-new
-        new StringSnak(stringSnak);
-    });
-
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new StringSnak(stringSnak);
