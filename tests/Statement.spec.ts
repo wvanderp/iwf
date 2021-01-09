@@ -1,9 +1,9 @@
 import { describe, it } from 'mocha';
-import {Statement as wikidataClaim} from '@wmde/wikibase-datamodel-types';
+import {Statement as wikidataStatement} from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
-import Claim from '../src/Claim';
+import Statement from '../src/Statement';
 
-const claim: wikidataClaim = {
+const statement: wikidataStatement = {
     mainsnak: {
         snaktype: 'value',
         property: 'P610',
@@ -58,12 +58,12 @@ const claim: wikidataClaim = {
     ]
 };
 
-describe('Claim', () => {
+describe('Statement', () => {
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const claimObject = new Claim(claim);
+            const statementObject = new Statement(statement);
 
-            expect(claimObject.toJSON()).to.deep.equal(claim);
+            expect(statementObject.toJSON()).to.deep.equal(statement);
         });
     });
 });

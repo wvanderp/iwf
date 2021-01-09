@@ -1,7 +1,7 @@
-import { Item as WikidataItem, LabelAndDescription, Statement as WikidataClaim } from '@wmde/wikibase-datamodel-types';
+import { Item as WikidataItem, LabelAndDescription, Statement as WikidataStatement } from '@wmde/wikibase-datamodel-types';
 
 import Alias from './Alias';
-import Claim from './Claim';
+import Statement from './Statement';
 import Description from './Description';
 import Label from './Label';
 import SiteLink from './SiteLink';
@@ -29,7 +29,7 @@ export default class Item {
 
     aliases: Alias[];
 
-    claims: Claim[];
+    statements: Statement[];
 
     sitelinks: SiteLink[]
 
@@ -51,9 +51,9 @@ export default class Item {
             )
             .flat();
 
-        this.claims = Object.values(item.claims)
+        this.statements = Object.values(item.claims)
             .flat()
-            .map((claim) => new Claim(claim));
+            .map((statement) => new Statement(statement));
 
         this.sitelinks = Object.values(item.sitelinks).map((siteLink) => new SiteLink(siteLink));
     }
@@ -87,9 +87,9 @@ export default class Item {
                     return accumulator;
                 }, {}),
 
-            claims: this.claims
-                .map((claim) => claim.toJSON())
-                .reduce<Record<string, WikidataClaim[]>>((accumulator, value) => {
+            claims: this.statements
+                .map((statement) => statement.toJSON())
+                .reduce<Record<string, WikidataStatement[]>>((accumulator, value) => {
                     if (accumulator[value.mainsnak.property] === undefined) {
                         accumulator[value.mainsnak.property] = [];
                     }

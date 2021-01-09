@@ -1,10 +1,10 @@
-import {Statement as wikidataClaim, Qualifiers as wikidataQualifiers} from '@wmde/wikibase-datamodel-types';
+import {Statement as wikidataStatement, Qualifiers as wikidataQualifiers} from '@wmde/wikibase-datamodel-types';
 import Reference from './Reference';
 import Snak from './Snak';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
 
-export default class Claim {
+export default class Statement {
     id: string | undefined;
 
     type: 'statement'
@@ -19,24 +19,24 @@ export default class Claim {
 
     qualifiersOrder: string[]
 
-    constructor(claim: wikidataClaim) {
-        this.id = claim.id;
-        this.type = claim.type;
+    constructor(statement: wikidataStatement) {
+        this.id = statement.id;
+        this.type = statement.type;
 
-        this.qualifiers = Object.values(claim.qualifiers ?? {})
+        this.qualifiers = Object.values(statement.qualifiers ?? {})
             .flat()
             .map((snak) => snakGenerator(snak));
 
-        this.qualifiersOrder = claim['qualifiers-order'] ?? [];
+        this.qualifiersOrder = statement['qualifiers-order'] ?? [];
 
-        this.rank = claim.rank;
-        this.mainsnak = snakGenerator(claim.mainsnak);
-        this.references = claim.references
-            ? Object.values(claim.references).map((reference) => new Reference(reference))
+        this.rank = statement.rank;
+        this.mainsnak = snakGenerator(statement.mainsnak);
+        this.references = statement.references
+            ? Object.values(statement.references).map((reference) => new Reference(reference))
             : [];
     }
 
-    toJSON(): wikidataClaim {
+    toJSON(): wikidataStatement {
         const references = this.references.map((reference) => reference.toJSON());
         const qualifiers = this.qualifiers
             .map((qualifier) => qualifier.toJSON())
@@ -61,6 +61,6 @@ export default class Claim {
             id: this.id,
             rank: this.rank,
             references: references.length === 0 ? undefined : references
-        }) as wikidataClaim;
+        }) as wikidataStatement;
     }
 }

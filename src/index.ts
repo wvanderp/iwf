@@ -1,5 +1,5 @@
 export {default as Alias} from './Alias';
-export {default as Claim} from './Claim';
+export {default as Statement} from './Statement';
 export {default as Description} from './Description';
 export {default as Item} from './Item';
 export {default as Label} from './Label';

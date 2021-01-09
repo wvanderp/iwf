@@ -1,7 +1,7 @@
-import { Statement as wikidataClaim } from '@wmde/wikibase-datamodel-types';
+import { Statement as wikidataStatement } from '@wmde/wikibase-datamodel-types';
 import Reference from './Reference';
 import Snak from './Snak';
-export default class Claim {
+export default class Statement {
     id: string | undefined;
     type: 'statement';
     rank: 'normal' | 'preferred' | 'deprecated';
@@ -9,7 +9,7 @@ export default class Claim {
     references: Reference[];
     qualifiers: Snak[];
     qualifiersOrder: string[];
-    constructor(claim: wikidataClaim);
-    toJSON(): wikidataClaim;
+    constructor(statement: wikidataStatement);
+    toJSON(): wikidataStatement;
 }
-//# sourceMappingURL=Claim.d.ts.map
+//# sourceMappingURL=Statement.d.ts.map

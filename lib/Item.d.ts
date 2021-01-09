@@ -1,6 +1,6 @@
 import { Item as WikidataItem } from '@wmde/wikibase-datamodel-types';
 import Alias from './Alias';
-import Claim from './Claim';
+import Statement from './Statement';
 import Description from './Description';
 import Label from './Label';
 import SiteLink from './SiteLink';
@@ -15,7 +15,7 @@ export default class Item {
     labels: Label[];
     descriptions: Description[];
     aliases: Alias[];
-    claims: Claim[];
+    statements: Statement[];
     sitelinks: SiteLink[];
     constructor(item: WikidataItem);
     toJSON(): WikidataItem;
