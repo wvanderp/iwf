@@ -2,6 +2,7 @@ import { CommonsMediaSnak as WikidataCommonsMediaSnak } from '@wmde/wikibase-dat
 import Snak from '../Snak';
 export default class CommonsMediaSnak extends Snak {
     fileName: string | null;
+    datatype: string;
     constructor(snak: WikidataCommonsMediaSnak);
     get imageLink(): string;
     get commonsLink(): string;

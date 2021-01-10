@@ -19,3 +19,4 @@ export {default as TabularDataSnak} from './snaks/TabularDataSnak';
 export {default as TimeSnak} from './snaks/TimeSnak';
 export {default as UrlSnak} from './snaks/UrlSnak';
 export {default as WikibaseItemSnak} from './snaks/WikibaseItemSnak';
+export {default as WikibasePropertySnak} from './snaks/WikibasePropertySnak';

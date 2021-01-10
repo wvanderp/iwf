@@ -5,6 +5,7 @@ export default class QuantitySnak extends Snak {
     _upperBound: string | undefined;
     _lowerBound: string | undefined;
     unit: string | undefined;
+    datatype: string;
     constructor(snak: WikidataQuantitySnak);
     get amount(): number;
     set amount(number: number);

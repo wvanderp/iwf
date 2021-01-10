@@ -5,6 +5,8 @@ import normalizeOutput from '../utils/normalizeOutput';
 export default class TabularDataSnak extends Snak {
     value: string | undefined
 
+    datatype = 'tabular-data';
+
     constructor(snak: WikidataTabularDataSnak) {
         super(snak);
 
@@ -20,7 +22,7 @@ export default class TabularDataSnak extends Snak {
                 value: this.value,
                 type: 'string'
             } : undefined,
-            datatype: 'tabular-data'
+            datatype: this.datatype
         }) as WikidataTabularDataSnak;
     }
 }

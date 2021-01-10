@@ -5,6 +5,8 @@ import normalizeOutput from '../utils/normalizeOutput';
 export default class ExternalIdentifierSnak extends Snak {
     id: string | null
 
+    datatype = 'external-id';
+
     constructor(snak: WikidataExternalIdentifierSnak) {
         super(snak);
 
@@ -20,7 +22,7 @@ export default class ExternalIdentifierSnak extends Snak {
                 value: this.id,
                 type: 'string'
             } : undefined,
-            datatype: 'external-id'
+            datatype: this.datatype
         }) as WikidataExternalIdentifierSnak;
     }
 }

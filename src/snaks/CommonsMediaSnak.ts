@@ -5,6 +5,8 @@ import normalizeOutput from '../utils/normalizeOutput';
 export default class CommonsMediaSnak extends Snak {
     fileName : string | null
 
+    datatype = 'commonsMedia';
+
     constructor(snak: WikidataCommonsMediaSnak) {
         super(snak);
 
@@ -28,7 +30,7 @@ export default class CommonsMediaSnak extends Snak {
                 value: this.fileName,
                 type: 'string'
             } : undefined,
-            datatype: 'commonsMedia'
+            datatype: this.datatype
         }) as WikidataCommonsMediaSnak;
     }
 }

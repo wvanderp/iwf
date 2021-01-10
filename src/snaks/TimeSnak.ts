@@ -15,6 +15,8 @@ export default class TimeSnak extends Snak {
 
     calendarmodel: CalendarModels | undefined;
 
+    datatype = 'time';
+
     constructor(snak: WikidataTimeSnak) {
         super(snak);
 
@@ -42,7 +44,7 @@ export default class TimeSnak extends Snak {
                 },
                 type: 'time' as const
             } : undefined,
-            datatype: 'time'
+            datatype: this.datatype
         }) as WikidataTimeSnak;
     }
 }

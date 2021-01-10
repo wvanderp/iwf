@@ -2,6 +2,7 @@ import { TabularDataSnak as WikidataTabularDataSnak } from '@wmde/wikibase-datam
 import Snak from '../Snak';
 export default class TabularDataSnak extends Snak {
     value: string | undefined;
+    datatype: string;
     constructor(snak: WikidataTabularDataSnak);
     toJSON(): WikidataTabularDataSnak;
 }

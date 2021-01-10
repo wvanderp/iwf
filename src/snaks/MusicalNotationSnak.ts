@@ -5,6 +5,8 @@ import normalizeOutput from '../utils/normalizeOutput';
 export default class MusicalNotationSnak extends Snak {
     value: string | undefined
 
+    datatype = 'musical-notation';
+
     constructor(snak: WikidataMusicalNotationSnak) {
         super(snak);
 
@@ -20,7 +22,7 @@ export default class MusicalNotationSnak extends Snak {
                 value: this.value,
                 type: 'string'
             } : undefined,
-            datatype: 'musical-notation'
+            datatype: this.datatype
         }) as WikidataMusicalNotationSnak;
     }
 }

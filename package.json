@@ -41,7 +41,7 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "coverage": "npm run build && nyc --reporter=lcov --all -- npm run test",
-    "lint": "eslint --ext ts,tsx,json,js src/",
+    "lint": "tsc --noEmit && eslint --ext ts,tsx,json,js src/",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts"
   }
 }

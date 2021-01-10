@@ -2,6 +2,7 @@ import { WikibasePropertySnak as WikidataWikibasePropertySnak } from '@wmde/wiki
 import Snak from '../Snak';
 export default class WikibasePropertySnak extends Snak {
     private _numericID;
+    datatype: string;
     constructor(snak: WikidataWikibasePropertySnak);
     get id(): string | undefined;
     set id(value: string | undefined);

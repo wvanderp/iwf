@@ -6,6 +6,7 @@ export default class GlobeCoordinateSnak extends Snak {
     altitude: null | undefined;
     precision: number | undefined;
     globe: string | undefined;
+    datatype: string;
     constructor(snak: WikidataGlobeCoordinateSnak);
     toJSON(): WikidataGlobeCoordinateSnak;
 }

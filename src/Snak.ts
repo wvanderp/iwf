@@ -5,7 +5,9 @@ export default abstract class Snak {
 
     property: string;
 
-    hash: string | undefined
+    hash: string | undefined;
+
+    abstract datatype: string;
 
     constructor(snak: WikidataSnaks) {
         this.snaktype = snak.snaktype;

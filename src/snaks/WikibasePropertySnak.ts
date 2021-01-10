@@ -5,6 +5,8 @@ import normalizeOutput from '../utils/normalizeOutput';
 export default class WikibasePropertySnak extends Snak {
     private _numericID: number | undefined
 
+    datatype = 'wikibase-property';
+
     constructor(snak: WikidataWikibasePropertySnak) {
         super(snak);
 
@@ -49,7 +51,7 @@ export default class WikibasePropertySnak extends Snak {
                 },
                 type: 'wikibase-entityid' as const
             },
-            datatype: 'wikibase-property' as const
+            datatype: this.datatype
         }) as WikidataWikibasePropertySnak;
     }
 }

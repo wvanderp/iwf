@@ -7,38 +7,40 @@ export default class GlobeCoordinateSnak extends Snak {
 
     longitude: number| undefined
 
-     altitude: null| undefined
+    altitude: null| undefined
 
-     precision: number| undefined
+    precision: number| undefined
 
-     globe: string| undefined
+    globe: string| undefined
 
-     constructor(snak: WikidataGlobeCoordinateSnak) {
-         super(snak);
+    datatype = 'globe-coordinate';
 
-         this.latitude = snak.datavalue?.value.latitude;
-         this.longitude = snak.datavalue?.value.longitude;
-         this.altitude = snak.datavalue?.value.altitude;
-         this.precision = snak.datavalue?.value.precision;
-         this.globe = snak.datavalue?.value.globe;
-     }
+    constructor(snak: WikidataGlobeCoordinateSnak) {
+        super(snak);
 
-     toJSON(): WikidataGlobeCoordinateSnak {
-         return normalizeOutput({
-             snaktype: this.snaktype,
-             property: this.property,
-             hash: this.hash,
-             datavalue: this.hasValue ? {
-                 value: {
-                     latitude: this.latitude,
-                     longitude: this.longitude,
-                     altitude: this.altitude,
-                     precision: this.precision,
-                     globe: this.globe
-                 },
-                 type: 'globecoordinate' as const
-             } : undefined,
-             datatype: 'globe-coordinate'
-         }) as WikidataGlobeCoordinateSnak;
-     }
+        this.latitude = snak.datavalue?.value.latitude;
+        this.longitude = snak.datavalue?.value.longitude;
+        this.altitude = snak.datavalue?.value.altitude;
+        this.precision = snak.datavalue?.value.precision;
+        this.globe = snak.datavalue?.value.globe;
+    }
+
+    toJSON(): WikidataGlobeCoordinateSnak {
+        return normalizeOutput({
+            snaktype: this.snaktype,
+            property: this.property,
+            hash: this.hash,
+            datavalue: this.hasValue ? {
+                value: {
+                    latitude: this.latitude,
+                    longitude: this.longitude,
+                    altitude: this.altitude,
+                    precision: this.precision,
+                    globe: this.globe
+                },
+                type: 'globecoordinate' as const
+            } : undefined,
+            datatype: this.datatype
+        }) as WikidataGlobeCoordinateSnak;
+    }
 }

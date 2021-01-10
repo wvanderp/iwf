@@ -5,6 +5,8 @@ import normalizeOutput from '../utils/normalizeOutput';
 export default class GeoShapeSnak extends Snak {
     fileName : string | null
 
+    datatype = 'geo-shape';
+
     constructor(snak: WikidataGeoShapeSnak) {
         super(snak);
 
@@ -24,7 +26,7 @@ export default class GeoShapeSnak extends Snak {
                 value: this.fileName,
                 type: 'string'
             } : undefined,
-            datatype: 'geo-shape'
+            datatype: this.datatype
         }) as WikidataGeoShapeSnak;
     }
 }

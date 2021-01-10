@@ -5,6 +5,8 @@ import normalizeOutput from '../utils/normalizeOutput';
 export default class URLSnak extends Snak {
     value: string | undefined;
 
+    datatype = 'url';
+
     constructor(snak: WikidataURLSnak) {
         super(snak);
 
@@ -20,7 +22,7 @@ export default class URLSnak extends Snak {
                 value: this.value,
                 type: 'string'
             } : undefined,
-            datatype: 'url'
+            datatype: this.datatype
         }) as WikidataURLSnak;
     }
 }

@@ -7,6 +7,7 @@ export default class TimeSnak extends Snak {
     after: number | undefined;
     precision: number | undefined;
     calendarmodel: CalendarModels | undefined;
+    datatype: string;
     constructor(snak: WikidataTimeSnak);
     toJSON(): WikidataTimeSnak;
 }

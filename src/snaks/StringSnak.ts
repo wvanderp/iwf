@@ -5,6 +5,8 @@ import normalizeOutput from '../utils/normalizeOutput';
 export default class StringSnak extends Snak {
     value: string| undefined
 
+    datatype = 'string';
+
     constructor(snak: WikidataStringSnak) {
         super(snak);
 
@@ -20,7 +22,7 @@ export default class StringSnak extends Snak {
                 value: this.value,
                 type: 'string'
             } : undefined,
-            datatype: 'string'
+            datatype: this.datatype
         }) as WikidataStringSnak;
     }
 }

@@ -7,6 +7,8 @@ export default class MonolingualTextSnak extends Snak {
 
     language: string | undefined
 
+    datatype = 'monolingualtext';
+
     constructor(snak: WikidataMonolingualTextSnak) {
         super(snak);
 
@@ -26,7 +28,7 @@ export default class MonolingualTextSnak extends Snak {
                 },
                 type: 'monolingualtext'
             } : undefined,
-            datatype: 'monolingualtext'
+            datatype: this.datatype
         }) as WikidataMonolingualTextSnak;
     }
 }

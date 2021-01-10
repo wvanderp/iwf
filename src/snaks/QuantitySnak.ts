@@ -18,6 +18,8 @@ export default class QuantitySnak extends Snak {
 
     unit: string | undefined
 
+    datatype = 'quantity';
+
     constructor(snak: WikidataQuantitySnak) {
         super(snak);
 
@@ -70,7 +72,7 @@ export default class QuantitySnak extends Snak {
                 },
                 type: 'quantity'
             } : undefined,
-            datatype: 'quantity'
+            datatype: this.datatype
         }) as WikidataQuantitySnak;
     }
 }
