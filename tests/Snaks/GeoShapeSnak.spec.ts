@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import GeoShapeSnak from '../../src/snaks/GeoShapeSnak';
+import { GeoShapeSnak } from '../../src';
 
 const geoShapeSnak = {
     snaktype: 'value' as const,
@@ -24,6 +24,22 @@ describe('Commons Media Snak', () => {
             const snak = new GeoShapeSnak(geoShapeSnak);
 
             expect(snak.toJSON()).to.deep.equal(geoShapeSnak);
+        });
+    });
+
+    describe('equals', () => {
+        it('should be true if the items are equal', () => {
+            const snak = new GeoShapeSnak(geoShapeSnak);
+
+            expect(GeoShapeSnak.equals(snak, snak)).to.be.true;
+        });
+
+        it('should be false if the items are NOT equal', () => {
+            const snak = new GeoShapeSnak(geoShapeSnak);
+            const snak2 = new GeoShapeSnak(geoShapeSnak);
+            snak2.fileName = 'Data:japan.map';
+
+            expect(GeoShapeSnak.equals(snak, snak2)).to.be.false;
         });
     });
 });

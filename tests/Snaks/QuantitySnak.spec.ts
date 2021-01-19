@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import QuantitySnak from '../../src/snaks/QuantitySnak';
+import { QuantitySnak } from '../../src';
 
 const quantitySnak = {
     snaktype: 'value' as const,
@@ -32,6 +32,7 @@ describe('Quantity Snak', () => {
 
                 snak.amount = 11;
 
+                // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._amount).to.equal('+11');
                 expect(snak.amount).to.equal(11);
             });
@@ -41,6 +42,7 @@ describe('Quantity Snak', () => {
 
                 snak.amount = 11.11;
 
+                // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._amount).to.equal('+11.11');
                 expect(snak.amount).to.equal(11.11);
             });
@@ -50,6 +52,7 @@ describe('Quantity Snak', () => {
 
                 snak.amount = -11.11;
 
+                // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._amount).to.equal('-11.11');
                 expect(snak.amount).to.equal(-11.11);
             });
@@ -68,6 +71,7 @@ describe('Quantity Snak', () => {
 
                 snak.upperBound = 11;
 
+                // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._upperBound).to.equal('+11');
                 expect(snak.upperBound).to.equal(11);
             });
@@ -77,6 +81,7 @@ describe('Quantity Snak', () => {
 
                 snak.upperBound = 11.11;
 
+                // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._upperBound).to.equal('+11.11');
                 expect(snak.upperBound).to.equal(11.11);
             });
@@ -86,6 +91,7 @@ describe('Quantity Snak', () => {
 
                 snak.upperBound = -11.11;
 
+                // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._upperBound).to.equal('-11.11');
                 expect(snak.upperBound).to.equal(-11.11);
             });
@@ -104,6 +110,7 @@ describe('Quantity Snak', () => {
 
                 snak.lowerBound = 11;
 
+                // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._lowerBound).to.equal('+11');
                 expect(snak.lowerBound).to.equal(11);
             });
@@ -113,6 +120,7 @@ describe('Quantity Snak', () => {
 
                 snak.lowerBound = 11.11;
 
+                // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._lowerBound).to.equal('+11.11');
                 expect(snak.lowerBound).to.equal(11.11);
             });
@@ -122,6 +130,7 @@ describe('Quantity Snak', () => {
 
                 snak.lowerBound = -11.11;
 
+                // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._lowerBound).to.equal('-11.11');
                 expect(snak.lowerBound).to.equal(-11.11);
             });
@@ -133,6 +142,22 @@ describe('Quantity Snak', () => {
             const snak = new QuantitySnak(quantitySnak);
 
             expect(snak.toJSON()).to.deep.equal(quantitySnak);
+        });
+    });
+
+    describe('equals', () => {
+        it('should be true if the items are equal', () => {
+            const snak = new QuantitySnak(quantitySnak);
+
+            expect(QuantitySnak.equals(snak, snak)).to.be.true;
+        });
+
+        it('should be false if the items are NOT equal', () => {
+            const snak = new QuantitySnak(quantitySnak);
+            const snak2 = new QuantitySnak(quantitySnak);
+            snak2.lowerBound = 4;
+
+            expect(QuantitySnak.equals(snak, snak2)).to.be.false;
         });
     });
 });

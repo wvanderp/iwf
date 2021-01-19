@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import SiteLink from '../src/SiteLink';
+import { SiteLink } from '../src';
 
 const siteLinkWithUrl = {
     site: 'zuwiki',

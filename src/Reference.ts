@@ -3,6 +3,11 @@ import Snak from './Snak';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
 
+/**
+ * A class for References
+ *
+ * @class
+ */
 export default class Reference {
     hash: string;
 
@@ -10,6 +15,10 @@ export default class Reference {
 
     snaks: Snak[];
 
+    /**
+     * 
+     * @param {WikidataReference} reference the Reference in json format
+     */
     constructor(reference: WikidataReference) {
         this.hash = reference.hash;
         this.snaksOrder = reference['snaks-order'];
@@ -19,6 +28,9 @@ export default class Reference {
             .map((snak) => snakGenerator(snak));
     }
 
+    /**
+     * @returns {WikidataReference} the Reference in a json format
+     */
     toJSON(): WikidataReference {
         return normalizeOutput({
             hash: this.hash,
@@ -40,4 +52,6 @@ export default class Reference {
             'snaks-order': this.snaksOrder
         });
     }
+
+    
 }

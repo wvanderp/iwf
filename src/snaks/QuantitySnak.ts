@@ -2,6 +2,13 @@ import {QuantitySnak as WikidataQuantitySnak} from '@wmde/wikibase-datamodel-typ
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
+/**
+ * this function mainly exist because wikidata has the weird habit of indicating positive numbers with the plus sign (+)
+ *
+ * @private
+ * @param {number} amount the number that should be formatted
+ * @returns {string} the formatted number as a string
+ */
 function formatNumber(amount: number): string {
     if (amount >= (0)) {
         return `+${amount}`;
@@ -9,17 +16,27 @@ function formatNumber(amount: number): string {
     return `${amount}`;
 }
 
+/**
+ * class for the QuantitySnak
+ *
+ * most used property of this type P1215 (apparent magnitude)
+ *
+ * @class
+ */
 export default class QuantitySnak extends Snak {
-    _amount: string | undefined = undefined
+    private _amount: string | undefined = undefined
 
-    _upperBound: string | undefined = undefined
+    private _upperBound: string | undefined = undefined
 
-    _lowerBound: string | undefined = undefined
+    private _lowerBound: string | undefined = undefined
 
     unit: string | undefined
 
     datatype = 'quantity';
 
+    /**
+     * @param {WikidataQuantitySnak} snak the snak for this class in json format
+     */
     constructor(snak: WikidataQuantitySnak) {
         super(snak);
 
@@ -58,6 +75,10 @@ export default class QuantitySnak extends Snak {
         this._lowerBound = formatNumber(number);
     }
 
+    /**
+     *
+     * @returns {WikidataQuantitySnak} the snak as json
+     */
     toJSON(): WikidataQuantitySnak {
         return normalizeOutput({
             snaktype: this.snaktype,
@@ -74,5 +95,20 @@ export default class QuantitySnak extends Snak {
             } : undefined,
             datatype: this.datatype
         }) as WikidataQuantitySnak;
+    }
+
+    /**
+     * this function checks if two snaks are equal
+     *
+     * @static
+     * @param {QuantitySnak} a snak a
+     * @param {QuantitySnak} b snak b
+     * @returns {boolean} true if the snaks are equal
+     */
+    static equals(a:QuantitySnak, b:QuantitySnak): boolean {
+        return a._amount === b._amount
+        && a._upperBound === b._upperBound
+        && a._lowerBound === b._lowerBound
+        && a.unit === b.unit;
     }
 }

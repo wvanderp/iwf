@@ -32,6 +32,13 @@ import URLSnak from '../snaks/UrlSnak';
 import WikibaseItemSnak from '../snaks/WikibaseItemSnak';
 import WikibasePropertySnak from '../snaks/WikibasePropertySnak';
 
+/**
+ * this function takes the json version of a snak and passes it to the proper constructor
+ *
+ * @private
+ * @param {wikidataSnak} snak the snak that needs a constructor
+ * @returns {Snak} the snak as a class
+ */
 export default function snakGenerator(snak: wikidataSnak): Snak {
     switch (snak.datatype) {
         case 'string': {

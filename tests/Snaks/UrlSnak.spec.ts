@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import URLSnak from '../../src/snaks/UrlSnak';
+import { UrlSnak } from '../../src';
 
 const urlSnak = {
     snaktype: 'value' as const,
@@ -15,9 +15,25 @@ const urlSnak = {
 describe('URL Snak', () => {
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const snak = new URLSnak(urlSnak);
+            const snak = new UrlSnak(urlSnak);
 
             expect(snak.toJSON()).to.deep.equal(urlSnak);
+        });
+    });
+
+    describe('equals', () => {
+        it('should be true if the items are equal', () => {
+            const snak = new UrlSnak(urlSnak);
+
+            expect(UrlSnak.equals(snak, snak)).to.be.true;
+        });
+
+        it('should be false if the items are NOT equal', () => {
+            const snak = new UrlSnak(urlSnak);
+            const snak2 = new UrlSnak(urlSnak);
+            snak2.value = 'http://wikidata.org/';
+
+            expect(UrlSnak.equals(snak, snak2)).to.be.false;
         });
     });
 });

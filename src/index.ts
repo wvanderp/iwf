@@ -9,6 +9,7 @@ export {default as Snak} from './Snak';
 
 export {default as CommonsMediaSnak} from './snaks/CommonsMediaSnak';
 export {default as ExternalIdentifierSnak} from './snaks/ExternalIdentifierSnak';
+export {default as GeoShapeSnak} from './snaks/GeoShapeSnak';
 export {default as GlobeCoordinateSnak} from './snaks/GlobeCoordinateSnak';
 export {default as MathSnak} from './snaks/MathSnak';
 export {default as MonolingualTextSnak} from './snaks/MonolingualTextSnak';

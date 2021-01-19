@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import MusicalNotationSnak from '../../src/snaks/MusicalNotationSnak';
+import { MusicalNotationSnak } from '../../src';
 
 const musicalNotationSnak = {
     snaktype: 'value' as const,
@@ -18,6 +18,22 @@ describe('Musical Notation Snak', () => {
             const snak = new MusicalNotationSnak(musicalNotationSnak);
 
             expect(snak.toJSON()).to.deep.equal(musicalNotationSnak);
+        });
+    });
+
+    describe('equals', () => {
+        it('should be true if the items are equal', () => {
+            const snak = new MusicalNotationSnak(musicalNotationSnak);
+
+            expect(MusicalNotationSnak.equals(snak, snak)).to.be.true;
+        });
+
+        it('should be false if the items are NOT equal', () => {
+            const snak = new MusicalNotationSnak(musicalNotationSnak);
+            const snak2 = new MusicalNotationSnak(musicalNotationSnak);
+            snak2.value = 'F4';
+
+            expect(MusicalNotationSnak.equals(snak, snak2)).to.be.false;
         });
     });
 });

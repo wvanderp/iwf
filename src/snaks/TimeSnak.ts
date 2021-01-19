@@ -2,6 +2,13 @@ import {TimeSnak as WikidataTimeSnak, CalendarModels} from '@wmde/wikibase-datam
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
+/**
+ * class for the TimeSnak
+ *
+ * most used property of this type P1619 (date of official opening)
+ *
+ * @class
+ */
 export default class TimeSnak extends Snak {
     time: string | undefined;
 
@@ -17,6 +24,9 @@ export default class TimeSnak extends Snak {
 
     datatype = 'time';
 
+    /**
+     * @param {WikidataTimeSnak} snak the snak for this class in json format
+     */
     constructor(snak: WikidataTimeSnak) {
         super(snak);
 
@@ -28,6 +38,10 @@ export default class TimeSnak extends Snak {
         this.calendarmodel = snak.datavalue?.value.calendarmodel;
     }
 
+    /**
+     *
+     * @returns {WikidataTimeSnak} the snak as json
+     */
     toJSON(): WikidataTimeSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
@@ -46,5 +60,22 @@ export default class TimeSnak extends Snak {
             } : undefined,
             datatype: this.datatype
         }) as WikidataTimeSnak;
+    }
+
+    /**
+     * this function checks if two snaks are equal
+     *
+     * @static
+     * @param {TimeSnak} a snak a
+     * @param {TimeSnak} b snak b
+     * @returns {boolean} true if the snaks are equal
+     */
+    static equals(a:TimeSnak, b:TimeSnak): boolean {
+        return a.time === b.time
+        && a.timezone === b.timezone
+        && a.before === b.before
+        && a.after === b.after
+        && a.precision === b.precision
+        && a.calendarmodel === b.calendarmodel;
     }
 }

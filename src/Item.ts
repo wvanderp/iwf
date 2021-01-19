@@ -8,6 +8,9 @@ import SiteLink from './SiteLink';
 import dateFormatter from './utils/dateFormatter';
 import normalizeOutput from './utils/normalizeOutput';
 
+/**
+ * @class
+ */
 export default class Item {
     pageid: number;
 
@@ -33,6 +36,10 @@ export default class Item {
 
     sitelinks: SiteLink[]
 
+    /**
+     *
+     * @param {WikidataItem} item the item in json format
+     */
     constructor(item: WikidataItem) {
         this.pageid = item.pageid;
         this.ns = item.ns;
@@ -58,6 +65,9 @@ export default class Item {
         this.sitelinks = Object.values(item.sitelinks).map((siteLink) => new SiteLink(siteLink));
     }
 
+    /**
+     * @returns {WikidataItem} the item as json
+     */
     toJSON(): WikidataItem {
         return normalizeOutput({
             pageid: this.pageid,

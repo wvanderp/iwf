@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import CommonsMediaSnak from '../../src/snaks/CommonsMediaSnak';
+import { CommonsMediaSnak } from '../../src';
 
 const commonsSnak = {
     snaktype: 'value' as const,
@@ -30,6 +30,22 @@ describe('Commons Media Snak', () => {
             const snak = new CommonsMediaSnak(commonsSnak);
 
             expect(snak.toJSON()).to.deep.equal(commonsSnak);
+        });
+    });
+
+    describe('equals', () => {
+        it('should be true if the items are equal', () => {
+            const snak = new CommonsMediaSnak(commonsSnak);
+
+            expect(CommonsMediaSnak.equals(snak, snak)).to.be.true;
+        });
+
+        it('should be false if the items are NOT equal', () => {
+            const snak = new CommonsMediaSnak(commonsSnak);
+            const snak2 = new CommonsMediaSnak(commonsSnak);
+            snak2.fileName = 'Flag of Amsterdam.svg';
+
+            expect(CommonsMediaSnak.equals(snak, snak2)).to.be.false;
         });
     });
 });

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import WikibaseItemSnak from '../../src/snaks/WikibaseItemSnak';
+import { WikibaseItemSnak } from '../../src';
 
 const wikibaseItemSnak = {
     snaktype: 'value' as const,
@@ -80,6 +80,22 @@ describe('Wikibase Item Snak', () => {
             const snak = new WikibaseItemSnak(wikibaseItemSnak);
 
             expect(snak.toJSON()).to.deep.equal(wikibaseItemSnak);
+        });
+    });
+
+    describe('equals', () => {
+        it('should be true if the items are equal', () => {
+            const snak = new WikibaseItemSnak(wikibaseItemSnak);
+
+            expect(WikibaseItemSnak.equals(snak, snak)).to.be.true;
+        });
+
+        it('should be false if the items are NOT equal', () => {
+            const snak = new WikibaseItemSnak(wikibaseItemSnak);
+            const snak2 = new WikibaseItemSnak(wikibaseItemSnak);
+            snak2.numericID = 2;
+
+            expect(WikibaseItemSnak.equals(snak, snak2)).to.be.false;
         });
     });
 });

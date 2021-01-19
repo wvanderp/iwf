@@ -3,6 +3,11 @@ import {siteDetails} from 'wikidata-properties';
 
 import normalizeOutput from './utils/normalizeOutput';
 
+/**
+ * the class for a sitelink
+ *
+ * @class
+ */
 export default class SiteLink {
     site: string;
 
@@ -29,6 +34,9 @@ export default class SiteLink {
         return `https:${url}`;
     }
 
+    /**
+     * @returns {WikidataSiteLink} the SiteLink in a json format
+     */
     toJSON(): WikidataSiteLink {
         return normalizeOutput({
             site: this.site,

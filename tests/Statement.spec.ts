@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import {Statement as wikidataStatement} from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
-import Statement from '../src/Statement';
+import { Statement } from '../src';
 
 const statement: wikidataStatement = {
     mainsnak: {

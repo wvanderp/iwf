@@ -2,11 +2,21 @@ import {WikibaseItemSnak as WikidataWikibaseItemSnak} from '@wmde/wikibase-datam
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
+/**
+ * class for the WikibaseItemSnak
+ *
+ * most used property of this type P2860 (cites work)
+ *
+ * @class
+ */
 export default class WikibaseItemSnak extends Snak {
     private _numericID: number | undefined
 
     datatype = 'wikibase-item';
 
+    /**
+     * @param {WikidataWikibaseItemSnak} snak the snak for this class in json format
+     */
     constructor(snak: WikidataWikibaseItemSnak) {
         super(snak);
 
@@ -39,6 +49,10 @@ export default class WikibaseItemSnak extends Snak {
         this._numericID = value;
     }
 
+    /**
+     *
+     * @returns {WikidataWikibaseItemSnak} the snak as json
+     */
     toJSON(): WikidataWikibaseItemSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
@@ -54,5 +68,17 @@ export default class WikibaseItemSnak extends Snak {
             } : undefined,
             datatype: this.datatype
         }) as WikidataWikibaseItemSnak;
+    }
+
+    /**
+     * this function checks if two snaks are equal
+     *
+     * @static
+     * @param {WikibaseItemSnak} a snak a
+     * @param {WikibaseItemSnak} b snak b
+     * @returns {boolean} true if the snaks are equal
+     */
+    static equals(a:WikibaseItemSnak, b:WikibaseItemSnak): boolean {
+        return a._numericID === b._numericID;
     }
 }

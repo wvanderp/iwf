@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import GlobeCoordinateSnak from '../../src/snaks/GlobeCoordinateSnak';
+import { GlobeCoordinateSnak } from '../../src';
 
 const globeCoordinateSnak = {
     snaktype: 'value' as const,
@@ -24,6 +24,22 @@ describe('globe Coordinate Snak', () => {
             const snak = new GlobeCoordinateSnak(globeCoordinateSnak);
 
             expect(snak.toJSON()).to.deep.equal(globeCoordinateSnak);
+        });
+    });
+
+    describe('equals', () => {
+        it('should be true if the items are equal', () => {
+            const snak = new GlobeCoordinateSnak(globeCoordinateSnak);
+
+            expect(GlobeCoordinateSnak.equals(snak, snak)).to.be.true;
+        });
+
+        it('should be false if the items are NOT equal', () => {
+            const snak = new GlobeCoordinateSnak(globeCoordinateSnak);
+            const snak2 = new GlobeCoordinateSnak(globeCoordinateSnak);
+            snak2.longitude = 4;
+
+            expect(GlobeCoordinateSnak.equals(snak, snak2)).to.be.false;
         });
     });
 });

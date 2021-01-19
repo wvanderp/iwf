@@ -2,7 +2,7 @@ import { describe, it } from 'mocha';
 import fs from 'fs';
 import path from 'path';
 import { expect } from 'chai';
-import Item from '../src/Item';
+import { Item } from '../src';
 
 describe('load data into the model', () => {
     for (const file of fs.readdirSync(path.resolve(__dirname, './data/'))) {
