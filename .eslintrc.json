@@ -39,7 +39,8 @@
     "ramda",
     "sonarjs",
     "@typescript-eslint",
-    "unicorn"
+    "unicorn",
+    "jsdoc"
   ],
   "extends": [
     "airbnb-base",
@@ -50,7 +51,8 @@
     "plugin:unicorn/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:jsdoc/recommended"
   ],
   "overrides": [
     {
@@ -135,6 +137,18 @@
     "no-await-in-loop": "off",
     "no-console": "off",
     "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
-    "unicorn/no-array-reduce": "off"
+    "unicorn/no-array-reduce": "off",
+    "require-jsdoc": [
+      1,
+      {
+        "require": {
+          "ArrowFunctionExpression": false,
+          "ClassDeclaration": true,
+          "FunctionDeclaration": true,
+          "FunctionExpression": true,
+          "MethodDefinition": true
+        }
+      }
+    ]
   }
 }

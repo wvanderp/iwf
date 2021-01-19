@@ -74,7 +74,8 @@
     "diff",
     "tests",
     "./test.ts",
-    "./lib"
+    "./lib",
+    "./scrap.ts"
   ],
   "filesGlob": ["./src/**/*.ts"]
 }
