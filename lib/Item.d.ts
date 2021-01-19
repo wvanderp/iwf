@@ -4,6 +4,9 @@ import Statement from './Statement';
 import Description from './Description';
 import Label from './Label';
 import SiteLink from './SiteLink';
+/**
+ * @class
+ */
 export default class Item {
     pageid: number;
     ns: number;
@@ -17,7 +20,14 @@ export default class Item {
     aliases: Alias[];
     statements: Statement[];
     sitelinks: SiteLink[];
+    /**
+     *
+     * @param {WikidataItem} item the item in json format
+     */
     constructor(item: WikidataItem);
+    /**
+     * @returns {WikidataItem} the item as json
+     */
     toJSON(): WikidataItem;
 }
 //# sourceMappingURL=Item.d.ts.map

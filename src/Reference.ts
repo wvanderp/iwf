@@ -16,7 +16,7 @@ export default class Reference {
     snaks: Snak[];
 
     /**
-     * 
+     *
      * @param {WikidataReference} reference the Reference in json format
      */
     constructor(reference: WikidataReference) {
@@ -52,6 +52,4 @@ export default class Reference {
             'snaks-order': this.snaksOrder
         });
     }
-
-    
 }
