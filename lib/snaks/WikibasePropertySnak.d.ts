@@ -15,9 +15,30 @@ export default class WikibasePropertySnak extends Snak {
      * @param {WikidataWikibasePropertySnak} snak the snak for this class in json format
      */
     constructor(snak: WikidataWikibasePropertySnak);
+    /**
+     * returns the ID of the property with the P
+     *
+     * @returns {string | undefined} the ID of the property with the P
+     */
     get id(): string | undefined;
+    /**
+     * This function parses the string by slicing the first char and then number.parseInt
+     * if value is undefined it also sets the snaktype to 'novalue
+     *
+     * @property {string | undefined} value the value that you want to set
+     */
     set id(value: string | undefined);
+    /**
+     * returns the numeric part of the property
+     *
+     * @returns {number | undefined} the numeric ID of the property
+     */
     get numericID(): number | undefined;
+    /**
+     * if value is undefined it also sets the snaktype to 'novalue
+     *
+     * @property {number | undefined} value the numeric id to be set in the snak
+     */
     set numericID(value: number | undefined);
     /**
      *

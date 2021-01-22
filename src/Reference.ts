@@ -1,4 +1,6 @@
 import {Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks} from '@wmde/wikibase-datamodel-types';
+import { v4 as uuidv4 } from 'uuid';
+
 import Snak from './Snak';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
@@ -9,6 +11,9 @@ import snakGenerator from './utils/snakGenerator';
  * @class
  */
 export default class Reference {
+    /** A ID for using things that don't have an ID */
+    internalID: string;
+
     hash: string;
 
     snaksOrder: string[] | undefined;
@@ -22,6 +27,7 @@ export default class Reference {
     constructor(reference: WikidataReference) {
         this.hash = reference.hash;
         this.snaksOrder = reference['snaks-order'];
+        this.internalID = uuidv4();
 
         this.snaks = Object.values(reference.snaks)
             .flat()

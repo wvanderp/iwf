@@ -7,7 +7,7 @@ const commonsSnak = {
     property: 'P41',
     datavalue: {
         value: 'Flag of Berlin.svg',
-        type: 'string'
+        type: 'string' as const
     },
     datatype: 'commonsMedia' as const
 };

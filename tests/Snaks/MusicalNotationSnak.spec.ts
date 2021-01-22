@@ -7,7 +7,7 @@ const musicalNotationSnak = {
     property: 'P7598',
     datavalue: {
         value: "\\relative c' {c des eeses f g a bes c \\bar \"|.\"} \\addlyrics{S R\u2081 G\u2081 M\u2081 P D\u2082 N\u2082 \u1E60}",
-        type: 'string'
+        type: 'string' as const
     },
     datatype: 'musical-notation' as const
 };

@@ -1,4 +1,6 @@
 import { Item as WikidataItem, LabelAndDescription, Statement as WikidataStatement } from '@wmde/wikibase-datamodel-types';
+import { v4 as uuidv4 } from 'uuid';
+
 
 import Alias from './Alias';
 import Statement from './Statement';
@@ -12,6 +14,9 @@ import normalizeOutput from './utils/normalizeOutput';
  * @class
  */
 export default class Item {
+    /** A ID for using things that don't have an ID */
+    internalID: string;
+
     pageid: number;
 
     ns: number;
@@ -49,6 +54,7 @@ export default class Item {
         this.id = item.id;
 
         this.type = item.type;
+        this.internalID = uuidv4();
 
         this.labels = Object.values(item.labels).map((label) => new Label(label));
         this.descriptions = Object.values(item.descriptions).map((description) => new Description(description));

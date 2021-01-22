@@ -1,4 +1,6 @@
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
+import { v4 as uuidv4 } from 'uuid';
+
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
@@ -7,6 +9,9 @@ import normalizeOutput from './utils/normalizeOutput';
  * @class
  */
 export default class Alias {
+    /** A ID for using things that don't have an ID */
+    internalID: string;
+
     /** the language of the alias */
     language: string;
 
@@ -20,6 +25,7 @@ export default class Alias {
     constructor(alias: LabelAndDescription) {
         this.language = alias.language;
         this.value = alias.value;
+        this.internalID = uuidv4();
     }
 
     /**

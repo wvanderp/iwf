@@ -7,7 +7,7 @@ const mathSnak = {
     property: 'P2534',
     datavalue: {
         value: 'k = \\frac{R}{N_\\text{A}}',
-        type: 'string'
+        type: 'string' as const
     },
     datatype: 'math' as const
 };

@@ -24,10 +24,21 @@ export default class WikibasePropertySnak extends Snak {
         this._numericID = snak.datavalue?.value['numeric-id'];
     }
 
-    public get id() : string| undefined {
+    /**
+     * returns the ID of the property with the P
+     *
+     * @returns {string | undefined} the ID of the property with the P
+     */
+    public get id() : string | undefined {
         return this.hasValue ? `P${this._numericID}` : undefined;
     }
 
+    /**
+     * This function parses the string by slicing the first char and then number.parseInt
+     * if value is undefined it also sets the snaktype to 'novalue
+     *
+     * @property {string | undefined} value the value that you want to set
+     */
     public set id(value: string | undefined) {
         if (value === undefined) {
             this._numericID = undefined;
@@ -38,10 +49,20 @@ export default class WikibasePropertySnak extends Snak {
         this._numericID = Number.parseInt(value.slice(1), 10);
     }
 
+    /**
+     * returns the numeric part of the property
+     *
+     * @returns {number | undefined} the numeric ID of the property
+     */
     public get numericID() : number | undefined {
         return this._numericID;
     }
 
+    /**
+     * if value is undefined it also sets the snaktype to 'novalue
+     *
+     * @property {number | undefined} value the numeric id to be set in the snak
+     */
     public set numericID(value: number | undefined) {
         if (value === undefined) {
             this.snaktype = 'novalue';

@@ -5,6 +5,8 @@ import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
  * @class
  */
 export default class Alias {
+    /** A ID for using things that don't have an ID */
+    internalID: string;
     /** the language of the alias */
     language: string;
     /** the value of the alias */

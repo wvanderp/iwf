@@ -28,5 +28,12 @@ export default class ExternalIdentifierSnak extends Snak {
      * @returns {boolean} true if the snaks are equal
      */
     static equals(a: ExternalIdentifierSnak, b: ExternalIdentifierSnak): boolean;
+    /**
+     * @static
+     * @param {string} property the property of the snak in 'P-form'
+     * @param {string} id the external identifier
+     * @returns {ExternalIdentifierSnak} a snak with the given properties
+     */
+    static fromID(property: string, id: string): ExternalIdentifierSnak;
 }
 //# sourceMappingURL=ExternalIdentifierSnak.d.ts.map

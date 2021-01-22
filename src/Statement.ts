@@ -1,10 +1,18 @@
 import {Statement as wikidataStatement, Qualifiers as wikidataQualifiers} from '@wmde/wikibase-datamodel-types';
+import { v4 as uuidv4 } from 'uuid';
+
 import Reference from './Reference';
 import Snak from './Snak';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
 
+/**
+ * @class
+ */
 export default class Statement {
+    /** A ID for using things that don't have an ID */
+    internalID: string;
+
     id: string | undefined;
 
     type: 'statement'
@@ -19,9 +27,15 @@ export default class Statement {
 
     qualifiersOrder: string[]
 
+    /**
+     *
+     * @param {wikidataStatement} statement the statement in a json format
+     */
     constructor(statement: wikidataStatement) {
         this.id = statement.id;
         this.type = statement.type;
+
+        this.internalID = uuidv4();
 
         this.qualifiers = Object.values(statement.qualifiers ?? {})
             .flat()
@@ -36,6 +50,9 @@ export default class Statement {
             : [];
     }
 
+    /**
+     * @returns {wikidataStatement} the statement in a json format
+     */
     toJSON(): wikidataStatement {
         const references = this.references.map((reference) => reference.toJSON());
         const qualifiers = this.qualifiers

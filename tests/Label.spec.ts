@@ -2,15 +2,15 @@ import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import Label from '../src/Label';
 
-const label = new Label({
+const label = {
     language: 'en',
     value: 'Berlin'
-});
+};
 
-const label2 = new Label({
+const label2 = {
     language: 'it',
     value: 'Berlino'
-});
+};
 
 describe('Label', () => {
     describe('toJSON', () => {

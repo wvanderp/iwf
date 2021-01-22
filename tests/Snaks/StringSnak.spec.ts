@@ -7,7 +7,7 @@ const stringSnak = {
     property: 'P958',
     datavalue: {
         value: 'Artikel 1 (2)',
-        type: 'string'
+        type: 'string' as const
     },
     datatype: 'string' as const
 };

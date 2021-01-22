@@ -2,15 +2,15 @@ import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { Alias } from '../src';
 
-const alias = new Alias({
+const alias = {
     language: 'en',
     value: 'Berlin, Germany'
-});
+};
 
-const alias2 = new Alias({
+const alias2 = {
     language: 'de',
     value: 'Berlin, Deutschland'
-});
+};
 
 describe('Description', () => {
     describe('toJSON', () => {

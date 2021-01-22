@@ -8,6 +8,8 @@ import SiteLink from './SiteLink';
  * @class
  */
 export default class Item {
+    /** A ID for using things that don't have an ID */
+    internalID: string;
     pageid: number;
     ns: number;
     title: string;

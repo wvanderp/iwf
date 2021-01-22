@@ -7,7 +7,7 @@ const ExternalSnak = {
     property: 'P998',
     datavalue: {
         value: 'World/Deutsch/Regional/Europa/Deutschland/Berlin/',
-        type: 'string'
+        type: 'string' as const
     },
     datatype: 'external-id' as const
 };
@@ -34,6 +34,15 @@ describe('External Identifier Snak', () => {
             snak2.id = '1888155769085727880005';
 
             expect(ExternalIdentifierSnak.equals(snak, snak2)).to.be.false;
+        });
+    });
+
+    describe('fromID', () => {
+        it('should create a snak from an ID', () => {
+            const snak = ExternalIdentifierSnak.fromID('P2013', 'airbus');
+
+            expect(snak.id).to.equal('airbus');
+            expect(snak.property).to.equal('P2013');
         });
     });
 });

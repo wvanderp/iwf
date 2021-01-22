@@ -7,7 +7,7 @@ const urlSnak = {
     property: 'P854',
     datavalue: {
         value: 'http://www.berlin.de/special/immobilien-und-wohnen/stadtteile/',
-        type: 'string'
+        type: 'string' as const
     },
     datatype: 'url' as const
 };

@@ -51,4 +51,22 @@ export default class ExternalIdentifierSnak extends Snak {
     static equals(a:ExternalIdentifierSnak, b:ExternalIdentifierSnak): boolean {
         return a.id === b.id;
     }
+
+    /**
+     * @static
+     * @param {string} property the property of the snak in 'P-form'
+     * @param {string} id the external identifier
+     * @returns {ExternalIdentifierSnak} a snak with the given properties
+     */
+    static fromID(property: string, id:string): ExternalIdentifierSnak {
+        return new ExternalIdentifierSnak({
+            snaktype: 'value',
+            property,
+            datatype: 'external-id',
+            datavalue: {
+                value: id,
+                type: 'string'
+            }
+        });
+    }
 }

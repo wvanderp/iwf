@@ -7,7 +7,7 @@ const tabularDataSnak = {
     property: 'P4150',
     datavalue: {
         value: 'Data:Ncei.noaa.gov/weather/New York City.tab',
-        type: 'string'
+        type: 'string' as const
     },
     datatype: 'tabular-data' as const
 };

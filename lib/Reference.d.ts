@@ -6,6 +6,8 @@ import Snak from './Snak';
  * @class
  */
 export default class Reference {
+    /** A ID for using things that don't have an ID */
+    internalID: string;
     hash: string;
     snaksOrder: string[] | undefined;
     snaks: Snak[];
