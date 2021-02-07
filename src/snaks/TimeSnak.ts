@@ -78,4 +78,32 @@ export default class TimeSnak extends Snak {
         && a.precision === b.precision
         && a.calendarmodel === b.calendarmodel;
     }
+
+    /**
+     * dates only so add all of the date (year, month, day)
+     *
+     * @param {string} property the property of the snak in 'P-form'
+     * @param {Date} date the date for the snak
+     * @param {CalendarModels} calendarModel the calendarModel for the snak
+     * @returns {TimeSnak} the timeSnak
+     */
+    static fromDate(property: string, date:Date, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985786'): TimeSnak {
+        const isoString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
+        return new TimeSnak({
+            snaktype: 'value',
+            property,
+            datavalue: {
+                value: {
+                    time: isoString,
+                    timezone: 0,
+                    before: 0,
+                    after: 0,
+                    precision: 11,
+                    calendarmodel: calendarModel
+                },
+                type: 'time'
+            },
+            datatype: 'time'
+        });
+    }
 }

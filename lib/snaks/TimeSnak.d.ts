@@ -33,5 +33,14 @@ export default class TimeSnak extends Snak {
      * @returns {boolean} true if the snaks are equal
      */
     static equals(a: TimeSnak, b: TimeSnak): boolean;
+    /**
+     * date only so add all of the date (year, month, day)
+     *
+     * @param {string} property the property of the snak in 'P-form'
+     * @param {Date} date the date for the snak
+     * @param {CalendarModels} calendarModel the calendarModel for the snak
+     * @returns {TimeSnak} the timeSnak
+     */
+    static fromDate(property: string, date: Date, calendarModel?: CalendarModels): TimeSnak;
 }
 //# sourceMappingURL=TimeSnak.d.ts.map
