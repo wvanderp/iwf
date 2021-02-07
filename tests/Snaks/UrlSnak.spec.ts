@@ -36,4 +36,13 @@ describe('URL Snak', () => {
             expect(UrlSnak.equals(snak, snak2)).to.be.false;
         });
     });
+
+    describe('fromURL', () => {
+        it('should create a snak from an ID', () => {
+            const snak = UrlSnak.fromURL('P854', 'https://www.typescriptlang.org/');
+
+            expect(snak.property).to.equal('P854');
+            expect(snak.url).to.equal('https://www.typescriptlang.org/');
+        });
+    });
 });

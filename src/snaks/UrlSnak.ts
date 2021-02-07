@@ -10,7 +10,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  * @class
  */
 export default class URLSnak extends Snak {
-    value: string | undefined;
+    url: string | undefined;
 
     datatype = 'url';
 
@@ -20,7 +20,23 @@ export default class URLSnak extends Snak {
     constructor(snak: WikidataURLSnak) {
         super(snak);
 
-        this.value = snak.datavalue?.value;
+        this.url = snak.datavalue?.value;
+    }
+
+    /**
+     * @alias url
+     * @returns {string | undefined} the value of the snak
+     */
+    get value(): string | undefined {
+        return this.url;
+    }
+
+    /**
+     * @alias url
+     * @param {string | undefined} value the value of the snak
+     */
+    set value(value: string | undefined) {
+        this.url = value;
     }
 
     /**
@@ -33,7 +49,7 @@ export default class URLSnak extends Snak {
             property: this.property,
             hash: this.hash,
             datavalue: this.hasValue ? {
-                value: this.value,
+                value: this.url,
                 type: 'string'
             } : undefined,
             datatype: this.datatype
@@ -50,5 +66,23 @@ export default class URLSnak extends Snak {
      */
     static equals(a:URLSnak, b:URLSnak): boolean {
         return a.value === b.value;
+    }
+
+    /**
+     * @static
+     * @param {string} property the property of the snak in 'P-form'
+     * @param {string} url the url
+     * @returns {URLSnak} a snak with the given properties
+     */
+    static fromURL(property: string, url:string): URLSnak {
+        return new URLSnak({
+            snaktype: 'value',
+            property,
+            datatype: 'url',
+            datavalue: {
+                value: url,
+                type: 'string'
+            }
+        });
     }
 }
