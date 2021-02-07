@@ -14,7 +14,7 @@ export default class Reference {
     /** A ID for using things that don't have an ID */
     internalID: string;
 
-    hash: string;
+    hash: string | undefined;
 
     snaksOrder: string[] | undefined;
 
@@ -49,13 +49,36 @@ export default class Reference {
                         }
 
                         accumulator[value.property].push(value);
-
                         return accumulator;
                     },
                     {}
                 ),
-
             'snaks-order': this.snaksOrder
+        });
+    }
+
+    /**
+     * creates a new reference from snaks
+     *
+     * @static
+     * @param {Snak} snaks the snaks for the reference
+     * @returns {Reference} the reference objects
+     */
+    static fromSnaks(snaks: Snak[]) : Reference {
+        return new Reference({
+            snaks: snaks
+                .map((snak) => snak.toJSON())
+                .reduce<wikidataReferenceSnaks>(
+                    (accumulator, value) => {
+                        if (accumulator[value.property] === undefined) {
+                            accumulator[value.property] = [];
+                        }
+
+                        accumulator[value.property].push(value);
+                        return accumulator;
+                    },
+                    {}
+                )
         });
     }
 }

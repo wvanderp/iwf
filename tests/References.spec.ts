@@ -2,6 +2,7 @@ import { describe, it } from 'mocha';
 import {Reference as wikidataReference} from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
 import { Reference } from '../src';
+import snakGenerator from '../src/utils/snakGenerator';
 
 const reference : wikidataReference = {
     hash: 'e43b1cc9b71d1713d4d6cb76e2abd0b5c36c2a27',
@@ -12,6 +13,15 @@ const reference : wikidataReference = {
                 property: 'P854',
                 datavalue: {
                     value: 'http://www.tagesspiegel.de/berlin/teufelsberg-oder-arkenberge-zum-wettstreit-um-den-hoechsten-gipfel-berlins/11413932.html',
+                    type: 'string'
+                },
+                datatype: 'url'
+            },
+            {
+                snaktype: 'value',
+                property: 'P854',
+                datavalue: {
+                    value: 'https://www.tagesspiegel.de/',
                     type: 'string'
                 },
                 datatype: 'url'
@@ -44,6 +54,18 @@ describe('Reference', () => {
             const referenceObject = new Reference(reference);
 
             expect(referenceObject.toJSON()).to.deep.equal(reference);
+        });
+    });
+
+    describe('fromSnaks', () => {
+        it('should create a reference from snaks', () => {
+            const snaks = Object.values(reference.snaks).flat().map(((snak) => snakGenerator(snak)));
+
+            const newReference = Reference.fromSnaks(snaks);
+            newReference.hash = reference.hash;
+            newReference.snaksOrder = reference['snaks-order'];
+
+            expect(newReference.toJSON()).to.deep.equal(reference);
         });
     });
 });

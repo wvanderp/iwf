@@ -8,7 +8,7 @@ import Snak from './Snak';
 export default class Reference {
     /** A ID for using things that don't have an ID */
     internalID: string;
-    hash: string;
+    hash: string | undefined;
     snaksOrder: string[] | undefined;
     snaks: Snak[];
     /**
@@ -20,5 +20,13 @@ export default class Reference {
      * @returns {WikidataReference} the Reference in a json format
      */
     toJSON(): WikidataReference;
+    /**
+     * creates a new reference from snaks
+     *
+     * @static
+     * @param {Snak} snaks the snaks for the reference
+     * @returns {Reference} the reference objects
+     */
+    static fromSnaks(snaks: Snak[]): Reference;
 }
 //# sourceMappingURL=Reference.d.ts.map
