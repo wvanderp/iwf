@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import {Statement as wikidataStatement} from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
-import { Statement } from '../src';
+import { Statement, UrlSnak } from '../src';
 
 const statement: wikidataStatement = {
     mainsnak: {
@@ -65,5 +65,12 @@ describe('Statement', () => {
 
             expect(statementObject.toJSON()).to.deep.equal(statement);
         });
+    });
+
+    describe('fromSnak', () => {
+        const snak = UrlSnak.fromURL('P4', 'http://localhost');
+        const newStatement = Statement.fromSnak(snak);
+
+        expect(newStatement.mainsnak.toJSON()).to.deep.equal(snak.toJSON());
     });
 });

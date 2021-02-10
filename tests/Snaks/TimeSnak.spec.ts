@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { TimeSnak } from '../../src';
@@ -49,7 +50,7 @@ describe('Time Snak', () => {
             const date = new Date(44, 11, 17);
             const snak = TimeSnak.fromDate('P813', date);
 
-            const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`
+            const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
 
             expect(snak.property).to.equal('P813');
             expect(snak.time).to.equal(expectedString);
@@ -61,7 +62,7 @@ describe('Time Snak', () => {
             const date = new Date(44, 11, 17);
             const snak = TimeSnak.fromDate('P813', date, 'http://www.wikidata.org/entity/Q1985727');
 
-            const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`
+            const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
 
             expect(snak.property).to.equal('P813');
             expect(snak.time).to.equal(expectedString);
@@ -73,7 +74,7 @@ describe('Time Snak', () => {
             const date = new Date(-44, 11, 17);
             const snak = TimeSnak.fromDate('P813', date);
 
-            const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`
+            const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
 
             expect(snak.property).to.equal('P813');
             expect(snak.time).to.equal(expectedString);

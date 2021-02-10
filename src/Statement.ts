@@ -80,4 +80,18 @@ export default class Statement {
             references: references.length === 0 ? undefined : references
         }) as wikidataStatement;
     }
+
+    /**
+     * creates a statement from a snak
+     *
+     * @param {Snak} snak the snak for the statement
+     * @returns {Statement} the statement
+     */
+    static fromSnak(snak: Snak): Statement {
+        return new Statement({
+            mainsnak: snak.toJSON(),
+            type: 'statement',
+            rank: 'normal'
+        });
+    }
 }

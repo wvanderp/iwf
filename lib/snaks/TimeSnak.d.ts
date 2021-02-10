@@ -34,7 +34,7 @@ export default class TimeSnak extends Snak {
      */
     static equals(a: TimeSnak, b: TimeSnak): boolean;
     /**
-     * date only so add all of the date (year, month, day)
+     * dates only so add all of the date (year, month, day)
      *
      * @param {string} property the property of the snak in 'P-form'
      * @param {Date} date the date for the snak
