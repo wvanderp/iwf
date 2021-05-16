@@ -25,7 +25,7 @@ describe('Musical Notation Snak', () => {
         it('should be true if the items are equal', () => {
             const snak = new MusicalNotationSnak(musicalNotationSnak);
 
-            expect(MusicalNotationSnak.equals(snak, snak)).to.be.true;
+            expect(snak.equals(snak)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -33,7 +33,7 @@ describe('Musical Notation Snak', () => {
             const snak2 = new MusicalNotationSnak(musicalNotationSnak);
             snak2.value = 'F4';
 
-            expect(MusicalNotationSnak.equals(snak, snak2)).to.be.false;
+            expect(snak.equals(snak2)).to.be.false;
         });
     });
 });

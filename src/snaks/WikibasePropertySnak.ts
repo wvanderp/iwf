@@ -94,12 +94,10 @@ export default class WikibasePropertySnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {WikibasePropertySnak} a snak a
-     * @param {WikibasePropertySnak} b snak b
+     * @param {WikibasePropertySnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:WikibasePropertySnak, b:WikibasePropertySnak): boolean {
-        return a._numericID === b._numericID;
+    equals(other: WikibasePropertySnak): boolean {
+        return this._numericID === other._numericID;
     }
 }

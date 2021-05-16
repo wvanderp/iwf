@@ -21,6 +21,9 @@ export default class SiteLink {
 
     _url: string | undefined;
 
+    /**
+     * @param {WikidataSiteLink} siteLink The siteLink for this class
+     */
     constructor(siteLink: WikidataSiteLink) {
         this.site = siteLink.site;
         this.title = siteLink.title;

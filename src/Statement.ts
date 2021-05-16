@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Reference from './Reference';
 import Snak from './Snak';
+import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
 
@@ -93,5 +94,35 @@ export default class Statement {
             type: 'statement',
             rank: 'normal'
         });
+    }
+
+    /**
+     *
+     * @param {Statement} a the first statement
+     * @param {Statement} b the second statement
+     * @returns {boolean} if the two statements are equal
+     */
+    static equals(a: Statement, b: Statement): boolean {
+        return a.mainsnak.equals(b.mainsnak);
+    }
+
+    /**
+     *
+     * @param {Statement} a the first statement
+     * @param {Statement} b the second statement
+     * @returns {boolean} if the two statements are equal
+     */
+    static deepEquals(a: Statement, b: Statement): boolean {
+        const snaks = Statement.equals(a, b);
+
+        // references should be equal
+        const references = arrayEqualWith(a.references, b.references, (_a: Reference, _b: Reference) => _a.equals(_b));
+
+        // qualifiers should be equal
+        const qualifiers = arrayEqual(a.qualifiersOrder, b.qualifiersOrder);
+
+        // qualifiersOrder should be equal
+        const qualifiersOrder = arrayEqual(a.qualifiersOrder, b.qualifiersOrder);
+        return snaks && references && qualifiers && qualifiersOrder;
     }
 }

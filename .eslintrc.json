@@ -149,6 +149,10 @@
           "MethodDefinition": true
         }
       }
-    ]
+    ],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "unicorn/numeric-separators-style": "off",
+    "unicorn/prefer-node-protocol": "off",
+    "unicorn/prefer-module": "off"
   }
 }

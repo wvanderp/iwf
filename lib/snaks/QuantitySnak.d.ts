@@ -17,11 +17,29 @@ export default class QuantitySnak extends Snak {
      * @param {WikidataQuantitySnak} snak the snak for this class in json format
      */
     constructor(snak: WikidataQuantitySnak);
+    /**
+     * @returns {number} the amount of the quantity
+     */
     get amount(): number;
+    /**
+     * @param {number} number the number that the amount will be set to
+     */
     set amount(number: number);
+    /**
+     * @returns {number} the upperBound of the quantity
+     */
     get upperBound(): number;
+    /**
+     * @param {number} number the number that the upperBound will be set to
+     */
     set upperBound(number: number);
+    /**
+     * @returns {number} the lowerBound of the quantity
+     */
     get lowerBound(): number;
+    /**
+     * @param {number} number the number that the lowerBound will be set to
+     */
     set lowerBound(number: number);
     /**
      *
@@ -31,11 +49,9 @@ export default class QuantitySnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {QuantitySnak} a snak a
-     * @param {QuantitySnak} b snak b
+     * @param {QuantitySnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a: QuantitySnak, b: QuantitySnak): boolean;
+    equals(other: QuantitySnak): boolean;
 }
 //# sourceMappingURL=QuantitySnak.d.ts.map

@@ -34,11 +34,9 @@ export default class GlobeCoordinateSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {GlobeCoordinateSnak} a snak a
-     * @param {GlobeCoordinateSnak} b snak b
+     * @param {GlobeCoordinateSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a: GlobeCoordinateSnak, b: GlobeCoordinateSnak): boolean;
+    equals(other: GlobeCoordinateSnak): boolean;
 }
 //# sourceMappingURL=GlobeCoordinateSnak.d.ts.map

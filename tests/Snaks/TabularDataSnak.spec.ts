@@ -31,7 +31,7 @@ describe('Tabular Data Snak', () => {
         it('should be true if the items are equal', () => {
             const snak = new TabularDataSnak(tabularDataSnak);
 
-            expect(TabularDataSnak.equals(snak, snak)).to.be.true;
+            expect(snak.equals(snak)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -39,7 +39,7 @@ describe('Tabular Data Snak', () => {
             const snak2 = new TabularDataSnak(tabularDataSnak);
             snak2.value = 'Data:top2000.tab';
 
-            expect(TabularDataSnak.equals(snak, snak2)).to.be.false;
+            expect(snak.equals(snak2)).to.be.false;
         });
     });
 });

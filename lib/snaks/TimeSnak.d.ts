@@ -27,12 +27,10 @@ export default class TimeSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {TimeSnak} a snak a
-     * @param {TimeSnak} b snak b
+     * @param {TimeSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a: TimeSnak, b: TimeSnak): boolean;
+    equals(other: TimeSnak): boolean;
     /**
      * dates only so add all of the date (year, month, day)
      *

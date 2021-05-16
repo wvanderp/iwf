@@ -14,9 +14,25 @@ export default class WikibaseItemSnak extends Snak {
      * @param {WikidataWikibaseItemSnak} snak the snak for this class in json format
      */
     constructor(snak: WikidataWikibaseItemSnak);
+    /**
+     * @alias id
+     * @returns {string | undefined} the value of the snak
+     */
     get id(): string | undefined;
+    /**
+     * @alias id
+     * @param {string | undefined} value the value of the snak
+     */
     set id(value: string | undefined);
+    /**
+     * @alias numericID
+     * @returns {number | undefined} the value of the snak
+     */
     get numericID(): number | undefined;
+    /**
+     * @alias numericID
+     * @param {number | undefined} value the value of the snak
+     */
     set numericID(value: number | undefined);
     /**
      *
@@ -26,11 +42,9 @@ export default class WikibaseItemSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {WikibaseItemSnak} a snak a
-     * @param {WikibaseItemSnak} b snak b
+     * @param {WikibaseItemSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a: WikibaseItemSnak, b: WikibaseItemSnak): boolean;
+    equals(other: WikibaseItemSnak): boolean;
 }
 //# sourceMappingURL=WikibaseItemSnak.d.ts.map

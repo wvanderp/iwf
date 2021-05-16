@@ -1,7 +1,6 @@
 import { Item as WikidataItem, LabelAndDescription, Statement as WikidataStatement } from '@wmde/wikibase-datamodel-types';
 import { v4 as uuidv4 } from 'uuid';
 
-
 import Alias from './Alias';
 import Statement from './Statement';
 import Description from './Description';
@@ -59,10 +58,9 @@ export default class Item {
         this.labels = Object.values(item.labels).map((label) => new Label(label));
         this.descriptions = Object.values(item.descriptions).map((description) => new Description(description));
         this.aliases = Object.values(item.aliases)
-            .map(
+            .flatMap(
                 (alias) => (alias !== null ? alias.map((alias2) => new Alias(alias2)) : [])
-            )
-            .flat();
+            );
 
         this.statements = Object.values(item.claims)
             .flat()

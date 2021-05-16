@@ -33,7 +33,7 @@ describe('Time Snak', () => {
         it('should be true if the items are equal', () => {
             const snak = new TimeSnak(timeSnak);
 
-            expect(TimeSnak.equals(snak, snak)).to.be.true;
+            expect(snak.equals(snak)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -41,7 +41,7 @@ describe('Time Snak', () => {
             const snak2 = new TimeSnak(timeSnak);
             snak2.time = '2013';
 
-            expect(TimeSnak.equals(snak, snak2)).to.be.false;
+            expect(snak.equals(snak2)).to.be.false;
         });
     });
 

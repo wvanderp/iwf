@@ -11,6 +11,9 @@ export default class SiteLink {
     title: string;
     badges: string[];
     _url: string | undefined;
+    /**
+     * @param {WikidataSiteLink} siteLink The siteLink for this class
+     */
     constructor(siteLink: WikidataSiteLink);
     /**
      * if the private property _url is set then we know the url already exists

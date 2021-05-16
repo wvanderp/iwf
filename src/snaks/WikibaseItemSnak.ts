@@ -23,10 +23,18 @@ export default class WikibaseItemSnak extends Snak {
         this._numericID = snak.datavalue?.value['numeric-id'];
     }
 
+    /**
+     * @alias id
+     * @returns {string | undefined} the value of the snak
+     */
     public get id() : string| undefined {
         return this.hasValue ? `Q${this._numericID}` : undefined;
     }
 
+    /**
+     * @alias id
+     * @param {string | undefined} value the value of the snak
+     */
     public set id(value: string | undefined) {
         if (value === undefined) {
             this._numericID = undefined;
@@ -37,10 +45,18 @@ export default class WikibaseItemSnak extends Snak {
         this._numericID = Number.parseInt(value.slice(1), 10);
     }
 
+    /**
+     * @alias numericID
+     * @returns {number | undefined} the value of the snak
+     */
     public get numericID() : number | undefined {
         return this._numericID;
     }
 
+    /**
+     * @alias numericID
+     * @param {number | undefined} value the value of the snak
+     */
     public set numericID(value: number | undefined) {
         if (value === undefined) {
             this.snaktype = 'novalue';
@@ -73,12 +89,10 @@ export default class WikibaseItemSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {WikibaseItemSnak} a snak a
-     * @param {WikibaseItemSnak} b snak b
+     * @param {WikibaseItemSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:WikibaseItemSnak, b:WikibaseItemSnak): boolean {
-        return a._numericID === b._numericID;
+    equals(other: WikibaseItemSnak): boolean {
+        return this._numericID === other._numericID;
     }
 }

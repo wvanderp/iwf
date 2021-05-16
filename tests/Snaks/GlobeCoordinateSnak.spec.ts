@@ -31,7 +31,7 @@ describe('globe Coordinate Snak', () => {
         it('should be true if the items are equal', () => {
             const snak = new GlobeCoordinateSnak(globeCoordinateSnak);
 
-            expect(GlobeCoordinateSnak.equals(snak, snak)).to.be.true;
+            expect(snak.equals(snak)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -39,7 +39,7 @@ describe('globe Coordinate Snak', () => {
             const snak2 = new GlobeCoordinateSnak(globeCoordinateSnak);
             snak2.longitude = 4;
 
-            expect(GlobeCoordinateSnak.equals(snak, snak2)).to.be.false;
+            expect(snak.equals(snak2)).to.be.false;
         });
     });
 });

@@ -1,9 +1,9 @@
 import { describe, it } from 'mocha';
-import {Statement as wikidataStatement} from '@wmde/wikibase-datamodel-types';
+import {Statement as WikidataStatement} from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
-import { Statement, UrlSnak } from '../src';
+import { Statement, StringSnak, UrlSnak } from '../src';
 
-const statement: wikidataStatement = {
+const statement: WikidataStatement = {
     mainsnak: {
         snaktype: 'value',
         property: 'P610',
@@ -68,9 +68,33 @@ describe('Statement', () => {
     });
 
     describe('fromSnak', () => {
-        const snak = UrlSnak.fromURL('P4', 'http://localhost');
+        const snak = UrlSnak.fromURL('P856', 'http://localhost');
         const newStatement = Statement.fromSnak(snak);
 
         expect(newStatement.mainsnak.toJSON()).to.deep.equal(snak.toJSON());
+    });
+
+    describe('equals', () => {});
+
+    describe('deepEquals', () => {
+        it('should equal if ony the qualifiersOrders only filled and equal', () => {
+            const a = Statement.fromSnak(UrlSnak.fromURL('P856', 'http://localhost'));
+            const b = Statement.fromSnak(UrlSnak.fromURL('P856', 'http://localhost'));
+
+            a.qualifiers = [StringSnak.fromString('P1545', '1')];
+            b.qualifiers = [StringSnak.fromString('P1545', '1')];
+
+            a.qualifiersOrder = ['P1545'];
+            b.qualifiersOrder = ['P1545'];
+
+            expect(Statement.deepEquals(a, b)).to.be.true;
+        });
+
+        it('should equal if ony the qualifiersOrders only filled and equal', () => {
+            const a = new Statement(statement);
+            const b = new Statement(statement);
+
+            expect(Statement.deepEquals(a, b)).to.be.true;
+        });
     });
 });

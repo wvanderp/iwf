@@ -20,13 +20,11 @@ export default class Label {
      */
     toJSON(): LabelAndDescription;
     /**
-     * this function checks if two labels are equal
+     * this function checks if two Labels are equal
      *
-     * @static
-     * @param {LabelAndDescription} a Label a
-     * @param {LabelAndDescription} b Label b
-     * @returns {boolean} true if the items are equal
+     * @param {LabelAndDescription} other the other Label
+     * @returns {boolean} true if the Labels are equal
      */
-    static equals(a: LabelAndDescription, b: LabelAndDescription): boolean;
+    equals(other: LabelAndDescription): boolean;
 }
 //# sourceMappingURL=Label.d.ts.map

@@ -65,18 +65,16 @@ export default class TimeSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {TimeSnak} a snak a
-     * @param {TimeSnak} b snak b
+     * @param {TimeSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:TimeSnak, b:TimeSnak): boolean {
-        return a.time === b.time
-        && a.timezone === b.timezone
-        && a.before === b.before
-        && a.after === b.after
-        && a.precision === b.precision
-        && a.calendarmodel === b.calendarmodel;
+    equals(other: TimeSnak): boolean {
+        return this.time === other.time
+        && this.timezone === other.timezone
+        && this.before === other.before
+        && this.after === other.after
+        && this.precision === other.precision
+        && this.calendarmodel === other.calendarmodel;
     }
 
     /**

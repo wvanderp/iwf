@@ -149,7 +149,7 @@ describe('Quantity Snak', () => {
         it('should be true if the items are equal', () => {
             const snak = new QuantitySnak(quantitySnak);
 
-            expect(QuantitySnak.equals(snak, snak)).to.be.true;
+            expect(snak.equals(snak)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -157,7 +157,7 @@ describe('Quantity Snak', () => {
             const snak2 = new QuantitySnak(quantitySnak);
             snak2.lowerBound = 4;
 
-            expect(QuantitySnak.equals(snak, snak2)).to.be.false;
+            expect(snak.equals(snak2)).to.be.false;
         });
     });
 });

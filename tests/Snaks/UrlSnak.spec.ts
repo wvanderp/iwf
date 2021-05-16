@@ -25,7 +25,7 @@ describe('URL Snak', () => {
         it('should be true if the items are equal', () => {
             const snak = new UrlSnak(urlSnak);
 
-            expect(UrlSnak.equals(snak, snak)).to.be.true;
+            expect(snak.equals(snak)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -33,7 +33,7 @@ describe('URL Snak', () => {
             const snak2 = new UrlSnak(urlSnak);
             snak2.value = 'http://wikidata.org/';
 
-            expect(UrlSnak.equals(snak, snak2)).to.be.false;
+            expect(snak.equals(snak2)).to.be.false;
         });
     });
 

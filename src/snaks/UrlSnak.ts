@@ -59,13 +59,11 @@ export default class URLSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {URLSnak} a snak a
-     * @param {URLSnak} b snak b
+     * @param {URLSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:URLSnak, b:URLSnak): boolean {
-        return a.value === b.value;
+    equals(other: URLSnak): boolean {
+        return this.value === other.value;
     }
 
     /**
@@ -74,7 +72,7 @@ export default class URLSnak extends Snak {
      * @param {string} url the url
      * @returns {URLSnak} a snak with the given properties
      */
-    static fromURL(property: string, url:string): URLSnak {
+    static fromURL(property: string, url: string): URLSnak {
         return new URLSnak({
             snaktype: 'value',
             property,

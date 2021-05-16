@@ -37,4 +37,6 @@ export default abstract class Snak {
     }
 
     abstract toJSON(): WikidataSnaks
+
+    abstract equals(other: Snak): boolean;
 }

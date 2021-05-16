@@ -25,7 +25,7 @@ describe('String Snak', () => {
         it('should be true if the items are equal', () => {
             const snak = new StringSnak(stringSnak);
 
-            expect(StringSnak.equals(snak, snak)).to.be.true;
+            expect(snak.equals(snak)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -33,7 +33,7 @@ describe('String Snak', () => {
             const snak2 = new StringSnak(stringSnak);
             snak2.value = 'string';
 
-            expect(StringSnak.equals(snak, snak2)).to.be.false;
+            expect(snak.equals(snak2)).to.be.false;
         });
     });
 });

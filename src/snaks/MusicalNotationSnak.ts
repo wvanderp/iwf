@@ -43,12 +43,10 @@ export default class MusicalNotationSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {MusicalNotationSnak} a snak a
-     * @param {MusicalNotationSnak} b snak b
+     * @param {MusicalNotationSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:MusicalNotationSnak, b:MusicalNotationSnak): boolean {
-        return a.value === b.value;
+    equals(other: MusicalNotationSnak): boolean {
+        return this.value === other.value;
     }
 }

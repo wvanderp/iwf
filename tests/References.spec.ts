@@ -68,4 +68,22 @@ describe('Reference', () => {
             expect(newReference.toJSON()).to.deep.equal(reference);
         });
     });
+
+    describe('equals', () => {
+        it('should be true if the items are equal', () => {
+            const referenceObject = new Reference(reference);
+            const referenceObject2 = new Reference(reference);
+
+            expect(referenceObject.equals(referenceObject2)).to.be.true;
+        });
+
+        it('should be false if the items are NOT equal', () => {
+            const referenceObject = new Reference(reference);
+            const referenceObject2 = new Reference(reference);
+
+            referenceObject2.hash = 'some hash';
+
+            expect(referenceObject.equals(referenceObject2)).to.be.false;
+        });
+    });
 });

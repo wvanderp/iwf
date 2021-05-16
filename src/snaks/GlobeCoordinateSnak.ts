@@ -69,16 +69,14 @@ export default class GlobeCoordinateSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {GlobeCoordinateSnak} a snak a
-     * @param {GlobeCoordinateSnak} b snak b
+     * @param {GlobeCoordinateSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:GlobeCoordinateSnak, b:GlobeCoordinateSnak): boolean {
-        return a.latitude === b.latitude
-        && a.longitude === b.longitude
-        && a.altitude === b.altitude
-        && a.precision === b.precision
-        && a.globe === b.globe;
+    equals(other: GlobeCoordinateSnak): boolean {
+        return this.latitude === other.latitude
+        && this.longitude === other.longitude
+        && this.altitude === other.altitude
+        && this.precision === other.precision
+        && this.globe === other.globe;
     }
 }

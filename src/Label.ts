@@ -38,14 +38,12 @@ export default class Label {
     }
 
     /**
-     * this function checks if two labels are equal
+     * this function checks if two Labels are equal
      *
-     * @static
-     * @param {LabelAndDescription} a Label a
-     * @param {LabelAndDescription} b Label b
-     * @returns {boolean} true if the items are equal
+     * @param {LabelAndDescription} other the other Label
+     * @returns {boolean} true if the Labels are equal
      */
-    static equals(a: LabelAndDescription, b: LabelAndDescription): boolean {
-        return a.language === b.language && a.value === b.value;
+    equals(other: LabelAndDescription): boolean {
+        return this.language === other.language && this.value === other.value;
     }
 }

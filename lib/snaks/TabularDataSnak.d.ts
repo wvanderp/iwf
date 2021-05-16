@@ -28,11 +28,9 @@ export default class TabularDataSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {TabularDataSnak} a snak a
-     * @param {TabularDataSnak} b snak b
+     * @param {TabularDataSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a: TabularDataSnak, b: TabularDataSnak): boolean;
+    equals(other: TabularDataSnak): boolean;
 }
 //# sourceMappingURL=TabularDataSnak.d.ts.map

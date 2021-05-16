@@ -25,7 +25,7 @@ describe('External Identifier Snak', () => {
         it('should be true if the items are equal', () => {
             const snak = new ExternalIdentifierSnak(ExternalSnak);
 
-            expect(ExternalIdentifierSnak.equals(snak, snak)).to.be.true;
+            expect(snak.equals(snak)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -33,7 +33,7 @@ describe('External Identifier Snak', () => {
             const snak2 = new ExternalIdentifierSnak(ExternalSnak);
             snak2.id = '1888155769085727880005';
 
-            expect(ExternalIdentifierSnak.equals(snak, snak2)).to.be.false;
+            expect(snak.equals(snak2)).to.be.false;
         });
     });
 

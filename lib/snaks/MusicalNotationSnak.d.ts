@@ -22,11 +22,9 @@ export default class MusicalNotationSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {MusicalNotationSnak} a snak a
-     * @param {MusicalNotationSnak} b snak b
+     * @param {MusicalNotationSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a: MusicalNotationSnak, b: MusicalNotationSnak): boolean;
+    equals(other: MusicalNotationSnak): boolean;
 }
 //# sourceMappingURL=MusicalNotationSnak.d.ts.map

@@ -43,13 +43,11 @@ export default class ExternalIdentifierSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {ExternalIdentifierSnak} a snak a
-     * @param {ExternalIdentifierSnak} b snak b
+     * @param {ExternalIdentifierSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:ExternalIdentifierSnak, b:ExternalIdentifierSnak): boolean {
-        return a.id === b.id;
+    equals(other: ExternalIdentifierSnak): boolean {
+        return this.id === other.id;
     }
 
     /**

@@ -30,5 +30,19 @@ export default class Statement {
      * @returns {Statement} the statement
      */
     static fromSnak(snak: Snak): Statement;
+    /**
+     *
+     * @param {Statement} a the first statement
+     * @param {Statement} b the second statement
+     * @returns {boolean} if the two statements are equal
+     */
+    static equals(a: Statement, b: Statement): boolean;
+    /**
+     *
+     * @param {Statement} a the first statement
+     * @param {Statement} b the second statement
+     * @returns {boolean} if the two statements are equal
+     */
+    static deepEquals(a: Statement, b: Statement): boolean;
 }
 //# sourceMappingURL=Statement.d.ts.map

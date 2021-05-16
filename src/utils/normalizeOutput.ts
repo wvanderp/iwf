@@ -13,11 +13,11 @@
  * @returns {T} the cleaned object
  */
 function removeEmpty<T>(object: T): T {
-    Object.keys(object).forEach((key) => {
+    for (const key of Object.keys(object)) {
         if (object[key] && typeof object[key] === 'object') {
             removeEmpty(object[key]);
         } else if (object[key] === undefined) delete object[key];
-    });
+    }
     return object;
 }
 
@@ -26,8 +26,6 @@ function removeEmpty<T>(object: T): T {
  * I don't want to muddy the example from stackoverflow so this is a wrapper.
  *
  * @see removeEmpty
- *
- *
  * @private
  * @template T
  * @param {T} object the object that will be cleaned

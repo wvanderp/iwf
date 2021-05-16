@@ -2,6 +2,7 @@ import {Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks
 import { v4 as uuidv4 } from 'uuid';
 
 import Snak from './Snak';
+import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
 
@@ -55,6 +56,18 @@ export default class Reference {
                 ),
             'snaks-order': this.snaksOrder
         });
+    }
+
+    /**
+     * this function checks if References are equal
+     *
+     * @param {Reference} other the other snak
+     * @returns {boolean} true if the snaks are equal
+     */
+    equals(other: Reference): boolean {
+        return arrayEqualWith(this.snaks, other.snaks, (a: Snak, b: Snak) => a.equals(b))
+        && arrayEqual(this.snaksOrder, other.snaksOrder)
+        && this.hash === other.hash;
     }
 
     /**

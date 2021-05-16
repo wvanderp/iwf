@@ -53,12 +53,10 @@ export default class GeoShapeSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {GeoShapeSnak} a snak a
-     * @param {GeoShapeSnak} b snak b
+     * @param {GeoShapeSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:GeoShapeSnak, b:GeoShapeSnak): boolean {
-        return a.fileName === b.fileName;
+    equals(other: GeoShapeSnak): boolean {
+        return this.fileName === other.fileName;
     }
 }

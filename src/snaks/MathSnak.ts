@@ -44,12 +44,10 @@ export default class MathSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {MathSnak} a snak a
-     * @param {MathSnak} b snak b
+     * @param {MathSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:MathSnak, b:MathSnak): boolean {
-        return a.value === b.value;
+    equals(other: MathSnak): boolean {
+        return this.value === other.value;
     }
 }

@@ -51,26 +51,44 @@ export default class QuantitySnak extends Snak {
         this.unit = snak.datavalue?.value.unit;
     }
 
+    /**
+     * @returns {number} the amount of the quantity
+     */
     get amount(): number {
         return Number(this._amount);
     }
 
+    /**
+     * @param {number} number the number that the amount will be set to
+     */
     set amount(number: number) {
         this._amount = formatNumber(number);
     }
 
+    /**
+     * @returns {number} the upperBound of the quantity
+     */
     get upperBound(): number {
         return Number(this._upperBound);
     }
 
+    /**
+     * @param {number} number the number that the upperBound will be set to
+     */
     set upperBound(number: number) {
         this._upperBound = formatNumber(number);
     }
 
+    /**
+     * @returns {number} the lowerBound of the quantity
+     */
     get lowerBound(): number {
         return Number(this._lowerBound);
     }
 
+    /**
+     * @param {number} number the number that the lowerBound will be set to
+     */
     set lowerBound(number: number) {
         this._lowerBound = formatNumber(number);
     }
@@ -100,15 +118,13 @@ export default class QuantitySnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {QuantitySnak} a snak a
-     * @param {QuantitySnak} b snak b
+     * @param {QuantitySnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:QuantitySnak, b:QuantitySnak): boolean {
-        return a._amount === b._amount
-        && a._upperBound === b._upperBound
-        && a._lowerBound === b._lowerBound
-        && a.unit === b.unit;
+    equals(other: QuantitySnak): boolean {
+        return this._amount === other._amount
+        && this._upperBound === other._upperBound
+        && this._lowerBound === other._lowerBound
+        && this.unit === other.unit;
     }
 }

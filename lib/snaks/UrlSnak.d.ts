@@ -32,12 +32,10 @@ export default class URLSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {URLSnak} a snak a
-     * @param {URLSnak} b snak b
+     * @param {URLSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a: URLSnak, b: URLSnak): boolean;
+    equals(other: URLSnak): boolean;
     /**
      * @static
      * @param {string} property the property of the snak in 'P-form'

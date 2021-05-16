@@ -63,12 +63,10 @@ export default class CommonsMediaSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {CommonsMediaSnak} a snak a
-     * @param {CommonsMediaSnak} b snak b
+     * @param {CommonsMediaSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:CommonsMediaSnak, b:CommonsMediaSnak): boolean {
-        return a.fileName === b.fileName;
+    equals(other: CommonsMediaSnak): boolean {
+        return this.fileName === other.fileName;
     }
 }

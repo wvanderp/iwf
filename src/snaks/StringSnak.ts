@@ -43,12 +43,28 @@ export default class StringSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {StringSnak} a snak a
-     * @param {StringSnak} b snak b
+     * @param {StringSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:StringSnak, b:StringSnak): boolean {
-        return a.value === b.value;
+    equals(other: StringSnak): boolean {
+        return this.value === other.value;
+    }
+
+    /**
+     * @static
+     * @param {string} property the property of the snak in 'P-form'
+     * @param {string} string the string
+     * @returns {StringSnak} a snak with the given properties
+     */
+    static fromString(property: string, string: string): StringSnak {
+        return new StringSnak({
+            snaktype: 'value',
+            property,
+            datatype: 'string',
+            datavalue: {
+                value: string,
+                type: 'string'
+            }
+        });
     }
 }

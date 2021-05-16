@@ -21,6 +21,13 @@ export default class Reference {
      */
     toJSON(): WikidataReference;
     /**
+     * this function checks if References are equal
+     *
+     * @param {Reference} other the other snak
+     * @returns {boolean} true if the snaks are equal
+     */
+    equals(other: Reference): boolean;
+    /**
      * creates a new reference from snaks
      *
      * @static

@@ -20,5 +20,6 @@ export default abstract class Snak {
      */
     get hasValue(): boolean;
     abstract toJSON(): WikidataSnaks;
+    abstract equals(other: Snak): boolean;
 }
 //# sourceMappingURL=Snak.d.ts.map

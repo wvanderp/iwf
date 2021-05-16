@@ -52,12 +52,10 @@ export default class MonolingualTextSnak extends Snak {
     /**
      * this function checks if two snaks are equal
      *
-     * @static
-     * @param {MonolingualTextSnak} a snak a
-     * @param {MonolingualTextSnak} b snak b
+     * @param {MonolingualTextSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      */
-    static equals(a:MonolingualTextSnak, b:MonolingualTextSnak): boolean {
-        return a.text === b.text && a.language === b.language;
+    equals(other: MonolingualTextSnak): boolean {
+        return this.text === other.text && this.language === other.language;
     }
 }
