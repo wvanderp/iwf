@@ -40,7 +40,8 @@
   "dependencies": {
     "@wmde/wikibase-datamodel-types": "git+https://github.com/wvanderp/WikibaseDataModelTypes.git",
     "uuid": "^8.3.2",
-    "wikidata-properties": "git+https://github.com/wvanderp/wikidata-properties.git"
+    "wikidata-properties": "git+https://github.com/wvanderp/wikidata-properties.git",
+    "axios": "0.21.1"
   },
   "scripts": {
     "build": "rimraf lib && tsc -P ./tsconfig.build.json",
