@@ -6,7 +6,7 @@ import Item from '../Item';
  * @param {string} qid the id of the entity
  * @returns {string} the url with qid
  */
-function baseURL(qid: string): string {
+export function baseURL(qid: string): string {
     return `https://www.wikidata.org/wiki/Special:EntityData/${qid}.json`;
 }
 
@@ -14,7 +14,7 @@ function baseURL(qid: string): string {
  * @param {string} qid the id of the entity
  * @returns {Promise<Item>} the promise of a wikidata Item
  */
-export default async function request(qid: string): Promise<Item> {
+export default async function requestItem(qid: string): Promise<Item> {
     const url = baseURL(qid);
     const {data} = await axios.get<WikidataResponse>(url);
 

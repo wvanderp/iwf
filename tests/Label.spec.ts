@@ -1,16 +1,17 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import Label from '../src/Label';
+import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
+import {Label} from '../src';
 
 const label = {
     language: 'en',
     value: 'Berlin'
-};
+} as LabelAndDescription;
 
 const label2 = {
     language: 'it',
     value: 'Berlino'
-};
+} as LabelAndDescription;
 
 describe('Label', () => {
     describe('toJSON', () => {

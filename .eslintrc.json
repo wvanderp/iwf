@@ -7,8 +7,8 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "globals":{
-    "BigInt":true
+  "globals": {
+    "BigInt": true
   },
   "settings": {
     "import/parsers": {
@@ -36,11 +36,12 @@
     }
   },
   "plugins": [
+    "@typescript-eslint",
     "ramda",
     "sonarjs",
-    "@typescript-eslint",
     "unicorn",
-    "jsdoc"
+    "jsdoc",
+    "woke"
   ],
   "extends": [
     "airbnb-base",
@@ -136,7 +137,11 @@
     ],
     "no-await-in-loop": "off",
     "no-console": "off",
-    "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
+    "no-restricted-syntax": [
+      "error",
+      "LabeledStatement",
+      "WithStatement"
+    ],
     "unicorn/no-array-reduce": "off",
     "require-jsdoc": [
       1,
@@ -150,9 +155,19 @@
         }
       }
     ],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "unicorn/numeric-separators-style": "off",
     "unicorn/prefer-node-protocol": "off",
-    "unicorn/prefer-module": "off"
+    "unicorn/prefer-module": "off",
+    "unicorn/prefer-object-from-entries": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error"
+    ]
   }
 }

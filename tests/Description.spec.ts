@@ -1,16 +1,17 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
+import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
 import { Description } from '../src';
 
 const description = {
     language: 'en',
     value: 'capital and largest city of Germany'
-};
+} as LabelAndDescription;
 
 const description2 = {
     language: 'de',
     value: 'Millionenstadt; Hauptstadt und Land der Bundesrepublik Deutschland'
-};
+} as LabelAndDescription;
 
 describe('Description', () => {
     describe('toJSON', () => {

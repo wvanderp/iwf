@@ -4,8 +4,8 @@
             "pageid": 5047402,
             "ns": 0,
             "title": "Q5278123",
-            "lastrevid": 1281663034,
-            "modified": "2020-09-24T15:32:03Z",
+            "lastrevid": 1481047932,
+            "modified": "2021-08-15T11:39:50Z",
             "type": "item",
             "id": "Q5278123",
             "labels": {
@@ -62,19 +62,19 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P31",
-                            "hash": "492dc7effebe1332de30fb54d4816f0a645fdcaa",
+                            "hash": "5be109d8a3cbbd062357a9d210d4ef00ef25244e",
                             "datavalue": {
                                 "value": {
                                     "entity-type": "item",
-                                    "numeric-id": 943929,
-                                    "id": "Q943929"
+                                    "numeric-id": 105543609,
+                                    "id": "Q105543609"
                                 },
                                 "type": "wikibase-entityid"
                             },
                             "datatype": "wikibase-item"
                         },
                         "type": "statement",
-                        "id": "Q5278123$053a87fc-43ac-1e8b-5afe-df338a65d85e",
+                        "id": "Q5278123$58058FE2-F4EF-4424-AB4A-F0887A0545A3",
                         "rank": "normal"
                     }
                 ],
@@ -438,18 +438,139 @@
                         "id": "Q5278123$1072713b-4a69-0d0d-906c-3cc0d267fc9e",
                         "rank": "normal"
                     }
+                ],
+                "P646": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P646",
+                            "hash": "dfb4095f16bdc611f6ada61a2355736697e9a3b1",
+                            "datavalue": {
+                                "value": "/m/086j31",
+                                "type": "string"
+                            },
+                            "datatype": "external-id"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$A9271C4F-1E4A-4E9D-A210-71886D2CE46B",
+                        "rank": "normal"
+                    }
+                ],
+                "P1552": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P1552",
+                            "hash": "ab5b648d23f8c7ba23c997516bef78c220e36105",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 943929,
+                                    "id": "Q943929"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$226C7D95-5D19-45BC-B4CC-53576D40E460",
+                        "rank": "normal"
+                    },
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P1552",
+                            "hash": "ab5b648d23f8c7ba23c997516bef78c220e36105",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 943929,
+                                    "id": "Q943929"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$5E7D6A7F-B0C9-4463-B21F-0E097D84DE59",
+                        "rank": "normal"
+                    }
+                ],
+                "P7937": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P7937",
+                            "hash": "95c182f3c475d9df12743fde55dc93e0a76efa11",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 7366,
+                                    "id": "Q7366"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5278123$61FE122F-B52E-4DA8-B24E-D78060164AEE",
+                        "rank": "normal"
+                    }
+                ],
+                "P18": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P18",
+                            "hash": "ba0d94766a546cd987359552a413247264c4a214",
+                            "datavalue": {
+                                "value": "Triplets - comprising, The baby's opera, The baby's bouquet, and The baby's own \u00c6sop (1899) (14749565411).jpg",
+                                "type": "string"
+                            },
+                            "datatype": "commonsMedia"
+                        },
+                        "type": "statement",
+                        "qualifiers": {
+                            "P585": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P585",
+                                    "hash": "ba221624569b5d3a5d05bcaf82f31c9122a5ef99",
+                                    "datavalue": {
+                                        "value": {
+                                            "time": "+1899-00-00T00:00:00Z",
+                                            "timezone": 0,
+                                            "before": 0,
+                                            "after": 0,
+                                            "precision": 9,
+                                            "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                                        },
+                                        "type": "time"
+                                    },
+                                    "datatype": "time"
+                                }
+                            ]
+                        },
+                        "qualifiers-order": [
+                            "P585"
+                        ],
+                        "id": "Q5278123$6b587784-47e7-7cb5-40a1-76d780a31c61",
+                        "rank": "normal"
+                    }
                 ]
             },
             "sitelinks": {
                 "dawiki": {
                     "site": "dawiki",
                     "title": "Ding Dong Bell",
-                    "badges": []
+                    "badges": [],
+                    "url": "https://da.wikipedia.org/wiki/Ding_Dong_Bell"
                 },
                 "enwiki": {
                     "site": "enwiki",
                     "title": "Ding Dong Bell",
-                    "badges": []
+                    "badges": [],
+                    "url": "https://en.wikipedia.org/wiki/Ding_Dong_Bell"
                 }
             }
         }

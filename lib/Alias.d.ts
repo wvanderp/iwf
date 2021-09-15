@@ -1,4 +1,4 @@
-import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
+import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
 /**
  * class for aliases
  *
@@ -8,7 +8,7 @@ export default class Alias {
     /** A ID for using things that don't have an ID */
     internalID: string;
     /** the language of the alias */
-    language: string;
+    language: LabelLanguages;
     /** the value of the alias */
     value: string;
     /**

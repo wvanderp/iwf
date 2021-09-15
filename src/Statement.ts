@@ -98,31 +98,28 @@ export default class Statement {
 
     /**
      *
-     * @param {Statement} a the first statement
-     * @param {Statement} b the second statement
+     * @param {Statement} other the other statement
      * @returns {boolean} if the two statements are equal
      */
-    static equals(a: Statement, b: Statement): boolean {
-        return a.mainsnak.equals(b.mainsnak);
-    }
+    equals(other: Statement): boolean {
+        const idEqual = this.id === other.id;
+        const typeEqual = this.type === other.type;
+        const rankEqual = this.rank === other.rank;
+        const qualifiersOrderEqual = arrayEqual(this.qualifiersOrder, other.qualifiersOrder);
+        const snakEqual = this.mainsnak.equals(other.mainsnak);
+        const referencesEqual = arrayEqualWith(
+            this.references,
+            other.references,
+            (a: Reference, b: Reference) => a.equals(b)
+        );
+        const qualifiersEqual = arrayEqualWith(this.qualifiers, other.qualifiers, (a: Snak, b: Snak) => a.equals(b));
 
-    /**
-     *
-     * @param {Statement} a the first statement
-     * @param {Statement} b the second statement
-     * @returns {boolean} if the two statements are equal
-     */
-    static deepEquals(a: Statement, b: Statement): boolean {
-        const snaks = Statement.equals(a, b);
-
-        // references should be equal
-        const references = arrayEqualWith(a.references, b.references, (_a: Reference, _b: Reference) => _a.equals(_b));
-
-        // qualifiers should be equal
-        const qualifiers = arrayEqual(a.qualifiersOrder, b.qualifiersOrder);
-
-        // qualifiersOrder should be equal
-        const qualifiersOrder = arrayEqual(a.qualifiersOrder, b.qualifiersOrder);
-        return snaks && references && qualifiers && qualifiersOrder;
+        return idEqual
+            && typeEqual
+            && rankEqual
+            && qualifiersOrderEqual
+            && snakEqual
+            && referencesEqual
+            && qualifiersEqual;
     }
 }

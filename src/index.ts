@@ -22,4 +22,4 @@ export {default as UrlSnak} from './snaks/UrlSnak';
 export {default as WikibaseItemSnak} from './snaks/WikibaseItemSnak';
 export {default as WikibasePropertySnak} from './snaks/WikibasePropertySnak';
 
-export {default as request} from './tools/request';
+export {default as requestItem} from './tools/request';

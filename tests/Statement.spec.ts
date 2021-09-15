@@ -6,53 +6,84 @@ import { Statement, StringSnak, UrlSnak } from '../src';
 const statement: WikidataStatement = {
     mainsnak: {
         snaktype: 'value',
-        property: 'P610',
+        property: 'P1082',
+        hash: '48bc53de04c59ccf4c2b2d0eeb98b7df61656405',
         datavalue: {
             value: {
-                'entity-type': 'item',
-                'numeric-id': 19259618,
-                id: 'Q19259618'
+                amount: '+8405837',
+                unit: '1'
             },
-            type: 'wikibase-entityid'
+            type: 'quantity'
         },
-        datatype: 'wikibase-item'
+        datatype: 'quantity'
     },
     type: 'statement',
-    id: 'Q64$fe5767c9-4d4b-2d3a-2a13-9a3072793753',
+    qualifiers: {
+        P585: [
+            {
+                snaktype: 'value',
+                property: 'P585',
+                hash: '256ed381037eb5c7c11099e099d085bc66779703',
+                datavalue: {
+                    value: {
+                        time: '+2013-01-01T00:00:00Z',
+                        timezone: 0,
+                        before: 0,
+                        after: 0,
+                        precision: 9,
+                        calendarmodel: 'http://www.wikidata.org/entity/Q1985727'
+                    },
+                    type: 'time'
+                },
+                datatype: 'time'
+            }
+        ],
+        P459: [
+            {
+                snaktype: 'value',
+                property: 'P459',
+                hash: 'f34609d440cf44ebaa8a3e704c9369413240618c',
+                datavalue: {
+                    value: {
+                        'entity-type': 'item',
+                        'numeric-id': 39825,
+                        id: 'Q39825'
+                    },
+                    type: 'wikibase-entityid'
+                },
+                datatype: 'wikibase-item'
+            }
+        ]
+    },
+    'qualifiers-order': [
+        'P585',
+        'P459'
+    ],
+    id: 'Q60$d864bf91-491e-73e0-0a25-03eb16bee95a',
     rank: 'normal',
     references: [
         {
-            hash: 'e43b1cc9b71d1713d4d6cb76e2abd0b5c36c2a27',
+            hash: 'fa278ebfc458360e5aed63d5058cca83c46134f1',
             snaks: {
-                P854: [
+                P143: [
                     {
                         snaktype: 'value',
-                        property: 'P854',
-                        datavalue: {
-                            value: 'http://www.tagesspiegel.de/berlin/teufelsberg-oder-arkenberge-zum-wettstreit-um-den-hoechsten-gipfel-berlins/11413932.html',
-                            type: 'string'
-                        },
-                        datatype: 'url'
-                    }
-                ],
-                P1476: [
-                    {
-                        snaktype: 'value',
-                        property: 'P1476',
+                        property: 'P143',
+                        hash: 'e4f6d9441d0600513c4533c672b5ab472dc73694',
                         datavalue: {
                             value: {
-                                text: 'Zum Wettstreit um den h\u00F6chsten Gipfel Berlins',
-                                language: 'de'
+                                'entity-type': 'item',
+                                'numeric-id': 328,
+                                id: 'Q328'
                             },
-                            type: 'monolingualtext'
+                            type: 'wikibase-entityid'
                         },
-                        datatype: 'monolingualtext'
+                        datatype: 'wikibase-item'
                     }
                 ]
             },
             'snaks-order': [
-                'P854',
-                'P1476'
+                'P143'
             ]
         }
     ]
@@ -74,9 +105,7 @@ describe('Statement', () => {
         expect(newStatement.mainsnak.toJSON()).to.deep.equal(snak.toJSON());
     });
 
-    describe('equals', () => {});
-
-    describe('deepEquals', () => {
+    describe('equals', () => {
         it('should equal if ony the qualifiersOrders only filled and equal', () => {
             const a = Statement.fromSnak(UrlSnak.fromURL('P856', 'http://localhost'));
             const b = Statement.fromSnak(UrlSnak.fromURL('P856', 'http://localhost'));
@@ -87,14 +116,68 @@ describe('Statement', () => {
             a.qualifiersOrder = ['P1545'];
             b.qualifiersOrder = ['P1545'];
 
-            expect(Statement.deepEquals(a, b)).to.be.true;
+            expect(a.equals(b)).to.be.true;
         });
 
         it('should equal if ony the qualifiersOrders only filled and equal', () => {
             const a = new Statement(statement);
             const b = new Statement(statement);
 
-            expect(Statement.deepEquals(a, b)).to.be.true;
+            expect(a.equals(b)).to.be.true;
+        });
+
+        it('should not equal if the id is changed', () => {
+            const a = new Statement(statement);
+            const b = new Statement(statement);
+
+            b.id = '1';
+
+            expect(a.equals(b)).to.be.false;
+        });
+
+        it('should not equal if the rank is changed', () => {
+            const a = new Statement(statement);
+            const b = new Statement(statement);
+
+            b.rank = 'deprecated';
+
+            expect(a.equals(b)).to.be.false;
+        });
+
+        it('should not equal if the qualifiersOrder is changed', () => {
+            const a = new Statement(JSON.parse(JSON.stringify(statement)));
+            const b = new Statement(JSON.parse(JSON.stringify(statement)));
+
+            b.qualifiersOrder.pop();
+
+            expect(a.equals(b)).to.be.false;
+        });
+
+        it('should not equal if the mainsnak is changed', () => {
+            const a = new Statement(statement);
+            const b = new Statement(statement);
+
+            b.mainsnak = UrlSnak.fromURL('P856', 'http://localhost');
+
+            expect(a.equals(b)).to.be.false;
+        });
+
+        it('should not equal if the references is changed', () => {
+            const a = new Statement(statement);
+            const b = new Statement(statement);
+
+            b.references.pop();
+
+            expect(a.equals(b)).to.be.false;
+        });
+
+        it('should not equal if the qualifiers is changed', () => {
+            const a = new Statement(statement);
+            const b = new Statement(statement);
+
+            b.qualifiers.pop();
+
+            expect(a.equals(b)).to.be.false;
         });
     });
 });

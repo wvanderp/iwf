@@ -79,6 +79,7 @@ export default class WikibasePropertySnak extends Snak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
+            hash: this.hash,
             datavalue: {
                 value: {
                     'entity-type': 'property' as const,

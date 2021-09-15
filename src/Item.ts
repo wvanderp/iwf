@@ -8,6 +8,7 @@ import Label from './Label';
 import SiteLink from './SiteLink';
 import dateFormatter from './utils/dateFormatter';
 import normalizeOutput from './utils/normalizeOutput';
+import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 
 /**
  * @class
@@ -68,6 +69,55 @@ export default class Item {
 
         this.sitelinks = Object.values(item.sitelinks).map((siteLink) => new SiteLink(siteLink));
     }
+
+    /**
+     * this function checks if two items are equal
+     *
+     * @param {Item} other the other item
+     * @returns {boolean} true if the items are equal
+     */
+    equals(other: Item): boolean {
+        const pageidEqual = this.pageid === other.pageid;
+        const nsEqual = this.ns === other.ns;
+        const titleEqual = this.title === other.title;
+        const lastrevidEqual = this.lastrevid === other.lastrevid;
+        const modifiedEqual = dateFormatter(this.modified) === dateFormatter(other.modified);
+        const idEqual = this.id === other.id;
+        const typeEqual = this.type === other.type;
+
+        const labelsEqual = arrayEqual(this.labels, other.labels);
+        const descriptionsEqual = arrayEqual(this.descriptions, other.descriptions);
+        const aliasesEqual = arrayEqual(this.aliases, other.aliases);
+
+        const statementsEqual = arrayEqualWith(this.statements, other.statements, (a, b) => a.equals(b));
+
+        return pageidEqual
+            && nsEqual
+            && titleEqual
+            && lastrevidEqual
+            && modifiedEqual
+            && idEqual
+            && typeEqual
+            && labelsEqual
+            && descriptionsEqual
+            && aliasesEqual
+            && statementsEqual;
+    }
+
+    /**
+     *
+     * @param other the other item
+     */
+    // diff(other: Item): Changes[] {
+    //     const labelChanges = labelDiff(this.labels, other.labels);
+    //     const descriptionsChanges = descriptionsDiff(this.descriptions, other.descriptions);
+    //     const aliasesChanges = aliasDiff(this.aliases, other.aliases);
+
+    //     const statementsChanges = statementsDiff(this.statements, other.statements);
+    //     const sitelinksChanges = siteLinksDiff(this.sitelinks, other.sitelinks);
+
+    //     return [...labelChanges, ...descriptionsChanges, ...aliasesChanges, ...statementsChanges, ...sitelinksChanges];
+    // }
 
     /**
      * @returns {WikidataItem} the item as json

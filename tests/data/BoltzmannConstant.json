@@ -4,8 +4,8 @@
             "pageid": 7061,
             "ns": 0,
             "title": "Q5962",
-            "lastrevid": 1301919533,
-            "modified": "2020-11-03T00:55:27Z",
+            "lastrevid": 1445254991,
+            "modified": "2021-06-20T11:57:35Z",
             "type": "item",
             "id": "Q5962",
             "labels": {
@@ -269,9 +269,9 @@
                     "language": "ta",
                     "value": "\u0baa\u0bcb\u0bb2\u0bcd\u0b9f\u0bcd\u0b9a\u0bc1\u0bae\u0bbe\u0ba9\u0bcd \u0bae\u0bbe\u0bb1\u0bbf\u0bb2\u0bbf"
                 },
-                "simple": {
-                    "language": "simple",
-                    "value": "Boltzmann constant"
+                "cv": {
+                    "language": "cv",
+                    "value": "\u0411\u043e\u043b\u044c\u0446\u043c\u0430\u043d \u043a\u043e\u043d\u0441\u0442\u0430\u043d\u0442\u0438"
                 }
             },
             "descriptions": {
@@ -338,6 +338,14 @@
                 "gl": {
                     "language": "gl",
                     "value": "constante f\u00edsica que relaciona temperatura absoluta e enerx\u00eda"
+                },
+                "ja": {
+                    "language": "ja",
+                    "value": "\u7d71\u8a08\u529b\u5b66\u306b\u304a\u3044\u3066\u3001\u72b6\u614b\u6570\u3068\u30a8\u30f3\u30c8\u30ed\u30d4\u30fc\u3092\u95a2\u4fc2\u4ed8\u3051\u308b\u7269\u7406\u5b9a\u6570"
+                },
+                "hu": {
+                    "language": "hu",
+                    "value": "r\u00e9szecsk\u00e9k energi\u00e1j\u00e1t a h\u0151m\u00e9rs\u00e9klettel \u00f6sszef\u00fcgg\u00e9sbe hoz\u00f3 fizikai \u00e1lland\u00f3"
                 }
             },
             "aliases": {
@@ -351,14 +359,6 @@
                     {
                         "language": "en",
                         "value": "k"
-                    },
-                    {
-                        "language": "en",
-                        "value": "Planck heat capacity"
-                    },
-                    {
-                        "language": "en",
-                        "value": "Planck entropy"
                     }
                 ],
                 "el": [
@@ -380,6 +380,16 @@
                         "language": "nn",
                         "value": "Boltzmanns konstant"
                     }
+                ],
+                "hu": [
+                    {
+                        "language": "hu",
+                        "value": "k"
+                    },
+                    {
+                        "language": "hu",
+                        "value": "k_B"
+                    }
                 ]
             },
             "claims": {
@@ -388,6 +398,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P138",
+                            "hash": "846c6e1eeea9bceef022c57307bc945f96caab5a",
                             "datavalue": {
                                 "value": {
                                     "entity-type": "item",
@@ -408,6 +419,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P31",
+                            "hash": "1f64db08b05b0ff1f134e2100d6effbae258367f",
                             "datavalue": {
                                 "value": {
                                     "entity-type": "item",
@@ -426,6 +438,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P31",
+                            "hash": "297b6df9cae8c29ae20a8a2bb14508546ba2895d",
                             "datavalue": {
                                 "value": {
                                     "entity-type": "item",
@@ -446,6 +459,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P646",
+                            "hash": "5970aaf5cbc16c0da187592a538bfd45d630dbdb",
                             "datavalue": {
                                 "value": "/m/0f1ys",
                                 "type": "string"
@@ -463,6 +477,7 @@
                                         {
                                             "snaktype": "value",
                                             "property": "P248",
+                                            "hash": "a94b740202b097dd33355e0e6c00e54b9395e5e0",
                                             "datavalue": {
                                                 "value": {
                                                     "entity-type": "item",
@@ -478,6 +493,7 @@
                                         {
                                             "snaktype": "value",
                                             "property": "P577",
+                                            "hash": "fde79ecb015112d2f29229ccc1ec514ed3e71fa2",
                                             "datavalue": {
                                                 "value": {
                                                     "time": "+2013-10-28T00:00:00Z",
@@ -506,6 +522,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P1296",
+                            "hash": "5d42ce73f0347449babc863bf5f8f8493bb1ba4f",
                             "datavalue": {
                                 "value": "0010981",
                                 "type": "string"
@@ -522,6 +539,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P1181",
+                            "hash": "05a949435b057fa02964f642bc7a9cc53fb1afed",
                             "datavalue": {
                                 "value": {
                                     "amount": "+0.0000000000000000000000138064852",
@@ -550,55 +568,47 @@
                                     },
                                     "datatype": "wikibase-item"
                                 }
+                            ],
+                            "P582": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P582",
+                                    "hash": "c9582fcdd0adc330e4c921177cb7e523de50720e",
+                                    "datavalue": {
+                                        "value": {
+                                            "time": "+2019-00-00T00:00:00Z",
+                                            "timezone": 0,
+                                            "before": 0,
+                                            "after": 0,
+                                            "precision": 9,
+                                            "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                                        },
+                                        "type": "time"
+                                    },
+                                    "datatype": "time"
+                                }
                             ]
                         },
                         "qualifiers-order": [
-                            "P2241"
+                            "P2241",
+                            "P582"
                         ],
                         "id": "Q5962$8f403530-4714-3f05-cd0d-c9bcb30b13e1",
                         "rank": "deprecated",
                         "references": [
                             {
-                                "hash": "63b2c0d15cb0b3753cd63a97ca030b9330cf43af",
+                                "hash": "cd18e7204ef3cc8fcfa64f3db7cf2d7305a556cc",
                                 "snaks": {
-                                    "P854": [
-                                        {
-                                            "snaktype": "value",
-                                            "property": "P854",
-                                            "datavalue": {
-                                                "value": "http://physics.nist.gov/cgi-bin/cuu/Value?k",
-                                                "type": "string"
-                                            },
-                                            "datatype": "url"
-                                        }
-                                    ],
-                                    "P813": [
-                                        {
-                                            "snaktype": "value",
-                                            "property": "P813",
-                                            "datavalue": {
-                                                "value": {
-                                                    "time": "+2015-11-05T00:00:00Z",
-                                                    "timezone": 0,
-                                                    "before": 0,
-                                                    "after": 0,
-                                                    "precision": 11,
-                                                    "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
-                                                },
-                                                "type": "time"
-                                            },
-                                            "datatype": "time"
-                                        }
-                                    ],
                                     "P248": [
                                         {
                                             "snaktype": "value",
                                             "property": "P248",
+                                            "hash": "baeeaa149d65b3246dbf9de5f8d6cd117610d08b",
                                             "datavalue": {
                                                 "value": {
                                                     "entity-type": "item",
-                                                    "numeric-id": 735279,
-                                                    "id": "Q735279"
+                                                    "numeric-id": 105626640,
+                                                    "id": "Q105626640"
                                                 },
                                                 "type": "wikibase-entityid"
                                             },
@@ -607,8 +617,6 @@
                                     ]
                                 },
                                 "snaks-order": [
-                                    "P854",
-                                    "P813",
                                     "P248"
                                 ]
                             }
@@ -618,6 +626,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P1181",
+                            "hash": "5ff9463433844622ba2aa660c8d7bc9fcb221e18",
                             "datavalue": {
                                 "value": {
                                     "amount": "+0.00000000000000000000001380649",
@@ -658,97 +667,40 @@
                         "rank": "normal",
                         "references": [
                             {
-                                "hash": "65a0e10b9ae251084b4167b54aa44f12280e1b73",
-                                "snaks": {
-                                    "P854": [
-                                        {
-                                            "snaktype": "value",
-                                            "property": "P854",
-                                            "datavalue": {
-                                                "value": "https://www.bipm.org/utils/en/pdf/CGPM/Draft-Resolution-A-EN.pdf",
-                                                "type": "string"
-                                            },
-                                            "datatype": "url"
-                                        }
-                                    ],
-                                    "P813": [
-                                        {
-                                            "snaktype": "value",
-                                            "property": "P813",
-                                            "datavalue": {
-                                                "value": {
-                                                    "time": "+2018-11-17T00:00:00Z",
-                                                    "timezone": 0,
-                                                    "before": 0,
-                                                    "after": 0,
-                                                    "precision": 11,
-                                                    "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
-                                                },
-                                                "type": "time"
-                                            },
-                                            "datatype": "time"
-                                        }
-                                    ],
-                                    "P248": [
-                                        {
-                                            "snaktype": "value",
-                                            "property": "P248",
-                                            "datavalue": {
-                                                "value": {
-                                                    "entity-type": "item",
-                                                    "numeric-id": 229478,
-                                                    "id": "Q229478"
-                                                },
-                                                "type": "wikibase-entityid"
-                                            },
-                                            "datatype": "wikibase-item"
-                                        }
-                                    ],
-                                    "P1065": [
-                                        {
-                                            "snaktype": "value",
-                                            "property": "P1065",
-                                            "datavalue": {
-                                                "value": "http://archive.is/et9sF",
-                                                "type": "string"
-                                            },
-                                            "datatype": "url"
-                                        },
-                                        {
-                                            "snaktype": "value",
-                                            "property": "P1065",
-                                            "datavalue": {
-                                                "value": "https://web.archive.org/web/20181007145604/https://www.bipm.org/utils/en/pdf/CGPM/Draft-Resolution-A-EN.pdf",
-                                                "type": "string"
-                                            },
-                                            "datatype": "url"
-                                        }
-                                    ]
-                                },
-                                "snaks-order": [
-                                    "P854",
-                                    "P813",
-                                    "P248",
-                                    "P1065"
-                                ]
-                            },
-                            {
-                                "hash": "a31e0701797a382ea709c7147086a2c7c0c74346",
+                                "hash": "e5c611e46e47ae1c473f4b0797f8ea5898abb6b2",
                                 "snaks": {
                                     "P1645": [
                                         {
                                             "snaktype": "value",
                                             "property": "P1645",
+                                            "hash": "b1d53b298c53bc5c77a3fde65a83a452edb991b4",
                                             "datavalue": {
                                                 "value": "k",
                                                 "type": "string"
                                             },
                                             "datatype": "external-id"
                                         }
+                                    ],
+                                    "P248": [
+                                        {
+                                            "snaktype": "value",
+                                            "property": "P248",
+                                            "hash": "3c868f1858a9bd6df6d278fb8b73091e4c6bcfca",
+                                            "datavalue": {
+                                                "value": {
+                                                    "entity-type": "item",
+                                                    "numeric-id": 78206045,
+                                                    "id": "Q78206045"
+                                                },
+                                                "type": "wikibase-entityid"
+                                            },
+                                            "datatype": "wikibase-item"
+                                        }
                                     ]
                                 },
                                 "snaks-order": [
-                                    "P1645"
+                                    "P1645",
+                                    "P248"
                                 ]
                             },
                             {
@@ -758,6 +710,7 @@
                                         {
                                             "snaktype": "value",
                                             "property": "P248",
+                                            "hash": "25d369cc5bb4a5f15dfacabee60322cc447ada69",
                                             "datavalue": {
                                                 "value": {
                                                     "entity-type": "item",
@@ -782,6 +735,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P2534",
+                            "hash": "847eccf4b49596b262ac317c326fff677fc27b6c",
                             "datavalue": {
                                 "value": "k = \\frac{R}{N_\\text{A}}",
                                 "type": "string"
@@ -798,6 +752,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P1645",
+                            "hash": "b1d53b298c53bc5c77a3fde65a83a452edb991b4",
                             "datavalue": {
                                 "value": "k",
                                 "type": "string"
@@ -814,6 +769,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P227",
+                            "hash": "ed18407f795c054857243bd7974f660514b800bc",
                             "datavalue": {
                                 "value": "7635950-5",
                                 "type": "string"
@@ -830,6 +786,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P3417",
+                            "hash": "cbc4402bbcedb9de2394609ef1988d759c980437",
                             "datavalue": {
                                 "value": "Boltzmann-Constant-1",
                                 "type": "string"
@@ -847,6 +804,7 @@
                                         {
                                             "snaktype": "value",
                                             "property": "P248",
+                                            "hash": "3ac9682e789a3a3791d4fd088b265ea03abef101",
                                             "datavalue": {
                                                 "value": {
                                                     "entity-type": "item",
@@ -871,6 +829,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P1417",
+                            "hash": "1ff95341ff1df701440be737935cc9a2038c8efb",
                             "datavalue": {
                                 "value": "science/Boltzmann-constant",
                                 "type": "string"
@@ -887,6 +846,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P4732",
+                            "hash": "dcd992f8c431259fd1ad4be0f50d7b294d59c75d",
                             "datavalue": {
                                 "value": "B00695",
                                 "type": "string"
@@ -903,6 +863,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P4746",
+                            "hash": "bc8fc06d52dae9b50654bf8610254548ff410e93",
                             "datavalue": {
                                 "value": "021805",
                                 "type": "string"
@@ -919,6 +880,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P2924",
+                            "hash": "35182101c5fd14d2c36826d5026005bdd169b8a8",
                             "datavalue": {
                                 "value": "1876559",
                                 "type": "string"
@@ -935,6 +897,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P4342",
+                            "hash": "7a803f0dd14c4595e4c63597bf4cc0385228d497",
                             "datavalue": {
                                 "value": "Boltzmanns_konstant",
                                 "type": "string"
@@ -951,6 +914,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P7007",
+                            "hash": "a12c11ec6490dadd152160fca447a809177546b6",
                             "datavalue": {
                                 "value": "\"BoltzmannConstant\"",
                                 "type": "string"
@@ -967,6 +931,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P4839",
+                            "hash": "7e0669b59681405f6ed9c9fc480e09d16748afe5",
                             "datavalue": {
                                 "value": "Entity[\"PhysicalConstant\", \"BoltzmannConstant\"]",
                                 "type": "string"
@@ -983,6 +948,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P7825",
+                            "hash": "d135f161ecd605c70f6173f51ca94e4d3bc5a734",
                             "datavalue": {
                                 "value": "[k]",
                                 "type": "string"
@@ -999,6 +965,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P6366",
+                            "hash": "eeb1f03173bb4592c4d8a44d4bd27e76b7c1eef4",
                             "datavalue": {
                                 "value": "35304006",
                                 "type": "string"
@@ -1015,6 +982,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P1889",
+                            "hash": "6bfeac46ca031efa9b6102ecd2c990e83d96880e",
                             "datavalue": {
                                 "value": {
                                     "entity-type": "item",
@@ -1036,6 +1004,7 @@
                                         {
                                             "snaktype": "value",
                                             "property": "P143",
+                                            "hash": "e4f6d9441d0600513c4533c672b5ab472dc73694",
                                             "datavalue": {
                                                 "value": {
                                                     "entity-type": "item",
@@ -1051,6 +1020,7 @@
                                         {
                                             "snaktype": "value",
                                             "property": "P4656",
+                                            "hash": "22133019c01c2c76332bc50715e93afa9d151963",
                                             "datavalue": {
                                                 "value": "https://en.wikipedia.org/w/index.php?title=Boltzmann_constant&oldid=949963645",
                                                 "type": "string"
@@ -1065,6 +1035,25 @@
                                 ]
                             }
                         ]
+                    },
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P1889",
+                            "hash": "ea8db4e63fe221eaf200938ce5fc7bb0b0a05729",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 3343051,
+                                    "id": "Q3343051"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5962$91770d5f-488a-9f58-7837-34c1f8c9055a",
+                        "rank": "normal"
                     }
                 ],
                 "P7973": [
@@ -1072,6 +1061,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P7973",
+                            "hash": "7c7159b27dc197bd3cad99e6e2dad789e9bfdb0c",
                             "datavalue": {
                                 "value": "k",
                                 "type": "string"
@@ -1080,7 +1070,100 @@
                         },
                         "type": "statement",
                         "id": "Q5962$de0ba0b6-4fe5-5b16-7e4c-c85bfe92e40f",
-                        "rank": "normal"
+                        "rank": "normal",
+                        "references": [
+                            {
+                                "hash": "8723a1a9883f5ea8972301e0a658af20873a530c",
+                                "snaks": {
+                                    "P248": [
+                                        {
+                                            "snaktype": "value",
+                                            "property": "P248",
+                                            "hash": "7e19ee6f4640277f17fa85fd0047e95a130634df",
+                                            "datavalue": {
+                                                "value": {
+                                                    "entity-type": "item",
+                                                    "numeric-id": 1667710,
+                                                    "id": "Q1667710"
+                                                },
+                                                "type": "wikibase-entityid"
+                                            },
+                                            "datatype": "wikibase-item"
+                                        }
+                                    ],
+                                    "P8855": [
+                                        {
+                                            "snaktype": "value",
+                                            "property": "P8855",
+                                            "hash": "0372347dec3758506c49be3c3d7caff60be43334",
+                                            "datavalue": {
+                                                "value": "113-02-17",
+                                                "type": "string"
+                                            },
+                                            "datatype": "external-id"
+                                        }
+                                    ]
+                                },
+                                "snaks-order": [
+                                    "P248",
+                                    "P8855"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P7973",
+                            "hash": "5474bd7c37ba55020c334f801e95636c7e6936fd",
+                            "datavalue": {
+                                "value": "k_{\\mathrm{B}}",
+                                "type": "string"
+                            },
+                            "datatype": "math"
+                        },
+                        "type": "statement",
+                        "id": "Q5962$cc73ef2e-4a5e-84a3-99d4-d19de94c0ab1",
+                        "rank": "normal",
+                        "references": [
+                            {
+                                "hash": "8723a1a9883f5ea8972301e0a658af20873a530c",
+                                "snaks": {
+                                    "P248": [
+                                        {
+                                            "snaktype": "value",
+                                            "property": "P248",
+                                            "hash": "7e19ee6f4640277f17fa85fd0047e95a130634df",
+                                            "datavalue": {
+                                                "value": {
+                                                    "entity-type": "item",
+                                                    "numeric-id": 1667710,
+                                                    "id": "Q1667710"
+                                                },
+                                                "type": "wikibase-entityid"
+                                            },
+                                            "datatype": "wikibase-item"
+                                        }
+                                    ],
+                                    "P8855": [
+                                        {
+                                            "snaktype": "value",
+                                            "property": "P8855",
+                                            "hash": "0372347dec3758506c49be3c3d7caff60be43334",
+                                            "datavalue": {
+                                                "value": "113-02-17",
+                                                "type": "string"
+                                            },
+                                            "datatype": "external-id"
+                                        }
+                                    ]
+                                },
+                                "snaks-order": [
+                                    "P248",
+                                    "P8855"
+                                ]
+                            }
+                        ]
                     }
                 ],
                 "P7982": [
@@ -1088,6 +1171,7 @@
                         "mainsnak": {
                             "snaktype": "value",
                             "property": "P7982",
+                            "hash": "ad0217ffb27d3e8457ddb9a72f213c6759df5ddd",
                             "datavalue": {
                                 "value": "8574",
                                 "type": "string"
@@ -1096,6 +1180,78 @@
                         },
                         "type": "statement",
                         "id": "Q5962$F3CE49CA-9FB7-4566-958E-38ABD6C06AC1",
+                        "rank": "normal"
+                    }
+                ],
+                "P8855": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P8855",
+                            "hash": "0372347dec3758506c49be3c3d7caff60be43334",
+                            "datavalue": {
+                                "value": "113-02-17",
+                                "type": "string"
+                            },
+                            "datatype": "external-id"
+                        },
+                        "type": "statement",
+                        "id": "Q5962$aa1cc449-4669-aaed-0cdf-73d96a40a523",
+                        "rank": "normal"
+                    }
+                ],
+                "P8834": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P8834",
+                            "hash": "eb2ca73f3769850994bf64cae93c6350d486c0e1",
+                            "datavalue": {
+                                "value": "boltzmannConstant",
+                                "type": "string"
+                            },
+                            "datatype": "external-id"
+                        },
+                        "type": "statement",
+                        "id": "Q5962$5bef839e-40d1-51b1-14d7-6127a3169007",
+                        "rank": "normal"
+                    }
+                ],
+                "P111": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P111",
+                            "hash": "ba7458ad244ff212f6f8c9412a2e85c9bbcba6d2",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 45003,
+                                    "id": "Q45003"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q5962$7146e1ee-4bf7-3ef3-a990-3b1334a8bc05",
+                        "rank": "normal"
+                    }
+                ],
+                "P18": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P18",
+                            "hash": "47ce7b8263533ea774056f9f79847762db84c6f0",
+                            "datavalue": {
+                                "value": "Zentralfriedhof Vienna - Boltzmann.JPG",
+                                "type": "string"
+                            },
+                            "datatype": "commonsMedia"
+                        },
+                        "type": "statement",
+                        "id": "Q5962$6387d9dd-4448-c4e0-5fdc-2a42a5e44a07",
                         "rank": "normal"
                     }
                 ]
@@ -1166,6 +1322,12 @@
                     "title": "Boltzmannova konstanta",
                     "badges": [],
                     "url": "https://cs.wikipedia.org/wiki/Boltzmannova_konstanta"
+                },
+                "cvwiki": {
+                    "site": "cvwiki",
+                    "title": "\u0411\u043e\u043b\u044c\u0446\u043c\u0430\u043d \u043a\u043e\u043d\u0441\u0442\u0430\u043d\u0442\u0438",
+                    "badges": [],
+                    "url": "https://cv.wikipedia.org/wiki/%D0%91%D0%BE%D0%BB%D1%8C%D1%86%D0%BC%D0%B0%D0%BD_%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D0%B0%D0%BD%D1%82%D0%B8"
                 },
                 "dawiki": {
                     "site": "dawiki",
@@ -1388,12 +1550,6 @@
                     "title": "\u041f\u043e\u0441\u0442\u043e\u044f\u043d\u043d\u0430\u044f \u0411\u043e\u043b\u044c\u0446\u043c\u0430\u043d\u0430",
                     "badges": [],
                     "url": "https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%BD%D0%B0%D1%8F_%D0%91%D0%BE%D0%BB%D1%8C%D1%86%D0%BC%D0%B0%D0%BD%D0%B0"
-                },
-                "scowiki": {
-                    "site": "scowiki",
-                    "title": "Boltzmann constant",
-                    "badges": [],
-                    "url": "https://sco.wikipedia.org/wiki/Boltzmann_constant"
                 },
                 "shwiki": {
                     "site": "shwiki",

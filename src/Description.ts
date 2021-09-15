@@ -1,4 +1,4 @@
-import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
+import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import normalizeOutput from './utils/normalizeOutput';
@@ -12,7 +12,7 @@ export default class Description {
     internalID: string;
 
     /** the language of the description */
-    language: string;
+    language: LabelLanguages;
 
     /** the value of the description */
     value: string;

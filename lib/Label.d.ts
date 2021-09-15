@@ -1,4 +1,4 @@
-import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
+import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
 /**
  * class for labels
  *
@@ -8,7 +8,7 @@ export default class Label {
     /** A ID for using things that don't have an ID */
     internalID: string;
     /** the language of the description */
-    language: string;
+    language: LabelLanguages;
     /** the value of the description */
     value: string;
     /**
@@ -26,5 +26,12 @@ export default class Label {
      * @returns {boolean} true if the Labels are equal
      */
     equals(other: LabelAndDescription): boolean;
+    /**
+     *
+     * @param {string} language the language of the label
+     * @param {string} value the value of the label
+     * @returns {Label} the label object
+     */
+    static fromString(language: LabelLanguages, value: string): Label;
 }
 //# sourceMappingURL=Label.d.ts.map

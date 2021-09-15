@@ -1,4 +1,4 @@
-import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
+import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import normalizeOutput from './utils/normalizeOutput';
@@ -13,7 +13,7 @@ export default class Label {
     internalID: string;
 
     /** the language of the description */
-    language: string;
+    language: LabelLanguages;
 
     /** the value of the description */
     value: string;
@@ -45,5 +45,15 @@ export default class Label {
      */
     equals(other: LabelAndDescription): boolean {
         return this.language === other.language && this.value === other.value;
+    }
+
+    /**
+     *
+     * @param {string} language the language of the label
+     * @param {string} value the value of the label
+     * @returns {Label} the label object
+     */
+    static fromString(language: LabelLanguages, value: string): Label {
+        return new Label({language, value});
     }
 }

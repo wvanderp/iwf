@@ -8,7 +8,7 @@ const monolingualTextSnak = {
     datavalue: {
         value: {
             text: 'Zum Wettstreit um den h\u00F6chsten Gipfel Berlins',
-            language: 'de'
+            language: 'de' as const
         },
         type: 'monolingualtext' as const
     },

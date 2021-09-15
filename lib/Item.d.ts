@@ -28,6 +28,17 @@ export default class Item {
      */
     constructor(item: WikidataItem);
     /**
+     * this function checks if two items are equal
+     *
+     * @param {Item} other the other item
+     * @returns {boolean} true if the items are equal
+     */
+    equals(other: Item): boolean;
+    /**
+     *
+     * @param other the other item
+     */
+    /**
      * @returns {WikidataItem} the item as json
      */
     toJSON(): WikidataItem;
