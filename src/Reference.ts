@@ -1,10 +1,28 @@
-import {Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks} from '@wmde/wikibase-datamodel-types';
+import {Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks, Snaks} from '@wmde/wikibase-datamodel-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import Snak from './Snak';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
+
+/**
+ * Reduces an array of snaks into a object grouped by PropertyID
+ *
+ * @param {Object} accumulator the accumulator object
+ * @param {Snak} value the Snak
+ * @returns {Object} an Object with groups of snaks by ID
+ */
+function groupByPropertyReducer(
+    accumulator: Record<string, Snaks[]>, value: Snaks
+): Record<string, Snaks[]> {
+    if (accumulator[value.property] === undefined) {
+        accumulator[value.property] = [];
+    }
+
+    accumulator[value.property].push(value);
+    return accumulator;
+}
 
 /**
  * A class for References
@@ -44,14 +62,7 @@ export default class Reference {
             snaks: this.snaks
                 .map((snak) => snak.toJSON())
                 .reduce<wikidataReferenceSnaks>(
-                    (accumulator, value) => {
-                        if (accumulator[value.property] === undefined) {
-                            accumulator[value.property] = [];
-                        }
-
-                        accumulator[value.property].push(value);
-                        return accumulator;
-                    },
+                    (accumulator, value) => groupByPropertyReducer(accumulator, value),
                     {}
                 ),
             'snaks-order': this.snaksOrder
@@ -82,14 +93,7 @@ export default class Reference {
             snaks: snaks
                 .map((snak) => snak.toJSON())
                 .reduce<wikidataReferenceSnaks>(
-                    (accumulator, value) => {
-                        if (accumulator[value.property] === undefined) {
-                            accumulator[value.property] = [];
-                        }
-
-                        accumulator[value.property].push(value);
-                        return accumulator;
-                    },
+                    (accumulator, value) => groupByPropertyReducer(accumulator, value),
                     {}
                 )
         });

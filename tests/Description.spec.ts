@@ -26,14 +26,14 @@ describe('Description', () => {
         it('should be true if the items are equal', () => {
             const descriptionObject = new Description(description);
 
-            expect(Description.equals(descriptionObject, descriptionObject)).to.be.true;
+            expect(descriptionObject.equals(descriptionObject)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
             const descriptionObject = new Description(description);
             const descriptionObject2 = new Description(description2);
 
-            expect(Description.equals(descriptionObject, descriptionObject2)).to.be.false;
+            expect(descriptionObject.equals(descriptionObject2)).to.be.false;
         });
     });
 });

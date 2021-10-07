@@ -36,4 +36,15 @@ describe('Label', () => {
             expect(labelObject.equals(labelObject2)).to.be.false;
         });
     });
+
+    describe('fromString', () => {
+        it('should create a label from two strings', () => {
+            const labelObject = Label.fromString('nl', 'sinterklaas');
+
+            expect(labelObject.toJSON()).to.deep.equal({
+                language: 'nl',
+                value: 'sinterklaas'
+            });
+        });
+    });
 });

@@ -21,13 +21,11 @@ export default class Description {
      */
     toJSON(): LabelAndDescription;
     /**
-     * this function checks if two Descriptions are equal
+     * this function checks if two descriptions are equal
      *
-     * @static
-     * @param {LabelAndDescription} a Description a
-     * @param {LabelAndDescription} b Description b
-     * @returns {boolean} true if the Descriptions are equal
+     * @param {LabelAndDescription} other the other Label
+     * @returns {boolean} true if the descriptions are equal
      */
-    static equals(a: LabelAndDescription, b: LabelAndDescription): boolean;
+    equals(other: LabelAndDescription): boolean;
 }
 //# sourceMappingURL=Description.d.ts.map

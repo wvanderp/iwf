@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "improved wikidata format",
   "main": "./lib/index.js",
+  "types": "./lib",
   "engines": {
     "node": "14.17.6"
   },
-  "types": "./lib",
   "author": "wvdp",
   "license": "MIT",
   "keywords": [
@@ -21,7 +21,7 @@
     "@types/chai": "^4.2.21",
     "@types/deep-diff": "^1.0.1",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.9.1",
+    "@types/node": "^16.9.3",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
@@ -46,9 +46,10 @@
   },
   "dependencies": {
     "@wmde/wikibase-datamodel-types": "git+https://github.com/wvanderp/WikibaseDataModelTypes.git",
+    "axios": "0.21.4",
+    "diff-arrays-of-objects": "git+https://github.com/wvanderp/diff-arrays-of-objects.git",
     "uuid": "^8.3.2",
-    "wikidata-properties": "git+https://github.com/wvanderp/wikidata-properties.git",
-    "axios": "0.21.4"
+    "wikidata-properties": "git+https://github.com/wvanderp/wikidata-properties.git"
   },
   "scripts": {
     "build": "rimraf lib && tsc -P ./tsconfig.build.json",

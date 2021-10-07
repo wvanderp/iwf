@@ -38,14 +38,12 @@ export default class Description {
     }
 
     /**
-     * this function checks if two Descriptions are equal
+     * this function checks if two descriptions are equal
      *
-     * @static
-     * @param {LabelAndDescription} a Description a
-     * @param {LabelAndDescription} b Description b
-     * @returns {boolean} true if the Descriptions are equal
+     * @param {LabelAndDescription} other the other Label
+     * @returns {boolean} true if the descriptions are equal
      */
-    static equals(a: LabelAndDescription, b: LabelAndDescription): boolean {
-        return a.language === b.language && a.value === b.value;
+    equals(other: LabelAndDescription): boolean {
+        return this.language === other.language && this.value === other.value;
     }
 }

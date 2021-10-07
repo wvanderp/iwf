@@ -21,13 +21,11 @@ export default class Alias {
      */
     toJSON(): LabelAndDescription;
     /**
-     * this function checks if two aliases are equal
+     * this function checks if two Aliases are equal
      *
-     * @static
-     * @param {LabelAndDescription} a Alias a
-     * @param {LabelAndDescription} b Alias b
-     * @returns {boolean} true if the aliases are equal
+     * @param {LabelAndDescription} other the other Label
+     * @returns {boolean} true if the Aliases are equal
      */
-    static equals(a: LabelAndDescription, b: LabelAndDescription): boolean;
+    equals(other: LabelAndDescription): boolean;
 }
 //# sourceMappingURL=Alias.d.ts.map
