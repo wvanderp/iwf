@@ -1,4 +1,4 @@
-import {StringSnak as WikidataStringSnak} from '@wmde/wikibase-datamodel-types';
+import { StringSnak as WikidataStringSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -10,7 +10,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  * @class
  */
 export default class StringSnak extends Snak {
-    value: string| undefined
+    value: string | undefined;
 
     datatype = 'string';
 

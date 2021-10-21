@@ -1,4 +1,4 @@
-import {WikibasePropertySnak as WikidataWikibasePropertySnak} from '@wmde/wikibase-datamodel-types';
+import { WikibasePropertySnak as WikidataWikibasePropertySnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -11,7 +11,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  */
 export default class WikibasePropertySnak extends Snak {
     /** the numeric id of the property */
-    private _numericID: number | undefined
+    private _numericID: number | undefined;
 
     datatype = 'wikibase-property';
 
@@ -29,7 +29,7 @@ export default class WikibasePropertySnak extends Snak {
      *
      * @returns {string | undefined} the ID of the property with the P
      */
-    public get id() : string | undefined {
+    public get id(): string | undefined {
         return this.hasValue ? `P${this._numericID}` : undefined;
     }
 
@@ -54,7 +54,7 @@ export default class WikibasePropertySnak extends Snak {
      *
      * @returns {number | undefined} the numeric ID of the property
      */
-    public get numericID() : number | undefined {
+    public get numericID(): number | undefined {
         return this._numericID;
     }
 

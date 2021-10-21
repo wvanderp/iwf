@@ -1,4 +1,4 @@
-import {Snaks as WikidataSnaks, SnakType as WikidataSnakType} from '@wmde/wikibase-datamodel-types';
+import { Snaks as WikidataSnaks, SnakType as WikidataSnakType } from '@wmde/wikibase-datamodel-types';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
@@ -32,7 +32,7 @@ export default abstract class Snak {
     /**
      * @returns {boolean} true if the snak has a value
      */
-    public get hasValue() : boolean {
+    public get hasValue(): boolean {
         return this.snaktype === 'value';
     }
 

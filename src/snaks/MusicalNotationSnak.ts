@@ -1,4 +1,4 @@
-import {MusicalNotationSnak as WikidataMusicalNotationSnak} from '@wmde/wikibase-datamodel-types';
+import { MusicalNotationSnak as WikidataMusicalNotationSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -10,7 +10,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  * @class
  */
 export default class MusicalNotationSnak extends Snak {
-    value: string | undefined
+    value: string | undefined;
 
     datatype = 'musical-notation';
 

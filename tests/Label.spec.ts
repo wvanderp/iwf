@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
-import {Label} from '../src';
+import { Label } from '../src';
 
 const label = {
     language: 'en',

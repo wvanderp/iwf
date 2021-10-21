@@ -1,4 +1,4 @@
-import {MathSnak as WikidataMathSnak} from '@wmde/wikibase-datamodel-types';
+import { MathSnak as WikidataMathSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -11,7 +11,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  */
 export default class MathSnak extends Snak {
     /** A math expression */
-    value: string | undefined
+    value: string | undefined;
 
     datatype = 'math';
 

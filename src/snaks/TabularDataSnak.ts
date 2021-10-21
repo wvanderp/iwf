@@ -1,4 +1,4 @@
-import {TabularDataSnak as WikidataTabularDataSnak} from '@wmde/wikibase-datamodel-types';
+import { TabularDataSnak as WikidataTabularDataSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -10,7 +10,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  * @class
  */
 export default class TabularDataSnak extends Snak {
-    value: string | undefined
+    value: string | undefined;
 
     datatype = 'tabular-data';
 
@@ -28,7 +28,7 @@ export default class TabularDataSnak extends Snak {
      *
      * @returns {string} the link to the wiki commons page
      */
-    public get commonsLink() : string {
+    public get commonsLink(): string {
         return `https://commons.wikimedia.org/wiki/${this.value}`;
     }
 

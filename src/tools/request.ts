@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {WikidataResponse} from '@wmde/wikibase-datamodel-types';
+import { WikidataResponse } from '@wmde/wikibase-datamodel-types';
 import Item from '../Item';
 
 /**
@@ -16,7 +16,7 @@ export function baseURL(qid: string): string {
  */
 export default async function requestItem(qid: string): Promise<Item> {
     const url = baseURL(qid);
-    const {data} = await axios.get<WikidataResponse>(url);
+    const { data } = await axios.get<WikidataResponse>(url);
 
     const statementData = Object.values(data.entities)[0];
 

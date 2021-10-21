@@ -54,6 +54,6 @@ export default class Label {
      * @returns {Label} the label object
      */
     static fromString(language: LabelLanguages, value: string): Label {
-        return new Label({language, value});
+        return new Label({ language, value });
     }
 }

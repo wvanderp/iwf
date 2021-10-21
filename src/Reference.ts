@@ -1,4 +1,4 @@
-import {Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks, Snaks} from '@wmde/wikibase-datamodel-types';
+import { Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks, Snaks } from '@wmde/wikibase-datamodel-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import Snak from './Snak';
@@ -77,8 +77,8 @@ export default class Reference {
      */
     equals(other: Reference): boolean {
         return arrayEqualWith(this.snaks, other.snaks, (a: Snak, b: Snak) => a.equals(b))
-        && arrayEqual(this.snaksOrder, other.snaksOrder)
-        && this.hash === other.hash;
+            && arrayEqual(this.snaksOrder, other.snaksOrder)
+            && this.hash === other.hash;
     }
 
     /**
@@ -88,7 +88,7 @@ export default class Reference {
      * @param {Snak} snaks the snaks for the reference
      * @returns {Reference} the reference objects
      */
-    static fromSnaks(snaks: Snak[]) : Reference {
+    static fromSnaks(snaks: Snak[]): Reference {
         return new Reference({
             snaks: snaks
                 .map((snak) => snak.toJSON())

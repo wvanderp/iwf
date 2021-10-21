@@ -1,5 +1,5 @@
 import { describe, it } from 'mocha';
-import {Statement as WikidataStatement} from '@wmde/wikibase-datamodel-types';
+import { Statement as WikidataStatement } from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
 import { Statement, StringSnak, UrlSnak } from '../src';
 

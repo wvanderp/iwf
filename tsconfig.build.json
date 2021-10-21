@@ -1,5 +1,5 @@
 {
-  "extends":"./tsconfig.json",
+  "extends": "./tsconfig.json",
   "exclude": [
     "node_modules",
     "build",
@@ -11,5 +11,7 @@
     "./lib",
     "./scrap.ts"
   ],
-  "filesGlob": ["./src/**/*.ts"]
+  "filesGlob": [
+    "./src/**/*.ts"
+  ]
 }

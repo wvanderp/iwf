@@ -39,7 +39,7 @@ export default class Item {
 
     statements: Statement[];
 
-    sitelinks: SiteLink[]
+    sitelinks: SiteLink[];
 
     /**
      *
@@ -134,11 +134,11 @@ export default class Item {
 
             labels: this.labels
                 .map((label) => label.toJSON())
-                .reduce((accumulator, value) => ({...accumulator, [value.language]: value}), {}),
+                .reduce((accumulator, value) => ({ ...accumulator, [value.language]: value }), {}),
 
             descriptions: this.descriptions
                 .map((description) => description.toJSON())
-                .reduce((accumulator, value) => ({...accumulator, [value.language]: value}), {}),
+                .reduce((accumulator, value) => ({ ...accumulator, [value.language]: value }), {}),
 
             aliases: this.aliases
                 .map((alias) => alias.toJSON())
@@ -164,7 +164,7 @@ export default class Item {
 
             sitelinks: this.sitelinks
                 .map((siteLink) => siteLink.toJSON())
-                .reduce((accumulator, value) => ({...accumulator, [value.site]: value}), {})
+                .reduce((accumulator, value) => ({ ...accumulator, [value.site]: value }), {})
 
         }) as WikidataItem;
     }

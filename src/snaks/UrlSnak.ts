@@ -1,4 +1,4 @@
-import {URLSnak as WikidataURLSnak} from '@wmde/wikibase-datamodel-types';
+import { URLSnak as WikidataURLSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 

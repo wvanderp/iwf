@@ -1,4 +1,4 @@
-import {TimeSnak as WikidataTimeSnak, CalendarModels} from '@wmde/wikibase-datamodel-types';
+import { TimeSnak as WikidataTimeSnak, CalendarModels } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -70,11 +70,11 @@ export default class TimeSnak extends Snak {
      */
     equals(other: TimeSnak): boolean {
         return this.time === other.time
-        && this.timezone === other.timezone
-        && this.before === other.before
-        && this.after === other.after
-        && this.precision === other.precision
-        && this.calendarmodel === other.calendarmodel;
+            && this.timezone === other.timezone
+            && this.before === other.before
+            && this.after === other.after
+            && this.precision === other.precision
+            && this.calendarmodel === other.calendarmodel;
     }
 
     /**
@@ -85,7 +85,7 @@ export default class TimeSnak extends Snak {
      * @param {CalendarModels} calendarModel the calendarModel for the snak
      * @returns {TimeSnak} the timeSnak
      */
-    static fromDate(property: string, date:Date, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985786'): TimeSnak {
+    static fromDate(property: string, date: Date, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985786'): TimeSnak {
         const isoString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
         return new TimeSnak({
             snaktype: 'value',

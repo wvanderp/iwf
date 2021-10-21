@@ -1,5 +1,5 @@
-import {SiteLink as WikidataSiteLink} from '@wmde/wikibase-datamodel-types';
-import {siteDetails} from 'wikidata-properties';
+import { SiteLink as WikidataSiteLink } from '@wmde/wikibase-datamodel-types';
+import { siteDetails } from 'wikidata-properties';
 import { v4 as uuidv4 } from 'uuid';
 
 import normalizeOutput from './utils/normalizeOutput';

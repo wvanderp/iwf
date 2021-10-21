@@ -1,4 +1,4 @@
-import {CommonsMediaSnak as WikidataCommonsMediaSnak} from '@wmde/wikibase-datamodel-types';
+import { CommonsMediaSnak as WikidataCommonsMediaSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -11,7 +11,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  */
 export default class CommonsMediaSnak extends Snak {
     /** the file name as used in the wiki commons url */
-    fileName : string | null
+    fileName: string | null;
 
     datatype = 'commonsMedia';
 
@@ -30,7 +30,7 @@ export default class CommonsMediaSnak extends Snak {
      *
      * @returns {string} the link to the image
      */
-    public get imageLink() : string {
+    public get imageLink(): string {
         return `https://commons.wikimedia.org/wiki/Special:Redirect/file/${this.fileName}`;
     }
 
@@ -39,7 +39,7 @@ export default class CommonsMediaSnak extends Snak {
      *
      * @returns {string} the link to the wiki commons page
      */
-    public get commonsLink() : string {
+    public get commonsLink(): string {
         return `https://commons.wikimedia.org/wiki/File:${this.fileName}`;
     }
 

@@ -1,7 +1,7 @@
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
-import Alias from './Alias';
-import Description from './Description';
-import Label from './Label';
+import Alias from '../Alias';
+import Description from '../Description';
+import Label from '../Label';
 interface Change {
     type: string;
     action: 'add' | 'remove' | 'update';

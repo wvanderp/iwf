@@ -2,9 +2,9 @@
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
 import diffArray from 'diff-arrays-of-objects';
 
-import Alias from './Alias';
-import Description from './Description';
-import Label from './Label';
+import Alias from '../Alias';
+import Description from '../Description';
+import Label from '../Label';
 
 interface Change {
     type: string;
@@ -145,7 +145,7 @@ export function descriptionDiff(o: Description[], n: Description[], parentID: st
  * @returns {AliasChange[]} the changes from the old array to the new array
  */
 export function aliasDiff(o: Alias[], n: Alias[], parentID: string): AliasChange[] {
-    const {added, updated, removed} = diffArray(
+    const { added, updated, removed } = diffArray(
         o,
         n,
         'internalID',

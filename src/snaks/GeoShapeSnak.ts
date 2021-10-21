@@ -1,4 +1,4 @@
-import {GeoShapeSnak as WikidataGeoShapeSnak} from '@wmde/wikibase-datamodel-types';
+import { GeoShapeSnak as WikidataGeoShapeSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -11,7 +11,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  */
 export default class GeoShapeSnak extends Snak {
     /** the wiki commons file name */
-    fileName : string | null
+    fileName: string | null;
 
     datatype = 'geo-shape';
 
@@ -29,7 +29,7 @@ export default class GeoShapeSnak extends Snak {
      *
      * @returns {string} the link to the wiki commons page
      */
-    public get commonsLink() : string {
+    public get commonsLink(): string {
         return `https://commons.wikimedia.org/wiki/${this.fileName}`;
     }
 

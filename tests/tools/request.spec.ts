@@ -5,7 +5,7 @@ import path from 'path';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { baseURL } from '../../src/tools/request';
-import {requestItem} from '../../src';
+import { requestItem } from '../../src';
 
 describe('baseURL functions', () => {
     it('should return the right url when a QID is given', () => {
@@ -19,8 +19,7 @@ describe('requestItem functions', () => {
             fs.readFileSync(
                 path.resolve(
                     __dirname,
-                    `../data/${
-                        fs.readdirSync(path.resolve(__dirname, '../data/'))[0]
+                    `../data/${fs.readdirSync(path.resolve(__dirname, '../data/'))[0]
                     }`
                 )
             ).toString('utf-8')

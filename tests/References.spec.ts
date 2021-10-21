@@ -1,10 +1,10 @@
 import { describe, it } from 'mocha';
-import {Reference as wikidataReference} from '@wmde/wikibase-datamodel-types';
+import { Reference as wikidataReference } from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
 import { Reference } from '../src';
 import snakGenerator from '../src/utils/snakGenerator';
 
-const reference : wikidataReference = {
+const reference: wikidataReference = {
     hash: 'e43b1cc9b71d1713d4d6cb76e2abd0b5c36c2a27',
     snaks: {
         P854: [

@@ -1,4 +1,4 @@
-import {Statement as wikidataStatement, Qualifiers as wikidataQualifiers} from '@wmde/wikibase-datamodel-types';
+import { Statement as wikidataStatement, Qualifiers as wikidataQualifiers } from '@wmde/wikibase-datamodel-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import Reference from './Reference';
@@ -16,9 +16,9 @@ export default class Statement {
 
     id: string | undefined;
 
-    type: 'statement'
+    type: 'statement';
 
-    rank: 'normal' | 'preferred' | 'deprecated'
+    rank: 'normal' | 'preferred' | 'deprecated';
 
     mainsnak: Snak;
 
@@ -26,7 +26,7 @@ export default class Statement {
 
     qualifiers: Snak[];
 
-    qualifiersOrder: string[]
+    qualifiersOrder: string[];
 
     /**
      *

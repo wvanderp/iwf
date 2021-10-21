@@ -1,4 +1,4 @@
-import {GlobeCoordinateSnak as WikidataGlobeCoordinateSnak} from '@wmde/wikibase-datamodel-types';
+import { GlobeCoordinateSnak as WikidataGlobeCoordinateSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -11,22 +11,22 @@ import normalizeOutput from '../utils/normalizeOutput';
  */
 export default class GlobeCoordinateSnak extends Snak {
     /** the latitude of the Coordinate */
-    latitude: number | undefined
+    latitude: number | undefined;
 
     /** the longitude of the Coordinate */
-    longitude: number| undefined
+    longitude: number | undefined;
 
     /** the altitude of the Coordinate */
-    altitude: null| undefined
+    altitude: null | undefined;
 
     /** the precision of the Coordinate */
-    precision: number| undefined
+    precision: number | undefined;
 
     /**
      * the "globe" that this coordinate refers to.
      * Globe defaults to "Earth" (globe: http://www.wikidata.org/entity/Q2)
      */
-    globe: string| undefined
+    globe: string | undefined;
 
     datatype = 'globe-coordinate';
 
@@ -74,9 +74,9 @@ export default class GlobeCoordinateSnak extends Snak {
      */
     equals(other: GlobeCoordinateSnak): boolean {
         return this.latitude === other.latitude
-        && this.longitude === other.longitude
-        && this.altitude === other.altitude
-        && this.precision === other.precision
-        && this.globe === other.globe;
+            && this.longitude === other.longitude
+            && this.altitude === other.altitude
+            && this.precision === other.precision
+            && this.globe === other.globe;
     }
 }

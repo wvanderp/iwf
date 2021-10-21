@@ -8,7 +8,7 @@
  * @param {Array} b array b
  * @returns {boolean} if the arrays are equal
  */
-export default function arrayEqual<T>(a:T[] | undefined, b:T[] | undefined):boolean {
+export default function arrayEqual<T>(a: T[] | undefined, b: T[] | undefined): boolean {
     if (a === b) return true;
     if (a == null || b == null) return false;
     if (a.length !== b.length) return false;
@@ -31,10 +31,10 @@ export default function arrayEqual<T>(a:T[] | undefined, b:T[] | undefined):bool
  * @returns {boolean} if the arrays are equal
  */
 export function arrayEqualWith<T>(
-    a:T[] | undefined,
-    b:T[] | undefined,
-    compareFunction: (aElement:T, bElement:T) => boolean
-):boolean {
+    a: T[] | undefined,
+    b: T[] | undefined,
+    compareFunction: (aElement: T, bElement: T) => boolean
+): boolean {
     if (a === b) return true;
     if (a == null || b == null) return false;
     if (a.length !== b.length) return false;

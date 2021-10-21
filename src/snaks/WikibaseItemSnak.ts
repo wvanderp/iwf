@@ -1,4 +1,4 @@
-import {WikibaseItemSnak as WikidataWikibaseItemSnak} from '@wmde/wikibase-datamodel-types';
+import { WikibaseItemSnak as WikidataWikibaseItemSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -10,7 +10,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  * @class
  */
 export default class WikibaseItemSnak extends Snak {
-    private _numericID: number | undefined
+    private _numericID: number | undefined;
 
     datatype = 'wikibase-item';
 
@@ -27,7 +27,7 @@ export default class WikibaseItemSnak extends Snak {
      * @alias id
      * @returns {string | undefined} the value of the snak
      */
-    public get id() : string| undefined {
+    public get id(): string | undefined {
         return this.hasValue ? `Q${this._numericID}` : undefined;
     }
 
@@ -49,7 +49,7 @@ export default class WikibaseItemSnak extends Snak {
      * @alias numericID
      * @returns {number | undefined} the value of the snak
      */
-    public get numericID() : number | undefined {
+    public get numericID(): number | undefined {
         return this._numericID;
     }
 

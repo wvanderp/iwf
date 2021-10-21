@@ -1,4 +1,4 @@
-import {ExternalIdentifierSnak as WikidataExternalIdentifierSnak} from '@wmde/wikibase-datamodel-types';
+import { ExternalIdentifierSnak as WikidataExternalIdentifierSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -10,7 +10,7 @@ import normalizeOutput from '../utils/normalizeOutput';
  * @class
  */
 export default class ExternalIdentifierSnak extends Snak {
-    id: string | null
+    id: string | null;
 
     datatype = 'external-id';
 
@@ -56,7 +56,7 @@ export default class ExternalIdentifierSnak extends Snak {
      * @param {string} id the external identifier
      * @returns {ExternalIdentifierSnak} a snak with the given properties
      */
-    static fromID(property: string, id:string): ExternalIdentifierSnak {
+    static fromID(property: string, id: string): ExternalIdentifierSnak {
         return new ExternalIdentifierSnak({
             snaktype: 'value',
             property,

@@ -20,7 +20,7 @@ describe('equal functions', () => {
 
         describe('not equals', () => {
             it('should not equal if on of them is null', () => {
-            // @ts-expect-error for the test
+                // @ts-expect-error for the test
                 expect(arrayEqual(null, arrayOfABC)).to.be.false;
                 // @ts-expect-error for the test
                 expect(arrayEqual(arrayOfABC, null)).to.be.false;
@@ -51,7 +51,7 @@ describe('equal functions', () => {
 
         describe('not equals', () => {
             it('should not equal if on of them is null', () => {
-            // @ts-expect-error for the test
+                // @ts-expect-error for the test
                 expect(arrayEqualWith(null, arrayOfABC, (a, b) => a === b)).to.be.false;
                 // @ts-expect-error for the test
                 expect(arrayEqualWith(arrayOfABC, null, (a, b) => a === b)).to.be.false;

@@ -1,4 +1,4 @@
-import {QuantitySnak as WikidataQuantitySnak} from '@wmde/wikibase-datamodel-types';
+import { QuantitySnak as WikidataQuantitySnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -24,13 +24,13 @@ function formatNumber(amount: number): string {
  * @class
  */
 export default class QuantitySnak extends Snak {
-    private _amount: string | undefined = undefined
+    private _amount: string | undefined = undefined;
 
-    private _upperBound: string | undefined = undefined
+    private _upperBound: string | undefined = undefined;
 
-    private _lowerBound: string | undefined = undefined
+    private _lowerBound: string | undefined = undefined;
 
-    unit: string | undefined
+    unit: string | undefined;
 
     datatype = 'quantity';
 
@@ -123,8 +123,8 @@ export default class QuantitySnak extends Snak {
      */
     equals(other: QuantitySnak): boolean {
         return this._amount === other._amount
-        && this._upperBound === other._upperBound
-        && this._lowerBound === other._lowerBound
-        && this.unit === other.unit;
+            && this._upperBound === other._upperBound
+            && this._lowerBound === other._lowerBound
+            && this.unit === other.unit;
     }
 }

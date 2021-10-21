@@ -1,4 +1,4 @@
-import {MonolingualTextSnak as WikidataMonolingualTextSnak} from '@wmde/wikibase-datamodel-types';
+import { MonolingualTextSnak as WikidataMonolingualTextSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -11,10 +11,10 @@ import normalizeOutput from '../utils/normalizeOutput';
  */
 export default class MonolingualTextSnak extends Snak {
     /** the value of the snak */
-    text: string | undefined
+    text: string | undefined;
 
     /** the language of the value */
-    language: string | undefined
+    language: string | undefined;
 
     datatype = 'monolingualtext';
 
