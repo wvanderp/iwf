@@ -3,6 +3,6 @@ node_modules
 coverage
 .vscode
 
-diff
 test.ts
 scrap.ts
+lib/
