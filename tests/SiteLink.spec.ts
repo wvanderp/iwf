@@ -15,6 +15,14 @@ const siteLinkWithOutUrl = {
     badges: []
 };
 
+const siteLinkWithBadge = {
+    site: 'zuwiki',
+    title: 'Umuntu',
+    badges: [
+        'Q17437796'
+    ]
+};
+
 describe('Reference', () => {
     describe('get url', () => {
         it('with the url specified', () => {
@@ -27,6 +35,39 @@ describe('Reference', () => {
             const referenceObject = new SiteLink(siteLinkWithOutUrl);
 
             expect(referenceObject.url).to.deep.equal('https://zu.wikipedia.org/wiki/Umuntu');
+        });
+    });
+
+    describe('equals', () => {
+        it('should be true if the items are equal', () => {
+            const labelObject = new SiteLink(siteLinkWithOutUrl);
+
+            expect(labelObject.equals(labelObject)).to.be.true;
+        });
+
+        it('should be false if the sites are NOT equal', () => {
+            const labelObject = new SiteLink(siteLinkWithOutUrl);
+            const labelObject2 = new SiteLink(siteLinkWithOutUrl);
+
+            labelObject2.site = 'afwiki';
+
+            expect(labelObject.equals(labelObject2)).to.be.false;
+        });
+
+        it('should be false if the titles are NOT equal', () => {
+            const labelObject = new SiteLink(siteLinkWithOutUrl);
+            const labelObject2 = new SiteLink(siteLinkWithOutUrl);
+
+            labelObject2.title = 'human';
+
+            expect(labelObject.equals(labelObject2)).to.be.false;
+        });
+
+        it('should be false if the badges are NOT equal', () => {
+            const labelObject = new SiteLink(siteLinkWithOutUrl);
+            const labelObject2 = new SiteLink(siteLinkWithBadge);
+
+            expect(labelObject.equals(labelObject2)).to.be.false;
         });
     });
 

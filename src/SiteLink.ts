@@ -3,6 +3,7 @@ import { siteDetails } from 'wikidata-properties';
 import { v4 as uuidv4 } from 'uuid';
 
 import normalizeOutput from './utils/normalizeOutput';
+import arrayEqual from './utils/arrayEqual';
 
 /**
  * the class for a site link
@@ -46,6 +47,20 @@ export default class SiteLink {
             .replace('$1', this.title);
 
         return `https:${url}`;
+    }
+
+    /**
+     * this function checks if SiteLinks are equal
+     *
+     * @param {SiteLink} other the other SiteLink
+     * @returns {boolean} true if the SiteLink are equal
+     */
+    equals(other: SiteLink): boolean {
+        return (
+            this.site === other.site
+            && this.title === other.title
+            && arrayEqual(this.badges, other.badges)
+        );
     }
 
     /**
