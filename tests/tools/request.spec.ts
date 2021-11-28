@@ -1,9 +1,9 @@
-import { describe, it } from 'mocha';
+import { describe, it, after, before } from 'mocha';
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
+import sinon, {SinonStub } from 'sinon';
 import { baseURL } from '../../src/tools/request';
 import { requestItem } from '../../src';
 
@@ -14,23 +14,36 @@ describe('baseURL functions', () => {
 });
 
 describe('requestItem functions', () => {
+    const contents = {
+        data: {
+            ...JSON.parse(
+                fs.readFileSync(
+                    path.resolve(
+                        __dirname,
+                        `../data/${fs.readdirSync(path.resolve(__dirname, '../data/'))[0]
+                        }`
+                    )
+                ).toString('utf-8')
+            ),
+            success: 1
+        }
+    };
+    const QID = Object.keys(contents.data.entities)[0];
+    const wikidataJSON = contents.data.entities[QID];
+
+    let axiosStub: SinonStub;
+
+    before(() => {
+        axiosStub = sinon.stub(axios, 'get').resolves(Promise.resolve(contents));
+    });
+
+    after(() => {
+        axiosStub.restore();
+    });
+
     it('should return the right data when a QID is given', async () => {
-        const contents = JSON.parse(
-            fs.readFileSync(
-                path.resolve(
-                    __dirname,
-                    `../data/${fs.readdirSync(path.resolve(__dirname, '../data/'))[0]
-                    }`
-                )
-            ).toString('utf-8')
-        );
-
-        const QID = Object.keys(contents.entities)[0];
-        const wikidataJSON = contents.entities[QID];
-
-        const mock = new MockAdapter(axios);
-        mock.onGet(`https://www.wikidata.org/wiki/Special:EntityData/${QID}.json`).reply(200, contents);
-
-        expect((await requestItem(QID)).toJSON()).to.deep.equal(wikidataJSON);
+        const data = await requestItem(QID);
+        expect(data.toJSON()).to.deep.equal(wikidataJSON);
+        expect(axiosStub.calledOnce).to.be.true;
     });
 });

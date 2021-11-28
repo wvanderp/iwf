@@ -1,4 +1,13 @@
-import { Item as WikidataItem, LabelAndDescription, Statement as WikidataStatement } from '@wmde/wikibase-datamodel-types';
+import {
+    Item as WikidataItem,
+    Labels as WikidataLabels,
+    Statement as WikidataStatement,
+    Descriptions as WikidataDescriptions,
+    Aliases as WikidataAliases,
+    StatementMap as WikidataClaims,
+    Sitelinks as WikidataSiteLinks,
+    LabelAndDescription
+} from '@wmde/wikibase-datamodel-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import Alias from './Alias';
@@ -9,6 +18,12 @@ import SiteLink from './SiteLink';
 import dateFormatter from './utils/dateFormatter';
 import normalizeOutput from './utils/normalizeOutput';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
+import { Optional } from './types/Optional';
+
+/**
+ * this type omits the id because if an item is new there will be no id
+ */
+type ItemInput = Optional<WikidataItem, 'id'>
 
 /**
  * @class
@@ -17,19 +32,19 @@ export default class Item {
     /** A ID for using things that don't have an ID */
     internalID: string;
 
-    pageid: number;
+    pageid: number | undefined;
 
-    ns: number;
+    ns: number | undefined;
 
-    title: string;
+    title: string | undefined;
 
-    lastrevid: number;
+    lastrevid: number | undefined;
 
-    modified: Date;
+    modified: Date | undefined;
 
     type: 'item';
 
-    id: string;
+    id: string | undefined;
 
     labels: Label[];
 
@@ -43,14 +58,14 @@ export default class Item {
 
     /**
      *
-     * @param {WikidataItem} item the item in json format
+     * @param {ItemInput} item the item in json format
      */
-    constructor(item: WikidataItem) {
+    constructor(item: ItemInput) {
         this.pageid = item.pageid;
         this.ns = item.ns;
         this.title = item.title;
         this.lastrevid = item.lastrevid;
-        this.modified = new Date(item.modified);
+        this.modified = item.modified ? new Date(item.modified) : undefined;
         this.id = item.id;
 
         this.type = item.type;
@@ -81,7 +96,10 @@ export default class Item {
         const nsEqual = this.ns === other.ns;
         const titleEqual = this.title === other.title;
         const lastrevidEqual = this.lastrevid === other.lastrevid;
-        const modifiedEqual = dateFormatter(this.modified) === dateFormatter(other.modified);
+        const modifiedEqual = (this.modified === undefined && other.modified === undefined)
+            ? true
+            // @ts-expect-error
+            : dateFormatter(this.modified) === dateFormatter(other.modified);
         const idEqual = this.id === other.id;
         const typeEqual = this.type === other.type;
 
@@ -128,7 +146,7 @@ export default class Item {
             ns: this.ns,
             title: this.title,
             lastrevid: this.lastrevid,
-            modified: dateFormatter(this.modified),
+            modified: this.modified && dateFormatter(this.modified),
             type: this.type,
             id: this.id,
 
@@ -167,5 +185,21 @@ export default class Item {
                 .reduce((accumulator, value) => ({ ...accumulator, [value.site]: value }), {})
 
         }) as WikidataItem;
+    }
+
+    /**
+     *
+     * @returns {Item} returns a empty item
+     */
+    static fromNothing(): Item {
+        return new Item({
+            type: 'item',
+            id: undefined,
+            labels: {} as WikidataLabels,
+            descriptions: {} as WikidataDescriptions,
+            aliases: {} as WikidataAliases,
+            claims: {} as WikidataClaims,
+            sitelinks: {} as WikidataSiteLinks
+        });
     }
 }

@@ -23,7 +23,7 @@ const siteLinkWithBadge = {
     ]
 };
 
-describe('Reference', () => {
+describe('siteLink', () => {
     describe('get url', () => {
         it('with the url specified', () => {
             const referenceObject = new SiteLink(siteLinkWithUrl);

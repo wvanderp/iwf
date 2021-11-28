@@ -95,4 +95,26 @@ export default class WikibaseItemSnak extends Snak {
     equals(other: WikibaseItemSnak): boolean {
         return this._numericID === other._numericID;
     }
+
+    /**
+     * @static
+     * @param {string} property the property of the snak in 'P-form'
+     * @param {string} id the Wikibase item id in the `Q-form`
+     * @returns {WikibaseItemSnak} a snak with the given properties
+     */
+    static fromID(property: string, id: string): WikibaseItemSnak {
+        return new WikibaseItemSnak({
+            snaktype: 'value',
+            property,
+            datatype: 'wikibase-item',
+            datavalue: {
+                value: {
+                    'entity-type': 'item',
+                    'numeric-id': Number.parseInt(id.slice(1), 10),
+                    id
+                },
+                type: 'wikibase-entityid'
+            }
+        });
+    }
 }

@@ -98,4 +98,14 @@ describe('Wikibase Item Snak', () => {
             expect(snak.equals(snak2)).to.be.false;
         });
     });
+
+    describe('fromID', () => {
+        it('should be true if the items are equal', () => {
+            const snak = WikibaseItemSnak.fromID('P134', 'Q1234');
+
+            expect(snak.id).to.equal('Q1234');
+            expect(snak.property).to.equal('P134');
+            expect(snak.hash).to.equal(undefined);
+        });
+    });
 });
