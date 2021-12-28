@@ -6,9 +6,15 @@ import qs from 'qs';
 import sinon, { SinonStub } from 'sinon';
 import upload, { validateAuthentication } from '../../src/tools/upload';
 import { Item } from '../../src';
+import { Token } from '../../src/tools/token';
 
 chai.use(chaiAsPromised);
 const {expect} = chai;
+
+const token: Token = {
+    token: 'token',
+    cookie: 'cookie'
+}
 
 describe('upload', () => {
     let axiosStub: SinonStub;
@@ -35,7 +41,7 @@ describe('upload', () => {
         it('should use the anonymous key if there is no key, but the anonymous key is set', async () => {
             await upload(item, {
                 summary: 'Upload summary',
-                tags: '',
+                tags: [''],
                 anonymous: true
             });
 
@@ -58,7 +64,7 @@ describe('upload', () => {
 
             expect(upload(item, {
                 summary: 'Upload summary',
-                tags: '',
+                tags: [''],
                 anonymous: true
             })).to.eventually.throw();
         });
@@ -70,7 +76,7 @@ describe('upload', () => {
                 expect(
                     () => validateAuthentication({
                         summary: 'Upload summary',
-                        tags: ''
+                        tags: ['']
                     })
                 ).to.throw();
             });
@@ -81,21 +87,20 @@ describe('upload', () => {
                 expect(
                     validateAuthentication({
                         summary: 'Upload summary',
-                        tags: '',
-                        authToken: 'token'
+                        tags: [''],
+                        authToken: token
                     })
                 ).to.equal('authToken');
             });
         });
-
 
         describe('anonymous', () => {
             it('should throw if a authToken is available but the anonymous key is set', () => {
                 expect(
                     () => validateAuthentication({
                         summary: 'Upload summary',
-                        tags: '',
-                        authToken: 'username',
+                        tags: [''],
+                        authToken: token,
                         anonymous: true
                     })
                 ).to.throw();

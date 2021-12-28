@@ -4,17 +4,18 @@ import axios from 'axios';
 import qs from 'qs';
 import Item from '../Item';
 import { WbeditentityResponse } from '../types/apiResponse';
+import { Token } from './token';
 
 interface UploadOptions{
     username?: string;
     password?: string;
-    authToken?: string;
+    authToken?: Token;
     anonymous?: boolean;
 
     userAgent?: string;
 
     summary: string;
-    tags: string;
+    tags?: string[];
 
     maxLag?: number;
 }
@@ -67,23 +68,35 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
 export default async function upload(item: Item, options: UploadOptions): Promise<Item> {
     const authMethod = validateAuthentication(options);
 
-    const parameter = {
+    const authToken = authMethod === 'authToken' ? options.authToken?.token : '+\\';
+
+    const parameters = {
+        tags: options.tags,
         data: JSON.stringify(item.toJSON()),
         id: item.id,
         summary: options.summary,
-        token: authMethod === 'authToken' ? options.authToken : '+\\',
-        tags: options.tags,
+        token: authToken,
         maxlag: options.maxLag
     };
 
-    const postString = qs.stringify(parameter);
-    const {data} = await axios.post<WbeditentityResponse>(url, postString);
+    const postString = qs.stringify(parameters, { arrayFormat: 'repeat' });
+    const headers = authMethod === 'authToken' && options.authToken ? {Cookie: options.authToken.cookie} : undefined;
+
+    const response = await axios.post<WbeditentityResponse>(
+        url,
+        postString,
+        {headers}
+    );
+
+    const {data} = response;
 
     if (
         data.success !== 1
         || data.error !== undefined
         || data.entity === undefined
     ) {
+        // eslint-disable-next-line no-console
+        console.error(data.error);
         throw new Error('api request went wrong');
     }
 

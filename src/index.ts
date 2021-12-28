@@ -24,3 +24,4 @@ export { default as WikibasePropertySnak } from './snaks/WikibasePropertySnak';
 
 export { default as requestItem } from './tools/request';
 export {default as upload} from './tools/upload';
+export {default as getToken} from './tools/token';
