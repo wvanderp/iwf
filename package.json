@@ -1,16 +1,18 @@
 {
   "name": "iwf",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "improved wikidata format",
   "author": "wvdp",
   "license": "MIT",
   "keywords": [
-    "wikidata"
+    "wikidata",
+    "wikipedia"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/wvanderp/iwf.git"
   },
+  "homepage": "https://wvanderp.github.io/iwf/",
   "main": "./lib/index.js",
   "types": "./lib",
   "engines": {
@@ -60,8 +62,9 @@
   "scripts": {
     "build": "rimraf lib && tsc -P ./tsconfig.build.json",
     "coverage": "npm run build && nyc npm run test",
+    "docs": "typedoc --out docs src/index.ts",
     "lint": "tsc --noEmit && eslint --ext ts,tsx,json,js src/",
-    "test": "mocha",
-    "docs": "typedoc --out docs src/index.ts"
+    "prepublish": "npm run build",
+    "test": "mocha"
   }
 }

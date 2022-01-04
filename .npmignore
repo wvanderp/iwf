@@ -1,0 +1,23 @@
+node_modules
+.vscode
+
+coverage
+.nyc_output
+docs
+
+test.ts
+scrap.ts
+
+
+! lib/
+src/
+tests/
+.github/
+
+.eslintIgnore
+.eslintrc.json
+.mocharc.json
+.nycrc.json
+codecov.yml
+tsconfig.build.json
+tsconfig.json
