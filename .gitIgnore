@@ -1,7 +1,9 @@
-.nyc_output
 node_modules
-coverage
 .vscode
+
+coverage
+.nyc_output
+docs
 
 test.ts
 scrap.ts
