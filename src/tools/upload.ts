@@ -64,6 +64,12 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
  * @param {Item} item The item you want to upload to wikidata
  * @param {UploadOptions} options the options for uploading
  * @returns {Promise<Item>} a Promise for the item after uploading
+ * @example
+ *      const token = await getToken('your wikidata username', 'your wikidata password');
+ *      upload(item, {
+ *          summary: 'test update',
+ *          authToken: token
+ *      });
  */
 export default async function upload(item: Item, options: UploadOptions): Promise<Item> {
     const authMethod = validateAuthentication(options);

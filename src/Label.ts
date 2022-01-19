@@ -52,6 +52,8 @@ export default class Label {
      * @param {string} language the language of the label
      * @param {string} value the value of the label
      * @returns {Label} the label object
+     * @example
+     *      const label = Label.fromString('en', 'Douglas Adams')
      */
     static fromString(language: LabelLanguages, value: string): Label {
         return new Label({ language, value });

@@ -13,6 +13,7 @@
     "exclude": [
         "scrap.ts",
         "tests",
-        "coverage"
+        "coverage",
+        "docs"
     ]
 }

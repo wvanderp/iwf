@@ -32,33 +32,46 @@ export default class Item {
     /** A ID for using things that don't have an ID */
     internalID: string;
 
+    /** the id used by wikibase */
     pageid: number | undefined;
 
+    /** the namespace the item is located in */
     ns: number | undefined;
 
+    /** the title of the item. Usually the Q-id of the item */
     title: string | undefined;
 
+    /** the id of the last revision of the item */
     lastrevid: number | undefined;
 
+    /** the date of last modified */
     modified: Date | undefined;
 
+    /** the type of the entity. always 'item' */
     type: 'item';
 
+    /** the Q-id of the item */
     id: string | undefined;
 
+    /** the labels of the item */
     labels: Label[];
 
+    /** the descriptions of the item */
     descriptions: Description[];
 
+    /** the aliases of the item */
     aliases: Alias[];
 
+    /** the statements of the item */
     statements: Statement[];
 
+    /** the sitelinks of the item */
     sitelinks: SiteLink[];
 
     /**
      *
      * @param {ItemInput} item the item in json format
+     * @example
      */
     constructor(item: ItemInput) {
         this.pageid = item.pageid;
@@ -105,6 +118,13 @@ export default class Item {
      *
      * @param {Item} other the other item
      * @returns {boolean} true if the items are equal
+     * @example
+     *      const itemA = Item.fromNothing()
+     *      const itemB = Item.fromNothing()
+     *
+     *      if(itemA.equals(itemB)){
+     *          alert('the items are the same');
+     *      }
      */
     equals(other: Item): boolean {
         const pageidEqual = this.pageid === other.pageid;
@@ -153,7 +173,11 @@ export default class Item {
     // }
 
     /**
+     * stringifies the Item into the same json format as the api
+     *
      * @returns {WikidataItem} the item as json
+     * @example
+     *      const json = item.toJson();
      */
     toJSON(): WikidataItem {
         return normalizeOutput({
@@ -203,8 +227,11 @@ export default class Item {
     }
 
     /**
+     * generates a new empty item object
      *
      * @returns {Item} returns a empty item
+     * @example
+     *      const newItem = Item.fromNothing()
      */
     static fromNothing(): Item {
         return new Item({

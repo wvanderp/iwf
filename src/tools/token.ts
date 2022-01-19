@@ -16,6 +16,12 @@ export interface Token{
  * @param {string} username the username of the user
  * @param {string} password the password of the user
  * @returns {Token} a object containing the token and the cookie
+ * @example
+ *      const token = await getToken('your wikidata username', 'your wikidata password');
+ *      upload(item, {
+ *          summary: 'test update',
+ *          authToken: token
+ *      });
  */
 export default async function getToken(username: string, password: string): Promise<Token> {
     // getting a edit token happens in three steps:
