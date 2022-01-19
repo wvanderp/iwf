@@ -2,7 +2,7 @@ import { describe, it } from 'mocha';
 import fs from 'fs';
 import path from 'path';
 import { expect } from 'chai';
-import { Item } from '../src';
+import { Item, Label } from '../src';
 
 const testFiles = fs.readdirSync(path.resolve(__dirname, './data/'));
 
@@ -16,6 +16,35 @@ describe('load data into the model', () => {
             expect(item.toJSON()).to.deep.equal(wikidataJSON);
         });
     }
+
+    describe('getLabel', function () {
+        it('should find a label if it is present', function () {
+            const item = Item.fromNothing();
+            item.labels.push(Label.fromString('en', 'Jesus'));
+
+            const findLabel = item.findLabel('en');
+
+            expect(findLabel?.language).to.equal('en');
+            expect(findLabel?.value).to.equal('Jesus');
+        });
+
+        it('should find a label if it is present but an other is', function () {
+            const item = Item.fromNothing();
+            item.labels.push(Label.fromString('en', 'Jesus'));
+
+            const findLabel = item.findLabel('fr');
+
+            expect(findLabel).to.equal(undefined);
+        });
+
+        it('should find a label if it is not present', function () {
+            const item = Item.fromNothing();
+
+            const findLabel = item.findLabel('en');
+
+            expect(findLabel).to.equal(undefined);
+        });
+    });
 
     describe('equals', function () {
         it('two different items should not be equal', function () {

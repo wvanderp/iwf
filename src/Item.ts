@@ -86,6 +86,21 @@ export default class Item {
     }
 
     /**
+     * tries to find a label int the requested language.
+     * if non can be found, it will return undefined
+     *
+     * @param {string} language the language of the label
+     * @returns {Label | undefined} the labelA label if it found one or undefined
+     * @example
+     *      const label = item.findLabel("nl")
+     *      console.log(label.value)
+     *      // Douglas Adams
+     */
+    findLabel(language: string) {
+        return this.labels.find((label) => label.language === language);
+    }
+
+    /**
      * this function checks if two items are equal
      *
      * @param {Item} other the other item
