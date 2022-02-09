@@ -22,6 +22,8 @@ export { default as UrlSnak } from './snaks/UrlSnak';
 export { default as WikibaseItemSnak } from './snaks/WikibaseItemSnak';
 export { default as WikibasePropertySnak } from './snaks/WikibasePropertySnak';
 
+export { default as mergeStatements } from './tools/mergeStatements';
+
 export { default as requestItem } from './utils/api/request';
 export { default as upload } from './utils/api/upload';
 export { default as getToken } from './utils/api/token';
