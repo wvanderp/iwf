@@ -1,4 +1,4 @@
-import {Item as WikibaseItem} from '@wmde/wikibase-datamodel-types';
+import { Item as WikibaseItem } from '@wmde/wikibase-datamodel-types';
 
 export interface WbeditentityResponse {
     entity?: WikibaseItem;
@@ -13,10 +13,10 @@ export interface WbeditentityResponse {
 export interface ActionLoginResponse{
     warnings: {
         main: {
-        '*': string
+            '*': string
         },
         login: {
-        '*': string
+            '*': string
         }
     },
     login: {
@@ -26,8 +26,8 @@ export interface ActionLoginResponse{
 }
 
 export interface QueryMetaTokenResponse{
-        batchcomplete: string,
-        query: {
-          tokens: { csrftoken: string }
-        }
+    batchcomplete: string,
+    query: {
+        tokens: { csrftoken: string }
+    }
 }

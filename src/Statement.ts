@@ -31,6 +31,7 @@ export default class Statement {
     /**
      *
      * @param {wikidataStatement} statement the statement in a json format
+     * @example
      */
     constructor(statement: wikidataStatement) {
         this.id = statement.id;
@@ -53,23 +54,24 @@ export default class Statement {
 
     /**
      * @returns {wikidataStatement} the statement in a json format
+     * @example
      */
     toJSON(): wikidataStatement {
         const references = this.references.map((reference) => reference.toJSON());
         const qualifiers = this.qualifiers
             .map((qualifier) => qualifier.toJSON())
             .reduce<wikidataQualifiers>(
-                (accumulator, value) => {
-                    if (accumulator[value.property] === undefined) {
-                        accumulator[value.property] = [];
-                    }
+            (accumulator, value) => {
+                if (accumulator[value.property] === undefined) {
+                    accumulator[value.property] = [];
+                }
 
-                    accumulator[value.property].push(value);
+                accumulator[value.property].push(value);
 
-                    return accumulator;
-                },
-                {}
-            );
+                return accumulator;
+            },
+            {}
+        );
 
         return normalizeOutput({
             mainsnak: this.mainsnak.toJSON(),
@@ -87,6 +89,7 @@ export default class Statement {
      *
      * @param {Snak} snak the snak for the statement
      * @returns {Statement} the statement
+     * @example
      */
     static fromSnak(snak: Snak): Statement {
         return new Statement({
@@ -100,6 +103,7 @@ export default class Statement {
      *
      * @param {Statement} other the other statement
      * @returns {boolean} if the two statements are equal
+     * @example
      */
     equals(other: Statement): boolean {
         const idEqual = this.id === other.id;

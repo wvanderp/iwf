@@ -2,8 +2,8 @@
 import axios from 'axios';
 
 import qs from 'qs';
-import Item from '../Item';
-import { WbeditentityResponse } from '../types/apiResponse';
+import Item from '../../Item';
+import { WbeditentityResponse } from '../../types/apiResponse';
 import { Token } from './token';
 
 interface UploadOptions{
@@ -20,7 +20,7 @@ interface UploadOptions{
     maxLag?: number;
 }
 
-type AuthMethod = 'authToken' | 'anonymous' | 'unknown'
+type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
 
 const url = 'https://www.wikidata.org/w/api.php?action=wbeditentity&format=json';
 
@@ -86,15 +86,15 @@ export default async function upload(item: Item, options: UploadOptions): Promis
     };
 
     const postString = qs.stringify(parameters, { arrayFormat: 'repeat' });
-    const headers = authMethod === 'authToken' && options.authToken ? {Cookie: options.authToken.cookie} : undefined;
+    const headers = authMethod === 'authToken' && options.authToken ? { Cookie: options.authToken.cookie } : undefined;
 
     const response = await axios.post<WbeditentityResponse>(
         url,
         postString,
-        {headers}
+        { headers }
     );
 
-    const {data} = response;
+    const { data } = response;
 
     if (
         data.success !== 1

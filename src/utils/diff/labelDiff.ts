@@ -17,6 +17,7 @@ export interface LabelChange extends Change {
  * @param {Label[]} n the new array
  * @param {string} parentID the ID of the parent of both the old and the new array
  * @returns {LabelChange[]} the changes from the old array to the new array
+ * @example
  */
 export default function labelDiff(o: Label[], n: Label[], parentID: string): LabelChange[] {
     const changes: LabelChange[] = [];

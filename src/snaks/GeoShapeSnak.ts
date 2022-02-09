@@ -17,6 +17,7 @@ export default class GeoShapeSnak extends Snak {
 
     /**
      * @param {WikidataGeoShapeSnak} snak the snak for this class in json format
+     * @example
      */
     constructor(snak: WikidataGeoShapeSnak) {
         super(snak);
@@ -36,6 +37,7 @@ export default class GeoShapeSnak extends Snak {
     /**
      *
      * @returns {WikidataGeoShapeSnak} the snak as json
+     * @example
      */
     toJSON(): WikidataGeoShapeSnak {
         return normalizeOutput({
@@ -55,6 +57,7 @@ export default class GeoShapeSnak extends Snak {
      *
      * @param {GeoShapeSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: GeoShapeSnak): boolean {
         return this.fileName === other.fileName;

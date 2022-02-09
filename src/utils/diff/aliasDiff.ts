@@ -19,6 +19,7 @@ export interface AliasChange extends Change {
  * @param {Alias[]} n the new array
  * @param {string} parentID the ID of the parent of both the old and the new array
  * @returns {AliasChange[]} the changes from the old array to the new array
+ * @example
  */
 export default function aliasDiff(o: Alias[], n: Alias[], parentID: string): AliasChange[] {
     const { added, updated, removed } = diffArray(

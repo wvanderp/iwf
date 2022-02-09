@@ -16,6 +16,7 @@ export default class TabularDataSnak extends Snak {
 
     /**
      * @param {WikidataTabularDataSnak} snak the snak for this class in json format
+     * @example
      */
     constructor(snak: WikidataTabularDataSnak) {
         super(snak);
@@ -35,6 +36,7 @@ export default class TabularDataSnak extends Snak {
     /**
      *
      * @returns {WikidataTabularDataSnak} the snak as json
+     * @example
      */
     toJSON(): WikidataTabularDataSnak {
         return normalizeOutput({
@@ -54,6 +56,7 @@ export default class TabularDataSnak extends Snak {
      *
      * @param {TabularDataSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: TabularDataSnak): boolean {
         return this.value === other.value;

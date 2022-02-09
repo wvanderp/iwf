@@ -21,6 +21,7 @@ export default class Alias {
     /**
      *
      * @param {LabelAndDescription} alias  the alias in json format
+     * @example
      */
     constructor(alias: LabelAndDescription) {
         this.language = alias.language;
@@ -30,6 +31,7 @@ export default class Alias {
 
     /**
      * @returns {LabelAndDescription} the alias in a json format
+     * @example
      */
     toJSON(): LabelAndDescription {
         return normalizeOutput({
@@ -43,6 +45,7 @@ export default class Alias {
      *
      * @param {LabelAndDescription} other the other Label
      * @returns {boolean} true if the Aliases are equal
+     * @example
      */
     equals(other: LabelAndDescription): boolean {
         return this.language === other.language && this.value === other.value;

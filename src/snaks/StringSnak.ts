@@ -16,6 +16,7 @@ export default class StringSnak extends Snak {
 
     /**
      * @param {WikidataStringSnak} snak the snak for this class in json format
+     * @example
      */
     constructor(snak: WikidataStringSnak) {
         super(snak);
@@ -26,6 +27,7 @@ export default class StringSnak extends Snak {
     /**
      *
      * @returns {WikidataStringSnak} the snak as json
+     * @example
      */
     toJSON(): WikidataStringSnak {
         return normalizeOutput({
@@ -45,6 +47,7 @@ export default class StringSnak extends Snak {
      *
      * @param {StringSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: StringSnak): boolean {
         return this.value === other.value;
@@ -55,6 +58,7 @@ export default class StringSnak extends Snak {
      * @param {string} property the property of the snak in 'P-form'
      * @param {string} string the string
      * @returns {StringSnak} a snak with the given properties
+     * @example
      */
     static fromString(property: string, string: string): StringSnak {
         return new StringSnak({

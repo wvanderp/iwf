@@ -32,6 +32,7 @@ export default class GlobeCoordinateSnak extends Snak {
 
     /**
      * @param {WikidataGlobeCoordinateSnak} snak the snak for this class in json format
+     * @example
      */
     constructor(snak: WikidataGlobeCoordinateSnak) {
         super(snak);
@@ -46,6 +47,7 @@ export default class GlobeCoordinateSnak extends Snak {
     /**
      *
      * @returns {WikidataGlobeCoordinateSnak} the snak as json
+     * @example
      */
     toJSON(): WikidataGlobeCoordinateSnak {
         return normalizeOutput({
@@ -71,6 +73,7 @@ export default class GlobeCoordinateSnak extends Snak {
      *
      * @param {GlobeCoordinateSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: GlobeCoordinateSnak): boolean {
         return this.latitude === other.latitude

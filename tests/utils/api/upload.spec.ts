@@ -4,9 +4,9 @@ import chai from 'chai';
 import chaiAsPromised = require('chai-as-promised');
 import qs from 'qs';
 import sinon, { SinonStub } from 'sinon';
-import upload, { validateAuthentication } from '../../src/tools/upload';
-import { Item } from '../../src';
-import { Token } from '../../src/tools/token';
+import upload, { validateAuthentication } from '../../../src/utils/api/upload';
+import { Item } from '../../../src';
+import { Token } from '../../../src/utils/api/token';
 
 chai.use(chaiAsPromised);
 const {expect} = chai;

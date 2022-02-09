@@ -23,7 +23,7 @@ import { Optional } from './types/Optional';
 /**
  * this type omits the id because if an item is new there will be no id
  */
-type ItemInput = Optional<WikidataItem, 'id'>
+type ItemInput = Optional<WikidataItem, 'id'>;
 
 /**
  * @class
@@ -189,39 +189,39 @@ export default class Item {
             type: this.type,
             id: this.id,
 
-            labels: this.labels
+            labels: Object.fromEntries(this.labels
                 .map((label) => label.toJSON())
-                .reduce((accumulator, value) => ({ ...accumulator, [value.language]: value }), {}),
+                .map((value) => [value.language, value])),
 
-            descriptions: this.descriptions
+            descriptions: Object.fromEntries(this.descriptions
                 .map((description) => description.toJSON())
-                .reduce((accumulator, value) => ({ ...accumulator, [value.language]: value }), {}),
+                .map((value) => [value.language, value])),
 
             aliases: this.aliases
                 .map((alias) => alias.toJSON())
                 .reduce<Record<string, LabelAndDescription[]>>((accumulator, value) => {
-                    if (accumulator[value.language] === undefined) {
-                        accumulator[value.language] = [];
-                    }
+                if (accumulator[value.language] === undefined) {
+                    accumulator[value.language] = [];
+                }
 
-                    accumulator[value.language].push(value);
-                    return accumulator;
-                }, {}),
+                accumulator[value.language].push(value);
+                return accumulator;
+            }, {}),
 
             claims: this.statements
                 .map((statement) => statement.toJSON())
                 .reduce<Record<string, WikidataStatement[]>>((accumulator, value) => {
-                    if (accumulator[value.mainsnak.property] === undefined) {
-                        accumulator[value.mainsnak.property] = [];
-                    }
+                if (accumulator[value.mainsnak.property] === undefined) {
+                    accumulator[value.mainsnak.property] = [];
+                }
 
-                    accumulator[value.mainsnak.property].push(value);
-                    return accumulator;
-                }, {}),
+                accumulator[value.mainsnak.property].push(value);
+                return accumulator;
+            }, {}),
 
-            sitelinks: this.sitelinks
+            sitelinks: Object.fromEntries(this.sitelinks
                 .map((siteLink) => siteLink.toJSON())
-                .reduce((accumulator, value) => ({ ...accumulator, [value.site]: value }), {})
+                .map((value) => [value.site, value]))
 
         }) as WikidataItem;
     }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { WikidataResponse } from '@wmde/wikibase-datamodel-types';
-import Item from '../Item';
+import Item from '../../Item';
 
 /**
  * @private

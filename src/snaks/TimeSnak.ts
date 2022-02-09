@@ -26,6 +26,7 @@ export default class TimeSnak extends Snak {
 
     /**
      * @param {WikidataTimeSnak} snak the snak for this class in json format
+     * @example
      */
     constructor(snak: WikidataTimeSnak) {
         super(snak);
@@ -41,6 +42,7 @@ export default class TimeSnak extends Snak {
     /**
      *
      * @returns {WikidataTimeSnak} the snak as json
+     * @example
      */
     toJSON(): WikidataTimeSnak {
         return normalizeOutput({
@@ -67,6 +69,7 @@ export default class TimeSnak extends Snak {
      *
      * @param {TimeSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: TimeSnak): boolean {
         return this.time === other.time
@@ -84,6 +87,7 @@ export default class TimeSnak extends Snak {
      * @param {Date} date the date for the snak
      * @param {CalendarModels} calendarModel the calendarModel for the snak
      * @returns {TimeSnak} the timeSnak
+     * @example
      */
     static fromDate(property: string, date: Date, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985786'): TimeSnak {
         const isoString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;

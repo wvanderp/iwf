@@ -17,6 +17,7 @@ export default class CommonsMediaSnak extends Snak {
 
     /**
      * @param {WikidataCommonsMediaSnak} snak the snak for this class in json format
+     * @example
      */
     constructor(snak: WikidataCommonsMediaSnak) {
         super(snak);
@@ -46,6 +47,7 @@ export default class CommonsMediaSnak extends Snak {
     /**
      *
      * @returns {WikidataCommonsMediaSnak} the snak as json
+     * @example
      */
     toJSON(): WikidataCommonsMediaSnak {
         return normalizeOutput({
@@ -65,6 +67,7 @@ export default class CommonsMediaSnak extends Snak {
      *
      * @param {CommonsMediaSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: CommonsMediaSnak): boolean {
         return this.fileName === other.fileName;

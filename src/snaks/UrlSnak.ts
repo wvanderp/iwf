@@ -16,6 +16,7 @@ export default class URLSnak extends Snak {
 
     /**
      * @param {WikidataURLSnak} snak the snak for this class in json format
+     * @example
      */
     constructor(snak: WikidataURLSnak) {
         super(snak);
@@ -42,6 +43,7 @@ export default class URLSnak extends Snak {
     /**
      *
      * @returns {WikidataURLSnak} the snak as json
+     * @example
      */
     toJSON(): WikidataURLSnak {
         return normalizeOutput({
@@ -61,6 +63,7 @@ export default class URLSnak extends Snak {
      *
      * @param {URLSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: URLSnak): boolean {
         return this.value === other.value;
@@ -71,6 +74,7 @@ export default class URLSnak extends Snak {
      * @param {string} property the property of the snak in 'P-form'
      * @param {string} url the url
      * @returns {URLSnak} a snak with the given properties
+     * @example
      */
     static fromURL(property: string, url: string): URLSnak {
         return new URLSnak({

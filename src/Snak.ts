@@ -20,6 +20,7 @@ export default abstract class Snak {
     /**
      *
      * @param {WikidataSnaks} snak the snak in a json format
+     * @example
      */
     constructor(snak: WikidataSnaks) {
         this.snaktype = snak.snaktype;
@@ -36,7 +37,7 @@ export default abstract class Snak {
         return this.snaktype === 'value';
     }
 
-    abstract toJSON(): WikidataSnaks
+    abstract toJSON(): WikidataSnaks;
 
     abstract equals(other: Snak): boolean;
 }

@@ -36,6 +36,7 @@ export default class QuantitySnak extends Snak {
 
     /**
      * @param {WikidataQuantitySnak} snak the snak for this class in json format
+     * @example
      */
     constructor(snak: WikidataQuantitySnak) {
         super(snak);
@@ -96,6 +97,7 @@ export default class QuantitySnak extends Snak {
     /**
      *
      * @returns {WikidataQuantitySnak} the snak as json
+     * @example
      */
     toJSON(): WikidataQuantitySnak {
         return normalizeOutput({
@@ -120,6 +122,7 @@ export default class QuantitySnak extends Snak {
      *
      * @param {QuantitySnak} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: QuantitySnak): boolean {
         return this._amount === other._amount

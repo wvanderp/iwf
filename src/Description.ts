@@ -20,6 +20,7 @@ export default class Description {
     /**
      *
      * @param {LabelAndDescription} label the label in json format
+     * @example
      */
     constructor(label: LabelAndDescription) {
         this.language = label.language;
@@ -29,6 +30,7 @@ export default class Description {
 
     /**
      * @returns {LabelAndDescription} the Description in a json format
+     * @example
      */
     toJSON(): LabelAndDescription {
         return normalizeOutput({
@@ -42,6 +44,7 @@ export default class Description {
      *
      * @param {LabelAndDescription} other the other Label
      * @returns {boolean} true if the descriptions are equal
+     * @example
      */
     equals(other: LabelAndDescription): boolean {
         return this.language === other.language && this.value === other.value;

@@ -12,6 +12,7 @@ import snakGenerator from './utils/snakGenerator';
  * @param {Object} accumulator the accumulator object
  * @param {Snak} value the Snak
  * @returns {Object} an Object with groups of snaks by ID
+ * @example
  */
 function groupByPropertyReducer(accumulator: Record<string, Snaks[]>, value: Snaks): Record<string, Snaks[]> {
     if (accumulator[value.property] === undefined) {
@@ -40,6 +41,7 @@ export default class Reference {
     /**
      *
      * @param {WikidataReference} reference the Reference in json format
+     * @example
      */
     constructor(reference: WikidataReference) {
         this.hash = reference.hash;
@@ -53,6 +55,7 @@ export default class Reference {
 
     /**
      * @returns {WikidataReference} the Reference in a json format
+     * @example
      */
     toJSON(): WikidataReference {
         return normalizeOutput({
@@ -60,9 +63,9 @@ export default class Reference {
             snaks: this.snaks
                 .map((snak) => snak.toJSON())
                 .reduce<wikidataReferenceSnaks>(
-                    (accumulator, value) => groupByPropertyReducer(accumulator, value),
-                    {}
-                ),
+                (accumulator, value) => groupByPropertyReducer(accumulator, value),
+                {}
+            ),
             'snaks-order': this.snaksOrder
         });
     }
@@ -72,6 +75,7 @@ export default class Reference {
      *
      * @param {Reference} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: Reference): boolean {
         return arrayEqualWith(this.snaks, other.snaks, (a: Snak, b: Snak) => a.equals(b))
@@ -85,15 +89,16 @@ export default class Reference {
      * @static
      * @param {Snak} snaks the snaks for the reference
      * @returns {Reference} the reference objects
+     * @example
      */
     static fromSnaks(snaks: Snak[]): Reference {
         return new Reference({
             snaks: snaks
                 .map((snak) => snak.toJSON())
                 .reduce<wikidataReferenceSnaks>(
-                    (accumulator, value) => groupByPropertyReducer(accumulator, value),
-                    {}
-                )
+                (accumulator, value) => groupByPropertyReducer(accumulator, value),
+                {}
+            )
         });
     }
 }

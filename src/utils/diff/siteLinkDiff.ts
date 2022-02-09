@@ -21,6 +21,7 @@ export interface SiteLinkChange extends Change {
  * @param {SiteLink[]} n the new array
  * @param {string} parentID the ID of the parent of both the old and the new array
  * @returns {SiteLinkChange[]} the changes from the old array to the new array
+ * @example
  */
 export default function siteLinkDiff(o: SiteLink[], n: SiteLink[], parentID: string): SiteLinkChange[] {
     const { added, updated, removed } = diffArray(

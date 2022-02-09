@@ -24,6 +24,7 @@ export default class SiteLink {
 
     /**
      * @param {WikidataSiteLink} siteLink The siteLink for this class
+     * @example
      */
     constructor(siteLink: WikidataSiteLink) {
         this.site = siteLink.site;
@@ -54,6 +55,7 @@ export default class SiteLink {
      *
      * @param {SiteLink} other the other SiteLink
      * @returns {boolean} true if the SiteLink are equal
+     * @example
      */
     equals(other: SiteLink): boolean {
         return (
@@ -65,6 +67,7 @@ export default class SiteLink {
 
     /**
      * @returns {WikidataSiteLink} the SiteLink in a json format
+     * @example
      */
     toJSON(): WikidataSiteLink {
         return normalizeOutput({

@@ -13,7 +13,7 @@ import {
     TabularDataSnak as WikidataTabularDataSnak,
     MusicalNotationSnak as WikidataMusicSnak,
     GeoShapeSnak as WikidataGeoShapeSnak,
-    WikibasePropertySnak as WikidataWikibasePropertySnak
+    WikibasePropertySnak as WikidataWikibasePropertySnak,
 } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 

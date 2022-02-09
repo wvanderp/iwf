@@ -4,8 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 import sinon, {SinonStub } from 'sinon';
-import { baseURL } from '../../src/tools/request';
-import { requestItem } from '../../src';
+import { baseURL } from '../../../src/utils/api/request';
+import { requestItem } from '../../../src';
 
 describe('baseURL functions', () => {
     it('should return the right url when a QID is given', () => {
@@ -20,7 +20,7 @@ describe('requestItem functions', () => {
                 fs.readFileSync(
                     path.resolve(
                         __dirname,
-                        `../data/${fs.readdirSync(path.resolve(__dirname, '../data/'))[0]
+                        `../../data/${fs.readdirSync(path.resolve(__dirname, '../../data/'))[0]
                         }`
                     )
                 ).toString('utf-8')

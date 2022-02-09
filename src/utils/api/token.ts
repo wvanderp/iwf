@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { ActionLoginResponse, QueryMetaTokenResponse } from '../types/apiResponse';
+import { ActionLoginResponse, QueryMetaTokenResponse } from '../../types/apiResponse';
 
 const loginUrl = 'https://www.wikidata.org/w/api.php?action=login&format=json';
 const tokenUrl = 'https://www.wikidata.org/w/api.php?action=query&meta=tokens&type=csrf&format=json';
@@ -35,7 +35,7 @@ export default async function getToken(username: string, password: string): Prom
 
     const cookieResult = await axios.post<ActionLoginResponse>(loginUrl, body);
 
-    const {token: loginToken} = cookieResult.data.login;
+    const { token: loginToken } = cookieResult.data.login;
     const cookies = cookieResult.headers['set-cookie'];
 
     if (cookies === undefined) {
@@ -46,12 +46,12 @@ export default async function getToken(username: string, password: string): Prom
     const loginHeaders = {
         Cookie: cookies.join('; ')
     };
-    const loginBody = qs.stringify({lgname: username, lgpassword: password, lgtoken: loginToken});
+    const loginBody = qs.stringify({ lgname: username, lgpassword: password, lgtoken: loginToken });
 
     const loginResult = await axios.post(
         loginUrl,
         loginBody,
-        {headers: loginHeaders}
+        { headers: loginHeaders }
     );
 
     if (loginResult.data.login.result !== 'Success') {
@@ -60,7 +60,7 @@ export default async function getToken(username: string, password: string): Prom
 
     // getting the token
     const tokenCookies = loginResult.headers['set-cookie']?.join('; ') ?? '';
-    const tokenResult = await axios.get<QueryMetaTokenResponse>(tokenUrl, {headers: {Cookie: tokenCookies}});
+    const tokenResult = await axios.get<QueryMetaTokenResponse>(tokenUrl, { headers: { Cookie: tokenCookies } });
 
     return {
         token: tokenResult.data.query.tokens.csrftoken,

@@ -16,6 +16,7 @@ export default class ExternalIdentifierSnak extends Snak {
 
     /**
      * @param {WikidataExternalIdentifierSnak} snak the snak for this class in json format
+     * @example
      */
     constructor(snak: WikidataExternalIdentifierSnak) {
         super(snak);
@@ -26,6 +27,7 @@ export default class ExternalIdentifierSnak extends Snak {
     /**
      *
      * @returns {WikidataExternalIdentifierSnak} the snak as json
+     * @example
      */
     toJSON(): WikidataExternalIdentifierSnak {
         return normalizeOutput({
@@ -45,6 +47,7 @@ export default class ExternalIdentifierSnak extends Snak {
      *
      * @param {ExternalIdentifierSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
+     * @example
      */
     equals(other: ExternalIdentifierSnak): boolean {
         return this.id === other.id;
@@ -55,6 +58,7 @@ export default class ExternalIdentifierSnak extends Snak {
      * @param {string} property the property of the snak in 'P-form'
      * @param {string} id the external identifier
      * @returns {ExternalIdentifierSnak} a snak with the given properties
+     * @example
      */
     static fromID(property: string, id: string): ExternalIdentifierSnak {
         return new ExternalIdentifierSnak({
