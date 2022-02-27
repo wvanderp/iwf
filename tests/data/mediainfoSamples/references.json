@@ -1,0 +1,281 @@
+{
+    "entities": {
+        "M34323241": {
+            "pageid": 34323241,
+            "ns": 6,
+            "title": "File:Emily Kinney, Norman Reedus & Chandler Riggs (14770849781).jpg",
+            "lastrevid": 632112292,
+            "modified": "2022-02-24T18:36:27Z",
+            "type": "mediainfo",
+            "id": "M34323241",
+            "labels": {},
+            "descriptions": {},
+            "statements": {
+                "P180": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P180",
+                            "hash": "eae6bff63ef30d0f312f8de5a3e202b5dcdfb32d",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 503545,
+                                    "id": "Q503545"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M34323241$CF51CB73-66CA-4AAC-A8C5-A8E1047FA994",
+                        "rank": "normal"
+                    },
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P180",
+                            "hash": "a8171fdbd81f035bd4369b7356cd94c1e1d90574",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 2371083,
+                                    "id": "Q2371083"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M34323241$187687f6-4881-9388-2965-7b1106d0ec27",
+                        "rank": "normal"
+                    },
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P180",
+                            "hash": "a2d01b03cbbd7b97c0888e6751939fe6ac5b08c1",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 676728,
+                                    "id": "Q676728"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M34323241$ae0b9cf0-4c9b-4a35-7344-d1dac4e084be",
+                        "rank": "normal"
+                    }
+                ],
+                "P275": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P275",
+                            "hash": "a62aa88e8696cafc169e9591e6d34b5d3ec5b93e",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 19068220,
+                                    "id": "Q19068220"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M34323241$B7577A0A-997D-4D23-8636-2359964CEDBB",
+                        "rank": "normal"
+                    }
+                ],
+                "P6216": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P6216",
+                            "hash": "5570347fdc76d2a80732f51ea10ee4b144a084e0",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 50423863,
+                                    "id": "Q50423863"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M34323241$2AFB8556-7777-4234-B229-2908EF8B56F9",
+                        "rank": "normal"
+                    }
+                ],
+                "P7482": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P7482",
+                            "hash": "b82dd47222a210c6dc1f428b693c2fbf7b0e0d6e",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 74228490,
+                                    "id": "Q74228490"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "qualifiers": {
+                            "P137": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P137",
+                                    "hash": "3d8cd4c1ab91d3d9a14900210faaebf1a98b947b",
+                                    "datavalue": {
+                                        "value": {
+                                            "entity-type": "item",
+                                            "numeric-id": 103204,
+                                            "id": "Q103204"
+                                        },
+                                        "type": "wikibase-entityid"
+                                    }
+                                }
+                            ],
+                            "P973": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P973",
+                                    "hash": "227ccd17a41d30f6b9c0d48f23df095fc4fb5fe4",
+                                    "datavalue": {
+                                        "value": "https://www.flickr.com/photos/gageskidmore/14770849781/",
+                                        "type": "string"
+                                    }
+                                }
+                            ]
+                        },
+                        "qualifiers-order": [
+                            "P137",
+                            "P973"
+                        ],
+                        "id": "M34323241$19F8F9C9-76CC-4894-ABA5-B76648899917",
+                        "rank": "normal"
+                    }
+                ],
+                "P170": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "somevalue",
+                            "property": "P170",
+                            "hash": "d3550e860f988c6675fff913440993f58f5c40c5"
+                        },
+                        "type": "statement",
+                        "qualifiers": {
+                            "P2699": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P2699",
+                                    "hash": "591a9c3c835b9eeef23afbff057e5ffc0945d1c9",
+                                    "datavalue": {
+                                        "value": "https://www.flickr.com/people/22007612@N05",
+                                        "type": "string"
+                                    }
+                                }
+                            ],
+                            "P2093": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P2093",
+                                    "hash": "ccef643a77f66f9a86813389632b9010b0a0be0d",
+                                    "datavalue": {
+                                        "value": "Gage Skidmore",
+                                        "type": "string"
+                                    }
+                                }
+                            ],
+                            "P3267": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P3267",
+                                    "hash": "9d34c885ea2e4573393c90295aa635b0d6dc2283",
+                                    "datavalue": {
+                                        "value": "22007612@N05",
+                                        "type": "string"
+                                    }
+                                }
+                            ]
+                        },
+                        "qualifiers-order": [
+                            "P2699",
+                            "P2093",
+                            "P3267"
+                        ],
+                        "id": "M34323241$26BE3014-F599-45A8-8D59-19D5E79FC6D1",
+                        "rank": "normal",
+                        "references": [
+                            {
+                                "hash": "f4d2fb1666ef99283fa47da38ee913a2192a7224",
+                                "snaks": {
+                                    "P854": [
+                                        {
+                                            "snaktype": "value",
+                                            "property": "P854",
+                                            "hash": "9195aa68397da2d470becdf9320ba08150e8f2fe",
+                                            "datavalue": {
+                                                "value": "https://www.flickr.com/people/22007612@N05",
+                                                "type": "string"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "snaks-order": [
+                                    "P854"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "P4082": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P4082",
+                            "hash": "8227ba960548c059dce2c79cb1fa18cceb0d1d11",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 64962,
+                                    "id": "Q64962"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M34323241$70F189FB-A656-4A0F-A0FB-2BDC7E6B91E2",
+                        "rank": "normal"
+                    }
+                ],
+                "P571": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P571",
+                            "hash": "54625c04bd96974fbcc9eaafd896b65789e15321",
+                            "datavalue": {
+                                "value": {
+                                    "time": "+2014-07-25T00:00:00Z",
+                                    "timezone": 0,
+                                    "before": 0,
+                                    "after": 0,
+                                    "precision": 11,
+                                    "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                                },
+                                "type": "time"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M34323241$671656F6-1696-4AFA-BA01-461369090105",
+                        "rank": "normal"
+                    }
+                ]
+            }
+        }
+    }
+}

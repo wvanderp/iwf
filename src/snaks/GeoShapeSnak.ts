@@ -35,11 +35,11 @@ export default class GeoShapeSnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataGeoShapeSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataGeoShapeSnak {
+    toJSON(isMediainfo = false): WikidataGeoShapeSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -48,7 +48,7 @@ export default class GeoShapeSnak extends Snak {
                 value: this.fileName,
                 type: 'string'
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataGeoShapeSnak;
     }
 

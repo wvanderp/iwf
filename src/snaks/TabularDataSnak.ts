@@ -34,11 +34,11 @@ export default class TabularDataSnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataTabularDataSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataTabularDataSnak {
+    toJSON(isMediainfo = false): WikidataTabularDataSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -47,7 +47,7 @@ export default class TabularDataSnak extends Snak {
                 value: this.value,
                 type: 'string'
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataTabularDataSnak;
     }
 

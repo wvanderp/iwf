@@ -58,7 +58,7 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "qs": "^6.10.5",
     "uuid": "^8.3.2",
-    "wikidata-properties": "git+https://github.com/wvanderp/wikidata-properties.git"
+    "wikidata-properties": "github:wvanderp/wikidata-properties"
   },
   "scripts": {
     "build": "rimraf lib && tsc -P ./tsconfig.build.json",

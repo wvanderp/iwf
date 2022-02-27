@@ -53,13 +53,14 @@ export default class Statement {
     }
 
     /**
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {wikidataStatement} the statement in a json format
      * @example
      */
-    toJSON(): wikidataStatement {
-        const references = this.references.map((reference) => reference.toJSON());
+    toJSON(isMediainfo = false): wikidataStatement {
+        const references = this.references.map((reference) => reference.toJSON(isMediainfo));
         const qualifiers = this.qualifiers
-            .map((qualifier) => qualifier.toJSON())
+            .map((qualifier) => qualifier.toJSON(isMediainfo))
             .reduce<wikidataQualifiers>(
             (accumulator, value) => {
                 if (accumulator[value.property] === undefined) {
@@ -74,7 +75,7 @@ export default class Statement {
         );
 
         return normalizeOutput({
-            mainsnak: this.mainsnak.toJSON(),
+            mainsnak: this.mainsnak.toJSON(isMediainfo),
             type: this.type,
             qualifiers: Object.keys(qualifiers).length === 0 ? undefined : qualifiers,
             'qualifiers-order': this.qualifiersOrder.length === 0 ? undefined : this.qualifiersOrder,

@@ -1,0 +1,206 @@
+{
+    "entities": {
+        "M24309098": {
+            "pageid": 24309098,
+            "ns": 6,
+            "title": "File:Gate Cottage (8136316498).jpg",
+            "lastrevid": 472697501,
+            "modified": "2020-09-27T01:19:57Z",
+            "type": "mediainfo",
+            "id": "M24309098",
+            "labels": {},
+            "descriptions": {},
+            "statements": {
+                "P571": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P571",
+                            "hash": "046477f6af90fb774465d2e4e01049b25a8ba54e",
+                            "datavalue": {
+                                "value": {
+                                    "time": "+2012-10-29T00:00:00Z",
+                                    "timezone": 0,
+                                    "before": 0,
+                                    "after": 0,
+                                    "precision": 11,
+                                    "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                                },
+                                "type": "time"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M24309098$861524FB-3446-49E8-B412-74F850F55A9A",
+                        "rank": "normal"
+                    }
+                ],
+                "P1259": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P1259",
+                            "hash": "39cdabe7b072983ae3247633974656bfbe8371d3",
+                            "datavalue": {
+                                "value": {
+                                    "latitude": -33.837591,
+                                    "longitude": 151.130461,
+                                    "altitude": null,
+                                    "precision": 1.0e-6,
+                                    "globe": "http://www.wikidata.org/entity/Q2"
+                                },
+                                "type": "globecoordinate"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M24309098$43176C86-85F4-4D1F-B36F-6F64D75EE171",
+                        "rank": "normal"
+                    }
+                ],
+                "P6216": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P6216",
+                            "hash": "5570347fdc76d2a80732f51ea10ee4b144a084e0",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 50423863,
+                                    "id": "Q50423863"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M24309098$65E19E20-8A3D-4857-80E6-2917A06198DC",
+                        "rank": "normal"
+                    }
+                ],
+                "P275": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P275",
+                            "hash": "82d5b402aa0a79040483a8c9264bd484c6c13f67",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 19125117,
+                                    "id": "Q19125117"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "id": "M24309098$33D63DE1-1663-4D38-903A-D792793B0A5C",
+                        "rank": "normal"
+                    }
+                ],
+                "P7482": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P7482",
+                            "hash": "b82dd47222a210c6dc1f428b693c2fbf7b0e0d6e",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 74228490,
+                                    "id": "Q74228490"
+                                },
+                                "type": "wikibase-entityid"
+                            }
+                        },
+                        "type": "statement",
+                        "qualifiers": {
+                            "P973": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P973",
+                                    "hash": "133948deef59b3b227d974482a6a194e5f6e8c8a",
+                                    "datavalue": {
+                                        "value": "https://www.flickr.com/photos/89394554@N06/8136316498/",
+                                        "type": "string"
+                                    }
+                                }
+                            ],
+                            "P137": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P137",
+                                    "hash": "3d8cd4c1ab91d3d9a14900210faaebf1a98b947b",
+                                    "datavalue": {
+                                        "value": {
+                                            "entity-type": "item",
+                                            "numeric-id": 103204,
+                                            "id": "Q103204"
+                                        },
+                                        "type": "wikibase-entityid"
+                                    }
+                                }
+                            ]
+                        },
+                        "qualifiers-order": [
+                            "P973",
+                            "P137"
+                        ],
+                        "id": "M24309098$34B83ABE-EB3B-40F0-A5F0-BD8471B45F5E",
+                        "rank": "normal"
+                    }
+                ],
+                "P170": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "somevalue",
+                            "property": "P170",
+                            "hash": "d3550e860f988c6675fff913440993f58f5c40c5"
+                        },
+                        "type": "statement",
+                        "qualifiers": {
+                            "P3267": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P3267",
+                                    "hash": "e8493d2812f9b7651528b85a63b7be4820f99060",
+                                    "datavalue": {
+                                        "value": "89394554@N06",
+                                        "type": "string"
+                                    }
+                                }
+                            ],
+                            "P2093": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P2093",
+                                    "hash": "cb087781dca806ac666c9f03265444071a9b8674",
+                                    "datavalue": {
+                                        "value": "Frederick Manning",
+                                        "type": "string"
+                                    }
+                                }
+                            ],
+                            "P2699": [
+                                {
+                                    "snaktype": "value",
+                                    "property": "P2699",
+                                    "hash": "f552e90a7978adc44a0cd880c0c2bd96db9eb03c",
+                                    "datavalue": {
+                                        "value": "https://www.flickr.com/people/89394554@N06",
+                                        "type": "string"
+                                    }
+                                }
+                            ]
+                        },
+                        "qualifiers-order": [
+                            "P3267",
+                            "P2093",
+                            "P2699"
+                        ],
+                        "id": "M24309098$212CAEF6-FF3B-49C6-9A81-3EBFAB23F08D",
+                        "rank": "normal"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -25,11 +25,11 @@ export default class StringSnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataStringSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataStringSnak {
+    toJSON(isMediainfo = false): WikidataStringSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -38,7 +38,7 @@ export default class StringSnak extends Snak {
                 value: this.value,
                 type: 'string'
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataStringSnak;
     }
 

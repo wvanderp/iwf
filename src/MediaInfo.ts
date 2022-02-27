@@ -1,20 +1,15 @@
 import {
-    Item as WikidataItem,
     Labels as WikidataLabels,
     Statement as WikidataStatement,
     Descriptions as WikidataDescriptions,
-    Aliases as WikidataAliases,
     StatementMap as WikidataClaims,
-    Sitelinks as WikidataSiteLinks,
-    LabelAndDescription
+    Mediainfo as WikidataMediainfo
 } from '@wmde/wikibase-datamodel-types';
 import { v4 as uuidv4 } from 'uuid';
 
-import Alias from './Alias';
 import Statement from './Statement';
 import Description from './Description';
 import Label from './Label';
-import SiteLink from './SiteLink';
 import dateFormatter from './utils/dateFormatter';
 import normalizeOutput from './utils/normalizeOutput';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
@@ -24,12 +19,12 @@ import ItemLike from './ItemLike';
 /**
  * this type omits the id because if an item is new there will be no id
  */
-type ItemInput = Optional<WikidataItem, 'id'>;
+type ItemInput = Optional<WikidataMediainfo, 'id'>;
 
 /**
  * @class
  */
-export default class Item extends ItemLike {
+export default class MediaInfo extends ItemLike {
     /** A ID for using things that don't have an ID */
     internalID: string;
 
@@ -49,7 +44,7 @@ export default class Item extends ItemLike {
     modified: Date | undefined;
 
     /** the type of the entity. always 'item' */
-    type: 'item';
+    type: 'mediainfo';
 
     /** the Q-id of the item */
     id: string | undefined;
@@ -60,14 +55,8 @@ export default class Item extends ItemLike {
     /** the descriptions of the item */
     descriptions: Description[];
 
-    /** the aliases of the item */
-    aliases: Alias[];
-
     /** the statements of the item */
     statements: Statement[];
-
-    /** the sitelinks of the item */
-    sitelinks: SiteLink[];
 
     /**
      *
@@ -88,22 +77,34 @@ export default class Item extends ItemLike {
 
         this.labels = Object.values(item.labels).map((label) => new Label(label));
         this.descriptions = Object.values(item.descriptions).map((description) => new Description(description));
-        this.aliases = Object.values(item.aliases)
-            .flatMap(
-                (alias) => (alias !== null ? alias.map((alias2) => new Alias(alias2)) : [])
-            );
 
-        this.statements = Object.values(item.claims)
+        this.statements = Object.values(item.statements)
             .flat()
             .map((statement) => new Statement(statement));
+    }
 
-        this.sitelinks = Object.values(item.sitelinks).map((siteLink) => new SiteLink(siteLink));
+    /**
+     *
+     * @returns {string} the url leading to the commons page
+     */
+    get commonsUrl(): string {
+        return `https://commons.wikimedia.org/entity/${this.id}`;
+    }
+
+    /**
+     * gets the link to the image.
+     * uses the special:redirect function of wiki commons to find the right url
+     *
+     * @returns {string} the link to the image
+     */
+    public get imageLink(): string {
+        return `https://commons.wikimedia.org/wiki/Special:Redirect/file/${this.title}`;
     }
 
     /**
      * this function checks if two items are equal
      *
-     * @param {Item} other the other item
+     * @param {MediaInfo} other the other item
      * @returns {boolean} true if the items are equal
      * @example
      *      const itemA = Item.fromNothing()
@@ -113,7 +114,7 @@ export default class Item extends ItemLike {
      *          alert('the items are the same');
      *      }
      */
-    equals(other: Item): boolean {
+    equals(other: MediaInfo): boolean {
         const pageidEqual = this.pageid === other.pageid;
         const nsEqual = this.ns === other.ns;
         const titleEqual = this.title === other.title;
@@ -127,7 +128,6 @@ export default class Item extends ItemLike {
 
         const labelsEqual = arrayEqual(this.labels, other.labels);
         const descriptionsEqual = arrayEqual(this.descriptions, other.descriptions);
-        const aliasesEqual = arrayEqual(this.aliases, other.aliases);
 
         const statementsEqual = arrayEqualWith(this.statements, other.statements, (a, b) => a.equals(b));
 
@@ -140,7 +140,6 @@ export default class Item extends ItemLike {
             && typeEqual
             && labelsEqual
             && descriptionsEqual
-            && aliasesEqual
             && statementsEqual;
     }
 
@@ -162,11 +161,11 @@ export default class Item extends ItemLike {
     /**
      * stringifies the Item into the same json format as the api
      *
-     * @returns {WikidataItem} the item as json
+     * @returns {WikidataMediainfo} the item as json
      * @example
      *      const json = item.toJson();
      */
-    toJSON(): WikidataItem {
+    toJSON(): WikidataMediainfo {
         return normalizeOutput({
             pageid: this.pageid,
             ns: this.ns,
@@ -184,51 +183,33 @@ export default class Item extends ItemLike {
                 .map((description) => description.toJSON())
                 .map((value) => [value.language, value])),
 
-            aliases: this.aliases
-                .map((alias) => alias.toJSON())
-                .reduce<Record<string, LabelAndDescription[]>>((accumulator, value) => {
-                if (accumulator[value.language] === undefined) {
-                    accumulator[value.language] = [];
-                }
-
-                accumulator[value.language].push(value);
-                return accumulator;
-            }, {}),
-
-            claims: this.statements
-                .map((statement) => statement.toJSON())
+            statements: this.statements
+                .map((statement) => statement.toJSON(true))
                 .reduce<Record<string, WikidataStatement[]>>((accumulator, value) => {
-                if (accumulator[value.mainsnak.property] === undefined) {
-                    accumulator[value.mainsnak.property] = [];
-                }
+                    if (accumulator[value.mainsnak.property] === undefined) {
+                        accumulator[value.mainsnak.property] = [];
+                    }
 
-                accumulator[value.mainsnak.property].push(value);
-                return accumulator;
-            }, {}),
-
-            sitelinks: Object.fromEntries(this.sitelinks
-                .map((siteLink) => siteLink.toJSON())
-                .map((value) => [value.site, value]))
-
-        }) as WikidataItem;
+                    accumulator[value.mainsnak.property].push(value);
+                    return accumulator;
+                }, {}),
+        }) as WikidataMediainfo;
     }
 
     /**
      * generates a new empty item object
      *
-     * @returns {Item} returns a empty item
+     * @returns {MediaInfo} returns a empty item
      * @example
      *      const newItem = Item.fromNothing()
      */
-    static fromNothing(): Item {
-        return new Item({
-            type: 'item',
+    static fromNothing(): MediaInfo {
+        return new MediaInfo({
+            type: 'mediainfo',
             id: undefined,
             labels: {} as WikidataLabels,
             descriptions: {} as WikidataDescriptions,
-            aliases: {} as WikidataAliases,
-            claims: {} as WikidataClaims,
-            sitelinks: {} as WikidataSiteLinks
+            statements: {} as WikidataClaims
         });
     }
 }

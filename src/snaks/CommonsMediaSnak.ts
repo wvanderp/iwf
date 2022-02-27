@@ -46,10 +46,11 @@ export default class CommonsMediaSnak extends Snak {
 
     /**
      *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataCommonsMediaSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataCommonsMediaSnak {
+    toJSON(isMediainfo = false): WikidataCommonsMediaSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -58,7 +59,7 @@ export default class CommonsMediaSnak extends Snak {
                 value: this.fileName,
                 type: 'string'
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataCommonsMediaSnak;
     }
 

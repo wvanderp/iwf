@@ -54,14 +54,15 @@ export default class Reference {
     }
 
     /**
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataReference} the Reference in a json format
      * @example
      */
-    toJSON(): WikidataReference {
+    toJSON(isMediainfo = false): WikidataReference {
         return normalizeOutput({
             hash: this.hash,
             snaks: this.snaks
-                .map((snak) => snak.toJSON())
+                .map((snak) => snak.toJSON(isMediainfo))
                 .reduce<wikidataReferenceSnaks>(
                 (accumulator, value) => groupByPropertyReducer(accumulator, value),
                 {}

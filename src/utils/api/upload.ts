@@ -2,8 +2,12 @@
 import axios from 'axios';
 
 import qs from 'qs';
+import MediaInfo from '../../MediaInfo';
 import Item from '../../Item';
+import ItemLike from '../../ItemLike';
 import { WbeditentityResponse } from '../../types/apiResponse';
+import isWikidataItem from '../../types/guards';
+import domains from './domains';
 import { Token } from './token';
 
 interface UploadOptions {
@@ -13,6 +17,7 @@ interface UploadOptions {
     anonymous?: boolean;
 
     userAgent?: string;
+    domain?: keyof typeof domains;
 
     summary: string;
     tags?: string[];
@@ -22,7 +27,11 @@ interface UploadOptions {
 
 type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
 
-const url = 'https://www.wikidata.org/w/api.php?action=wbeditentity&format=json';
+const getUrl = (options: UploadOptions): string => {
+    const domainOption = options.domain ?? 'wikidata';
+    const domain = domains[domainOption];
+    return `${domain}/w/api.php?action=wbeditentity&format=json`;
+};
 
 /**
  * @private
@@ -61,9 +70,9 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
 
 /**
  *
- * @param {Item} item The item you want to upload to wikidata
+ * @param {ItemLike} item The item you want to upload to wikidata
  * @param {UploadOptions} options the options for uploading
- * @returns {Promise<Item>} a Promise for the item after uploading
+ * @returns {Promise<ItemLike>} a Promise for the item after uploading
  * @example
  *      const token = await getToken('your wikidata username', 'your wikidata password');
  *      upload(item, {
@@ -71,7 +80,7 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
  *          authToken: token
  *      });
  */
-export default async function upload(item: Item, options: UploadOptions): Promise<Item> {
+export default async function upload(item: ItemLike, options: UploadOptions): Promise<ItemLike> {
     const authMethod = validateAuthentication(options);
 
     const authToken = authMethod === 'authToken' ? options.authToken?.token : '+\\';
@@ -89,7 +98,7 @@ export default async function upload(item: Item, options: UploadOptions): Promis
     const headers = authMethod === 'authToken' && options.authToken ? { Cookie: options.authToken.cookie } : undefined;
 
     const response = await axios.post<WbeditentityResponse>(
-        url,
+        getUrl(options),
         postString,
         { headers }
     );
@@ -105,6 +114,5 @@ export default async function upload(item: Item, options: UploadOptions): Promis
         console.error(data.error);
         throw new Error('api request went wrong');
     }
-
-    return new Item(data.entity);
+    return isWikidataItem(data.entity) ? new Item(data.entity) : new MediaInfo(data.entity);
 }

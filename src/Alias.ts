@@ -19,9 +19,11 @@ export default class Alias {
     value: string;
 
     /**
+     * creates a Alias object
      *
      * @param {LabelAndDescription} alias  the alias in json format
      * @example
+     *      const alias = new Alias({language: 'en', value: 'alias'})
      */
     constructor(alias: LabelAndDescription) {
         this.language = alias.language;
@@ -30,6 +32,8 @@ export default class Alias {
     }
 
     /**
+     * returns the alias in a json format compatible with the wikibase api
+     *
      * @returns {LabelAndDescription} the alias in a json format
      * @example
      */

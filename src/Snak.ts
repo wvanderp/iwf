@@ -37,7 +37,7 @@ export default abstract class Snak {
         return this.snaktype === 'value';
     }
 
-    abstract toJSON(): WikidataSnaks;
+    abstract toJSON(isMediainfo?: boolean): WikidataSnaks;
 
     abstract equals(other: Snak): boolean;
 }

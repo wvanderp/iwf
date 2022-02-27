@@ -25,11 +25,11 @@ export default class ExternalIdentifierSnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataExternalIdentifierSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataExternalIdentifierSnak {
+    toJSON(isMediainfo = false): WikidataExternalIdentifierSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -38,7 +38,7 @@ export default class ExternalIdentifierSnak extends Snak {
                 value: this.id,
                 type: 'string'
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataExternalIdentifierSnak;
     }
 

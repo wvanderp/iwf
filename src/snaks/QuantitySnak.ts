@@ -95,11 +95,11 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataQuantitySnak} the snak as json
      * @example
      */
-    toJSON(): WikidataQuantitySnak {
+    toJSON(isMediainfo = false): WikidataQuantitySnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -113,7 +113,7 @@ export default class QuantitySnak extends Snak {
                 },
                 type: 'quantity'
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataQuantitySnak;
     }
 

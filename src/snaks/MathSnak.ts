@@ -26,11 +26,11 @@ export default class MathSnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataMathSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataMathSnak {
+    toJSON(isMediainfo = false): WikidataMathSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -39,7 +39,7 @@ export default class MathSnak extends Snak {
                 value: this.value,
                 type: 'string'
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataMathSnak;
     }
 

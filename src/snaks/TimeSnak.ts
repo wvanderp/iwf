@@ -40,11 +40,11 @@ export default class TimeSnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataTimeSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataTimeSnak {
+    toJSON(isMediainfo = false): WikidataTimeSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -60,7 +60,7 @@ export default class TimeSnak extends Snak {
                 },
                 type: 'time' as const
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataTimeSnak;
     }
 

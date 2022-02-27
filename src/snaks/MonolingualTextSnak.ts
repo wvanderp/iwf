@@ -31,11 +31,11 @@ export default class MonolingualTextSnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataMonolingualTextSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataMonolingualTextSnak {
+    toJSON(isMediainfo = false): WikidataMonolingualTextSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -47,7 +47,7 @@ export default class MonolingualTextSnak extends Snak {
                 },
                 type: 'monolingualtext'
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataMonolingualTextSnak;
     }
 

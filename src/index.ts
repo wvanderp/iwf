@@ -1,11 +1,13 @@
 export { default as Alias } from './Alias';
-export { default as Statement } from './Statement';
 export { default as Description } from './Description';
+export { default as ItemLike } from './ItemLike';
 export { default as Item } from './Item';
 export { default as Label } from './Label';
+export { default as MediaInfo } from './MediaInfo';
 export { default as Reference } from './Reference';
 export { default as SiteLink } from './SiteLink';
 export { default as Snak } from './Snak';
+export { default as Statement } from './Statement';
 
 export { default as CommonsMediaSnak } from './snaks/CommonsMediaSnak';
 export { default as ExternalIdentifierSnak } from './snaks/ExternalIdentifierSnak';
@@ -22,6 +24,6 @@ export { default as UrlSnak } from './snaks/UrlSnak';
 export { default as WikibaseItemSnak } from './snaks/WikibaseItemSnak';
 export { default as WikibasePropertySnak } from './snaks/WikibasePropertySnak';
 
+export { default as getToken } from './utils/api/token';
 export { default as requestItem } from './utils/api/request';
 export { default as upload } from './utils/api/upload';
-export { default as getToken } from './utils/api/token';

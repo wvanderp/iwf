@@ -45,11 +45,11 @@ export default class GlobeCoordinateSnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataGlobeCoordinateSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataGlobeCoordinateSnak {
+    toJSON(isMediainfo = false): WikidataGlobeCoordinateSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -64,7 +64,7 @@ export default class GlobeCoordinateSnak extends Snak {
                 },
                 type: 'globecoordinate' as const
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataGlobeCoordinateSnak;
     }
 

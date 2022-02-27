@@ -67,11 +67,11 @@ export default class WikibaseItemSnak extends Snak {
     }
 
     /**
-     *
+     * @param {boolean} isMediainfo where to output for the mediainfo type, this changes some of the json output
      * @returns {WikidataWikibaseItemSnak} the snak as json
      * @example
      */
-    toJSON(): WikidataWikibaseItemSnak {
+    toJSON(isMediainfo = false): WikidataWikibaseItemSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
@@ -84,7 +84,7 @@ export default class WikibaseItemSnak extends Snak {
                 },
                 type: 'wikibase-entityid' as const
             } : undefined,
-            datatype: this.datatype
+            datatype: isMediainfo ? undefined : this.datatype
         }) as WikidataWikibaseItemSnak;
     }
 

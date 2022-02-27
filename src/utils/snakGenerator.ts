@@ -15,6 +15,8 @@ import {
     GeoShapeSnak as WikidataGeoShapeSnak,
     WikibasePropertySnak as WikidataWikibasePropertySnak,
 } from '@wmde/wikibase-datamodel-types';
+import properties from 'wikidata-properties';
+
 import Snak from '../Snak';
 
 import CommonsMediaSnak from '../snaks/CommonsMediaSnak';
@@ -40,7 +42,17 @@ import WikibasePropertySnak from '../snaks/WikibasePropertySnak';
  * @returns {Snak} the snak as a class
  */
 export default function snakGenerator(snak: wikidataSnak): Snak {
-    switch (snak.datatype) {
+    const directType = snak.datatype;
+    const dataValueType = snak.datavalue?.type;
+    const propertyType = properties.getProperty(snak.property)?.datatype;
+
+    const datatype = directType ?? dataValueType ?? propertyType;
+
+    if (datatype === undefined) {
+        throw new Error(`did not find a valid snak type in ${JSON.stringify(snak)}`);
+    }
+
+    switch (datatype) {
         case 'string': {
             return new StringSnak(snak as WikidataStringSnak);
         }
@@ -48,7 +60,7 @@ export default function snakGenerator(snak: wikidataSnak): Snak {
         case 'url': {
             return new URLSnak(snak as WikidataUrlSnak);
         }
-
+        case 'wikibase-entityid':
         case 'wikibase-item': {
             return new WikibaseItemSnak(snak as WikidataItemSnak);
         }
@@ -69,6 +81,7 @@ export default function snakGenerator(snak: wikidataSnak): Snak {
             return new QuantitySnak(snak as WikidataQuantitySnak);
         }
 
+        case 'globecoordinate':
         case 'globe-coordinate': {
             return new GlobeCoordinateSnak(snak as WikidataGlobeCoordinateSnak);
         }
@@ -98,7 +111,7 @@ export default function snakGenerator(snak: wikidataSnak): Snak {
         }
 
         default: {
-            throw new Error(`the value of ${snak.datatype} is not a valid snak type`);
+            throw new Error(`the value of ${datatype} is not a valid snak type`);
         }
     }
 }
