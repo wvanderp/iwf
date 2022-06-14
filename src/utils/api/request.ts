@@ -8,7 +8,7 @@ import Item from '../../Item';
 import Mediainfo from '../../MediaInfo';
 import domains from './domains';
 import ItemLike from '../../ItemLike';
-import isWikidataItem from '../../types/guards';
+import isWikidataItem from '../../types/guards/ItemGuard';
 
 /**
  * @private
@@ -23,7 +23,7 @@ export function baseURL(qid: string, options?: RequestOptions): string {
     return `${domain}/wiki/Special:EntityData/${qid}.json`;
 }
 
-interface RequestOptions{
+interface RequestOptions {
     domain?: keyof typeof domains;
 }
 

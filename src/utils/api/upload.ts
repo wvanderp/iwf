@@ -6,7 +6,7 @@ import MediaInfo from '../../MediaInfo';
 import Item from '../../Item';
 import ItemLike from '../../ItemLike';
 import { WbeditentityResponse } from '../../types/apiResponse';
-import isWikidataItem from '../../types/guards';
+import isWikidataItem from '../../types/guards/ItemGuard';
 import domains from './domains';
 import { Token } from './token';
 

@@ -3,7 +3,7 @@ import qs from 'qs';
 import { ActionLoginResponse, QueryMetaTokenResponse } from '../../types/apiResponse';
 import domains from './domains';
 
-interface LoginOptions{
+interface LoginOptions {
     domain: keyof typeof domains
 }
 

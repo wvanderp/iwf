@@ -192,7 +192,7 @@ export default class MediaInfo extends ItemLike {
 
                     accumulator[value.mainsnak.property].push(value);
                     return accumulator;
-                }, {}),
+            }, {}),
         }) as WikidataMediainfo;
     }
 

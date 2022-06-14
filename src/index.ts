@@ -39,4 +39,5 @@ export { default as upload } from './utils/api/upload';
 
 // type guards
 
-export { default as isWikidataItem } from './types/guards';
+export { default as isWikidataItem } from './types/guards/ItemGuard';
+export { default as MediaInfoGuard } from './types/guards/MediaInfoGuard';
