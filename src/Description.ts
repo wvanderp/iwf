@@ -45,6 +45,10 @@ export default class Description {
      * @param {LabelAndDescription} other the other Label
      * @returns {boolean} true if the descriptions are equal
      * @example
+     *   const description1 = new Description({ language: 'en', value: 'foo' });
+     *   const description2 = new Description({ language: 'en', value: 'bar' });
+     *
+     *   description1.equals(description2); // false
      */
     equals(other: LabelAndDescription): boolean {
         return this.language === other.language && this.value === other.value;

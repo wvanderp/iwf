@@ -6,7 +6,7 @@ import Item from '../../Item';
 import { WbeditentityResponse } from '../../types/apiResponse';
 import { Token } from './token';
 
-interface UploadOptions{
+interface UploadOptions {
     username?: string;
     password?: string;
     authToken?: Token;

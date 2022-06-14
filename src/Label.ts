@@ -45,6 +45,10 @@ export default class Label {
      * @param {LabelAndDescription} other the other Label
      * @returns {boolean} true if the Labels are equal
      * @example
+     *     const label1 = new Label({ language: 'en', value: 'foo' });
+     *     const label2 = new Label({ language: 'en', value: 'bar' });
+     *
+     *     label1.equals(label2); // false
      */
     equals(other: LabelAndDescription): boolean {
         return this.language === other.language && this.value === other.value;
@@ -56,7 +60,7 @@ export default class Label {
      * @param {string} value the value of the label
      * @returns {Label} the label object
      * @example
-     *      const label = Label.fromString('en', 'Douglas Adams')
+     *     const label = Label.fromString('en', 'Douglas Adams')
      */
     static fromString(language: LabelLanguages, value: string): Label {
         return new Label({ language, value });

@@ -10,7 +10,7 @@ export interface WbeditentityResponse {
     servedby? : string;
 }
 
-export interface ActionLoginResponse{
+export interface ActionLoginResponse {
     warnings: {
         main: {
             '*': string
@@ -25,7 +25,7 @@ export interface ActionLoginResponse{
     }
 }
 
-export interface QueryMetaTokenResponse{
+export interface QueryMetaTokenResponse {
     batchcomplete: string,
     query: {
         tokens: { csrftoken: string }

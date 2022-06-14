@@ -1,5 +1,5 @@
 import { SiteLink as WikidataSiteLink } from '@wmde/wikibase-datamodel-types';
-import { siteDetails } from 'wikidata-properties';
+import properties from 'wikidata-properties';
 import { v4 as uuidv4 } from 'uuid';
 
 import normalizeOutput from './utils/normalizeOutput';
@@ -43,7 +43,7 @@ export default class SiteLink {
     get url(): string {
         if (this._url !== undefined) return this._url;
 
-        const url = siteDetails[this.site]
+        const url = properties.siteDetails[this.site]
             .pageUrl
             .replace('$1', this.title);
 

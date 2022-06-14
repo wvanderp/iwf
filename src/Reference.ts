@@ -9,9 +9,9 @@ import snakGenerator from './utils/snakGenerator';
 /**
  * Reduces an array of snaks into a object grouped by PropertyID
  *
- * @param {Object} accumulator the accumulator object
+ * @param {object} accumulator the accumulator object
  * @param {Snak} value the Snak
- * @returns {Object} an Object with groups of snaks by ID
+ * @returns {object} an Object with groups of snaks by ID
  * @example
  */
 function groupByPropertyReducer(accumulator: Record<string, Snaks[]>, value: Snaks): Record<string, Snaks[]> {
@@ -76,6 +76,16 @@ export default class Reference {
      * @param {Reference} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *     const reference = Reference.fromSnaks([
+     *        new Snak('P123', 'Q42'),
+     *        new Snak('P456', 'Q43')
+     *    ]);
+     *
+     *   const reference2 = Reference.fromSnaks([
+     *       new Snak('P123', 'Q42')
+     *   ]);
+     *
+     *   reference.equals(reference2); // false
      */
     equals(other: Reference): boolean {
         return arrayEqualWith(this.snaks, other.snaks, (a: Snak, b: Snak) => a.equals(b))

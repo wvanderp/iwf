@@ -5,7 +5,7 @@ import { ActionLoginResponse, QueryMetaTokenResponse } from '../../types/apiResp
 const loginUrl = 'https://www.wikidata.org/w/api.php?action=login&format=json';
 const tokenUrl = 'https://www.wikidata.org/w/api.php?action=query&meta=tokens&type=csrf&format=json';
 
-export interface Token{
+export interface Token {
     token: string;
     cookie: string;
 }
