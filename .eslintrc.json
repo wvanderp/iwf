@@ -72,11 +72,14 @@
         "prefer-arrow-callback": "off",
         "func-names": "off",
         // There are no function calls in mocha so this rule thinks the file does nothing. But mocha calls the file
-        "no-unused-expressions": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
         // Any is used to mock some vars and it gives warnings about it that are unwanted
         "@typescript-eslint/no-explicit-any": "off",
-        "compat/compat": "off"
+        "compat/compat": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "sonarjs/no-duplicate-string": "off"
       }
+      
     }
   ],
   "rules": {
@@ -105,7 +108,6 @@
     // sometimes it is necessary
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/indent": [
-
       "error",
       4,
       {
@@ -162,6 +164,7 @@
           "MethodDefinition": true
         }
       }
-    ]
+    ],
+    "unicorn/numeric-separators-style": "off"
   }
 }

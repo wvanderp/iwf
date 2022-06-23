@@ -18,7 +18,8 @@ describe('siteLink diff', () => {
             new SiteLink({ site: 'kowiki', title: '지구', badges: [] }),
             new SiteLink({ site: 'nlwiki', title: 'Aarde', badges: [] }),
             new SiteLink({ site: 'enwiki', title: 'Earth', badges: ['Q17437796'] }),
-            new SiteLink({ site: 'frwiki', title: 'Monde', badges: [] })
+            new SiteLink({ site: 'frwiki', title: 'Monde', badges: [] }),
+            new SiteLink({ site: 'itwiki', title: 'Mondo', badges: [] })
         ];
 
         b[0].internalID = a[0].internalID;
@@ -27,10 +28,21 @@ describe('siteLink diff', () => {
         b[3].internalID = a[4].internalID;
 
         const changes: Changes[] = [
-            { action: 'update', parentID: 'Q2', type: 'siteLink', old: { site: 'nlwiki', title: 'Aarde', badges: ['Q17437796'] }, new: { site: 'nlwiki', title: 'Aarde', badges: [] } },
-            { action: 'update', parentID: 'Q2', type: 'siteLink', old: { site: 'enwiki', title: 'Earth', badges: [] }, new: { site: 'enwiki', title: 'Earth', badges: ['Q17437796'] } },
-            { action: 'update', parentID: 'Q2', type: 'siteLink', old: { site: 'frwiki', title: 'Terre', badges: [] }, new: { site: 'frwiki', title: 'Monde', badges: [] } },
-            { action: 'remove', parentID: 'Q2', type: 'siteLink', old: { site: 'dewiki', title: 'Erde', badges: [] } }
+            {
+                action: 'add', new: { badges: [], site: 'itwiki', title: 'Mondo' }, parentID: 'Q2', type: 'siteLink'
+            },
+            {
+                action: 'update', parentID: 'Q2', type: 'siteLink', old: { site: 'nlwiki', title: 'Aarde', badges: ['Q17437796'] }, new: { site: 'nlwiki', title: 'Aarde', badges: [] }
+            },
+            {
+                action: 'update', parentID: 'Q2', type: 'siteLink', old: { site: 'enwiki', title: 'Earth', badges: [] }, new: { site: 'enwiki', title: 'Earth', badges: ['Q17437796'] }
+            },
+            {
+                action: 'update', parentID: 'Q2', type: 'siteLink', old: { site: 'frwiki', title: 'Terre', badges: [] }, new: { site: 'frwiki', title: 'Monde', badges: [] }
+            },
+            {
+                action: 'remove', parentID: 'Q2', type: 'siteLink', old: { site: 'dewiki', title: 'Erde', badges: [] }
+            }
         ];
         expect(siteLinkDiff(a, b, 'Q2')).to.deep.equal(changes);
     });

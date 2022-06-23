@@ -1,5 +1,6 @@
 import { TimeSnak as WikidataTimeSnak, CalendarModels } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
+import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
@@ -83,13 +84,13 @@ export default class TimeSnak extends Snak {
     /**
      * dates only so add all of the date (year, month, day)
      *
-     * @param {string} property the property of the snak in 'P-form'
+     * @param {PString} property the property of the snak in 'P-form'
      * @param {Date} date the date for the snak
      * @param {CalendarModels} calendarModel the calendarModel for the snak
      * @returns {TimeSnak} the timeSnak
      * @example
      */
-    static fromDate(property: string, date: Date, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985786'): TimeSnak {
+    static fromDate(property: PString, date: Date, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985786'): TimeSnak {
         const isoString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
         return new TimeSnak({
             snaktype: 'value',

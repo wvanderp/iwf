@@ -1,5 +1,6 @@
 import { StringSnak as WikidataStringSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
+import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
@@ -55,12 +56,12 @@ export default class StringSnak extends Snak {
 
     /**
      * @static
-     * @param {string} property the property of the snak in 'P-form'
+     * @param {PString} property the property of the snak in 'P-form'
      * @param {string} string the string
      * @returns {StringSnak} a snak with the given properties
      * @example
      */
-    static fromString(property: string, string: string): StringSnak {
+    static fromString(property: PString, string: string): StringSnak {
         return new StringSnak({
             snaktype: 'value',
             property,

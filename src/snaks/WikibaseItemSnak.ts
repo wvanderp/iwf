@@ -1,5 +1,6 @@
 import { WikibaseItemSnak as WikidataWikibaseItemSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
+import { PString, QString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
@@ -100,13 +101,15 @@ export default class WikibaseItemSnak extends Snak {
     }
 
     /**
+     * create a snak from some basic data
+     *
      * @static
-     * @param {string} property the property of the snak in 'P-form'
-     * @param {string} id the Wikibase item id in the `Q-form`
+     * @param {PString} property the property of the snak in 'P-form'
+     * @param {QString} id the Wikibase item id in the `Q-form`
      * @returns {WikibaseItemSnak} a snak with the given properties
      * @example
      */
-    static fromID(property: string, id: string): WikibaseItemSnak {
+    static fromID(property: PString, id: QString): WikibaseItemSnak {
         return new WikibaseItemSnak({
             snaktype: 'value',
             property,

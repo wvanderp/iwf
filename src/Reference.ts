@@ -9,10 +9,10 @@ import snakGenerator from './utils/snakGenerator';
 /**
  * Reduces an array of snaks into a object grouped by PropertyID
  *
+ * @private
  * @param {object} accumulator the accumulator object
  * @param {Snak} value the Snak
  * @returns {object} an Object with groups of snaks by ID
- * @example
  */
 function groupByPropertyReducer(accumulator: Record<string, Snaks[]>, value: Snaks): Record<string, Snaks[]> {
     if (accumulator[value.property] === undefined) {

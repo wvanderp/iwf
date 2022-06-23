@@ -1,5 +1,6 @@
 import { WikibasePropertySnak as WikidataWikibasePropertySnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
+import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
@@ -28,19 +29,19 @@ export default class WikibasePropertySnak extends Snak {
     /**
      * returns the ID of the property with the P
      *
-     * @returns {string | undefined} the ID of the property with the P
+     * @returns {PString | undefined} the ID of the property with the P
      */
-    public get id(): string | undefined {
-        return this.hasValue ? `P${this._numericID}` : undefined;
+    public get id(): PString | undefined {
+        return this.hasValue && this._numericID ? `P${this._numericID}` : undefined;
     }
 
     /**
      * This function parses the string by slicing the first char and then number.parseInt
      * if value is undefined it also sets the snaktype to 'novalue
      *
-     * @property {string | undefined} value the value that you want to set
+     * @property {PString | undefined} value the value that you want to set
      */
-    public set id(value: string | undefined) {
+    public set id(value: PString | undefined) {
         if (value === undefined) {
             this._numericID = undefined;
             this.snaktype = 'novalue';

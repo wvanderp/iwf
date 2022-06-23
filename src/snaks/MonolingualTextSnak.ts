@@ -1,5 +1,6 @@
 import { MonolingualTextSnak as WikidataMonolingualTextSnak, MonolingualLanguages } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
+import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
@@ -64,13 +65,13 @@ export default class MonolingualTextSnak extends Snak {
 
     /**
      * @static
-     * @param {string} property the property of the snak in 'P-form'
+     * @param {PString} property the property of the snak in 'P-form'
      * @param {MonolingualLanguages} language the language of the snak
      * @param {string} value the value
      * @returns {MonolingualTextSnak} a snak with the given properties
      * @example
      */
-    static fromString(property: string, language: MonolingualLanguages, value: string): MonolingualTextSnak {
+    static fromString(property: PString, language: MonolingualLanguages, value: string): MonolingualTextSnak {
         return new MonolingualTextSnak({
             snaktype: 'value' as const,
             property,

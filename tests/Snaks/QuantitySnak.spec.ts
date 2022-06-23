@@ -56,6 +56,16 @@ describe('Quantity Snak', () => {
                 expect(snak._amount).to.equal('-11.11');
                 expect(snak.amount).to.equal(-11.11);
             });
+
+            it('the amount setter should accept and handle undefined', function () {
+                const snak = new QuantitySnak(quantitySnak);
+
+                snak.amount = undefined;
+
+                // @ts-expect-error cant access private members in ts but in js you can
+                expect(snak._amount).to.equal(undefined);
+                expect(snak.amount).to.equal(undefined);
+            });
         });
 
         describe('upperBound', function () {
@@ -94,6 +104,16 @@ describe('Quantity Snak', () => {
                 // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._upperBound).to.equal('-11.11');
                 expect(snak.upperBound).to.equal(-11.11);
+            });
+
+            it('the upperBound setter should accept and handle undefined', function () {
+                const snak = new QuantitySnak(quantitySnak);
+
+                snak.upperBound = undefined;
+
+                // @ts-expect-error cant access private members in ts but in js you can
+                expect(snak._upperBound).to.equal(undefined);
+                expect(snak.upperBound).to.equal(undefined);
             });
         });
 
@@ -134,6 +154,16 @@ describe('Quantity Snak', () => {
                 expect(snak._lowerBound).to.equal('-11.11');
                 expect(snak.lowerBound).to.equal(-11.11);
             });
+
+            it('the lowerBound setter should accept and handle undefined', function () {
+                const snak = new QuantitySnak(quantitySnak);
+
+                snak.lowerBound = undefined;
+
+                // @ts-expect-error cant access private members in ts but in js you can
+                expect(snak._lowerBound).to.equal(undefined);
+                expect(snak.lowerBound).to.equal(undefined);
+            });
         });
     });
 
@@ -159,5 +189,25 @@ describe('Quantity Snak', () => {
 
             expect(snak.equals(snak2)).to.be.false;
         });
+    });
+
+    describe('fromNumbers', () => {
+        it('should create a snak from numbers with the minium arguments', () => {
+            const snak = QuantitySnak.fromNumbers('P1215', 1);
+            expect(snak.property).to.equal('P1215');
+            expect(snak.amount).to.equal(1);
+            expect(snak.upperBound).to.equal(undefined);
+            expect(snak.lowerBound).to.equal(undefined);
+            expect(snak.unit).to.equal('1');
+        });
+    });
+
+    it('should create a snak from numbers and also with the maximum arguments ', () => {
+        const snak = QuantitySnak.fromNumbers('P1215', 1, 2, 0.5, 'Q42');
+        expect(snak.property).to.equal('P1215');
+        expect(snak.amount).to.equal(1);
+        expect(snak.upperBound).to.equal(2);
+        expect(snak.lowerBound).to.equal(0.5);
+        expect(snak.unit).to.equal('http://www.wikidata.org/entity/Q42');
     });
 });

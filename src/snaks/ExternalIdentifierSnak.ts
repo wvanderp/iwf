@@ -1,5 +1,6 @@
 import { ExternalIdentifierSnak as WikidataExternalIdentifierSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
+import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
@@ -54,13 +55,15 @@ export default class ExternalIdentifierSnak extends Snak {
     }
 
     /**
+     * create a snak from a property and a id string
+     *
      * @static
-     * @param {string} property the property of the snak in 'P-form'
+     * @param {PString} property the property of the snak in 'P-form'
      * @param {string} id the external identifier
      * @returns {ExternalIdentifierSnak} a snak with the given properties
      * @example
      */
-    static fromID(property: string, id: string): ExternalIdentifierSnak {
+    static fromID(property: PString, id: string): ExternalIdentifierSnak {
         return new ExternalIdentifierSnak({
             snaktype: 'value',
             property,

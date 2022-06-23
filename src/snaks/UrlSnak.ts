@@ -1,5 +1,6 @@
 import { URLSnak as WikidataURLSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
+import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
@@ -71,12 +72,12 @@ export default class URLSnak extends Snak {
 
     /**
      * @static
-     * @param {string} property the property of the snak in 'P-form'
+     * @param {PString} property the property of the snak in 'P-form'
      * @param {string} url the url
      * @returns {URLSnak} a snak with the given properties
      * @example
      */
-    static fromURL(property: string, url: string): URLSnak {
+    static fromURL(property: PString, url: string): URLSnak {
         return new URLSnak({
             snaktype: 'value',
             property,

@@ -25,3 +25,6 @@ export { default as WikibasePropertySnak } from './snaks/WikibasePropertySnak';
 export { default as requestItem } from './utils/api/request';
 export { default as upload } from './utils/api/upload';
 export { default as getToken } from './utils/api/token';
+
+export { QString } from './types/strings';
+export { PString } from './types/strings';

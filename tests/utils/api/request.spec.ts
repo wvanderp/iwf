@@ -1,9 +1,11 @@
-import { describe, it, after, before } from 'mocha';
+import {
+    describe, it, after, before
+} from 'mocha';
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
-import sinon, {SinonStub } from 'sinon';
+import sinon, { SinonStub } from 'sinon';
 import { baseURL } from '../../../src/utils/api/request';
 import { requestItem } from '../../../src';
 
@@ -23,7 +25,7 @@ describe('requestItem functions', () => {
                         `../../data/${fs.readdirSync(path.resolve(__dirname, '../../data/'))[0]
                         }`
                     )
-                ).toString('utf-8')
+                ).toString('utf8')
             ),
             success: 1
         }

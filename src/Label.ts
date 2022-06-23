@@ -55,6 +55,7 @@ export default class Label {
     }
 
     /**
+     * create a label from a language and a value
      *
      * @param {string} language the language of the label
      * @param {string} value the value of the label

@@ -1,4 +1,6 @@
-import { beforeEach, describe, it, before, after } from 'mocha';
+import {
+    beforeEach, describe, it, before, after
+} from 'mocha';
 import axios from 'axios';
 import chai from 'chai';
 import chaiAsPromised = require('chai-as-promised');
@@ -9,12 +11,12 @@ import { Item } from '../../../src';
 import { Token } from '../../../src/utils/api/token';
 
 chai.use(chaiAsPromised);
-const {expect} = chai;
+const { expect } = chai;
 
 const token: Token = {
     token: 'token',
     cookie: 'cookie'
-}
+};
 
 describe('upload', () => {
     let axiosStub: SinonStub;

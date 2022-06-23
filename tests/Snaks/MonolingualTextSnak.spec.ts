@@ -39,4 +39,12 @@ describe('Monolingual Text Snak', () => {
             expect(snak.equals(snak2)).to.be.false;
         });
     });
+
+    describe('fromString', () => {
+        it('should create a snak from a string', () => {
+            const snak = MonolingualTextSnak.fromString('P1476', 'de', 'Zum Wettstreit um den h\u00F6chsten Gipfel Berlins');
+
+            expect(snak.toJSON()).to.deep.equal(monolingualTextSnak);
+        });
+    });
 });
