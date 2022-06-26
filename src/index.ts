@@ -28,3 +28,6 @@ export { default as getToken } from './utils/api/token';
 
 export { QString } from './types/strings';
 export { PString } from './types/strings';
+
+export { isQString } from './utils/guards/strings';
+export { isPString } from './utils/guards/strings';

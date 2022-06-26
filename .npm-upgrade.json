@@ -1,0 +1,8 @@
+{
+  "ignore": {
+    "ts-node": {
+      "versions": "10.8.1",
+      "reason": "there is a bug wich brakes coverage \"file:\""
+    }
+  }
+}
