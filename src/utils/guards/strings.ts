@@ -1,3 +1,5 @@
+import { PString, QString } from '../../types/strings';
+
 const QstringRegex = /Q\d+$/m;
 const PStringRegex = /P\d+$/m;
 
@@ -14,7 +16,7 @@ const PStringRegex = /P\d+$/m;
  *    }
  *    WikibaseItemSnak.fromID('P42', id);
  */
-export function isQString(string_: string): boolean {
+export function isQString(string_: string): string_ is QString {
     return QstringRegex.test(string_);
 }
 
@@ -31,6 +33,6 @@ export function isQString(string_: string): boolean {
  *    }
  *    WikibaseItemSnak.fromID(property, 'Q123');
  */
-export function isPString(string_: string): boolean {
+export function isPString(string_: string): string_ is PString {
     return PStringRegex.test(string_);
 }
