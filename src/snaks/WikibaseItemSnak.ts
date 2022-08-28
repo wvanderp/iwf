@@ -71,6 +71,7 @@ export default class WikibaseItemSnak extends Snak {
      *
      * @returns {WikidataWikibaseItemSnak} the snak as json
      * @example
+     *      const json = itemSnak.toJson();
      */
     toJSON(): WikidataWikibaseItemSnak {
         return normalizeOutput({

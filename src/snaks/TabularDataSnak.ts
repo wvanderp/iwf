@@ -37,6 +37,7 @@ export default class TabularDataSnak extends Snak {
      *
      * @returns {WikidataTabularDataSnak} the snak as json
      * @example
+     *      const json = tabularSnak.toJson();
      */
     toJSON(): WikidataTabularDataSnak {
         return normalizeOutput({

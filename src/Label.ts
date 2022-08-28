@@ -31,6 +31,7 @@ export default class Label {
     /**
      * @returns {LabelAndDescription} the label as json
      * @example
+     *      const json = label.toJson();
      */
     toJSON(): LabelAndDescription {
         return normalizeOutput({

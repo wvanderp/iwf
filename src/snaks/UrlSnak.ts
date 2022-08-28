@@ -45,6 +45,7 @@ export default class URLSnak extends Snak {
      *
      * @returns {WikidataURLSnak} the snak as json
      * @example
+     *      const json = urlSnak.toJson();
      */
     toJSON(): WikidataURLSnak {
         return normalizeOutput({

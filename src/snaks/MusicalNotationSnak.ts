@@ -28,6 +28,7 @@ export default class MusicalNotationSnak extends Snak {
      *
      * @returns {WikidataMusicalNotationSnak} the snak as json
      * @example
+     *      const json = MusicSnak.toJson();
      */
     toJSON(): WikidataMusicalNotationSnak {
         return normalizeOutput({

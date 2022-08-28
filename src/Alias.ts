@@ -32,6 +32,7 @@ export default class Alias {
     /**
      * @returns {LabelAndDescription} the alias in a json format
      * @example
+     *      const json = alias.toJson();
      */
     toJSON(): LabelAndDescription {
         return normalizeOutput({

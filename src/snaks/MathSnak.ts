@@ -29,6 +29,7 @@ export default class MathSnak extends Snak {
      *
      * @returns {WikidataMathSnak} the snak as json
      * @example
+     *      const json = mathSnak.toJson();
      */
     toJSON(): WikidataMathSnak {
         return normalizeOutput({

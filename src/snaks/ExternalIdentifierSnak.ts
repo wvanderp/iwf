@@ -29,6 +29,7 @@ export default class ExternalIdentifierSnak extends Snak {
      *
      * @returns {WikidataExternalIdentifierSnak} the snak as json
      * @example
+     *      const json = wikidataExtIDSnak.toJson();
      */
     toJSON(): WikidataExternalIdentifierSnak {
         return normalizeOutput({

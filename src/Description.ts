@@ -31,6 +31,7 @@ export default class Description {
     /**
      * @returns {LabelAndDescription} the Description in a json format
      * @example
+     *      const json = description.toJson();
      */
     toJSON(): LabelAndDescription {
         return normalizeOutput({

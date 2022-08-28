@@ -29,6 +29,7 @@ export default class StringSnak extends Snak {
      *
      * @returns {WikidataStringSnak} the snak as json
      * @example
+     *      const json = stringSnak.toJson();
      */
     toJSON(): WikidataStringSnak {
         return normalizeOutput({

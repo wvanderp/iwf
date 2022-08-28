@@ -114,6 +114,7 @@ export default class QuantitySnak extends Snak {
      *
      * @returns {WikidataQuantitySnak} the snak as json
      * @example
+     *      const json = quantitySnak.toJson();
      */
     toJSON(): WikidataQuantitySnak {
         return normalizeOutput({

@@ -55,6 +55,7 @@ export default class Statement {
     /**
      * @returns {wikidataStatement} the statement in a json format
      * @example
+     *      const json = statement.toJson();
      */
     toJSON(): wikidataStatement {
         const references = this.references.map((reference) => reference.toJSON());

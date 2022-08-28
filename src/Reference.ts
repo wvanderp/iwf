@@ -56,6 +56,7 @@ export default class Reference {
     /**
      * @returns {WikidataReference} the Reference in a json format
      * @example
+     *      const json = reference.toJson();
      */
     toJSON(): WikidataReference {
         return normalizeOutput({

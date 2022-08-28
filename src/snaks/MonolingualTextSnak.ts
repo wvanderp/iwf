@@ -35,6 +35,7 @@ export default class MonolingualTextSnak extends Snak {
      *
      * @returns {WikidataMonolingualTextSnak} the snak as json
      * @example
+     *      const json = MonolingualSnak.toJson();
      */
     toJSON(): WikidataMonolingualTextSnak {
         return normalizeOutput({

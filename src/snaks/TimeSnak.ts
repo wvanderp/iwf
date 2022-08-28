@@ -44,6 +44,7 @@ export default class TimeSnak extends Snak {
      *
      * @returns {WikidataTimeSnak} the snak as json
      * @example
+     *      const json = timeSnak.toJson();
      */
     toJSON(): WikidataTimeSnak {
         return normalizeOutput({

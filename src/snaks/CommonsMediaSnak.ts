@@ -48,6 +48,7 @@ export default class CommonsMediaSnak extends Snak {
      *
      * @returns {WikidataCommonsMediaSnak} the snak as json
      * @example
+     *      const json = CommonsSnak.toJson();
      */
     toJSON(): WikidataCommonsMediaSnak {
         return normalizeOutput({

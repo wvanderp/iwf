@@ -48,6 +48,7 @@ export default class GlobeCoordinateSnak extends Snak {
      *
      * @returns {WikidataGlobeCoordinateSnak} the snak as json
      * @example
+     *      const json = coordinateSnak.toJson();
      */
     toJSON(): WikidataGlobeCoordinateSnak {
         return normalizeOutput({

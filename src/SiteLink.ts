@@ -68,6 +68,7 @@ export default class SiteLink {
     /**
      * @returns {WikidataSiteLink} the SiteLink in a json format
      * @example
+     *      const json = siteLink.toJson();
      */
     toJSON(): WikidataSiteLink {
         return normalizeOutput({

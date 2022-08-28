@@ -38,6 +38,7 @@ export default class GeoShapeSnak extends Snak {
      *
      * @returns {WikidataGeoShapeSnak} the snak as json
      * @example
+     *      const json = geoShapeSnak.toJson();
      */
     toJSON(): WikidataGeoShapeSnak {
         return normalizeOutput({

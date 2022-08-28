@@ -77,6 +77,7 @@ export default class WikibasePropertySnak extends Snak {
      *
      * @returns {WikidataWikibasePropertySnak} the snak as json
      * @example
+     *      const json = propertySnak.toJson();
      */
     toJSON(): WikidataWikibasePropertySnak {
         return normalizeOutput({
