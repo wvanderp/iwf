@@ -60,6 +60,9 @@ export default class MonolingualTextSnak extends Snak {
      * @param {MonolingualTextSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: MonolingualTextSnak): boolean {
         return this.text === other.text

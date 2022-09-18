@@ -31,3 +31,4 @@ export { PString } from './types/strings';
 
 export { isQString } from './utils/guards/strings';
 export { isPString } from './utils/guards/strings';
+export { default as isStatementChange } from './utils/guards/Changes';

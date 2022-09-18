@@ -50,6 +50,9 @@ export default class MusicalNotationSnak extends Snak {
      * @param {MusicalNotationSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: MusicalNotationSnak): boolean {
         return this.value === other.value && this.property === other.property;

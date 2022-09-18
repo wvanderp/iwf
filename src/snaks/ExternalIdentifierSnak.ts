@@ -64,6 +64,9 @@ export default class ExternalIdentifierSnak extends Snak {
      * @param {string} id the external identifier
      * @returns {ExternalIdentifierSnak} a snak with the given properties
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     static fromID(property: PString, id: string): ExternalIdentifierSnak {
         return new ExternalIdentifierSnak({

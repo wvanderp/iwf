@@ -70,6 +70,9 @@ export default class CommonsMediaSnak extends Snak {
      * @param {CommonsMediaSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: CommonsMediaSnak): boolean {
         return this.fileName === other.fileName && this.property === other.property;

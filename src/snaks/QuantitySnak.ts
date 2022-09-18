@@ -156,6 +156,9 @@ export default class QuantitySnak extends Snak {
      * @param {QuantitySnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: QuantitySnak): boolean {
         return this._amount === other._amount

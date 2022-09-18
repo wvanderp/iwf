@@ -14,6 +14,13 @@ const label2 = {
 } as LabelAndDescription;
 
 describe('Label', () => {
+    describe('internalID', () => {
+        it('should be the language and value of the label', () => {
+            const a = new Label(label);
+            expect(a.internalID).to.equal('en:Berlin');
+        });
+    });
+
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const labelObject = new Label(label);

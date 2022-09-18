@@ -14,6 +14,13 @@ const alias2 = {
 } as LabelAndDescription;
 
 describe('alias', () => {
+    describe('internalID', () => {
+        it('should be the language and value of the alias', () => {
+            const a = new Alias(alias);
+            expect(a.internalID).to.equal('en:Berlin, Germany');
+        });
+    });
+
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const aliasObject = new Alias(alias);

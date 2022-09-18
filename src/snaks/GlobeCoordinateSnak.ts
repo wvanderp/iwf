@@ -76,6 +76,9 @@ export default class GlobeCoordinateSnak extends Snak {
      * @param {GlobeCoordinateSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: GlobeCoordinateSnak): boolean {
         return this.latitude === other.latitude

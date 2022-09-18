@@ -78,6 +78,9 @@ export default class URLSnak extends Snak {
      * @param {string} url the url
      * @returns {URLSnak} a snak with the given properties
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     static fromURL(property: PString, url: string): URLSnak {
         return new URLSnak({

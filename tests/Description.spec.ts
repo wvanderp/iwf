@@ -14,6 +14,13 @@ const description2 = {
 } as LabelAndDescription;
 
 describe('Description', () => {
+    describe('internalID', () => {
+        it('should be the language and value of the Description', () => {
+            const a = new Description(description);
+            expect(a.internalID).to.equal('en:capital and largest city of Germany');
+        });
+    });
+
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const descriptionObject = new Description(description);

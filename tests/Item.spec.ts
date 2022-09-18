@@ -49,6 +49,13 @@ describe('load data into the model', () => {
         });
     });
 
+    describe('internalID', () => {
+        it('should be the hash of the json', () => {
+            const item = Item.fromNothing();
+            expect(item.internalID).to.equal('56930c1612485547e470e865fd3480c567ac570d5ac7e52aeaf6927be51b02a6');
+        });
+    });
+
     describe('getLabel', function () {
         it('should find a label if it is present', function () {
             const item = Item.fromNothing();

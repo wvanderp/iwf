@@ -73,6 +73,9 @@ export default class TimeSnak extends Snak {
      * @param {TimeSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: TimeSnak): boolean {
         return this.time === other.time

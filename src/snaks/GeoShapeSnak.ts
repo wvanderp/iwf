@@ -60,6 +60,9 @@ export default class GeoShapeSnak extends Snak {
      * @param {GeoShapeSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: GeoShapeSnak): boolean {
         return this.fileName === other.fileName && this.property === other.property;

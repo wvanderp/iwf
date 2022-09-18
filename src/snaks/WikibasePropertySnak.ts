@@ -103,6 +103,9 @@ export default class WikibasePropertySnak extends Snak {
      * @param {WikibasePropertySnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: WikibasePropertySnak): boolean {
         return this._numericID === other._numericID && this.property === other.property;

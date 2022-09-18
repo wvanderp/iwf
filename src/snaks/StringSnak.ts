@@ -62,6 +62,9 @@ export default class StringSnak extends Snak {
      * @param {string} string the string
      * @returns {StringSnak} a snak with the given properties
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     static fromString(property: PString, string: string): StringSnak {
         return new StringSnak({

@@ -49,6 +49,14 @@ const reference: wikidataReference = {
 };
 
 describe('Reference', () => {
+    describe('internalID', () => {
+        it('should be the hash of the json', () => {
+            const reference_ = new Reference(reference);
+
+            expect(reference_.internalID).to.equal('09053488de167eab55fa60977cf8c0be7653ef0c6dc29fc75413f149db15a808');
+        });
+    });
+
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const referenceObject = new Reference(reference);

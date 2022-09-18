@@ -59,6 +59,9 @@ export default class TabularDataSnak extends Snak {
      * @param {TabularDataSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: TabularDataSnak): boolean {
         return this.value === other.value && this.property === other.property;

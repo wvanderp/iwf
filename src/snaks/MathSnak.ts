@@ -51,6 +51,9 @@ export default class MathSnak extends Snak {
      * @param {MathSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: MathSnak): boolean {
         return this.value === other.value && this.property === other.property;
