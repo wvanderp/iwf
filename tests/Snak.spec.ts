@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
-import { Snak, WikibaseItemSnak } from '../src';
+import { WikibaseItemSnak } from '../src';
 
 describe('Snak', () => {
     describe('internalID', () => {

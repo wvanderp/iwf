@@ -1,4 +1,4 @@
-import { describe, it } from 'mocha';
+import { describe } from 'mocha';
 import { expect } from 'chai';
 
 import { isStatementChange } from '../../../src/index';

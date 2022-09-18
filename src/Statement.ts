@@ -111,6 +111,9 @@ export default class Statement {
      * @param {Statement} other the other statement
      * @returns {boolean} if the two statements are equal
      * @example
+     *   if (statement1.equals(statement2)) {
+     *      // do something
+     *   }
      */
     equals(other: Statement): boolean {
         const idEqual = this.id === other.id;
