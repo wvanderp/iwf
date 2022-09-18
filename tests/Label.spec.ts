@@ -23,13 +23,20 @@ describe('Label', () => {
     });
 
     describe('equals', () => {
-        it('should be true if the items are equal', () => {
+        it('should be true if the labels are equal', () => {
             const labelObject = new Label(label);
 
             expect(labelObject.equals(labelObject)).to.be.true;
         });
 
-        it('should be false if the items are NOT equal', () => {
+        it('should be true if the labels are equal but not the same object', () => {
+            const labelObject = new Label(label);
+            const labelObject2 = new Label(label);
+
+            expect(labelObject.equals(labelObject2)).to.be.true;
+        });
+
+        it('should be false if the labels are NOT equal', () => {
             const labelObject = new Label(label);
             const labelObject2 = new Label(label2);
 

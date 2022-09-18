@@ -13,7 +13,7 @@ const alias2 = {
     value: 'Berlin, Deutschland'
 } as LabelAndDescription;
 
-describe('Description', () => {
+describe('alias', () => {
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const aliasObject = new Alias(alias);
@@ -23,13 +23,20 @@ describe('Description', () => {
     });
 
     describe('equals', () => {
-        it('should be true if the items are equal', () => {
+        it('should be true if the aliases are equal', () => {
             const aliasObject = new Alias(alias);
 
             expect(aliasObject.equals(aliasObject)).to.be.true;
         });
 
-        it('should be false if the items are NOT equal', () => {
+        it('should be true if the aliases are equal but not the same object', () => {
+            const aliasObject = new Alias(alias);
+            const aliasObject2 = new Alias(alias);
+
+            expect(aliasObject.equals(aliasObject2)).to.be.true;
+        });
+
+        it('should be false if the aliases are NOT equal', () => {
             const aliasObject = new Alias(alias);
             const aliasObject2 = new Alias(alias2);
 

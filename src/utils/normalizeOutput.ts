@@ -1,11 +1,12 @@
 /* eslint-disable no-param-reassign */
 // @ts-nocheck
-// https://stackoverflow.com/questions/25421233/javascript-removing-undefined-fields-from-an-object
 
 /**
  * this function removes keys which are undefined.
  * because although javascript doesn't care if a key does not exist of if it is undefined.
  * the JSON.stringify will show the keys as undefined and so we can faithfully recreate the json
+ *
+ * https://stackoverflow.com/a/38340374
  *
  * @private
  * @template T

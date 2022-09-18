@@ -18,6 +18,7 @@ export default class GeoShapeSnak extends Snak {
     /**
      * @param {WikidataGeoShapeSnak} snak the snak for this class in json format
      * @example
+     *   const snak = new GeoShapeSnak(json);
      */
     constructor(snak: WikidataGeoShapeSnak) {
         super(snak);
@@ -61,6 +62,6 @@ export default class GeoShapeSnak extends Snak {
      * @example
      */
     equals(other: GeoShapeSnak): boolean {
-        return this.fileName === other.fileName;
+        return this.fileName === other.fileName && this.property === other.property;
     }
 }

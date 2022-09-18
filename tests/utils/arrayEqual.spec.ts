@@ -5,7 +5,7 @@ import arrayEqual, { arrayEqualWith } from '../../src/utils/arrayEqual';
 const arrayOfABC = ['a', 'b', 'c'];
 const arrayOfADB = ['a', 'd', 'b'];
 const anotherArrayOfABC = ['a', 'b', 'c'];
-const arrayOfABCD = ['a', 'b', 'c', 'd'];
+const arrayOfABCE = ['a', 'b', 'c', 'e'];
 
 describe('equal functions', () => {
     describe('arrayEqual', () => {
@@ -31,7 +31,7 @@ describe('equal functions', () => {
                 expect(arrayEqual(arrayOfABC, undefined)).to.be.false;
             });
             it('should not equal if the length is different', () => {
-                expect(arrayEqual(arrayOfABC, arrayOfABCD)).to.be.false;
+                expect(arrayEqual(arrayOfABC, arrayOfABCE)).to.be.false;
             });
             it('should not equal if the contents are different', () => {
                 expect(arrayEqual(arrayOfABC, arrayOfADB)).to.be.false;
@@ -62,7 +62,7 @@ describe('equal functions', () => {
                 expect(arrayEqualWith(arrayOfABC, undefined, (a, b) => a === b)).to.be.false;
             });
             it('should not equal if the length is different', () => {
-                expect(arrayEqualWith(arrayOfABC, arrayOfABCD, (a, b) => a === b)).to.be.false;
+                expect(arrayEqualWith(arrayOfABC, arrayOfABCE, (a, b) => a === b)).to.be.false;
             });
             it('should not equal if the contents are different', () => {
                 expect(arrayEqualWith(arrayOfABC, arrayOfADB, (a, b) => a === b)).to.be.false;

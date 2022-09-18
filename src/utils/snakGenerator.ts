@@ -37,6 +37,7 @@ import WikibasePropertySnak from '../snaks/WikibasePropertySnak';
  *
  * @private
  * @param {wikidataSnak} snak the snak that needs a constructor
+ * @throws {Error} if the snak type is not supported
  * @returns {Snak} the snak as a class
  */
 export default function snakGenerator(snak: wikidataSnak): Snak {

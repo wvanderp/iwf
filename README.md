@@ -1,5 +1,5 @@
-Improved Wikidata Format
-========================
+# Improved Wikidata Format
+
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wvanderp/iwf/test)](https://github.com/wvanderp/iwf/actions/workflows/test.yml)
 [![npm](https://img.shields.io/npm/dm/iwf)](https://www.npmjs.com/package/iwf)
 [![codecov](https://codecov.io/gh/wvanderp/iwf/branch/main/graph/badge.svg?token=6CPZPAOAUP)](https://codecov.io/gh/wvanderp/iwf)
@@ -7,18 +7,20 @@ Improved Wikidata Format
 
 A better way of working with the wikidata
 
-# Features
+## Features
+
 - work with wikidata using classes
 - request items from wikidata
 - upload the changes
 
-# Getting Started
+## Getting Started
 
 ```bash
 npm i --save iwf
 ```
 
 you can easily request an item from wikidata and list all the labels.
+
 ```typescript
 import {requestItem} from 'iwf';
 
@@ -28,6 +30,7 @@ console.log(item.labels);
 ```
 
 Or create a new item and upload it to wikidata.
+
 ```typescript
 import { Item, getToken, upload, Label, Statement, WikibaseItemSnak } from 'iwf';
 
@@ -44,7 +47,8 @@ upload(item, {
 });
 ```
 
-# Documentation
+## Documentation
+
 To see all the functionality, extra documentation and examples, visit [the documentation](https://wvanderp.github.io/iwf/)
 
 ## License

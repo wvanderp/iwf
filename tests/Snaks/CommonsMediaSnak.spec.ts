@@ -35,9 +35,19 @@ describe('Commons Media Snak', () => {
 
     describe('equals', () => {
         it('should be true if the items are equal', () => {
-            const snak = new CommonsMediaSnak(commonsSnak);
+            const a = new CommonsMediaSnak(commonsSnak);
+            const b = new CommonsMediaSnak(commonsSnak);
 
-            expect(snak.equals(snak)).to.be.true;
+            expect(a.equals(b)).to.be.true;
+        });
+
+        it('should be false if the property changes', () => {
+            const a = new CommonsMediaSnak(commonsSnak);
+            const b = new CommonsMediaSnak(commonsSnak);
+
+            b.property = 'P42';
+
+            expect(a.equals(b)).to.be.false;
         });
 
         it('should be false if the items are NOT equal', () => {

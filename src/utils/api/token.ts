@@ -15,6 +15,7 @@ export interface Token {
  *
  * @param {string} username the username of the user
  * @param {string} password the password of the user
+ * @throws {Error} if the login was not successful
  * @returns {Token} a object containing the token and the cookie
  * @example
  *      const token = await getToken('your wikidata username', 'your wikidata password');

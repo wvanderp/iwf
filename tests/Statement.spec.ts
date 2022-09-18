@@ -1,7 +1,9 @@
 import { describe, it } from 'mocha';
 import { Statement as WikidataStatement } from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
-import { Statement, StringSnak, UrlSnak } from '../src';
+import {
+    Statement, StringSnak, UrlSnak, WikibaseItemSnak
+} from '../src';
 
 const statement: WikidataStatement = {
     mainsnak: {
@@ -99,10 +101,12 @@ describe('Statement', () => {
     });
 
     describe('fromSnak', () => {
-        const snak = UrlSnak.fromURL('P856', 'http://localhost');
-        const newStatement = Statement.fromSnak(snak);
+        it('should create a statement from a snak', () => {
+            const snak = UrlSnak.fromURL('P856', 'http://localhost');
+            const newStatement = Statement.fromSnak(snak);
 
-        expect(newStatement.mainsnak.toJSON()).to.deep.equal(snak.toJSON());
+            expect(newStatement.mainsnak.toJSON()).to.deep.equal(snak.toJSON());
+        });
     });
 
     describe('equals', () => {
@@ -176,6 +180,13 @@ describe('Statement', () => {
             const b = new Statement(statement);
 
             b.qualifiers.pop();
+
+            expect(a.equals(b)).to.be.false;
+        });
+
+        it('should not equal if it is not equal', () => {
+            const a = Statement.fromSnak(WikibaseItemSnak.fromID('P1', 'Q2'));
+            const b = Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q2'));
 
             expect(a.equals(b)).to.be.false;
         });

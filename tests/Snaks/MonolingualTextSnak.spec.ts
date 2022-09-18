@@ -26,9 +26,19 @@ describe('Monolingual Text Snak', () => {
 
     describe('equals', () => {
         it('should be true if the items are equal', () => {
-            const snak = new MonolingualTextSnak(monolingualTextSnak);
+            const a = new MonolingualTextSnak(monolingualTextSnak);
+            const b = new MonolingualTextSnak(monolingualTextSnak);
 
-            expect(snak.equals(snak)).to.be.true;
+            expect(a.equals(b)).to.be.true;
+        });
+
+        it('should be false if the property changes', () => {
+            const a = new MonolingualTextSnak(monolingualTextSnak);
+            const b = new MonolingualTextSnak(monolingualTextSnak);
+
+            b.property = 'P42';
+
+            expect(a.equals(b)).to.be.false;
         });
 
         it('should be false if the items are NOT equal', () => {

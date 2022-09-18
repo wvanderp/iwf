@@ -7,41 +7,93 @@ import { Changes } from '../../../src/utils/diff/Changes';
 describe('alias diff', () => {
     it('should diff aliases right', () => {
         const a: Alias[] = [
-            new Alias({ language: 'ko', value: '차이점' }),
-            new Alias({ language: 'en', value: 'contrast' }),
-            new Alias({ language: 'en', value: 'diverge' }),
-            new Alias({ language: 'en', value: 'alteration' }),
-            new Alias({ language: 'nl', value: 'verschil' })
+            new Alias({ language: 'ko', value: '차이점' }), // same
+            new Alias({ language: 'en', value: 'contrast' }), // update value
+            new Alias({ language: 'es', value: 'divergencia' }), // update language
+            new Alias({ language: 'nl', value: 'afwijking' }), // same
+            // added
         ];
 
         const b: Alias[] = [
-            new Alias({ language: 'ko', value: '차이점' }),
-            new Alias({ language: 'en', value: 'divergence' }),
-            new Alias({ language: 'fr', value: 'diverge' }),
-            new Alias({ language: 'en', value: 'alteration' }),
-            new Alias({ language: 'de', value: 'Unterschied' })
+            new Alias({ language: 'ko', value: '차이점' }), // same
+            new Alias({ language: 'en', value: 'divergence' }), // update value
+            new Alias({ language: 'fr', value: 'divergencia' }), // update language
+            new Alias({ language: 'nl', value: 'afwijking' }), // same
+            new Alias({ language: 'de', value: 'Verschiedenheit' }) // added
         ];
-
-        b[0].internalID = a[0].internalID;
-        b[1].internalID = a[1].internalID;
-        b[2].internalID = a[2].internalID;
-        b[3].internalID = a[3].internalID;
 
         const changes: Changes[] = [
             {
-                action: 'add', parentID: 'Q2', type: 'alias', new: { language: 'de', value: 'Unterschied' }
+                action: 'add',
+                parentID: 'Q2',
+                type: 'alias',
+                new: {
+                    language: 'fr',
+                    value: 'divergencia'
+                }
             },
             {
-                action: 'update', parentID: 'Q2', type: 'alias', new: { language: 'en', value: 'divergence' }, old: { language: 'en', value: 'contrast' }
+                action: 'add',
+                parentID: 'Q2',
+                type: 'alias',
+                new: {
+                    language: 'de',
+                    value: 'Verschiedenheit'
+                }
             },
             {
-                action: 'update', parentID: 'Q2', type: 'alias', new: { language: 'fr', value: 'diverge' }, old: { language: 'en', value: 'diverge' }
+                action: 'update',
+                parentID: 'Q2',
+                type: 'alias',
+                old: {
+                    language: 'en',
+                    value: 'contrast'
+                },
+                new: {
+                    language: 'en',
+                    value: 'divergence'
+                }
             },
             {
-                action: 'remove', parentID: 'Q2', type: 'alias', old: { language: 'nl', value: 'verschil' }
+                action: 'remove',
+                parentID: 'Q2',
+                type: 'alias',
+                old: {
+                    language: 'es',
+                    value: 'divergencia'
+                }
             }
         ];
 
         expect(aliasDiff(a, b, 'Q2')).to.deep.equal(changes);
+    });
+
+    it('should not find changes if they are not there', () => {
+        const a: Alias[] = [
+            new Alias({ language: 'ko', value: '차이점' }),
+            new Alias({ language: 'en', value: 'contrast' }),
+        ];
+
+        const b: Alias[] = [
+            new Alias({ language: 'ko', value: '차이점' }),
+            new Alias({ language: 'en', value: 'contrast' }),
+        ];
+
+        expect(aliasDiff(a, b, 'Q2')).to.deep.equal([]);
+    });
+
+    it('should not find changes if there are duplicated values', () => {
+        const a: Alias[] = [
+            new Alias({ language: 'ko', value: '차이점' }),
+            new Alias({ language: 'en', value: 'contrast' }),
+            new Alias({ language: 'en', value: 'contrast' }),
+        ];
+
+        const b: Alias[] = [
+            new Alias({ language: 'ko', value: '차이점' }),
+            new Alias({ language: 'en', value: 'contrast' }),
+        ];
+
+        expect(aliasDiff(a, b, 'Q2')).to.deep.equal([]);
     });
 });

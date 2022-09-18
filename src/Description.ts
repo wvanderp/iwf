@@ -1,16 +1,12 @@
 import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
-import { v4 as uuidv4 } from 'uuid';
-
 import normalizeOutput from './utils/normalizeOutput';
+
 /**
  * class for descriptions
  *
  * @class
  */
 export default class Description {
-    /** A ID for using things that don't have an ID */
-    internalID: string;
-
     /** the language of the description */
     language: LabelLanguages;
 
@@ -25,7 +21,15 @@ export default class Description {
     constructor(label: LabelAndDescription) {
         this.language = label.language;
         this.value = label.value;
-        this.internalID = uuidv4();
+    }
+
+    /**
+     * create a unique id for the Description
+     *
+     * @returns {string} the id
+     */
+    public get internalID(): string {
+        return `${this.language}:${this.value}`;
     }
 
     /**
@@ -53,5 +57,18 @@ export default class Description {
      */
     equals(other: LabelAndDescription): boolean {
         return this.language === other.language && this.value === other.value;
+    }
+
+    /**
+     * create a Description from a language and a value
+     *
+     * @param {string} language the language of the Description
+     * @param {string} value the value of the Description
+     * @returns {Description} the Description object
+     * @example
+     *     const Description = Description.fromString('en', 'Douglas Adams')
+     */
+    static fromString(language: LabelLanguages, value: string): Description {
+        return new Description({ language, value });
     }
 }

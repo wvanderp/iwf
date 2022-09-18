@@ -23,9 +23,19 @@ describe('External Identifier Snak', () => {
 
     describe('equals', () => {
         it('should be true if the items are equal', () => {
-            const snak = new ExternalIdentifierSnak(ExternalSnak);
+            const a = new ExternalIdentifierSnak(ExternalSnak);
+            const b = new ExternalIdentifierSnak(ExternalSnak);
 
-            expect(snak.equals(snak)).to.be.true;
+            expect(a.equals(b)).to.be.true;
+        });
+
+        it('should be false if the property changes', () => {
+            const a = new ExternalIdentifierSnak(ExternalSnak);
+            const b = new ExternalIdentifierSnak(ExternalSnak);
+
+            b.property = 'P42';
+
+            expect(a.equals(b)).to.be.false;
         });
 
         it('should be false if the items are NOT equal', () => {

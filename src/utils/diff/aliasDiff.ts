@@ -1,13 +1,13 @@
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
 import diffArray from 'diff-arrays-of-objects';
-
-import { Alias } from '../..';
+import { QString } from '../../types/strings';
+import Alias from '../../Alias';
 import { Change } from './Change';
 
 export interface AliasChange extends Change {
     type: 'alias',
     action: 'add' | 'remove' | 'update';
-    parentID: string;
+    parentID: QString | 'unknown';
     old?: LabelAndDescription;
     new?: LabelAndDescription;
 }
@@ -17,15 +17,15 @@ export interface AliasChange extends Change {
  *
  * @param {Alias[]} o the old array
  * @param {Alias[]} n the new array
- * @param {string} parentID the ID of the parent of both the old and the new array
+ * @param {QString | 'unknown'} parentID the ID of the parent of both the old and the new array
  * @returns {AliasChange[]} the changes from the old array to the new array
  * @example
  */
-export default function aliasDiff(o: Alias[], n: Alias[], parentID: string): AliasChange[] {
+export default function aliasDiff(o: Alias[], n: Alias[], parentID: QString | 'unknown'): AliasChange[] {
     const { added, updated, removed } = diffArray(
         o,
         n,
-        'internalID',
+        'language',
         {
             compareFunction: (a: Alias, b: Alias) => (a.equals(b)),
             updatedValues: diffArray.updatedValues.both

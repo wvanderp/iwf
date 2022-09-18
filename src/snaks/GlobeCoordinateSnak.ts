@@ -33,6 +33,7 @@ export default class GlobeCoordinateSnak extends Snak {
     /**
      * @param {WikidataGlobeCoordinateSnak} snak the snak for this class in json format
      * @example
+     *   const snak = new GlobeCoordinateSnak(json);
      */
     constructor(snak: WikidataGlobeCoordinateSnak) {
         super(snak);
@@ -81,6 +82,7 @@ export default class GlobeCoordinateSnak extends Snak {
             && this.longitude === other.longitude
             && this.altitude === other.altitude
             && this.precision === other.precision
-            && this.globe === other.globe;
+            && this.globe === other.globe
+            && this.property === other.property;
     }
 }

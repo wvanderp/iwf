@@ -23,9 +23,19 @@ describe('URL Snak', () => {
 
     describe('equals', () => {
         it('should be true if the items are equal', () => {
-            const snak = new UrlSnak(urlSnak);
+            const a = new UrlSnak(urlSnak);
+            const b = new UrlSnak(urlSnak);
 
-            expect(snak.equals(snak)).to.be.true;
+            expect(a.equals(b)).to.be.true;
+        });
+
+        it('should be false if the property changes', () => {
+            const a = new UrlSnak(urlSnak);
+            const b = new UrlSnak(urlSnak);
+
+            b.property = 'P42';
+
+            expect(a.equals(b)).to.be.false;
         });
 
         it('should be false if the items are NOT equal', () => {

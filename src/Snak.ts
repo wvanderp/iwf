@@ -1,14 +1,11 @@
 import { Snaks as WikidataSnaks, SnakType as WikidataSnakType } from '@wmde/wikibase-datamodel-types';
-import { v4 as uuidv4 } from 'uuid';
+import { createHash } from 'crypto';
 
 /**
  * @abstract
  * @class
  */
 export default abstract class Snak {
-    /** A ID for using things that don't have an ID */
-    internalID: string;
-
     snaktype: WikidataSnakType;
 
     property: string;
@@ -27,7 +24,6 @@ export default abstract class Snak {
         this.property = snak.property;
 
         this.hash = snak.hash;
-        this.internalID = uuidv4();
     }
 
     /**
@@ -35,6 +31,17 @@ export default abstract class Snak {
      */
     public get hasValue(): boolean {
         return this.snaktype === 'value';
+    }
+
+    /**
+     * create a unique id for the Snak
+     *
+     * @returns {string} the id
+     */
+    public get internalID(): string {
+        return createHash('sha256')
+            .update(JSON.stringify(this.toJSON()))
+            .digest('hex');
     }
 
     abstract toJSON(): WikidataSnaks;

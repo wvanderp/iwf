@@ -1,5 +1,4 @@
 import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
-import { v4 as uuidv4 } from 'uuid';
 
 import normalizeOutput from './utils/normalizeOutput';
 
@@ -9,9 +8,6 @@ import normalizeOutput from './utils/normalizeOutput';
  * @class
  */
 export default class Alias {
-    /** A ID for using things that don't have an ID */
-    internalID: string;
-
     /** the language of the alias */
     language: LabelLanguages;
 
@@ -26,7 +22,15 @@ export default class Alias {
     constructor(alias: LabelAndDescription) {
         this.language = alias.language;
         this.value = alias.value;
-        this.internalID = uuidv4();
+    }
+
+    /**
+     * create a unique id for the Alias
+     *
+     * @returns {string} the id
+     */
+    public get internalID(): string {
+        return `${this.language}:${this.value}`;
     }
 
     /**
@@ -54,5 +58,18 @@ export default class Alias {
      */
     equals(other: LabelAndDescription): boolean {
         return this.language === other.language && this.value === other.value;
+    }
+
+    /**
+     * create a Alias from a language and a value
+     *
+     * @param {string} language the language of the Alias
+     * @param {string} value the value of the Alias
+     * @returns {Alias} the Alias object
+     * @example
+     *     const Alias = Alias.fromString('en', 'Douglas Adams')
+     */
+    static fromString(language: LabelLanguages, value: string): Alias {
+        return new Alias({ language, value });
     }
 }

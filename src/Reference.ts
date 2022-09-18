@@ -1,5 +1,5 @@
 import { Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks, Snaks } from '@wmde/wikibase-datamodel-types';
-import { v4 as uuidv4 } from 'uuid';
+import { createHash } from 'crypto';
 
 import Snak from './Snak';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
@@ -29,9 +29,6 @@ function groupByPropertyReducer(accumulator: Record<string, Snaks[]>, value: Sna
  * @class
  */
 export default class Reference {
-    /** A ID for using things that don't have an ID */
-    internalID: string;
-
     hash: string | undefined;
 
     snaksOrder: string[] | undefined;
@@ -46,11 +43,21 @@ export default class Reference {
     constructor(reference: WikidataReference) {
         this.hash = reference.hash;
         this.snaksOrder = reference['snaks-order'];
-        this.internalID = uuidv4();
 
         this.snaks = Object.values(reference.snaks)
             .flat()
             .map((snak) => snakGenerator(snak));
+    }
+
+    /**
+     * create a unique id for the Reference
+     *
+     * @returns {string} the id
+     */
+    public get internalID(): string {
+        return createHash('sha256')
+            .update(JSON.stringify(this.toJSON()))
+            .digest('hex');
     }
 
     /**

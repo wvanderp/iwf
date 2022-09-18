@@ -18,6 +18,7 @@ export default class URLSnak extends Snak {
     /**
      * @param {WikidataURLSnak} snak the snak for this class in json format
      * @example
+     *     const snak = new URLSnak(json);
      */
     constructor(snak: WikidataURLSnak) {
         super(snak);
@@ -68,7 +69,7 @@ export default class URLSnak extends Snak {
      * @example
      */
     equals(other: URLSnak): boolean {
-        return this.value === other.value;
+        return this.value === other.value && this.property === other.property;
     }
 
     /**

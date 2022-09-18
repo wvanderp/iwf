@@ -54,4 +54,19 @@ describe('label diff', () => {
 
         expect(labelDiff(a, b, 'Q2')).to.deep.equal(changes);
     });
+
+    it('should find diffs when there aren\'t any', () => {
+        const a: Label[] = [
+            new Label({ language: 'en', value: 'Difference' }),
+            new Label({ language: 'nl', value: 'Verschil' }),
+            new Label({ language: 'ko', value: '차이점' })
+        ];
+        const b: Label[] = [
+            new Label({ language: 'en', value: 'Difference' }),
+            new Label({ language: 'nl', value: 'Verschil' }),
+            new Label({ language: 'ko', value: '차이점' })
+        ];
+
+        expect(labelDiff(a, b, 'Q2')).to.deep.equal([]);
+    });
 });

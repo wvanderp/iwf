@@ -8,7 +8,7 @@ import {
     Sitelinks as WikidataSiteLinks,
     LabelAndDescription
 } from '@wmde/wikibase-datamodel-types';
-import { v4 as uuidv4 } from 'uuid';
+import { createHash } from 'crypto';
 
 import Alias from './Alias';
 import Statement from './Statement';
@@ -19,6 +19,14 @@ import dateFormatter from './utils/dateFormatter';
 import normalizeOutput from './utils/normalizeOutput';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 import { Optional } from './types/Optional';
+import { Changes } from './utils/diff/Changes';
+import labelDiff from './utils/diff/labelDiff';
+import aliasDiff from './utils/diff/aliasDiff';
+import descriptionDiff from './utils/diff/descriptionDiff';
+import statementDiff from './utils/diff/statementsDiff';
+import { QString } from './types/strings';
+import { isQString } from './utils/guards/strings';
+import siteLinkDiff from './utils/diff/siteLinkDiff';
 
 /**
  * this type omits the id because if an item is new there will be no id
@@ -29,9 +37,6 @@ type ItemInput = Optional<WikidataItem, 'id'>;
  * @class
  */
 export default class Item {
-    /** A ID for using things that don't have an ID */
-    internalID: string;
-
     /** the id used by wikibase */
     pageid: number | undefined;
 
@@ -51,7 +56,7 @@ export default class Item {
     type: 'item';
 
     /** the Q-id of the item */
-    id: string | undefined;
+    id: QString | undefined;
 
     /** the labels of the item */
     labels: Label[];
@@ -71,6 +76,7 @@ export default class Item {
     /**
      *
      * @param {ItemInput} item the item in json format
+     * @throws {Error} if the id is not a QString
      * @example
      */
     constructor(item: ItemInput) {
@@ -79,10 +85,13 @@ export default class Item {
         this.title = item.title;
         this.lastrevid = item.lastrevid;
         this.modified = item.modified ? new Date(item.modified) : undefined;
+
+        if (item.id !== undefined && !isQString(item.id)) {
+            throw new Error(`the ID Provided for the item is not a QString. it was ${item.id}`);
+        }
         this.id = item.id;
 
         this.type = item.type;
-        this.internalID = uuidv4();
 
         this.labels = Object.values(item.labels).map((label) => new Label(label));
         this.descriptions = Object.values(item.descriptions).map((description) => new Description(description));
@@ -96,6 +105,17 @@ export default class Item {
             .map((statement) => new Statement(statement));
 
         this.sitelinks = Object.values(item.sitelinks).map((siteLink) => new SiteLink(siteLink));
+    }
+
+    /**
+     * create a unique id for the Item
+     *
+     * @returns {string} the id
+     */
+    public get internalID(): string {
+        return createHash('sha256')
+            .update(JSON.stringify(this.toJSON()))
+            .digest('hex');
     }
 
     /**
@@ -158,19 +178,22 @@ export default class Item {
     }
 
     /**
+     * finds the difference between two items
      *
-     * @param other the other item
+     * @param {Item} other the other item
+     * @returns {Changes} the changes between the two items
+     * @example
      */
-    // diff(other: Item): Changes[] {
-    //     const labelChanges = labelDiff(this.labels, other.labels);
-    //     const descriptionsChanges = descriptionsDiff(this.descriptions, other.descriptions);
-    //     const aliasesChanges = aliasDiff(this.aliases, other.aliases);
+    diff(other: Item): Changes[] {
+        const labelChanges = labelDiff(this.labels, other.labels, this.id ?? 'unknown');
+        const descriptionsChanges = descriptionDiff(this.descriptions, other.descriptions, this.id ?? 'unknown');
+        const aliasesChanges = aliasDiff(this.aliases, other.aliases, this.id ?? 'unknown');
 
-    //     const statementsChanges = statementsDiff(this.statements, other.statements);
-    //     const sitelinksChanges = siteLinksDiff(this.sitelinks, other.sitelinks);
+        const statementsChanges = statementDiff(this.statements, other.statements, this.id ?? 'unknown');
+        const sitelinksChanges = siteLinkDiff(this.sitelinks, other.sitelinks, this.id ?? 'unknown');
 
-    //     return [...labelChanges, ...descriptionsChanges, ...aliasesChanges, ...statementsChanges, ...sitelinksChanges];
-    // }
+        return [...labelChanges, ...descriptionsChanges, ...aliasesChanges, ...statementsChanges, ...sitelinksChanges];
+    }
 
     /**
      * stringifies the Item into the same json format as the api

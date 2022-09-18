@@ -1,5 +1,5 @@
 import { Statement as wikidataStatement, Qualifiers as wikidataQualifiers } from '@wmde/wikibase-datamodel-types';
-import { v4 as uuidv4 } from 'uuid';
+import { createHash } from 'crypto';
 
 import Reference from './Reference';
 import Snak from './Snak';
@@ -11,9 +11,6 @@ import snakGenerator from './utils/snakGenerator';
  * @class
  */
 export default class Statement {
-    /** A ID for using things that don't have an ID */
-    internalID: string;
-
     id: string | undefined;
 
     type: 'statement';
@@ -37,8 +34,6 @@ export default class Statement {
         this.id = statement.id;
         this.type = statement.type;
 
-        this.internalID = uuidv4();
-
         this.qualifiers = Object.values(statement.qualifiers ?? {})
             .flat()
             .map((snak) => snakGenerator(snak));
@@ -50,6 +45,17 @@ export default class Statement {
         this.references = statement.references
             ? Object.values(statement.references).map((reference) => new Reference(reference))
             : [];
+    }
+
+    /**
+     * create a unique id for the Statement
+     *
+     * @returns {string} the id
+     */
+    public get internalID(): string {
+        return createHash('sha256')
+            .update(JSON.stringify(this.toJSON()))
+            .digest('hex');
     }
 
     /**

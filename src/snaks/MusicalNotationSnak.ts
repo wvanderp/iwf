@@ -17,6 +17,7 @@ export default class MusicalNotationSnak extends Snak {
     /**
      * @param {WikidataMusicalNotationSnak} snak the snak for this class in json format
      * @example
+     *  const snak = new MusicalNotationSnak(json);
      */
     constructor(snak: WikidataMusicalNotationSnak) {
         super(snak);
@@ -51,6 +52,6 @@ export default class MusicalNotationSnak extends Snak {
      * @example
      */
     equals(other: MusicalNotationSnak): boolean {
-        return this.value === other.value;
+        return this.value === other.value && this.property === other.property;
     }
 }

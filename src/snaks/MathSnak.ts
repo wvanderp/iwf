@@ -18,6 +18,7 @@ export default class MathSnak extends Snak {
     /**
      * @param {WikidataMathSnak} snak the snak for this class in json format
      * @example
+     *   const snak = new MathSnak(json);
      */
     constructor(snak: WikidataMathSnak) {
         super(snak);
@@ -52,6 +53,6 @@ export default class MathSnak extends Snak {
      * @example
      */
     equals(other: MathSnak): boolean {
-        return this.value === other.value;
+        return this.value === other.value && this.property === other.property;
     }
 }

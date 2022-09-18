@@ -23,9 +23,19 @@ describe('Math Snak', () => {
 
     describe('equals', () => {
         it('should be true if the items are equal', () => {
-            const snak = new MathSnak(mathSnak);
+            const a = new MathSnak(mathSnak);
+            const b = new MathSnak(mathSnak);
 
-            expect(snak.equals(snak)).to.be.true;
+            expect(a.equals(b)).to.be.true;
+        });
+
+        it('should be false if the property changes', () => {
+            const a = new MathSnak(mathSnak);
+            const b = new MathSnak(mathSnak);
+
+            b.property = 'P42';
+
+            expect(a.equals(b)).to.be.false;
         });
 
         it('should be false if the items are NOT equal', () => {

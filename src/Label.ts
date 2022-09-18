@@ -1,6 +1,4 @@
 import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
-import { v4 as uuidv4 } from 'uuid';
-
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
@@ -9,9 +7,6 @@ import normalizeOutput from './utils/normalizeOutput';
  * @class
  */
 export default class Label {
-    /** A ID for using things that don't have an ID */
-    internalID: string;
-
     /** the language of the description */
     language: LabelLanguages;
 
@@ -25,7 +20,15 @@ export default class Label {
     constructor(label: LabelAndDescription) {
         this.language = label.language;
         this.value = label.value;
-        this.internalID = uuidv4();
+    }
+
+    /**
+     * create a unique id for the Label
+     *
+     * @returns {string} the id
+     */
+    public get internalID(): string {
+        return `${this.language}:${this.value}`;
     }
 
     /**

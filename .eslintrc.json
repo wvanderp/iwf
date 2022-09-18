@@ -45,7 +45,9 @@
     "sonarjs",
     "unicorn",
     "jsdoc",
-    "woke"
+    "woke",
+    "no-secrets",
+    "pii"
   ],
   "extends": [
     "airbnb-base",
@@ -58,7 +60,9 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:jsdoc/recommended"
+    "plugin:jsdoc/recommended",
+    "plugin:jsonc/base",
+    "plugin:pii/recommended"
   ],
   "overrides": [
     {
@@ -77,9 +81,10 @@
         "@typescript-eslint/no-explicit-any": "off",
         "compat/compat": "off",
         "@typescript-eslint/naming-convention": "off",
-        "sonarjs/no-duplicate-string": "off"
+        "sonarjs/no-duplicate-string": "off",
+        // disabling this rule because we have dynamically generated tests
+        "mocha/no-setup-in-describe": "off"
       }
-      
     }
   ],
   "rules": {
@@ -103,8 +108,6 @@
       }
     ],
     "no-underscore-dangle": "off",
-    // disabling this rule because we have dynamically generated tests
-    "mocha/no-setup-in-describe": "off",
     // sometimes it is necessary
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/indent": [
@@ -165,6 +168,12 @@
         }
       }
     ],
-    "unicorn/numeric-separators-style": "off"
+    "unicorn/numeric-separators-style": "off",
+    "no-continue": "off",
+    "woke/all": 2,
+    // this rule crashes
+    "pii/no-dob": "off",
+    // too many false positives
+    "pii/no-phone-number": "off"
   }
 }

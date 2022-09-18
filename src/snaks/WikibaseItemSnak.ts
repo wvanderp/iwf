@@ -18,6 +18,7 @@ export default class WikibaseItemSnak extends Snak {
     /**
      * @param {WikidataWikibaseItemSnak} snak the snak for this class in json format
      * @example
+     *     const snak = new WikibaseItemSnak(snak);
      */
     constructor(snak: WikidataWikibaseItemSnak) {
         super(snak);
@@ -98,7 +99,7 @@ export default class WikibaseItemSnak extends Snak {
      * @example
      */
     equals(other: WikibaseItemSnak): boolean {
-        return this._numericID === other._numericID;
+        return this._numericID === other._numericID && this.property === other.property;
     }
 
     /**

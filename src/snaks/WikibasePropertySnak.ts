@@ -19,6 +19,7 @@ export default class WikibasePropertySnak extends Snak {
     /**
      * @param {WikidataWikibasePropertySnak} snak the snak for this class in json format
      * @example
+     *   const snak = new WikibasePropertySnak(snak);
      */
     constructor(snak: WikidataWikibasePropertySnak) {
         super(snak);
@@ -104,6 +105,6 @@ export default class WikibasePropertySnak extends Snak {
      * @example
      */
     equals(other: WikibasePropertySnak): boolean {
-        return this._numericID === other._numericID;
+        return this._numericID === other._numericID && this.property === other.property;
     }
 }

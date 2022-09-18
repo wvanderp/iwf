@@ -18,6 +18,7 @@ export default class ExternalIdentifierSnak extends Snak {
     /**
      * @param {WikidataExternalIdentifierSnak} snak the snak for this class in json format
      * @example
+     *    const snak = new ExternalIdentifierSnak(json);
      */
     constructor(snak: WikidataExternalIdentifierSnak) {
         super(snak);
@@ -52,7 +53,7 @@ export default class ExternalIdentifierSnak extends Snak {
      * @example
      */
     equals(other: ExternalIdentifierSnak): boolean {
-        return this.id === other.id;
+        return this.id === other.id && this.property === other.property;
     }
 
     /**

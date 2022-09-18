@@ -18,6 +18,48 @@ const quantitySnak = {
 };
 
 describe('Quantity Snak', () => {
+    describe('constructor', () => {
+        it('should throw when the upper bound is lower than amount', () => {
+            expect(() => {
+                QuantitySnak.fromNumbers('P2120', 5, 1, 4, 'Q828224');
+            }).to.throw();
+        });
+
+        it('should throw when the lower bound is higher than amount', () => {
+            expect(() => {
+                QuantitySnak.fromNumbers('P2120', 5, 6, 7, 'Q828224');
+            }).to.throw();
+        });
+
+        it('should throw when using negative numbers', () => {
+            // // lower bound is higher than amount
+            // expect(() => {
+            //     QuantitySnak.fromNumbers('P2120', -5, -1, -4, 'Q828224');
+            // }).to.throw();
+
+            // // upper bound is lower than amount
+            // expect(() => {
+            //     QuantitySnak.fromNumbers('P2120', -5, -6, -7, 'Q828224');
+            // }).to.throw();
+
+            // // lower bound is lower than amount
+            // expect(() => {
+            //     QuantitySnak.fromNumbers('P2120', 2, -6, 5, 'Q828224');
+            // }).not.to.throw();
+
+            // upper bound is higher than amount
+            expect(() => {
+                QuantitySnak.fromNumbers('P2120', -2, -6, 5, 'Q828224');
+            }).not.to.throw();
+        });
+
+        it('should not throw when there are no bounds', () => {
+            expect(() => {
+                QuantitySnak.fromNumbers('P2120', 5, null, null, 'Q828224');
+            }).not.to.throw();
+        });
+    });
+
     describe('getters and Setters', function () {
         describe('amount', function () {
             it('get amount should return an number', function () {
@@ -177,9 +219,19 @@ describe('Quantity Snak', () => {
 
     describe('equals', () => {
         it('should be true if the items are equal', () => {
-            const snak = new QuantitySnak(quantitySnak);
+            const a = new QuantitySnak(quantitySnak);
+            const b = new QuantitySnak(quantitySnak);
 
-            expect(snak.equals(snak)).to.be.true;
+            expect(a.equals(b)).to.be.true;
+        });
+
+        it('should be false if the property changes', () => {
+            const a = new QuantitySnak(quantitySnak);
+            const b = new QuantitySnak(quantitySnak);
+
+            b.property = 'P42';
+
+            expect(a.equals(b)).to.be.false;
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -203,7 +255,7 @@ describe('Quantity Snak', () => {
     });
 
     it('should create a snak from numbers and also with the maximum arguments ', () => {
-        const snak = QuantitySnak.fromNumbers('P1215', 1, 2, 0.5, 'Q42');
+        const snak = QuantitySnak.fromNumbers('P1215', 1, 0.5, 2, 'Q42');
         expect(snak.property).to.equal('P1215');
         expect(snak.amount).to.equal(1);
         expect(snak.upperBound).to.equal(2);

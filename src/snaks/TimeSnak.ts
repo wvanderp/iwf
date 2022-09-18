@@ -28,6 +28,7 @@ export default class TimeSnak extends Snak {
     /**
      * @param {WikidataTimeSnak} snak the snak for this class in json format
      * @example
+     *     const snak = new TimeSnak(json);
      */
     constructor(snak: WikidataTimeSnak) {
         super(snak);
@@ -79,7 +80,8 @@ export default class TimeSnak extends Snak {
             && this.before === other.before
             && this.after === other.after
             && this.precision === other.precision
-            && this.calendarmodel === other.calendarmodel;
+            && this.calendarmodel === other.calendarmodel
+            && this.property === other.property;
     }
 
     /**

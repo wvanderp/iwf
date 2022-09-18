@@ -23,6 +23,7 @@ export default class MonolingualTextSnak extends Snak {
      *
      * @param {WikidataMonolingualTextSnak} snak the snak that will be parsed
      * @example
+     *   const snak = new MonolingualTextSnak(json);
      */
     constructor(snak: WikidataMonolingualTextSnak) {
         super(snak);
@@ -61,7 +62,9 @@ export default class MonolingualTextSnak extends Snak {
      * @example
      */
     equals(other: MonolingualTextSnak): boolean {
-        return this.text === other.text && this.language === other.language;
+        return this.text === other.text
+            && this.language === other.language
+            && this.property === other.property;
     }
 
     /**

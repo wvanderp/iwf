@@ -37,10 +37,26 @@ export default class QuantitySnak extends Snak {
 
     /**
      * @param {WikidataQuantitySnak} snak the snak for this class in json format
+     * @throws {Error} if the upperBound is smaller than the amount or the lowerBound is bigger than the amount
      * @example
+     *     const snak = new QuantitySnak(json);
      */
     constructor(snak: WikidataQuantitySnak) {
         super(snak);
+
+        if (
+            snak.datavalue?.value.lowerBound
+            && Number.parseInt(snak.datavalue?.value.lowerBound, 10) > Number.parseInt(snak.datavalue?.value.amount, 10)
+        ) {
+            throw new Error('lowerBound is bigger than amount');
+        }
+
+        if (
+            snak.datavalue?.value.upperBound
+            && Number.parseInt(snak.datavalue?.value.upperBound, 10) < Number.parseInt(snak.datavalue?.value.amount, 10)
+        ) {
+            throw new Error('upperBound is smaller than amount');
+        }
 
         const amount = snak.datavalue?.value.amount;
         const upperBound = snak.datavalue?.value.upperBound;
@@ -145,7 +161,8 @@ export default class QuantitySnak extends Snak {
         return this._amount === other._amount
             && this._upperBound === other._upperBound
             && this._lowerBound === other._lowerBound
-            && this.unit === other.unit;
+            && this.unit === other.unit
+            && this.property === other.property;
     }
 
     /**
@@ -154,8 +171,8 @@ export default class QuantitySnak extends Snak {
      * @static
      * @param {PString} property the property of the snak in 'P-form'
      * @param {number} quantity amount of the quantity
-     * @param {number} [upperBound] upperBound of the quantity
      * @param {number} [lowerBound] lowerBound of the quantity
+     * @param {number} [upperBound] upperBound of the quantity
      * @param {QString} [unit] unit of the quantity
      * @returns {QuantitySnak} a snak with the given properties
      * @example
@@ -164,8 +181,8 @@ export default class QuantitySnak extends Snak {
     static fromNumbers(
         property: PString,
         quantity: number,
-        upperBound?: number,
-        lowerBound?: number,
+        lowerBound?: number | null,
+        upperBound?: number | null,
         unit?: QString
     ): QuantitySnak {
         return new QuantitySnak({

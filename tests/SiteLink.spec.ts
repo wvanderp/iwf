@@ -39,49 +39,56 @@ describe('siteLink', () => {
     });
 
     describe('equals', () => {
-        it('should be true if the items are equal', () => {
-            const labelObject = new SiteLink(siteLinkWithOutUrl);
+        it('should be true if the sites are equal', () => {
+            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
 
-            expect(labelObject.equals(labelObject)).to.be.true;
+            expect(siteLinkObject.equals(siteLinkObject)).to.be.true;
+        });
+
+        it('should be true if the aliases are equal but not the same object', () => {
+            const siteLinkObject = new SiteLink(siteLinkWithBadge);
+            const siteLinkObject2 = new SiteLink(siteLinkWithBadge);
+
+            expect(siteLinkObject.equals(siteLinkObject2)).to.be.true;
         });
 
         it('should be false if the sites are NOT equal', () => {
-            const labelObject = new SiteLink(siteLinkWithOutUrl);
-            const labelObject2 = new SiteLink(siteLinkWithOutUrl);
+            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
+            const siteLinkObject2 = new SiteLink(siteLinkWithOutUrl);
 
-            labelObject2.site = 'afwiki';
+            siteLinkObject2.site = 'afwiki';
 
-            expect(labelObject.equals(labelObject2)).to.be.false;
+            expect(siteLinkObject.equals(siteLinkObject2)).to.be.false;
         });
 
         it('should be false if the titles are NOT equal', () => {
-            const labelObject = new SiteLink(siteLinkWithOutUrl);
-            const labelObject2 = new SiteLink(siteLinkWithOutUrl);
+            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
+            const siteLinkObject2 = new SiteLink(siteLinkWithOutUrl);
 
-            labelObject2.title = 'human';
+            siteLinkObject2.title = 'human';
 
-            expect(labelObject.equals(labelObject2)).to.be.false;
+            expect(siteLinkObject.equals(siteLinkObject2)).to.be.false;
         });
 
         it('should be false if the badges are NOT equal', () => {
-            const labelObject = new SiteLink(siteLinkWithOutUrl);
-            const labelObject2 = new SiteLink(siteLinkWithBadge);
+            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
+            const siteLinkObject2 = new SiteLink(siteLinkWithBadge);
 
-            expect(labelObject.equals(labelObject2)).to.be.false;
+            expect(siteLinkObject.equals(siteLinkObject2)).to.be.false;
         });
     });
 
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const referenceObject = new SiteLink(siteLinkWithUrl);
+            const siteLinkObject = new SiteLink(siteLinkWithUrl);
 
-            expect(referenceObject.toJSON()).to.deep.equal(siteLinkWithUrl);
+            expect(siteLinkObject.toJSON()).to.deep.equal(siteLinkWithUrl);
         });
 
         it('should have the right JSON stringification without the url', () => {
-            const referenceObject = new SiteLink(siteLinkWithOutUrl);
+            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
 
-            expect(referenceObject.toJSON()).to.deep.equal(siteLinkWithOutUrl);
+            expect(siteLinkObject.toJSON()).to.deep.equal(siteLinkWithOutUrl);
         });
     });
 });
