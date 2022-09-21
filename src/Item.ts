@@ -78,6 +78,17 @@ export default class Item {
      * @param {ItemInput} item the item in json format
      * @throws {Error} if the id is not a QString
      * @example
+     *     const item = new Item({
+     *          type: "item",
+     *          id: "q2",
+     *
+     *          labels: {},
+     *          descriptions: {},
+     *          aliases: {},
+     *
+     *          claims: {},
+     *          sitelinks: {}
+     *    })
      */
     constructor(item: ItemInput) {
         this.pageid = item.pageid;
@@ -183,6 +194,12 @@ export default class Item {
      * @param {Item} other the other item
      * @returns {Changes} the changes between the two items
      * @example
+     *   const itemA = Item.fromNothing()
+     *   const itemB = Item.fromNothing()
+     *   itemA.addLabel(new Label({language: "nl", value: "Douglas Adams"}))
+     *
+     *   const changes = itemA.diff(itemB)
+     *   console.log(changes)
      */
     diff(other: Item): Changes[] {
         const labelChanges = labelDiff(this.labels, other.labels, this.id ?? 'unknown');

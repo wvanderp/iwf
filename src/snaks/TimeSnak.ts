@@ -73,7 +73,7 @@ export default class TimeSnak extends Snak {
      * @param {TimeSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
-     *    if (snak.equals(other)) {
+     *   if (snak.equals(other)) {
      *     // do something
      *   }
      */
@@ -95,6 +95,7 @@ export default class TimeSnak extends Snak {
      * @param {CalendarModels} calendarModel the calendarModel for the snak
      * @returns {TimeSnak} the timeSnak
      * @example
+     *    const snak = TimeSnak.fromDate('P1619', new Date(), 'http://www.wikidata.org/entity/Q1985727');
      */
     static fromDate(property: PString, date: Date, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985786'): TimeSnak {
         const isoString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;

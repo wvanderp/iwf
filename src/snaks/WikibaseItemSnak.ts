@@ -113,6 +113,7 @@ export default class WikibaseItemSnak extends Snak {
      * @param {QString} id the Wikibase item id in the `Q-form`
      * @returns {WikibaseItemSnak} a snak with the given properties
      * @example
+     *    const snak = WikibaseItemSnak.fromData('P2860', 'Q42');
      */
     static fromID(property: PString, id: QString): WikibaseItemSnak {
         return new WikibaseItemSnak({

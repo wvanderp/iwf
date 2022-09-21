@@ -29,6 +29,7 @@ export default class Statement {
      *
      * @param {wikidataStatement} statement the statement in a json format
      * @example
+     *     const statement = new Statement(json);
      */
     constructor(statement: wikidataStatement) {
         this.id = statement.id;
@@ -97,6 +98,7 @@ export default class Statement {
      * @param {Snak} snak the snak for the statement
      * @returns {Statement} the statement
      * @example
+     *  const statement = Statement.fromSnak(snak);
      */
     static fromSnak(snak: Snak): Statement {
         return new Statement({

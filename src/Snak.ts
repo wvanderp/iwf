@@ -18,6 +18,7 @@ export default abstract class Snak {
      *
      * @param {WikidataSnaks} snak the snak in a json format
      * @example
+     *    const snak = new Snak(json);
      */
     constructor(snak: WikidataSnaks) {
         this.snaktype = snak.snaktype;

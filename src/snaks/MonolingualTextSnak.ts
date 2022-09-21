@@ -77,6 +77,7 @@ export default class MonolingualTextSnak extends Snak {
      * @param {string} value the value
      * @returns {MonolingualTextSnak} a snak with the given properties
      * @example
+     *   const snak = MonolingualTextSnak.fromValue('P1476', 'en', 'test');
      */
     static fromString(property: PString, language: MonolingualLanguages, value: string): MonolingualTextSnak {
         return new MonolingualTextSnak({

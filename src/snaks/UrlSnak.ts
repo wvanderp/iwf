@@ -67,6 +67,9 @@ export default class URLSnak extends Snak {
      * @param {URLSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *   if (urlSnak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: URLSnak): boolean {
         return this.value === other.value && this.property === other.property;

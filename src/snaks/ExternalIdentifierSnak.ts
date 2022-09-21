@@ -51,6 +51,9 @@ export default class ExternalIdentifierSnak extends Snak {
      * @param {ExternalIdentifierSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *   if (snak.equals(other)) {
+     *     // do something
+     *   }
      */
     equals(other: ExternalIdentifierSnak): boolean {
         return this.id === other.id && this.property === other.property;
@@ -64,9 +67,7 @@ export default class ExternalIdentifierSnak extends Snak {
      * @param {string} id the external identifier
      * @returns {ExternalIdentifierSnak} a snak with the given properties
      * @example
-     *    if (snak.equals(other)) {
-     *     // do something
-     *   }
+     *   const snak = ExternalIdentifierSnak.fromID('P698', '12345678');
      */
     static fromID(property: PString, id: string): ExternalIdentifierSnak {
         return new ExternalIdentifierSnak({

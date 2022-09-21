@@ -17,6 +17,7 @@ export default class Description {
      *
      * @param {LabelAndDescription} label the label in json format
      * @example
+     *   const Description = new Description({ language: 'en', value: 'Douglas Adams' });
      */
     constructor(label: LabelAndDescription) {
         this.language = label.language;

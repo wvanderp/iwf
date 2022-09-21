@@ -39,6 +39,7 @@ export default class Reference {
      *
      * @param {WikidataReference} reference the Reference in json format
      * @example
+     *   const reference = new Reference(json);
      */
     constructor(reference: WikidataReference) {
         this.hash = reference.hash;
@@ -108,6 +109,10 @@ export default class Reference {
      * @param {Snak} snaks the snaks for the reference
      * @returns {Reference} the reference objects
      * @example
+     *    const reference = Reference.fromSnaks([
+     *       new Snak('P123', 'Q42'),
+     *       new Snak('P456', 'Q43')
+     *    ]);
      */
     static fromSnaks(snaks: Snak[]): Reference {
         return new Reference({

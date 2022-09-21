@@ -18,6 +18,7 @@ export default class Alias {
      *
      * @param {LabelAndDescription} alias  the alias in json format
      * @example
+     *    const Alias = new Alias({ language: 'en', value: 'Douglas Adams' });
      */
     constructor(alias: LabelAndDescription) {
         this.language = alias.language;

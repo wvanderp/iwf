@@ -76,7 +76,7 @@ export default class GlobeCoordinateSnak extends Snak {
      * @param {GlobeCoordinateSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
-     *    if (snak.equals(other)) {
+     *   if (snak.equals(other)) {
      *     // do something
      *   }
      */

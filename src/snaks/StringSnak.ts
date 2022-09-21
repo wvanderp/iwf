@@ -51,6 +51,9 @@ export default class StringSnak extends Snak {
      * @param {StringSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
+     *    if (stringSnak.equals(other)) {
+     *      // do something
+     *    }
      */
     equals(other: StringSnak): boolean {
         return this.value === other.value && this.property === other.property;
@@ -62,7 +65,7 @@ export default class StringSnak extends Snak {
      * @param {string} string the string
      * @returns {StringSnak} a snak with the given properties
      * @example
-     *    if (snak.equals(other)) {
+     *   if (snak.equals(other)) {
      *     // do something
      *   }
      */
