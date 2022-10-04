@@ -29,6 +29,9 @@ function groupByPropertyReducer(accumulator: Record<string, Snaks[]>, value: Sna
  * @class
  */
 export default class Reference {
+    /** a place to store the internalID so that it does not change if the contents of the object changes */
+    private _internalID = '';
+
     hash: string | undefined;
 
     snaksOrder: string[] | undefined;
@@ -56,9 +59,13 @@ export default class Reference {
      * @returns {string} the id
      */
     public get internalID(): string {
-        return createHash('sha256')
-            .update(JSON.stringify(this.toJSON()))
-            .digest('hex');
+        if (this._internalID === '') {
+            this._internalID = createHash('sha256')
+                .update(JSON.stringify(this.toJSON()))
+                .digest('hex');
+        }
+
+        return this._internalID;
     }
 
     /**

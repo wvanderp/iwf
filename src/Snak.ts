@@ -8,6 +8,9 @@ import { isPString } from './utils/guards/strings';
  * @class
  */
 export default abstract class Snak {
+    /** a place to store the internalID so that it does not change if the contents of the object changes */
+    private _internalID = '';
+
     snaktype: WikidataSnakType;
 
     property: PString;
@@ -47,9 +50,13 @@ export default abstract class Snak {
      * @returns {string} the id
      */
     public get internalID(): string {
-        return createHash('sha256')
-            .update(JSON.stringify(this.toJSON()))
-            .digest('hex');
+        if (this._internalID === '') {
+            this._internalID = createHash('sha256')
+                .update(JSON.stringify(this.toJSON()))
+                .digest('hex');
+        }
+
+        return this._internalID;
     }
 
     abstract toJSON(): WikidataSnaks;

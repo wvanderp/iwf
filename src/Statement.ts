@@ -13,6 +13,9 @@ import snakGenerator from './utils/snakGenerator';
  * @class
  */
 export default class Statement {
+    /** a place to store the internalID so that it does not change if the contents of the object changes */
+    private _internalID = '';
+
     id: string | undefined;
 
     type: 'statement';
@@ -56,9 +59,13 @@ export default class Statement {
      * @returns {string} the id
      */
     public get internalID(): string {
-        return createHash('sha256')
-            .update(JSON.stringify(this.toJSON()))
-            .digest('hex');
+        if (this._internalID === '') {
+            this._internalID = createHash('sha256')
+                .update(JSON.stringify(this.toJSON()))
+                .digest('hex');
+        }
+
+        return this._internalID;
     }
 
     /**
@@ -82,17 +89,17 @@ export default class Statement {
         const qualifiers = this.qualifiers
             .map((qualifier) => qualifier.toJSON())
             .reduce<wikidataQualifiers>(
-                (accumulator, value) => {
-                    if (accumulator[value.property] === undefined) {
-                        accumulator[value.property] = [];
-                    }
+            (accumulator, value) => {
+                if (accumulator[value.property] === undefined) {
+                    accumulator[value.property] = [];
+                }
 
-                    accumulator[value.property].push(value);
+                accumulator[value.property].push(value);
 
-                    return accumulator;
-                },
-                {}
-            );
+                return accumulator;
+            },
+            {}
+        );
 
         return normalizeOutput({
             mainsnak: this.mainsnak.toJSON(),
