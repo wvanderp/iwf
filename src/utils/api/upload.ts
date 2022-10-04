@@ -65,9 +65,9 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
             return 'anonymous';
         }
 
-        /* istanbul ignore next */
-        default:
+        default: {
             throw new Error('no auth method detected');
+        }
     }
 }
 

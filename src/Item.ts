@@ -164,8 +164,9 @@ export default class Item {
         const lastrevidEqual = this.lastrevid === other.lastrevid;
         const modifiedEqual = (this.modified === undefined && other.modified === undefined)
             ? true
-            // @ts-expect-error
-            : dateFormatter(this.modified) === dateFormatter(other.modified);
+            : ((this.modified === undefined || other.modified === undefined)
+                ? false
+                : dateFormatter(this.modified) === dateFormatter(other.modified));
         const idEqual = this.id === other.id;
         const typeEqual = this.type === other.type;
 

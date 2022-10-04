@@ -3,6 +3,7 @@ import { createHash } from 'crypto';
 
 import Reference from './Reference';
 import Snak from './Snak';
+import { Snaks } from './types/SnaksType';
 import { PString } from './types/strings';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 import normalizeOutput from './utils/normalizeOutput';
@@ -18,7 +19,7 @@ export default class Statement {
 
     rank: 'normal' | 'preferred' | 'deprecated';
 
-    mainsnak: Snak;
+    mainsnak: Snaks;
 
     references: Reference[];
 
@@ -81,17 +82,17 @@ export default class Statement {
         const qualifiers = this.qualifiers
             .map((qualifier) => qualifier.toJSON())
             .reduce<wikidataQualifiers>(
-            (accumulator, value) => {
-                if (accumulator[value.property] === undefined) {
-                    accumulator[value.property] = [];
-                }
+                (accumulator, value) => {
+                    if (accumulator[value.property] === undefined) {
+                        accumulator[value.property] = [];
+                    }
 
-                accumulator[value.property].push(value);
+                    accumulator[value.property].push(value);
 
-                return accumulator;
-            },
-            {}
-        );
+                    return accumulator;
+                },
+                {}
+            );
 
         return normalizeOutput({
             mainsnak: this.mainsnak.toJSON(),
@@ -134,7 +135,8 @@ export default class Statement {
         const typeEqual = this.type === other.type;
         const rankEqual = this.rank === other.rank;
         const qualifiersOrderEqual = arrayEqual(this.qualifiersOrder, other.qualifiersOrder);
-        const snakEqual = this.mainsnak.equals(other.mainsnak);
+        // @ts-expect-error
+        const snakEqual = this.mainsnak.datatype === other.mainsnak.datatype && this.mainsnak.equals(other.mainsnak);
         const referencesEqual = arrayEqualWith(
             this.references,
             other.references,

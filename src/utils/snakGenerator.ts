@@ -15,7 +15,6 @@ import {
     GeoShapeSnak as WikidataGeoShapeSnak,
     WikibasePropertySnak as WikidataWikibasePropertySnak,
 } from '@wmde/wikibase-datamodel-types';
-import Snak from '../Snak';
 
 import CommonsMediaSnak from '../snaks/CommonsMediaSnak';
 import ExternalIdentifierSnak from '../snaks/ExternalIdentifierSnak';
@@ -25,6 +24,7 @@ import MathSnak from '../snaks/MathSnak';
 import MonolingualTextSnak from '../snaks/MonolingualTextSnak';
 import MusicalNotationSnak from '../snaks/MusicalNotationSnak';
 import QuantitySnak from '../snaks/QuantitySnak';
+import { Snaks } from '../types/SnaksType';
 import StringSnak from '../snaks/StringSnak';
 import TabularDataSnak from '../snaks/TabularDataSnak';
 import TimeSnak from '../snaks/TimeSnak';
@@ -38,9 +38,9 @@ import WikibasePropertySnak from '../snaks/WikibasePropertySnak';
  * @private
  * @param {wikidataSnak} snak the snak that needs a constructor
  * @throws {Error} if the snak type is not supported
- * @returns {Snak} the snak as a class
+ * @returns {Snaks} the snak as a class
  */
-export default function snakGenerator(snak: wikidataSnak): Snak {
+export default function snakGenerator(snak: wikidataSnak): Snaks {
     switch (snak.datatype) {
         case 'string': {
             return new StringSnak(snak as WikidataStringSnak);
