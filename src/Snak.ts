@@ -1,5 +1,7 @@
 import { Snaks as WikidataSnaks, SnakType as WikidataSnakType } from '@wmde/wikibase-datamodel-types';
 import { createHash } from 'crypto';
+import { PString } from './types/strings';
+import { isPString } from './utils/guards/strings';
 
 /**
  * @abstract
@@ -8,7 +10,7 @@ import { createHash } from 'crypto';
 export default abstract class Snak {
     snaktype: WikidataSnakType;
 
-    property: string;
+    property: PString;
 
     hash: string | undefined;
 
@@ -22,7 +24,12 @@ export default abstract class Snak {
      */
     constructor(snak: WikidataSnaks) {
         this.snaktype = snak.snaktype;
-        this.property = snak.property;
+
+        if (isPString(snak.property)) {
+            this.property = snak.property;
+        } else {
+            throw new Error('property is not a PString');
+        }
 
         this.hash = snak.hash;
     }

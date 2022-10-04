@@ -3,6 +3,7 @@ import { createHash } from 'crypto';
 
 import Reference from './Reference';
 import Snak from './Snak';
+import { PString } from './types/strings';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
@@ -49,7 +50,7 @@ export default class Statement {
     }
 
     /**
-     * create a unique id for the Statement
+     * gets the unique hash of the statement
      *
      * @returns {string} the id
      */
@@ -57,6 +58,17 @@ export default class Statement {
         return createHash('sha256')
             .update(JSON.stringify(this.toJSON()))
             .digest('hex');
+    }
+
+    /**
+     * gets the property of the statement
+     *
+     * @returns {PString | undefined} the property of the statement
+     * @example
+     * const property = statement.property;
+     */
+    public get property(): PString | undefined {
+        return this.mainsnak.property;
     }
 
     /**

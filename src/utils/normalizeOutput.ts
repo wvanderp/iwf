@@ -24,7 +24,7 @@ function removeEmpty<T>(object: T): T {
 
 /**
  * helper function for cleaning objects.
- * I don't want to muddy the example from stackoverflow so this is a wrapper.
+ * I don't want to muddy the example from Stack Overflow so this is a wrapper.
  *
  * @see removeEmpty
  * @private

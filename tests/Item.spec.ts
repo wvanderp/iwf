@@ -23,7 +23,7 @@ describe('load data into the model', () => {
     }
 
     describe('constructor', () => {
-        it('should throw an error the id of the item is a string but not a Qstring', () => {
+        it('should throw an error the id of the item is a string but not a QString', () => {
             const item = Item.fromNothing();
             const json = item.toJSON();
             json.id = 'string';
@@ -40,7 +40,7 @@ describe('load data into the model', () => {
             expect(() => new Item(json)).to.throw();
         });
 
-        it('should NOT throw an error the id of the item is a Qstring', () => {
+        it('should NOT throw an error the id of the item is a QString', () => {
             const item = Item.fromNothing();
             const json = item.toJSON();
             json.id = 'Q11';

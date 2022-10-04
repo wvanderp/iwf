@@ -60,7 +60,7 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
 
         case 'anonymous': {
             if (options.authToken && options.anonymous) {
-                throw new Error('dont provide a authToken if you want to upload anonymously');
+                throw new Error('don\'t provide a authToken if you want to upload anonymously');
             }
             return 'anonymous';
         }

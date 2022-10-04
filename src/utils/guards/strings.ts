@@ -1,6 +1,6 @@
 import { PString, QString } from '../../types/strings';
 
-const QstringRegex = /Q\d+$/m;
+const QStringRegex = /Q\d+$/m;
 const PStringRegex = /P\d+$/m;
 
 /**
@@ -17,7 +17,7 @@ const PStringRegex = /P\d+$/m;
  *    WikibaseItemSnak.fromID('P42', id);
  */
 export function isQString(string_: string): string_ is QString {
-    return QstringRegex.test(string_);
+    return QStringRegex.test(string_);
 }
 
 /**
@@ -25,7 +25,7 @@ export function isQString(string_: string): string_ is QString {
  * can also be used a type guard
  *
  * @param {string} string_ the string to test
- * @returns {boolean} true if the string is a Qstring
+ * @returns {boolean} true if the string is a QString
  * @example
  *    const property = 'Q123';
  *    if(!isPString(property)) {
