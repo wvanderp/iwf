@@ -18,7 +18,7 @@ export { default as QuantitySnak } from './snaks/QuantitySnak';
 export { default as StringSnak } from './snaks/StringSnak';
 export { default as TabularDataSnak } from './snaks/TabularDataSnak';
 export { default as TimeSnak } from './snaks/TimeSnak';
-export { default as UrlSnak } from './snaks/UrlSnak';
+export { default as URLSnak } from './snaks/URLSnak';
 export { default as WikibaseItemSnak } from './snaks/WikibaseItemSnak';
 export { default as WikibasePropertySnak } from './snaks/WikibasePropertySnak';
 

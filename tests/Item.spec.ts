@@ -8,7 +8,7 @@ import {
     Description,
     Item, Label, SiteLink, Statement, WikibaseItemSnak
 } from '../src';
-import URLSnak from '../src/snaks/UrlSnak';
+import URLSnak from '../src/snaks/URLSnak';
 
 const testFiles = fs.readdirSync(path.resolve(__dirname, './data/'));
 
@@ -54,6 +54,13 @@ describe('load data into the model', () => {
         it('should be the hash of the json', () => {
             const item = Item.fromNothing();
             expect(item.internalID).to.equal('56930c1612485547e470e865fd3480c567ac570d5ac7e52aeaf6927be51b02a6');
+        });
+
+        it('should not change when the item changes', () => {
+            const item = Item.fromNothing();
+            const internalId = item.internalID;
+            item.aliases.push(Alias.fromString('en', 'foo'));
+            expect(item.internalID).to.equal(internalId);
         });
     });
 

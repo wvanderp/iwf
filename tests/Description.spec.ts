@@ -3,12 +3,12 @@ import { expect } from 'chai';
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
 import { Description } from '../src';
 
-const description = {
+const descriptionJson = {
     language: 'en',
     value: 'capital and largest city of Germany'
 } as LabelAndDescription;
 
-const description2 = {
+const descriptionJson2 = {
     language: 'de',
     value: 'Millionenstadt; Hauptstadt und Land der Bundesrepublik Deutschland'
 } as LabelAndDescription;
@@ -16,46 +16,46 @@ const description2 = {
 describe('Description', () => {
     describe('internalID', () => {
         it('should be the language and value of the Description', () => {
-            const a = new Description(description);
-            expect(a.internalID).to.equal('en:capital and largest city of Germany');
+            const description = new Description(descriptionJson);
+            expect(description.internalID).to.equal('en:capital and largest city of Germany');
         });
     });
 
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const descriptionObject = new Description(description);
+            const description = new Description(descriptionJson);
 
-            expect(description).to.deep.equal(descriptionObject.toJSON());
+            expect(descriptionJson).to.deep.equal(description.toJSON());
         });
     });
 
     describe('equals', () => {
         it('should be true if the descriptions are equal', () => {
-            const descriptionObject = new Description(description);
+            const description = new Description(descriptionJson);
 
-            expect(descriptionObject.equals(descriptionObject)).to.be.true;
+            expect(description.equals(description)).to.be.true;
         });
 
         it('should be true if the descriptions are equal but not the same object', () => {
-            const descriptionObject = new Description(description);
-            const descriptionObject2 = new Description(description);
+            const description = new Description(descriptionJson);
+            const description2 = new Description(descriptionJson);
 
-            expect(descriptionObject.equals(descriptionObject2)).to.be.true;
+            expect(description.equals(description2)).to.be.true;
         });
 
         it('should be false if the descriptions are NOT equal', () => {
-            const descriptionObject = new Description(description);
-            const descriptionObject2 = new Description(description2);
+            const description = new Description(descriptionJson);
+            const description2 = new Description(descriptionJson2);
 
-            expect(descriptionObject.equals(descriptionObject2)).to.be.false;
+            expect(description.equals(description2)).to.be.false;
         });
     });
 
     describe('fromString', () => {
         it('should create a description from two strings', () => {
-            const descriptionObject = Description.fromString('nl', 'sinterklaas is een feest');
+            const description = Description.fromString('nl', 'sinterklaas is een feest');
 
-            expect(descriptionObject.toJSON()).to.deep.equal({
+            expect(description.toJSON()).to.deep.equal({
                 language: 'nl',
                 value: 'sinterklaas is een feest'
             });

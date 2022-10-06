@@ -3,12 +3,12 @@ import { expect } from 'chai';
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
 import { Label } from '../src';
 
-const label = {
+const labelJson = {
     language: 'en',
     value: 'Berlin'
 } as LabelAndDescription;
 
-const label2 = {
+const labelJson2 = {
     language: 'it',
     value: 'Berlino'
 } as LabelAndDescription;
@@ -16,46 +16,46 @@ const label2 = {
 describe('Label', () => {
     describe('internalID', () => {
         it('should be the language and value of the label', () => {
-            const a = new Label(label);
-            expect(a.internalID).to.equal('en:Berlin');
+            const label = new Label(labelJson);
+            expect(label.internalID).to.equal('en:Berlin');
         });
     });
 
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const labelObject = new Label(label);
+            const label = new Label(labelJson);
 
-            expect(labelObject.toJSON()).to.deep.equal(label);
+            expect(label.toJSON()).to.deep.equal(labelJson);
         });
     });
 
     describe('equals', () => {
         it('should be true if the labels are equal', () => {
-            const labelObject = new Label(label);
+            const label = new Label(labelJson);
 
-            expect(labelObject.equals(labelObject)).to.be.true;
+            expect(label.equals(label)).to.be.true;
         });
 
         it('should be true if the labels are equal but not the same object', () => {
-            const labelObject = new Label(label);
-            const labelObject2 = new Label(label);
+            const label = new Label(labelJson);
+            const label2 = new Label(labelJson);
 
-            expect(labelObject.equals(labelObject2)).to.be.true;
+            expect(label.equals(label2)).to.be.true;
         });
 
         it('should be false if the labels are NOT equal', () => {
-            const labelObject = new Label(label);
-            const labelObject2 = new Label(label2);
+            const label = new Label(labelJson);
+            const label2 = new Label(labelJson2);
 
-            expect(labelObject.equals(labelObject2)).to.be.false;
+            expect(label.equals(label2)).to.be.false;
         });
     });
 
     describe('fromString', () => {
         it('should create a label from two strings', () => {
-            const labelObject = Label.fromString('nl', 'sinterklaas');
+            const label = Label.fromString('nl', 'sinterklaas');
 
-            expect(labelObject.toJSON()).to.deep.equal({
+            expect(label.toJSON()).to.deep.equal({
                 language: 'nl',
                 value: 'sinterklaas'
             });

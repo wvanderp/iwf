@@ -3,8 +3,9 @@ import { Reference as wikidataReference } from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
 import { Reference } from '../src';
 import snakGenerator from '../src/utils/snakGenerator';
+import URLSnak from '../src/snaks/URLSnak';
 
-const reference: wikidataReference = {
+const referenceJson: wikidataReference = {
     hash: 'e43b1cc9b71d1713d4d6cb76e2abd0b5c36c2a27',
     snaks: {
         P854: [
@@ -51,47 +52,53 @@ const reference: wikidataReference = {
 describe('Reference', () => {
     describe('internalID', () => {
         it('should be the hash of the json', () => {
-            const reference_ = new Reference(reference);
+            const reference = new Reference(referenceJson);
+            expect(reference.internalID).to.equal('09053488de167eab55fa60977cf8c0be7653ef0c6dc29fc75413f149db15a808');
+        });
 
-            expect(reference_.internalID).to.equal('09053488de167eab55fa60977cf8c0be7653ef0c6dc29fc75413f149db15a808');
+        it('should not change when the reference changes', () => {
+            const reference = new Reference(referenceJson);
+            const id = reference.internalID;
+            reference.snaks.push(URLSnak.fromURL('P854', 'https://www.tagesspiegel.de/'));
+            expect(reference.internalID).to.equal(id);
         });
     });
 
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const referenceObject = new Reference(reference);
+            const reference = new Reference(referenceJson);
 
-            expect(referenceObject.toJSON()).to.deep.equal(reference);
+            expect(reference.toJSON()).to.deep.equal(referenceJson);
         });
     });
 
     describe('fromSnaks', () => {
         it('should create a reference from snaks', () => {
-            const snaks = Object.values(reference.snaks).flat().map(((snak) => snakGenerator(snak)));
+            const snaks = Object.values(referenceJson.snaks).flat().map(((snak) => snakGenerator(snak)));
 
-            const newReference = Reference.fromSnaks(snaks);
-            newReference.hash = reference.hash;
-            newReference.snaksOrder = reference['snaks-order'];
+            const reference = Reference.fromSnaks(snaks);
+            reference.hash = referenceJson.hash;
+            reference.snaksOrder = referenceJson['snaks-order'];
 
-            expect(newReference.toJSON()).to.deep.equal(reference);
+            expect(reference.toJSON()).to.deep.equal(referenceJson);
         });
     });
 
     describe('equals', () => {
         it('should be true if the items are equal', () => {
-            const referenceObject = new Reference(reference);
-            const referenceObject2 = new Reference(reference);
+            const reference = new Reference(referenceJson);
+            const reference2 = new Reference(referenceJson);
 
-            expect(referenceObject.equals(referenceObject2)).to.be.true;
+            expect(reference.equals(reference2)).to.be.true;
         });
 
         it('should be false if the items are NOT equal', () => {
-            const referenceObject = new Reference(reference);
-            const referenceObject2 = new Reference(reference);
+            const reference = new Reference(referenceJson);
+            const reference2 = new Reference(referenceJson);
 
-            referenceObject2.hash = 'some hash';
+            reference2.hash = 'some hash';
 
-            expect(referenceObject.equals(referenceObject2)).to.be.false;
+            expect(reference.equals(reference2)).to.be.false;
         });
     });
 });

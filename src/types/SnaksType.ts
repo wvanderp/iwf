@@ -9,7 +9,7 @@ import QuantitySnak from '../snaks/QuantitySnak';
 import StringSnak from '../snaks/StringSnak';
 import TabularDataSnak from '../snaks/TabularDataSnak';
 import TimeSnak from '../snaks/TimeSnak';
-import URLSnak from '../snaks/UrlSnak';
+import URLSnak from '../snaks/URLSnak';
 import WikibaseItemSnak from '../snaks/WikibaseItemSnak';
 import WikibasePropertySnak from '../snaks/WikibasePropertySnak';
 

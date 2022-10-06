@@ -2,10 +2,10 @@ import { describe, it } from 'mocha';
 import { Statement as WikidataStatement } from '@wmde/wikibase-datamodel-types';
 import { expect } from 'chai';
 import {
-    Statement, StringSnak, UrlSnak, WikibaseItemSnak
+    Statement, StringSnak, URLSnak, WikibaseItemSnak
 } from '../src';
 
-const statement: WikidataStatement = {
+const statementJson: WikidataStatement = {
     mainsnak: {
         snaktype: 'value',
         property: 'P1082',
@@ -92,17 +92,46 @@ const statement: WikidataStatement = {
 };
 
 describe('Statement', () => {
+    describe('getInternalId', () => {
+        it('should return the internal id', () => {
+            const statement = new Statement(statementJson);
+            expect(statement.internalID).to.equal('f5472c835614d225989b789e923d52a07d7d1892625ba6ad7de5e6b6f5ad182e');
+        });
+
+        it('should not change when the statement changes', () => {
+            const statement = new Statement(statementJson);
+            const internalId = statement.internalID;
+            statement.mainsnak = StringSnak.fromString('P1', 'foo');
+            expect(statement.internalID).to.equal(internalId);
+        });
+    });
+
+    describe('getProperty', () => {
+        it('should return the property', () => {
+            const statement = new Statement(statementJson);
+            expect(statement.property).to.equal('P1082');
+        });
+
+        it('should change when the snak changes', () => {
+            const statement = new Statement(statementJson);
+            // eslint-disable-next-line prefer-destructuring
+            const property = statement.property;
+            statement.mainsnak = StringSnak.fromString('P1', 'foo');
+            expect(statement.property).to.not.equal(property);
+        });
+    });
+
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const statementObject = new Statement(statement);
+            const statementObject = new Statement(statementJson);
 
-            expect(statementObject.toJSON()).to.deep.equal(statement);
+            expect(statementObject.toJSON()).to.deep.equal(statementJson);
         });
     });
 
     describe('fromSnak', () => {
         it('should create a statement from a snak', () => {
-            const snak = UrlSnak.fromURL('P856', 'http://localhost');
+            const snak = URLSnak.fromURL('P856', 'http://localhost');
             const newStatement = Statement.fromSnak(snak);
 
             expect(newStatement.mainsnak.toJSON()).to.deep.equal(snak.toJSON());
@@ -111,8 +140,8 @@ describe('Statement', () => {
 
     describe('equals', () => {
         it('should equal if ony the qualifiersOrders only filled and equal', () => {
-            const a = Statement.fromSnak(UrlSnak.fromURL('P856', 'http://localhost'));
-            const b = Statement.fromSnak(UrlSnak.fromURL('P856', 'http://localhost'));
+            const a = Statement.fromSnak(URLSnak.fromURL('P856', 'http://localhost'));
+            const b = Statement.fromSnak(URLSnak.fromURL('P856', 'http://localhost'));
 
             a.qualifiers = [StringSnak.fromString('P1545', '1')];
             b.qualifiers = [StringSnak.fromString('P1545', '1')];
@@ -124,15 +153,15 @@ describe('Statement', () => {
         });
 
         it('should equal if ony the qualifiersOrders only filled and equal', () => {
-            const a = new Statement(statement);
-            const b = new Statement(statement);
+            const a = new Statement(statementJson);
+            const b = new Statement(statementJson);
 
             expect(a.equals(b)).to.be.true;
         });
 
         it('should not equal if the id is changed', () => {
-            const a = new Statement(statement);
-            const b = new Statement(statement);
+            const a = new Statement(statementJson);
+            const b = new Statement(statementJson);
 
             b.id = '1';
 
@@ -140,8 +169,8 @@ describe('Statement', () => {
         });
 
         it('should not equal if the rank is changed', () => {
-            const a = new Statement(statement);
-            const b = new Statement(statement);
+            const a = new Statement(statementJson);
+            const b = new Statement(statementJson);
 
             b.rank = 'deprecated';
 
@@ -149,8 +178,8 @@ describe('Statement', () => {
         });
 
         it('should not equal if the qualifiersOrder is changed', () => {
-            const a = new Statement(JSON.parse(JSON.stringify(statement)));
-            const b = new Statement(JSON.parse(JSON.stringify(statement)));
+            const a = new Statement(JSON.parse(JSON.stringify(statementJson)));
+            const b = new Statement(JSON.parse(JSON.stringify(statementJson)));
 
             b.qualifiersOrder.pop();
 
@@ -158,17 +187,17 @@ describe('Statement', () => {
         });
 
         it('should not equal if the mainsnak is changed', () => {
-            const a = new Statement(statement);
-            const b = new Statement(statement);
+            const a = new Statement(statementJson);
+            const b = new Statement(statementJson);
 
-            b.mainsnak = UrlSnak.fromURL('P856', 'http://localhost');
+            b.mainsnak = URLSnak.fromURL('P856', 'http://localhost');
 
             expect(a.equals(b)).to.be.false;
         });
 
         it('should not equal if the references is changed', () => {
-            const a = new Statement(statement);
-            const b = new Statement(statement);
+            const a = new Statement(statementJson);
+            const b = new Statement(statementJson);
 
             b.references.pop();
 
@@ -176,8 +205,8 @@ describe('Statement', () => {
         });
 
         it('should not equal if the qualifiers is changed', () => {
-            const a = new Statement(statement);
-            const b = new Statement(statement);
+            const a = new Statement(statementJson);
+            const b = new Statement(statementJson);
 
             b.qualifiers.pop();
 

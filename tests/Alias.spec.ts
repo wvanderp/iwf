@@ -3,12 +3,12 @@ import { expect } from 'chai';
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
 import { Alias } from '../src';
 
-const alias = {
+const aliasJson = {
     language: 'en',
     value: 'Berlin, Germany'
 } as LabelAndDescription;
 
-const alias2 = {
+const aliasJson2 = {
     language: 'de',
     value: 'Berlin, Deutschland'
 } as LabelAndDescription;
@@ -16,38 +16,38 @@ const alias2 = {
 describe('alias', () => {
     describe('internalID', () => {
         it('should be the language and value of the alias', () => {
-            const a = new Alias(alias);
-            expect(a.internalID).to.equal('en:Berlin, Germany');
+            const alias = new Alias(aliasJson);
+            expect(alias.internalID).to.equal('en:Berlin, Germany');
         });
     });
 
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const aliasObject = new Alias(alias);
+            const alias = new Alias(aliasJson);
 
-            expect(aliasObject.toJSON()).to.deep.equal(alias);
+            expect(alias.toJSON()).to.deep.equal(aliasJson);
         });
     });
 
     describe('equals', () => {
         it('should be true if the aliases are equal', () => {
-            const aliasObject = new Alias(alias);
+            const alias = new Alias(aliasJson);
 
-            expect(aliasObject.equals(aliasObject)).to.be.true;
+            expect(alias.equals(alias)).to.be.true;
         });
 
         it('should be true if the aliases are equal but not the same object', () => {
-            const aliasObject = new Alias(alias);
-            const aliasObject2 = new Alias(alias);
+            const alias = new Alias(aliasJson);
+            const alias2 = new Alias(aliasJson);
 
-            expect(aliasObject.equals(aliasObject2)).to.be.true;
+            expect(alias.equals(alias2)).to.be.true;
         });
 
         it('should be false if the aliases are NOT equal', () => {
-            const aliasObject = new Alias(alias);
-            const aliasObject2 = new Alias(alias2);
+            const alias = new Alias(aliasJson);
+            const alias2 = new Alias(aliasJson2);
 
-            expect(aliasObject2.equals(aliasObject)).to.be.false;
+            expect(alias2.equals(alias)).to.be.false;
         });
     });
 });

@@ -165,7 +165,7 @@ export default class Item {
 
     /**
      *
-     * @param statements
+     * @param {Statement[]} statements
      * @example
      */
     removeStatements(statements: Statement[]): void {

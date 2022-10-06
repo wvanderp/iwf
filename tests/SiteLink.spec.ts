@@ -26,69 +26,69 @@ const siteLinkWithBadge = {
 describe('siteLink', () => {
     describe('get url', () => {
         it('with the url specified', () => {
-            const referenceObject = new SiteLink(siteLinkWithUrl);
+            const siteLink = new SiteLink(siteLinkWithUrl);
 
-            expect(referenceObject.url).to.deep.equal('https://zu.wikipedia.org/wiki/Umuntu');
+            expect(siteLink.url).to.deep.equal('https://zu.wikipedia.org/wiki/Umuntu');
         });
 
         it('without the url specified', () => {
-            const referenceObject = new SiteLink(siteLinkWithOutUrl);
+            const siteLink = new SiteLink(siteLinkWithOutUrl);
 
-            expect(referenceObject.url).to.deep.equal('https://zu.wikipedia.org/wiki/Umuntu');
+            expect(siteLink.url).to.deep.equal('https://zu.wikipedia.org/wiki/Umuntu');
         });
     });
 
     describe('equals', () => {
         it('should be true if the sites are equal', () => {
-            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
+            const siteLink = new SiteLink(siteLinkWithOutUrl);
 
-            expect(siteLinkObject.equals(siteLinkObject)).to.be.true;
+            expect(siteLink.equals(siteLink)).to.be.true;
         });
 
         it('should be true if the aliases are equal but not the same object', () => {
-            const siteLinkObject = new SiteLink(siteLinkWithBadge);
-            const siteLinkObject2 = new SiteLink(siteLinkWithBadge);
+            const siteLink = new SiteLink(siteLinkWithBadge);
+            const siteLink2 = new SiteLink(siteLinkWithBadge);
 
-            expect(siteLinkObject.equals(siteLinkObject2)).to.be.true;
+            expect(siteLink.equals(siteLink2)).to.be.true;
         });
 
         it('should be false if the sites are NOT equal', () => {
-            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
-            const siteLinkObject2 = new SiteLink(siteLinkWithOutUrl);
+            const siteLink = new SiteLink(siteLinkWithOutUrl);
+            const siteLink2 = new SiteLink(siteLinkWithOutUrl);
 
-            siteLinkObject2.site = 'afwiki';
+            siteLink2.site = 'afwiki';
 
-            expect(siteLinkObject.equals(siteLinkObject2)).to.be.false;
+            expect(siteLink.equals(siteLink2)).to.be.false;
         });
 
         it('should be false if the titles are NOT equal', () => {
-            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
-            const siteLinkObject2 = new SiteLink(siteLinkWithOutUrl);
+            const siteLink = new SiteLink(siteLinkWithOutUrl);
+            const siteLink2 = new SiteLink(siteLinkWithOutUrl);
 
-            siteLinkObject2.title = 'human';
+            siteLink2.title = 'human';
 
-            expect(siteLinkObject.equals(siteLinkObject2)).to.be.false;
+            expect(siteLink.equals(siteLink2)).to.be.false;
         });
 
         it('should be false if the badges are NOT equal', () => {
-            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
-            const siteLinkObject2 = new SiteLink(siteLinkWithBadge);
+            const siteLink = new SiteLink(siteLinkWithOutUrl);
+            const siteLink2 = new SiteLink(siteLinkWithBadge);
 
-            expect(siteLinkObject.equals(siteLinkObject2)).to.be.false;
+            expect(siteLink.equals(siteLink2)).to.be.false;
         });
     });
 
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
-            const siteLinkObject = new SiteLink(siteLinkWithUrl);
+            const siteLink = new SiteLink(siteLinkWithUrl);
 
-            expect(siteLinkObject.toJSON()).to.deep.equal(siteLinkWithUrl);
+            expect(siteLink.toJSON()).to.deep.equal(siteLinkWithUrl);
         });
 
         it('should have the right JSON stringification without the url', () => {
-            const siteLinkObject = new SiteLink(siteLinkWithOutUrl);
+            const siteLink = new SiteLink(siteLinkWithOutUrl);
 
-            expect(siteLinkObject.toJSON()).to.deep.equal(siteLinkWithOutUrl);
+            expect(siteLink.toJSON()).to.deep.equal(siteLinkWithOutUrl);
         });
     });
 });
