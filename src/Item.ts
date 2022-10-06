@@ -152,6 +152,27 @@ export default class Item {
     }
 
     /**
+     *
+     * @param statement
+     * @example
+     */
+    removeStatement(statement: Statement): void {
+        const index = this.statements.findIndex((statement2) => statement2.equals(statement));
+        if (index !== -1) {
+            this.statements.splice(index, 1);
+        }
+    }
+
+    /**
+     *
+     * @param statements
+     * @example
+     */
+    removeStatements(statements: Statement[]): void {
+        for (const statement of statements) this.removeStatement(statement);
+    }
+
+    /**
      * this function checks if two items are equal
      *
      * @param {Item} other the other item

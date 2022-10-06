@@ -8,6 +8,7 @@ import {
     Description,
     Item, Label, SiteLink, Statement, WikibaseItemSnak
 } from '../src';
+import URLSnak from '../src/snaks/UrlSnak';
 
 const testFiles = fs.readdirSync(path.resolve(__dirname, './data/'));
 
@@ -82,6 +83,81 @@ describe('load data into the model', () => {
             const findLabel = item.findLabel('en');
 
             expect(findLabel).to.equal(undefined);
+        });
+    });
+
+    // used for both removeStatement and removeStatements
+    let item = Item.fromNothing();
+    let statement1 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.wikidata.org/'));
+    let statement2 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://en.wikipedia.org/'));
+    let statement3 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://nl.wikipedia.org/'));
+
+    describe('removeStatement', function () {
+        beforeEach(function () {
+            item = Item.fromNothing();
+            statement1 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.wikidata.org/'));
+            statement2 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://en.wikipedia.org/'));
+            statement3 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://nl.wikipedia.org/'));
+
+            item.statements.push(statement1, statement2, statement3);
+        });
+
+        it('should remove a statement if it is present', function () {
+            item.removeStatement(statement2);
+
+            expect(item.statements.length).to.be.equal(2);
+            expect(item.statements[0].equals(statement1)).to.be.true;
+            expect(item.statements[1].equals(statement3)).to.be.true;
+        });
+
+        it('should not remove a statement if it is not present', function () {
+            item.removeStatement(Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.google.com/')));
+
+            expect(item.statements.length).to.be.equal(3);
+            expect(item.statements[0].equals(statement1)).to.be.true;
+            expect(item.statements[1].equals(statement2)).to.be.true;
+            expect(item.statements[2].equals(statement3)).to.be.true;
+        });
+    });
+
+    describe('removeStatements', function () {
+        beforeEach(function () {
+            item = Item.fromNothing();
+            statement1 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.wikidata.org/'));
+            statement2 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://en.wikipedia.org/'));
+            statement3 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://nl.wikipedia.org/'));
+            item.statements.push(statement1, statement2, statement3);
+        });
+
+        it('should remove a array of statements if they are present', function () {
+            item.removeStatements([statement1, statement3]);
+
+            expect(item.statements.length).to.be.equal(1);
+            expect(item.statements[0].equals(statement2)).to.be.true;
+        });
+
+        it('should not remove a array of statements if they are not present', function () {
+            item.removeStatements([
+                Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.google.com/')),
+                Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.twitter.com/')),
+            ]);
+
+            expect(item.statements.length).to.be.equal(3);
+            expect(item.statements[0].equals(statement1)).to.be.true;
+            expect(item.statements[1].equals(statement2)).to.be.true;
+            expect(item.statements[2].equals(statement3)).to.be.true;
+        });
+
+        it('should remove some of the statements if some are present', function () {
+            item.removeStatements([
+                Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.google.com/')),
+                statement1,
+                Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.twitter.com/')),
+                statement3,
+            ]);
+
+            expect(item.statements.length).to.be.equal(1);
+            expect(item.statements[0].equals(statement2)).to.be.true;
         });
     });
 
