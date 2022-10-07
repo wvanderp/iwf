@@ -152,9 +152,29 @@ export default class Item {
     }
 
     /**
+     * adds a statement to the item
      *
-     * @param statement
+     * @param {Statement | Statement[]} statement the statement to add
      * @example
+     *   const statement = Statement.fromSnak(URLSnak.fromURL("p1", "https://www.wikidata.org"))
+     *   item.addStatement(statement)
+     */
+    addStatement(statement: Statement | Statement[]): void {
+        if (Array.isArray(statement)) {
+            this.statements.push(...statement);
+        } else {
+            this.statements.push(statement);
+        }
+    }
+
+    /**
+     * removes a statement from the item
+     *
+     * @see removeStatements
+     * @param {Statement} statement the statement to remove
+     * @example
+     *     const statement = item.statements[0]
+     *     item.removeStatement(statement)
      */
     removeStatement(statement: Statement): void {
         const index = this.statements.findIndex((statement2) => statement2.equals(statement));
@@ -164,9 +184,13 @@ export default class Item {
     }
 
     /**
+     * removes multiple statements from the item
      *
-     * @param {Statement[]} statements
+     * @see removeStatement
+     * @param {Statement[]} statements the statements to remove
      * @example
+     *   const statements = item.statements
+     *   item.removeStatements(statements)
      */
     removeStatements(statements: Statement[]): void {
         for (const statement of statements) this.removeStatement(statement);
