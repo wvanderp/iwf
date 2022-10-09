@@ -36,7 +36,7 @@ export function isCommonsMediaSnak(snak: Snak): snak is CommonsMediaSnak {
  *  // do something
  * }
  */
-export function isExternalIdSnak(snak: Snak): snak is ExternalIdentifierSnak {
+export function isExternalIdentifierSnak(snak: Snak): snak is ExternalIdentifierSnak {
     return snak instanceof ExternalIdentifierSnak;
 }
 
@@ -166,7 +166,7 @@ export function isTimeSnak(snak: Snak): snak is TimeSnak {
  *  // do something
  * }
  */
-export function isUrlSnak(snak: Snak): snak is URLSnak {
+export function isURLSnak(snak: Snak): snak is URLSnak {
     return snak instanceof URLSnak;
 }
 
