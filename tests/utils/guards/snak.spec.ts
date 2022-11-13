@@ -18,7 +18,7 @@ import {
 } from '../../testUtils/examples/snaks';
 import {
     isCommonsMediaSnak,
-    isExternalIdSnak,
+    isExternalIdentifierSnak,
     isGeoShapeSnak,
     isGlobeCoordinateSnak,
     isMathSnak,
@@ -28,7 +28,7 @@ import {
     isStringSnak,
     isTabularDataSnak,
     isTimeSnak,
-    isUrlSnak,
+    isURLSnak,
     isWikibaseItemSnak,
     isWikibasePropertySnak
 } from '../../../src/utils/guards/snak';
@@ -45,11 +45,11 @@ describe('isCommonsMediaSnak', function () {
 
 describe('isExternalIdSnak', function () {
     it('should return true if the snak is a ExternalIdSnak', function () {
-        expect(isExternalIdSnak(externalIdSnak)).to.be.true;
+        expect(isExternalIdentifierSnak(externalIdSnak)).to.be.true;
     });
 
     it('should return false if the snak is not a isExternalIdSnak', function () {
-        expect(isExternalIdSnak(commonsMediaSnak)).to.be.false;
+        expect(isExternalIdentifierSnak(commonsMediaSnak)).to.be.false;
     });
 });
 
@@ -145,11 +145,11 @@ describe('isTimeSnak', function () {
 
 describe('isUrlSnak', function () {
     it('should return true if the snak is a UrlSnak', function () {
-        expect(isUrlSnak(urlSnak)).to.be.true;
+        expect(isURLSnak(urlSnak)).to.be.true;
     });
 
     it('should return false if the snak is not a isUrlSnak', function () {
-        expect(isUrlSnak(commonsMediaSnak)).to.be.false;
+        expect(isURLSnak(commonsMediaSnak)).to.be.false;
     });
 });
 
