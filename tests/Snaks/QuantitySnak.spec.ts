@@ -215,6 +215,71 @@ describe('Quantity Snak', () => {
 
             expect(snak.toJSON()).to.deep.equal(quantitySnak);
         });
+
+        it('should add the plus if it was not there', () => {
+            const snak = QuantitySnak.fromNumbers('P1545', Number.parseInt('1', 10));
+
+            expect(snak.toJSON()).to.deep.equal({
+                snaktype: 'value',
+                property: 'P1545',
+                datavalue: { value: { amount: '+1', unit: '1' }, type: 'quantity' },
+                datatype: 'quantity'
+            });
+        });
+
+        it('should not add the plus if there is already a Plus', () => {
+            const snak = QuantitySnak.fromNumbers('P1545', Number.parseInt('+1', 10));
+
+            expect(snak.toJSON()).to.deep.equal({
+                snaktype: 'value',
+                property: 'P1545',
+                datavalue: { value: { amount: '+1', unit: '1' }, type: 'quantity' },
+                datatype: 'quantity'
+            });
+        });
+
+        it('should not add the plus if there is already a minus', () => {
+            const snak = QuantitySnak.fromNumbers('P1545', Number.parseInt('-1', 10));
+
+            expect(snak.toJSON()).to.deep.equal({
+                snaktype: 'value',
+                property: 'P1545',
+                datavalue: { value: { amount: '-1', unit: '1' }, type: 'quantity' },
+                datatype: 'quantity'
+            });
+        });
+
+        it('should also do the correct thing for the lower and upper bound', () => {
+            const snak = QuantitySnak.fromNumbers('P1545', -1, -2, 6);
+
+            expect(snak.toJSON()).to.deep.equal({
+                snaktype: 'value',
+                property: 'P1545',
+                datavalue: {
+                    value: {
+                        amount: '-1', lowerBound: '-2', unit: '1', upperBound: '+6'
+                    },
+                    type: 'quantity'
+                },
+                datatype: 'quantity'
+            });
+        });
+
+        it('should also do the correct thing for the lower and upper bound and decimals', () => {
+            const snak = QuantitySnak.fromNumbers('P1545', -1.5, -2.5, 6.5);
+
+            expect(snak.toJSON()).to.deep.equal({
+                snaktype: 'value',
+                property: 'P1545',
+                datavalue: {
+                    value: {
+                        amount: '-1.5', lowerBound: '-2.5', unit: '1', upperBound: '+6.5'
+                    },
+                    type: 'quantity'
+                },
+                datatype: 'quantity'
+            });
+        });
     });
 
     describe('equals', () => {

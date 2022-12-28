@@ -10,11 +10,26 @@ import normalizeOutput from '../utils/normalizeOutput';
  * @param {number} amount the number that should be formatted
  * @returns {string} the formatted number as a string
  */
-function formatNumber(amount: number): string {
+function formatNumberFromNumber(amount: number): string {
     if (amount >= (0)) {
         return `+${amount}`;
     }
     return `${amount}`;
+}
+
+/**
+ * this function also mainly exist because wikidata has the weird habit of indicating positive numbers with the plus sign (+)
+ * but this one works on strings
+ *
+ * @private
+ * @param amount the number that should be formatted
+ * @returns the formatted number as a string
+ */
+function formatNumberFromString(amount: string): string {
+    if (amount.startsWith('+') || amount.startsWith('-')) {
+        return amount;
+    }
+    return `+${amount}`;
 }
 
 /**
@@ -62,9 +77,9 @@ export default class QuantitySnak extends Snak {
         const upperBound = snak.datavalue?.value.upperBound;
         const lowerBound = snak.datavalue?.value.lowerBound;
 
-        this._amount = amount;
-        this._upperBound = upperBound;
-        this._lowerBound = lowerBound;
+        this._amount = amount ? formatNumberFromString(amount) : undefined;
+        this._upperBound = upperBound ? formatNumberFromString(upperBound) : undefined;
+        this._lowerBound = lowerBound ? formatNumberFromString(lowerBound) : undefined;
 
         this.unit = snak.datavalue?.value.unit;
     }
@@ -85,7 +100,7 @@ export default class QuantitySnak extends Snak {
             return;
         }
 
-        this._amount = formatNumber(number);
+        this._amount = formatNumberFromNumber(number);
     }
 
     /**
@@ -104,7 +119,7 @@ export default class QuantitySnak extends Snak {
             return;
         }
 
-        this._upperBound = formatNumber(number);
+        this._upperBound = formatNumberFromNumber(number);
     }
 
     /**
@@ -123,7 +138,7 @@ export default class QuantitySnak extends Snak {
             return;
         }
 
-        this._lowerBound = formatNumber(number);
+        this._lowerBound = formatNumberFromNumber(number);
     }
 
     /**
@@ -139,10 +154,10 @@ export default class QuantitySnak extends Snak {
             hash: this.hash,
             datavalue: this.hasValue ? {
                 value: {
-                    amount: this._amount,
+                    amount: this._amount ? formatNumberFromString(this._amount) : undefined,
                     unit: this.unit,
-                    upperBound: this._upperBound,
-                    lowerBound: this._lowerBound
+                    upperBound: this._upperBound ? formatNumberFromString(this._upperBound) : undefined,
+                    lowerBound: this._lowerBound ? formatNumberFromString(this._lowerBound) : undefined,
                 },
                 type: 'quantity'
             } : undefined,
