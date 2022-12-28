@@ -111,7 +111,7 @@ export default class Item {
         this.descriptions = Object.values(item.descriptions).map((description) => new Description(description));
         this.aliases = Object.values(item.aliases)
             .flatMap(
-                (alias) => (alias !== null ? alias.map((alias2) => new Alias(alias2)) : [])
+                (alias) => (alias == null ? [] : alias.map((alias2) => new Alias(alias2)))
             );
 
         this.statements = Object.values(item.claims)
