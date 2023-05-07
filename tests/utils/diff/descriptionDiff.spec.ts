@@ -68,4 +68,47 @@ describe('description diff', () => {
 
         expect(descriptionDiff(a, b, 'Q2')).to.deep.equal([]);
     });
+
+    it('should find diffs when the new array is empty', () => {
+        const a: Description[] = [
+            new Description({ language: 'en', value: 'This is a difference' }),
+            new Description({ language: 'nl', value: 'Dit is een verschil' }),
+            new Description({ language: 'ko', value: '이것은 차이입니다' })
+        ];
+
+        const b: Description[] = [];
+
+        const changes: Changes[] = [
+            {
+                action: 'remove',
+                old: {
+                    language: 'en',
+                    value: 'This is a difference'
+                },
+
+                parentID: 'Q2',
+                type: 'description'
+            },
+            {
+                action: 'remove',
+                old: {
+                    language: 'nl',
+                    value: 'Dit is een verschil'
+                },
+                parentID: 'Q2',
+                type: 'description'
+            },
+            {
+                action: 'remove',
+                old: {
+                    language: 'ko',
+                    value: '이것은 차이입니다'
+                },
+                parentID: 'Q2',
+                type: 'description'
+            }
+        ];
+
+        expect(descriptionDiff(a, b, 'Q2')).to.deep.equal(changes);
+    });
 });

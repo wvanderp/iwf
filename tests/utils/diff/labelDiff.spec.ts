@@ -55,7 +55,7 @@ describe('label diff', () => {
         expect(labelDiff(a, b, 'Q2')).to.deep.equal(changes);
     });
 
-    it('should find diffs when there aren\'t any', () => {
+    it('should not find diffs when there aren\'t any', () => {
         const a: Label[] = [
             new Label({ language: 'en', value: 'Difference' }),
             new Label({ language: 'nl', value: 'Verschil' }),
@@ -68,5 +68,47 @@ describe('label diff', () => {
         ];
 
         expect(labelDiff(a, b, 'Q2')).to.deep.equal([]);
+    });
+
+    it('should find diffs when the new array is empty', () => {
+        const a: Label[] = [
+            new Label({ language: 'en', value: 'Difference' }),
+            new Label({ language: 'nl', value: 'Verschil' }),
+            new Label({ language: 'ko', value: '차이점' })
+        ];
+
+        const b: Label[] = [];
+
+        const changes: Changes[] = [
+            {
+                action: 'remove',
+                old: {
+                    language: 'en',
+                    value: 'Difference'
+                },
+                parentID: 'Q2',
+                type: 'label'
+            },
+            {
+                action: 'remove',
+                old: {
+                    language: 'nl',
+                    value: 'Verschil'
+                },
+                parentID: 'Q2',
+                type: 'label'
+            },
+            {
+                action: 'remove',
+                old: {
+                    language: 'ko',
+                    value: '차이점'
+                },
+                parentID: 'Q2',
+                type: 'label'
+            }
+        ];
+
+        expect(labelDiff(a, b, 'Q2')).to.deep.equal(changes);
     });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable unicorn/no-nested-ternary */
 import axios from 'axios';
 import qs from 'qs';
@@ -9,11 +10,18 @@ import { Token } from './token';
 import { StatementChange } from '../diff/statementsDiff';
 import isStatementChange from '../guards/Changes';
 import { UploadFormat } from '../../types/uploadFormat';
+import { AliasChange } from '../diff/aliasDiff';
+import { LabelChange } from '../diff/labelDiff';
+import { SiteLinkChange } from '../diff/siteLinkDiff';
 
 /**
  * Api Documentation is scarce. so here is a semi comprehensive list of all pages that contain information about the api
- * - https://www.mediawiki.org/wiki/Wikibase/API
+ * - https://www.mediawiki.org/wiki/Wikibase serialized object that is used as the data source. A newly cre/API
  * - https://www.wikidata.org/w/api.php?action=help&modules=wbeditentity
+ * - https://github.com/wikimedia/mediawiki-extensions-Wikibase/blob/master/repo/tests/phpunit/includes/Api/EditEntityTest.php
+ * -- (tests are a good source of information)
+ * - https://phabricator.wikimedia.org/diffusion/EWBA/browse/master/docs/change-op-serializations.wiki;d8911d30badb0df2ae9266b72e321e65fb46b998
+ * -- seams outdated but is still a good source of information
  *
  */
 
@@ -81,7 +89,7 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
  * @param {Item} item the item to upload
  */
 export async function generateUploadData(item: Item): Promise<Record<string, unknown>> {
-    // get diff from the original item
+    // get diff from the original item/SonarSource/eslint-plugin-sonarjs/blob/master/docs/rules/.md
     const originalItem = item.id ? await requestItem(item.id) : Item.fromNothing();
 
     const diffs = originalItem.diff(item);
@@ -106,7 +114,47 @@ export async function generateUploadData(item: Item): Promise<Record<string, unk
         json.claims[removedStatement.old.mainsnak.property].push({ remove: '', id: removedStatement.old.id });
     }
 
-    return json;
+    // removing aliases
+    const removedAliases = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'alias') as AliasChange[];
+
+    for (const removedAlias of removedAliases) {
+        if (removedAlias.old?.language && removedAlias.old?.value) {
+            if (!json.aliases[removedAlias.old.language]) {
+                json.aliases[removedAlias.old.language] = [];
+            }
+            json.aliases[removedAlias.old.language].push({ language: removedAlias.old.language, value: removedAlias.old.value, remove: '' });
+        }
+    }
+
+    // removing labels
+    const removedLabels = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'label') as LabelChange[];
+
+    for (const removedLabel of removedLabels) {
+        if (removedLabel.old?.language && removedLabel.old?.value) {
+            json.labels[removedLabel.old.language] = { language: removedLabel.old.language, value: '' };
+        }
+    }
+
+    // removing descriptions
+    const removedDescriptions = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'description') as LabelChange[];
+
+    for (const removedDescription of removedDescriptions) {
+        if (removedDescription.old?.language && removedDescription.old?.value) {
+            json.descriptions[removedDescription.old.language] = { language: removedDescription.old.language, value: '' };
+        }
+    }
+
+    // removing sitelinks
+    // https://github.com/wikimedia/mediawiki-extensions-Wikibase/blob/master/repo/tests/phpunit/includes/Api/EditEntityTest.php#L165
+    const removedSitelinks = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'siteLink') as SiteLinkChange[];
+
+    for (const removedSitelink of removedSitelinks) {
+        if (removedSitelink.old?.site && removedSitelink.old?.title) {
+            json.sitelinks[removedSitelink.old.site] = { site: removedSitelink.old.site, title: '' };
+        }
+    }
+
+    return json as unknown as Record<string, unknown>;
 }
 
 /**

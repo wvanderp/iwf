@@ -61,7 +61,7 @@ describe('alias diff', () => {
                 old: {
                     language: 'es',
                     value: 'divergencia'
-                }
+                },
             }
         ];
 
@@ -95,5 +95,37 @@ describe('alias diff', () => {
         ];
 
         expect(aliasDiff(a, b, 'Q2')).to.deep.equal([]);
+    });
+
+    it('should find all changes when the new array is empty', () => {
+        const a: Alias[] = [
+            new Alias({ language: 'ko', value: '차이점' }),
+            new Alias({ language: 'en', value: 'contrast' }),
+        ];
+
+        const b: Alias[] = [];
+
+        const changes: Changes[] = [
+            {
+                action: 'remove',
+                parentID: 'Q2',
+                type: 'alias',
+                old: {
+                    language: 'ko',
+                    value: '차이점'
+                }
+            },
+            {
+                action: 'remove',
+                parentID: 'Q2',
+                type: 'alias',
+                old: {
+                    language: 'en',
+                    value: 'contrast'
+                }
+            }
+        ];
+
+        expect(aliasDiff(a, b, 'Q2')).to.deep.equal(changes);
     });
 });

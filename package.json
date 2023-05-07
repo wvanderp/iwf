@@ -32,12 +32,13 @@
     "@typescript-eslint/parser": "^5.59.2",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
+    "dotenv": "^16.0.3",
     "eslint": "^8.40.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-compat": "^4.1.4",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsdoc": "^43.2.0",
+    "eslint-plugin-jsdoc": "^44.0.0",
     "eslint-plugin-jsonc": "^2.7.0",
     "eslint-plugin-no-secrets": "^0.8.9",
     "eslint-plugin-pii": "^1.0.2",
@@ -51,7 +52,7 @@
     "sinon": "^15.0.4",
     "source-map-support": "^0.5.21",
     "ts-node": "10.9.1",
-    "typedoc": "^0.24.6",
+    "typedoc": "^0.24.7",
     "typescript": "^5.0.4"
   },
   "dependencies": {
@@ -65,11 +66,15 @@
   },
   "scripts": {
     "build": "rimraf lib && tsc -P ./tsconfig.build.json",
-    "coverage": "npm run build && nyc npm run test",
     "docs": "typedoc --out docs src/index.ts",
     "lint": "tsc --noEmit && eslint --ext ts,js src/ tests/",
     "prepublish": "npm run build",
-    "test": "mocha",
+    "test": "mocha --recursive tests/**/*.spec.ts tests/**/**/*.spec.ts",
+    "test:integration": "mocha integrationTests/**/*.spec.ts",
+    "coverage:test": "nyc --silent npm run test",
+    "coverage:integration": "nyc --silent --no-clean npm run test:integration",
+    "coverage:report": "nyc report --reporter=lcov",
+    "coverage": "npm run coverage:test && npm run coverage:integration && npm run coverage:report",
     "clean": "rimraf lib/ .nyc_output/ coverage/ docs/"
   }
 }

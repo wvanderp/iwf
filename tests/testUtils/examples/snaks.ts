@@ -37,33 +37,33 @@ const commonsMediaJson: WikidataCommonsMediaSnak = {
     snaktype: 'value',
     property: 'P18',
     datavalue: {
-        value: 'File:Example.jpg',
+        value: 'Douglas adams portrait cropped.jpg',
         type: 'string'
     },
     datatype: 'commonsMedia'
 };
 
 const commonsMediaSnak = new CommonsMediaSnak(commonsMediaJson);
-export { commonsMediaSnak };
+export { commonsMediaSnak as exampleCommonsMediaSnak };
 
 // ExternalIdSnak
 const externalIdJson: WikidataExternalIdentifierSnak = {
     snaktype: 'value',
-    property: 'P345',
+    property: 'P3417',
     datavalue: {
-        value: 'tt0111161',
+        value: 'C-Major-Scale',
         type: 'string'
     },
     datatype: 'external-id'
 };
 
 const externalIdSnak = new ExternalIdentifierSnak(externalIdJson);
-export { externalIdSnak };
+export { externalIdSnak as exampleExternalIdSnak };
 
 // GeoShapeSnak
 const geoShapeJson: WikidataGeoShapeSnak = {
     snaktype: 'value',
-    property: 'P625',
+    property: 'P3896',
     datavalue: {
         value: 'Data:Berlin.map',
         type: 'string'
@@ -72,18 +72,18 @@ const geoShapeJson: WikidataGeoShapeSnak = {
 };
 
 const geoShapeSnak = new GeoShapeSnak(geoShapeJson);
-export { geoShapeSnak };
+export { geoShapeSnak as exampleGeoShapeSnak };
 
 // GlobeCoordinateSnak
 const globeCoordinateJson: WikidataGlobeCoordinateSnak = {
     snaktype: 'value',
-    property: 'P625',
+    property: 'P1333',
     datavalue: {
         value: {
-            latitude: 52.518611,
-            longitude: 13.408056,
+            latitude: 40.496045,
+            longitude: -74.247195,
             altitude: null,
-            precision: 0.0002777777777777778,
+            precision: 1e-6,
             globe: 'http://www.wikidata.org/entity/Q2'
         },
         type: 'globecoordinate'
@@ -92,29 +92,29 @@ const globeCoordinateJson: WikidataGlobeCoordinateSnak = {
 };
 
 const globeCoordinateSnak = new GlobeCoordinateSnak(globeCoordinateJson);
-export { globeCoordinateSnak };
+export { globeCoordinateSnak as exampleGlobeCoordinateSnak };
 
 // MathSnak
 const mathJson: WikidataMathSnak = {
     snaktype: 'value',
-    property: 'P123',
+    property: 'P2534',
     datavalue: {
-        value: 'x^2',
+        value: 'a^2+b^2=c^2',
         type: 'string'
     },
     datatype: 'math'
 };
 
 const mathSnak = new MathSnak(mathJson);
-export { mathSnak };
+export { mathSnak as exampleMathSnak };
 
 // MonolingualTextSnak
 const monolingualTextJson: WikidataMonolingualTextSnak = {
     snaktype: 'value',
-    property: 'P1476',
+    property: 'P1813',
     datavalue: {
         value: {
-            text: 'The Shawshank Redemption',
+            text: 'formula',
             language: 'en'
         },
         type: 'monolingualtext'
@@ -123,29 +123,29 @@ const monolingualTextJson: WikidataMonolingualTextSnak = {
 };
 
 const monolingualTextSnak = new MonolingualTextSnak(monolingualTextJson);
-export { monolingualTextSnak };
+export { monolingualTextSnak as exampleMonolingualTextSnak };
 
 // MusicalNotationSnak
 const musicalNotationJson: WikidataMusicalNotationSnak = {
     snaktype: 'value',
-    property: 'P123',
+    property: 'P6883',
     datavalue: {
-        value: "\\relative c' { \\key d \\minor f c f2 | a8 bes g a f2 | f4 c8 c f2 | a8 bes g a f2 | a4 bes8 bes c2 | d8 c bes d c4 c8 c | a g a bes c4 c | d8 c bes d c4 a | f8 e f g a4 g | a8 g a bes c d c bes | a4 g f2 }",
+        value: "\\relative c' {c d e f g a b c}",
         type: 'string'
     },
     datatype: 'musical-notation'
 };
 
 const musicalNotationSnak = new MusicalNotationSnak(musicalNotationJson);
-export { musicalNotationSnak };
+export { musicalNotationSnak as exampleMusicalNotationSnak };
 
 // QuantitySnak
 const quantityJson: WikidataQuantitySnak = {
     snaktype: 'value',
-    property: 'P123',
+    property: 'P2527',
     datavalue: {
         value: {
-            amount: '+42',
+            amount: '+9.1',
             unit: '1'
         },
         type: 'quantity'
@@ -154,43 +154,43 @@ const quantityJson: WikidataQuantitySnak = {
 };
 
 const quantitySnak = new QuantitySnak(quantityJson);
-export { quantitySnak };
+export { quantitySnak as exampleQuantitySnak };
 
 // StringSnak
 const stringJson: WikidataStringSnak = {
     snaktype: 'value',
-    property: 'P123',
+    property: 'P373',
     datavalue: {
-        value: 'The Shawshank Redemption',
+        value: '2011 T\u014Dhoku earthquake',
         type: 'string'
     },
     datatype: 'string'
 };
 
 const stringSnak = new StringSnak(stringJson);
-export { stringSnak };
+export { stringSnak as exampleStringSnak };
 
 // TabularDataSnak
 const tabularDataJson: WikidataTabularDataSnak = {
     snaktype: 'value',
-    property: 'P123',
+    property: 'P4150',
     datavalue: {
-        value: 'Data:Example.csv',
+        value: 'Data:Ncei.noaa.gov/weather/New York City.tab',
         type: 'string'
     },
     datatype: 'tabular-data'
 };
 
 const tabularDataSnak = new TabularDataSnak(tabularDataJson);
-export { tabularDataSnak };
+export { tabularDataSnak as exampleTabularDataSnak };
 
 // TimeSnak
 const timeJson: WikidataTimeSnak = {
     snaktype: 'value',
-    property: 'P123',
+    property: 'P580',
     datavalue: {
         value: {
-            time: '+2001-12-31T00:00:00Z',
+            time: '+2008-04-17T00:00:00Z',
             timezone: 0,
             before: 0,
             after: 0,
@@ -203,31 +203,31 @@ const timeJson: WikidataTimeSnak = {
 };
 
 const timeSnak = new TimeSnak(timeJson);
-export { timeSnak };
+export { timeSnak as exampleTimeSnak };
 
 // UrlSnak
 const urlJson: WikidataURLSnak = {
     snaktype: 'value',
-    property: 'P123',
+    property: 'P854',
     datavalue: {
-        value: 'https://www.imdb.com/title/tt0111161/',
+        value: 'http://id.loc.gov/authorities/classification/F128-F128.9',
         type: 'string'
     },
     datatype: 'url'
 };
 
 const urlSnak = new URLSnak(urlJson);
-export { urlSnak };
+export { urlSnak as exampleUrlSnak };
 
 // WikibaseItemSnak
 const wikibaseItemJson: WikidataWikibaseItemSnak = {
     snaktype: 'value',
-    property: 'P123',
+    property: 'P1855',
     datavalue: {
         value: {
             'entity-type': 'item',
-            'numeric-id': 123,
-            id: 'Q123'
+            'numeric-id': 11518,
+            id: 'Q11518'
         },
         type: 'wikibase-entityid'
     },
@@ -235,17 +235,17 @@ const wikibaseItemJson: WikidataWikibaseItemSnak = {
 };
 
 const wikibaseItemSnak = new WikibaseItemSnak(wikibaseItemJson);
-export { wikibaseItemSnak };
+export { wikibaseItemSnak as exampleWikibaseItemSnak };
 
 // WikibasePropertySnak
 const wikibasePropertyJson: WikidataWikibasePropertySnak = {
     snaktype: 'value',
-    property: 'P123',
+    property: 'P2306',
     datavalue: {
         value: {
             'entity-type': 'property',
-            'numeric-id': 123,
-            id: 'P123'
+            'numeric-id': 31,
+            id: 'P31'
         },
         type: 'wikibase-entityid'
     },
@@ -253,4 +253,4 @@ const wikibasePropertyJson: WikidataWikibasePropertySnak = {
 };
 
 const wikibasePropertySnak = new WikibasePropertySnak(wikibasePropertyJson);
-export { wikibasePropertySnak };
+export { wikibasePropertySnak as exampleWikibasePropertySnak };

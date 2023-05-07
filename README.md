@@ -1,6 +1,6 @@
 # Improved Wikidata Format
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wvanderp/iwf/test)](https://github.com/wvanderp/iwf/actions/workflows/test.yml)
+[![Test](https://github.com/wvanderp/iwf/actions/workflows/test.yml/badge.svg)](https://github.com/wvanderp/iwf/actions/workflows/test.yml)
 [![npm](https://img.shields.io/npm/dm/iwf)](https://www.npmjs.com/package/iwf)
 [![codecov](https://codecov.io/gh/wvanderp/iwf/branch/main/graph/badge.svg?token=6CPZPAOAUP)](https://codecov.io/gh/wvanderp/iwf)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwvanderp%2Fiwf.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwvanderp%2Fiwf?ref=badge_shield)

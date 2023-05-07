@@ -8,3 +8,5 @@ test.ts
 scrap.ts
 scrap2.ts
 lib
+
+.env

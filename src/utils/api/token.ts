@@ -56,7 +56,7 @@ export default async function getToken(username: string, password: string): Prom
     );
 
     if (loginResult.data.login.result !== 'Success') {
-        throw new Error('error logging in');
+        throw new Error(`error logging in: ${loginResult.data.login.result}`);
     }
 
     // getting the token
