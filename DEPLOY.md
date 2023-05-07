@@ -2,9 +2,9 @@ this guide will instruct you on how to deploy iwf
 
 ## pre-commit
 
-First, run `npm run lint` and `npm run test` to lint and test the project. See if the results are acceptable.
+First, run `npm run lint` and `npm run test` to lint and test the project. 
 
-Then push the result to Github.
+See if the results are acceptable. Then push the result to Github.
 
 ## tagging
 
