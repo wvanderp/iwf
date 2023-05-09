@@ -40,7 +40,7 @@ describe('uploading to wikidata', () => {
             process.env.WIKIDATA_USERNAME,
             process.env.WIKIDATA_PASSWORD
         );
-        
+
         // write a empty item
         console.log('cleaning item');
         let item = Item.fromNothing();

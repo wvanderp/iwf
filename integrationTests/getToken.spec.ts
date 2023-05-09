@@ -20,6 +20,11 @@ describe('get login token', () => {
     it('should return a login token', async function () {
         this.timeout(10000);
 
+        expect(process.env.WIKIDATA_USERNAME).to.be.a('string');
+        expect(process.env.WIKIDATA_PASSWORD).to.be.a('string');
+        expect(process.env.WIKIDATA_USERNAME).to.not.equal('');
+        expect(process.env.WIKIDATA_USERNAME).to.equal('IWFTest');
+
         console.log(process.env.WIKIDATA_USERNAME);
 
         const token = await getToken(
