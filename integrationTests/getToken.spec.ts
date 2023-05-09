@@ -20,6 +20,8 @@ describe('get login token', () => {
     it('should return a login token', async function () {
         this.timeout(10000);
 
+        console.log(process.env.WIKIDATA_USERNAME);
+
         const token = await getToken(
             process.env.WIKIDATA_USERNAME,
             process.env.WIKIDATA_PASSWORD
