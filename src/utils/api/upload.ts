@@ -37,11 +37,27 @@ interface UploadOptions {
     tags?: string[];
 
     maxLag?: number;
+
+    server?: string;
 }
 
 type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
 
-const url = 'https://www.wikidata.org/w/api.php?action=wbeditentity&format=json';
+/**
+ * generates the url for the api request
+ * @private
+ * @param {string} server the server to request from
+ * @returns {string} the url to request from
+ * @example
+ *     const url = generateURL('https://www.wikidata.org');
+ *    // url = 'https://www.wikidata.org/w/api.php?action=wbeditentity&format=json'
+ *    const url = generateURL('https://wiki.openstreetmap.org');
+ *   // url = 'https://wiki.openstreetmap.org/w/api.php?action=wbeditentity&format=json'
+ */
+export function generateURL(server = 'https://www.wikidata.org'): string {
+    const url = new URL(server);
+    return `${url.origin}/w/api.php?action=wbeditentity&format=json`;
+}
 
 /**
  * @private
@@ -80,17 +96,17 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
 }
 
 /**
- * this function generates the object to upload to the wikidata api
- * it diffs the old item with the new item and uses that data to see witch properties have been removed
- * because removed properties need special syntax
+ * This function generates the object to upload to the wikidata api
+ * It diffs the old item with the new item and uses that data to see witch properties have been removed
+ * Because removed properties need special syntax
  *
  * @private
  * @throws {Error} if an invalid authentication method is provided
  * @param {Item} item the item to upload
  */
-export async function generateUploadData(item: Item): Promise<Record<string, unknown>> {
+export async function generateUploadData(item: Item, server = 'https://wikidata.org'): Promise<Record<string, unknown>> {
     // get diff from the original item/SonarSource/eslint-plugin-sonarjs/blob/master/docs/rules/.md
-    const originalItem = item.id ? await requestItem(item.id) : Item.fromNothing();
+    const originalItem = item.id ? await requestItem(item.id, { server }) : Item.fromNothing();
 
     const diffs = originalItem.diff(item);
 
@@ -160,9 +176,9 @@ export async function generateUploadData(item: Item): Promise<Record<string, unk
 /**
  *
  * @param {Item} item The item you want to upload to wikidata
- * @param {UploadOptions} options the options for uploading
- * @throws {Error} if no authentication method is provided or the upload fails
- * @returns {Promise<Item>} a Promise for the item after uploading
+ * @param {UploadOptions} options The options for uploading
+ * @throws {Error} If no authentication method is provided or the upload fails
+ * @returns {Promise<Item>} A Promise for the item after uploading
  * @example
  *      const token = await getToken('your wikidata username', 'your wikidata password');
  *      upload(item, {
@@ -175,7 +191,7 @@ export default async function upload(item: Item, options: UploadOptions): Promis
 
     const authToken = authMethod === 'authToken' ? options.authToken?.token : '+\\';
 
-    const data = await generateUploadData(item);
+    const data = await generateUploadData(item, options.server);
 
     const parameters = {
         tags: options.tags,
@@ -188,6 +204,8 @@ export default async function upload(item: Item, options: UploadOptions): Promis
 
     const postString = qs.stringify(parameters, { arrayFormat: 'repeat' });
     const headers = authMethod === 'authToken' && options.authToken ? { Cookie: options.authToken.cookie } : undefined;
+
+    const url = generateURL(options.server);
 
     const response = await axios.post<WbeditentityResponse>(
         url,

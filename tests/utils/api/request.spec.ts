@@ -13,6 +13,31 @@ describe('baseURL functions', () => {
     it('should return the right url when a QID is given', () => {
         expect(baseURL('Q42')).to.be.equal('https://www.wikidata.org/wiki/Special:EntityData/Q42.json');
     });
+
+    it('should return the right url when a QID and a server is given', () => {
+        expect(baseURL('Q5302', 'https://wiki.openstreetmap.org')).to.be.equal('https://wiki.openstreetmap.org/wiki/Special:EntityData/Q5302.json');
+    });
+
+    it('should return the right url when a QID and a server is given but the server is also a url', () => {
+        expect(baseURL('Q5302', 'https://wiki.openstreetmap.org/wiki/Special:EntityData')).to.be.equal('https://wiki.openstreetmap.org/wiki/Special:EntityData/Q5302.json');
+        expect(baseURL('Q5302', 'https://wiki.openstreetmap.org/wiki/Special:EntityData/')).to.be.equal('https://wiki.openstreetmap.org/wiki/Special:EntityData/Q5302.json');
+        expect(baseURL('Q5302', 'https://wiki.openstreetmap.org/wiki/Tag:highway%3Dconstruction')).to.be.equal('https://wiki.openstreetmap.org/wiki/Special:EntityData/Q5302.json');
+        expect(baseURL('Q5302', 'https://wiki.openstreetmap.org/wiki/Tag:highway%3Dconstruction/')).to.be.equal('https://wiki.openstreetmap.org/wiki/Special:EntityData/Q5302.json');
+
+        expect(baseURL('Q42', 'http://www.wikidata.org/wiki/Q23')).to.be.equal('http://www.wikidata.org/wiki/Special:EntityData/Q42.json');
+    });
+
+    it('should handle a load of rubbish', () => {
+        // @ts-expect-error testing
+        expect(() => baseURL()).to.throw;
+        // @ts-expect-error testing
+        expect(() => baseURL(42)).to.throw;
+        expect(() => baseURL('')).to.throw;
+        expect(() => baseURL('dasdasdsad')).to.throw;
+        expect(() => baseURL('Q42', 'dasdasdsad')).to.throw;
+
+        expect(() => baseURL('q42')).not.to.throw;
+    });
 });
 
 describe('requestItem functions', () => {

@@ -23,9 +23,7 @@ describe('get login token', () => {
         expect(process.env.WIKIDATA_USERNAME).to.be.a('string');
         expect(process.env.WIKIDATA_PASSWORD).to.be.a('string');
         expect(process.env.WIKIDATA_USERNAME).to.not.equal('');
-        expect(process.env.WIKIDATA_USERNAME).to.equal('IWFTest');
-
-        console.log(process.env.WIKIDATA_USERNAME);
+        expect(process.env.WIKIDATA_PASSWORD).to.not.equal('');
 
         const token = await getToken(
             process.env.WIKIDATA_USERNAME,
@@ -46,7 +44,7 @@ describe('get login token', () => {
         const failFunction = async () => {
             await getToken(
                 'wrongUsername',
-                'fdsfkdsjflkds'
+                'theWrongPassword'
             );
         };
 
