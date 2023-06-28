@@ -72,7 +72,7 @@ interface LoginResponse {
  *
  * @param {string} username The username of the user
  * @param {string} password The password of the user
- * @param {string} [server='https://www.wikidata.org'] The server to get the token from
+ * @param {string} [server] The server to get the token from
  * @throws {Error} If the login was not successful
  * @returns {Token} A object containing the token and the cookie
  * @example

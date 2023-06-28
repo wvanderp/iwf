@@ -22,8 +22,11 @@ jobs:
           node-version: 18
           cache: 'npm'
 
+      - name: 🔎 Check IP
+        run: curl https://api.ipify.org
+
       - run: npm ci
       - run: npm run coverage
       
-      - name: Codecov
+      - name: 📊 Codecov
         uses: codecov/codecov-action@v3
