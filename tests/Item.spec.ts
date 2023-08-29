@@ -1,6 +1,6 @@
-import { describe, it } from 'mocha';
 import fs from 'fs';
 import path from 'path';
+import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
 import {

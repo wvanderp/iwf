@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import {
     Item as WikidataItem,
     Labels as WikidataLabels,
@@ -8,7 +9,6 @@ import {
     Sitelinks as WikidataSiteLinks,
     LabelAndDescription
 } from '@wmde/wikibase-datamodel-types';
-import { createHash } from 'crypto';
 
 import Alias from './Alias';
 import Statement from './Statement';

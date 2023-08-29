@@ -1,5 +1,5 @@
-import { Statement as wikidataStatement, Qualifiers as wikidataQualifiers } from '@wmde/wikibase-datamodel-types';
 import { createHash } from 'crypto';
+import { Statement as wikidataStatement, Qualifiers as wikidataQualifiers } from '@wmde/wikibase-datamodel-types';
 
 import Reference from './Reference';
 import Snak from './Snak';

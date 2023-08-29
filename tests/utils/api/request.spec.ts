@@ -1,9 +1,9 @@
+import fs from 'fs';
+import path from 'path';
 import {
     describe, it, after, before
 } from 'mocha';
 import { expect } from 'chai';
-import fs from 'fs';
-import path from 'path';
 import axios from 'axios';
 import sinon, { SinonStub } from 'sinon';
 import { baseURL } from '../../../src/utils/api/request';
