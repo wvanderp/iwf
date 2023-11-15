@@ -1,22 +1,33 @@
-// @ts-nocheck
+import axios from 'axios';
+import getToken from '../../../src/utils/api/token';
 
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('getToken', () => {
-    it('should throw when the input is rubbish', () => {
-        expect(() => getToken()).to.throw();
-        expect(() => getToken('')).to.throw();
-        expect(() => getToken('a', '')).to.throw();
-        expect(() => getToken('', 'a')).to.throw();
-        expect(() => getToken(null, 'a')).to.throw();
-        expect(() => getToken('a', null)).to.throw();
-        expect(() => getToken(null, null)).to.throw();
-        expect(() => getToken()).to.throw();
-        expect(() => getToken(undefined, 'a')).to.throw();
-        expect(() => getToken('a')).to.throw();
+    it('should throw when the input is rubbish', async () => {
+        mockedAxios.post.mockResolvedValue({ boink: 'boink' });
+        mockedAxios.get.mockResolvedValue({ boink: 'boink' });
 
-        expect(() => getToken('a', 'a', '')).to.throw();
-        expect(() => getToken('a', 'a', null)).to.throw();
+        // @ts-expect-error testing
+        await expect(() => getToken()).rejects.toThrow();
+        // @ts-expect-error testing
+        await expect(() => getToken('')).rejects.toThrow();
+        await expect(() => getToken('a', '')).rejects.toThrow();
+        await expect(() => getToken('', 'a')).rejects.toThrow();
+        // @ts-expect-error testing
+        await expect(() => getToken(null, 'a')).rejects.toThrow();
+        // @ts-expect-error testing
+        await expect(() => getToken('a', null)).rejects.toThrow();
+        // @ts-expect-error testing
+        await expect(() => getToken(null, null)).rejects.toThrow();
+        // @ts-expect-error testing
+        await expect(() => getToken(undefined, 'a')).rejects.toThrow();
+        // @ts-expect-error testing
+        await expect(() => getToken('a')).rejects.toThrow();
+
+        await expect(() => getToken('a', 'a', '')).rejects.toThrow();
+        // @ts-expect-error testing
+        await expect(() => getToken('a', 'a', null)).rejects.toThrow();
     });
 });

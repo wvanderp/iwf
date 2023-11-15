@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { CommonsMediaSnak } from '../../src';
 
 const commonsSnak = {
@@ -16,20 +14,20 @@ describe('Commons Media Snak', () => {
     it('should return the right image link', () => {
         const snak = new CommonsMediaSnak(commonsSnak);
 
-        expect(snak.imageLink).to.equal('https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag of Berlin.svg');
+        expect(snak.imageLink).toEqual('https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag of Berlin.svg');
     });
 
     it('should return the right commons link', () => {
         const snak = new CommonsMediaSnak(commonsSnak);
 
-        expect(snak.commonsLink).to.equal('https://commons.wikimedia.org/wiki/File:Flag of Berlin.svg');
+        expect(snak.commonsLink).toEqual('https://commons.wikimedia.org/wiki/File:Flag of Berlin.svg');
     });
 
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new CommonsMediaSnak(commonsSnak);
 
-            expect(snak.toJSON()).to.deep.equal(commonsSnak);
+            expect(snak.toJSON()).toStrictEqual(commonsSnak);
         });
     });
 
@@ -38,7 +36,7 @@ describe('Commons Media Snak', () => {
             const a = new CommonsMediaSnak(commonsSnak);
             const b = new CommonsMediaSnak(commonsSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -47,7 +45,7 @@ describe('Commons Media Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -55,7 +53,7 @@ describe('Commons Media Snak', () => {
             const snak2 = new CommonsMediaSnak(commonsSnak);
             snak2.fileName = 'Flag of Amsterdam.svg';
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 });

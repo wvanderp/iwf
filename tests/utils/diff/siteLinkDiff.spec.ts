@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { SiteLink } from '../../../src';
 import { Changes } from '../../../src/utils/diff/Changes';
 import siteLinkDiff from '../../../src/utils/diff/siteLinkDiff';
@@ -42,7 +40,7 @@ describe('siteLink diff', () => {
                 action: 'remove', parentID: 'Q2', type: 'siteLink', old: { site: 'frwiki', title: 'Terre', badges: [] }
             }
         ];
-        expect(siteLinkDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(siteLinkDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 
     it('should not find diffs when there aren\'t any', () => {
@@ -62,7 +60,7 @@ describe('siteLink diff', () => {
             new SiteLink({ site: 'frwiki', title: 'Terre', badges: [] })
         ];
 
-        expect(siteLinkDiff(a, b, 'Q2')).to.deep.equal([]);
+        expect(siteLinkDiff(a, b, 'Q2')).toStrictEqual([]);
     });
 
     it('should find diffs when we do stuff with badges', () => {
@@ -102,7 +100,7 @@ describe('siteLink diff', () => {
             }
         ];
 
-        expect(siteLinkDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(siteLinkDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 
     it('should find diffs when the new array is empty', () => {
@@ -123,6 +121,6 @@ describe('siteLink diff', () => {
             }
         ];
 
-        expect(siteLinkDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(siteLinkDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 });

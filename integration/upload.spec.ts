@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
+
 import * as dotenv from 'dotenv';
 
 import {
@@ -37,10 +36,9 @@ const testItem = 'Q231400';
 
 describe('uploading to wikidata', () => {
     it('should upload a item when requested', async function () {
-        this.timeout(10000);
+        jest.setTimeout(60000);
 
         // setup the tokens
-        console.log('getting token');
         const token = await getToken(
             process.env.WIKIDATA_USERNAME,
             process.env.WIKIDATA_PASSWORD,
@@ -48,7 +46,6 @@ describe('uploading to wikidata', () => {
         );
 
         // write a empty item
-        console.log('cleaning item');
         let item = Item.fromNothing();
         item.id = testItem;
 
@@ -59,13 +56,12 @@ describe('uploading to wikidata', () => {
             server: testServer
         });
 
-        expect(uploadedItem).to.be.an('object');
-        expect(uploadedItem.statements).to.be.lengthOf(0);
-        expect(uploadedItem.labels).to.be.lengthOf(0);
-        expect(uploadedItem.descriptions).to.be.lengthOf(0);
+        expect(uploadedItem).toBeInstanceOf(Object);
+        expect(uploadedItem.statements).toHaveLength(0);
+        expect(uploadedItem.labels).toHaveLength(0);
+        expect(uploadedItem.descriptions).toHaveLength(0);
 
         // fill the item with stuff
-        console.log('filling item');
         item.labels.push(
             Label.fromString('en', 'iwf integration test item'),
             Label.fromString('nl', 'iwf integratie test item')
@@ -121,14 +117,13 @@ describe('uploading to wikidata', () => {
             server: testServer
         });
 
-        expect(uploadedItem2).to.be.an('object');
-        expect(uploadedItem2.statements).to.be.lengthOf(14);
-        expect(uploadedItem2.labels).to.be.lengthOf(2);
-        expect(uploadedItem2.descriptions).to.be.lengthOf(2);
-        expect(uploadedItem2.aliases).to.be.lengthOf(2);
+        expect(uploadedItem2).toBeInstanceOf(Object);
+        expect(uploadedItem2.statements).toHaveLength(14);
+        expect(uploadedItem2.labels).toHaveLength(2);
+        expect(uploadedItem2.descriptions).toHaveLength(2);
+        expect(uploadedItem2.aliases).toHaveLength(2);
 
         // leave the item cleanish
-        console.log('cleaning item again');
         item = Item.fromNothing();
         item.id = testItem;
         item.labels.push(
@@ -146,10 +141,10 @@ describe('uploading to wikidata', () => {
             server: testServer
         });
 
-        expect(uploadedItem3).to.be.an('object');
-        expect(uploadedItem3.statements).to.be.lengthOf(0);
-        expect(uploadedItem3.labels).to.be.lengthOf(1);
-        expect(uploadedItem3.descriptions).to.be.lengthOf(1);
-        expect(uploadedItem3.aliases).to.be.lengthOf(0);
+        expect(uploadedItem3).toBeInstanceOf(Object);
+        expect(uploadedItem3.statements).toHaveLength(0);
+        expect(uploadedItem3.labels).toHaveLength(1);
+        expect(uploadedItem3.descriptions).toHaveLength(1);
+        expect(uploadedItem3.aliases).toHaveLength(0);
     });
 });

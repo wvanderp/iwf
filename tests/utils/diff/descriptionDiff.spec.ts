@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { Description } from '../../../src';
 import { Changes } from '../../../src/utils/diff/Changes';
 import descriptionDiff from '../../../src/utils/diff/descriptionDiff';
@@ -51,7 +49,7 @@ describe('description diff', () => {
             }
         ];
 
-        expect(descriptionDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(descriptionDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 
     it('should find diffs when there aren\'t any', () => {
@@ -66,7 +64,7 @@ describe('description diff', () => {
             new Description({ language: 'ko', value: '이것은 차이입니다' })
         ];
 
-        expect(descriptionDiff(a, b, 'Q2')).to.deep.equal([]);
+        expect(descriptionDiff(a, b, 'Q2')).toStrictEqual([]);
     });
 
     it('should find diffs when the new array is empty', () => {
@@ -109,6 +107,6 @@ describe('description diff', () => {
             }
         ];
 
-        expect(descriptionDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(descriptionDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 });

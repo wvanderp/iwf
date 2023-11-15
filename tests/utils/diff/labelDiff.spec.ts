@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { Label } from '../../../src';
 import { Changes } from '../../../src/utils/diff/Changes';
 import labelDiff from '../../../src/utils/diff/labelDiff';
@@ -52,7 +50,7 @@ describe('label diff', () => {
             }
         ];
 
-        expect(labelDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(labelDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 
     it('should not find diffs when there aren\'t any', () => {
@@ -67,7 +65,7 @@ describe('label diff', () => {
             new Label({ language: 'ko', value: '차이점' })
         ];
 
-        expect(labelDiff(a, b, 'Q2')).to.deep.equal([]);
+        expect(labelDiff(a, b, 'Q2')).toStrictEqual([]);
     });
 
     it('should find diffs when the new array is empty', () => {
@@ -109,6 +107,6 @@ describe('label diff', () => {
             }
         ];
 
-        expect(labelDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(labelDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 });

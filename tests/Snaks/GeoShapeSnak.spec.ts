@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { GeoShapeSnak } from '../../src';
 
 const geoShapeSnak = {
@@ -16,14 +14,14 @@ describe('Commons Media Snak', () => {
     it('should return the right commons link', () => {
         const snak = new GeoShapeSnak(geoShapeSnak);
 
-        expect(snak.commonsLink).to.equal('https://commons.wikimedia.org/wiki/Data:Berlin.map');
+        expect(snak.commonsLink).toEqual('https://commons.wikimedia.org/wiki/Data:Berlin.map');
     });
 
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new GeoShapeSnak(geoShapeSnak);
 
-            expect(snak.toJSON()).to.deep.equal(geoShapeSnak);
+            expect(snak.toJSON()).toStrictEqual(geoShapeSnak);
         });
     });
 
@@ -32,7 +30,7 @@ describe('Commons Media Snak', () => {
             const a = new GeoShapeSnak(geoShapeSnak);
             const b = new GeoShapeSnak(geoShapeSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -41,7 +39,7 @@ describe('Commons Media Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -49,7 +47,7 @@ describe('Commons Media Snak', () => {
             const snak2 = new GeoShapeSnak(geoShapeSnak);
             snak2.fileName = 'Data:japan.map';
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 });

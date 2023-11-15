@@ -1,6 +1,3 @@
-import { describe } from 'mocha';
-import { expect } from 'chai';
-
 import { isStatementChange } from '../../../src/index';
 import { StatementChange } from '../../../src/utils/diff/statementsDiff';
 import { LabelChange } from '../../../src/utils/diff/labelDiff';
@@ -22,6 +19,8 @@ const labelChange: LabelChange = {
 };
 
 describe('isStatementChange', () => {
-    expect(isStatementChange(statementChange)).to.be.true;
-    expect(isStatementChange(labelChange)).to.be.false;
+    it('should return true for a StatementChange', () => {
+        expect(isStatementChange(statementChange)).toBe(true);
+        expect(isStatementChange(labelChange)).toBe(false);
+    });
 });

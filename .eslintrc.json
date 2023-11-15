@@ -70,20 +70,18 @@
         "*spec.ts",
         "*spec.xts"
       ],
+      "plugins": [
+        "jest"
+      ],
+      "extends": [
+        "plugin:jest/recommended"
+      ],
       "rules": {
-        // Mocha doesn’t like it when we use arrows
-        // https://mochajs.org/#arrow-functions
-        "prefer-arrow-callback": "off",
-        "func-names": "off",
-        // There are no function calls in mocha so this rule thinks the file does nothing. But mocha calls the file
-        "@typescript-eslint/no-unused-expressions": "off",
-        // Any is used to mock some vars and it gives warnings about it that are unwanted
-        "@typescript-eslint/no-explicit-any": "off",
-        "compat/compat": "off",
         "@typescript-eslint/naming-convention": "off",
-        "sonarjs/no-duplicate-string": "off",
-        // disabling this rule because we have dynamically generated tests
-        "mocha/no-setup-in-describe": "off"
+        "@typescript-eslint/no-unused-expressions": "off",
+        "func-names": "off",
+        "prefer-arrow-callback": "off",
+        "sonarjs/no-duplicate-string": "off"
       }
     }
   ],

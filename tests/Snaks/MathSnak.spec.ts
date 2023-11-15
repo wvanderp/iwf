@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { MathSnak } from '../../src';
 
 const mathSnak = {
@@ -17,7 +15,7 @@ describe('Math Snak', () => {
         it('should have the right JSON stringification', () => {
             const snak = new MathSnak(mathSnak);
 
-            expect(snak.toJSON()).to.deep.equal(mathSnak);
+            expect(snak.toJSON()).toStrictEqual(mathSnak);
         });
     });
 
@@ -26,7 +24,7 @@ describe('Math Snak', () => {
             const a = new MathSnak(mathSnak);
             const b = new MathSnak(mathSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -35,7 +33,7 @@ describe('Math Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -43,7 +41,7 @@ describe('Math Snak', () => {
             const snak2 = new MathSnak(mathSnak);
             snak2.value = 'y = ax + b';
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 });

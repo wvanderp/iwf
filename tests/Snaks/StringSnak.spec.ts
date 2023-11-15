@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { StringSnak } from '../../src';
 
 const stringSnak = {
@@ -17,7 +15,7 @@ describe('String Snak', () => {
         it('should have the right JSON stringification', () => {
             const snak = new StringSnak(stringSnak);
 
-            expect(snak.toJSON()).to.deep.equal(stringSnak);
+            expect(snak.toJSON()).toStrictEqual(stringSnak);
         });
     });
 
@@ -26,7 +24,7 @@ describe('String Snak', () => {
             const a = new StringSnak(stringSnak);
             const b = new StringSnak(stringSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -35,7 +33,7 @@ describe('String Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -43,7 +41,7 @@ describe('String Snak', () => {
             const snak2 = new StringSnak(stringSnak);
             snak2.value = 'string';
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 });

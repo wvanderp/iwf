@@ -1,7 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
 
 import {
     Alias,
@@ -14,12 +12,12 @@ const testFiles = fs.readdirSync(path.resolve(__dirname, './data/'));
 
 describe('load data into the model', () => {
     for (const file of testFiles) {
-        it(`should return the same contents with as was ingested from ${file}`, function () {
+        it(`should return the same contents with as was ingested from ${file}`, () => {
             const contents = JSON.parse(fs.readFileSync(path.resolve(__dirname, `./data/${file}`)).toString('utf8'));
             const wikidataJSON = contents.entities[Object.keys(contents.entities)[0]];
             const item = new Item(wikidataJSON);
 
-            expect(item.toJSON()).to.deep.equal(wikidataJSON);
+            expect(item.toJSON()).toStrictEqual(wikidataJSON);
         });
     }
 });
@@ -30,7 +28,7 @@ describe('constructor', () => {
         const json = item.toJSON();
         json.id = 'string';
 
-        expect(() => new Item(json)).to.throw();
+        expect(() => new Item(json)).toThrow();
     });
 
     it('should throw an error the id of the item is no string at all', () => {
@@ -39,7 +37,7 @@ describe('constructor', () => {
         // @ts-expect-error it is for the test
         json.id = 11;
 
-        expect(() => new Item(json)).to.throw();
+        expect(() => new Item(json)).toThrow();
     });
 
     it('should NOT throw an error the id of the item is a QString', () => {
@@ -47,72 +45,72 @@ describe('constructor', () => {
         const json = item.toJSON();
         json.id = 'Q11';
 
-        expect(() => new Item(json)).to.not.throw();
+        expect(() => new Item(json)).not.toThrow();
     });
 });
 
 describe('internalID', () => {
     it('should be the hash of the json', () => {
         const item = Item.fromNothing();
-        expect(item.internalID).to.equal('56930c1612485547e470e865fd3480c567ac570d5ac7e52aeaf6927be51b02a6');
+        expect(item.internalID).toEqual('56930c1612485547e470e865fd3480c567ac570d5ac7e52aeaf6927be51b02a6');
     });
 
     it('should not change when the item changes', () => {
         const item = Item.fromNothing();
         const internalId = item.internalID;
         item.aliases.push(Alias.fromString('en', 'foo'));
-        expect(item.internalID).to.equal(internalId);
+        expect(item.internalID).toEqual(internalId);
     });
 });
 
-describe('getLabel', function () {
-    it('should find a label if it is present', function () {
+describe('getLabel', () => {
+    it('should find a label if it is present', () => {
         const item = Item.fromNothing();
         item.labels.push(Label.fromString('en', 'Jesus'));
 
         const findLabel = item.findLabel('en');
 
-        expect(findLabel?.language).to.equal('en');
-        expect(findLabel?.value).to.equal('Jesus');
+        expect(findLabel?.language).toEqual('en');
+        expect(findLabel?.value).toEqual('Jesus');
     });
 
-    it('should find a label if it is present but an other is', function () {
+    it('should find a label if it is present but an other is', () => {
         const item = Item.fromNothing();
         item.labels.push(Label.fromString('en', 'Jesus'));
 
         const findLabel = item.findLabel('fr');
 
-        expect(findLabel).to.equal(undefined);
+        expect(findLabel).toEqual(undefined);
     });
 
-    it('should find a label if it is not present', function () {
+    it('should find a label if it is not present', () => {
         const item = Item.fromNothing();
 
         const findLabel = item.findLabel('en');
 
-        expect(findLabel).to.equal(undefined);
+        expect(findLabel).toEqual(undefined);
     });
 });
 
-describe('addStatement', function () {
-    it('should add a statement', function () {
+describe('addStatement', () => {
+    it('should add a statement', () => {
         const item = Item.fromNothing();
         item.addStatement(Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q11')));
 
-        expect(item.statements.length).to.equal(1);
-        expect(item.statements[0].equals(Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q11')))).to.be.true;
+        expect(item.statements.length).toEqual(1);
+        expect(item.statements[0].equals(Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q11')))).toBe(true);
     });
 
-    it('should add an array of statements', function () {
+    it('should add an array of statements', () => {
         const item = Item.fromNothing();
         item.addStatement([
             Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q11')),
             Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q12')),
         ]);
 
-        expect(item.statements.length).to.equal(2);
-        expect(item.statements[0].equals(Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q11')))).to.be.true;
-        expect(item.statements[1].equals(Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q12')))).to.be.true;
+        expect(item.statements.length).toEqual(2);
+        expect(item.statements[0].equals(Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q11')))).toBe(true);
+        expect(item.statements[1].equals(Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q12')))).toBe(true);
     });
 });
 
@@ -122,8 +120,8 @@ let statement1 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.wikidat
 let statement2 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://en.wikipedia.org/'));
 let statement3 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://nl.wikipedia.org/'));
 
-describe('removeStatement', function () {
-    beforeEach(function () {
+describe('removeStatement', () => {
+    beforeEach(() => {
         item = Item.fromNothing();
         statement1 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.wikidata.org/'));
         statement2 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://en.wikipedia.org/'));
@@ -132,26 +130,26 @@ describe('removeStatement', function () {
         item.statements.push(statement1, statement2, statement3);
     });
 
-    it('should remove a statement if it is present', function () {
+    it('should remove a statement if it is present', () => {
         item.removeStatement(statement2);
 
-        expect(item.statements.length).to.be.equal(2);
-        expect(item.statements[0].equals(statement1)).to.be.true;
-        expect(item.statements[1].equals(statement3)).to.be.true;
+        expect(item.statements.length).toEqual(2);
+        expect(item.statements[0].equals(statement1)).toBe(true);
+        expect(item.statements[1].equals(statement3)).toBe(true);
     });
 
-    it('should not remove a statement if it is not present', function () {
+    it('should not remove a statement if it is not present', () => {
         item.removeStatement(Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.google.com/')));
 
-        expect(item.statements.length).to.be.equal(3);
-        expect(item.statements[0].equals(statement1)).to.be.true;
-        expect(item.statements[1].equals(statement2)).to.be.true;
-        expect(item.statements[2].equals(statement3)).to.be.true;
+        expect(item.statements.length).toEqual(3);
+        expect(item.statements[0].equals(statement1)).toBe(true);
+        expect(item.statements[1].equals(statement2)).toBe(true);
+        expect(item.statements[2].equals(statement3)).toBe(true);
     });
 });
 
-describe('removeStatements', function () {
-    beforeEach(function () {
+describe('removeStatements', () => {
+    beforeEach(() => {
         item = Item.fromNothing();
         statement1 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.wikidata.org/'));
         statement2 = Statement.fromSnak(URLSnak.fromURL('P232', 'https://en.wikipedia.org/'));
@@ -159,26 +157,26 @@ describe('removeStatements', function () {
         item.statements.push(statement1, statement2, statement3);
     });
 
-    it('should remove a array of statements if they are present', function () {
+    it('should remove a array of statements if they are present', () => {
         item.removeStatements([statement1, statement3]);
 
-        expect(item.statements.length).to.be.equal(1);
-        expect(item.statements[0].equals(statement2)).to.be.true;
+        expect(item.statements.length).toEqual(1);
+        expect(item.statements[0].equals(statement2)).toBe(true);
     });
 
-    it('should not remove a array of statements if they are not present', function () {
+    it('should not remove a array of statements if they are not present', () => {
         item.removeStatements([
             Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.google.com/')),
             Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.twitter.com/')),
         ]);
 
-        expect(item.statements.length).to.be.equal(3);
-        expect(item.statements[0].equals(statement1)).to.be.true;
-        expect(item.statements[1].equals(statement2)).to.be.true;
-        expect(item.statements[2].equals(statement3)).to.be.true;
+        expect(item.statements.length).toEqual(3);
+        expect(item.statements[0].equals(statement1)).toBe(true);
+        expect(item.statements[1].equals(statement2)).toBe(true);
+        expect(item.statements[2].equals(statement3)).toBe(true);
     });
 
-    it('should remove some of the statements if some are present', function () {
+    it('should remove some of the statements if some are present', () => {
         item.removeStatements([
             Statement.fromSnak(URLSnak.fromURL('P232', 'https://www.google.com/')),
             statement1,
@@ -186,13 +184,13 @@ describe('removeStatements', function () {
             statement3,
         ]);
 
-        expect(item.statements.length).to.be.equal(1);
-        expect(item.statements[0].equals(statement2)).to.be.true;
+        expect(item.statements.length).toEqual(1);
+        expect(item.statements[0].equals(statement2)).toBe(true);
     });
 });
 
-describe('equals', function () {
-    it('two different items should not be equal', function () {
+describe('equals', () => {
+    it('two different items should not be equal', () => {
         const contents1 = JSON.parse(fs.readFileSync(path.resolve(__dirname, `./data/${testFiles[0]}`)).toString('utf8'));
         const wikidataJSON1 = contents1.entities[Object.keys(contents1.entities)[0]];
         const item1 = new Item(wikidataJSON1);
@@ -201,46 +199,46 @@ describe('equals', function () {
         const wikidataJSON2 = contents2.entities[Object.keys(contents2.entities)[0]];
         const item2 = new Item(wikidataJSON2);
 
-        expect(item1.equals(item2)).to.be.false;
+        expect(item1.equals(item2)).toBe(false);
     });
 
-    it('two of the same item should be equal', function () {
+    it('two of the same item should be equal', () => {
         const contents1 = JSON.parse(fs.readFileSync(path.resolve(__dirname, `./data/${testFiles[0]}`)).toString('utf8'));
         const wikidataJSON1 = contents1.entities[Object.keys(contents1.entities)[0]];
         const item1 = new Item(wikidataJSON1);
 
-        expect(item1.equals(item1)).to.be.true;
+        expect(item1.equals(item1)).toBe(true);
     });
 
-    it('two empty items should be equal', function () {
+    it('two empty items should be equal', () => {
         const item1 = Item.fromNothing();
         const item2 = Item.fromNothing();
 
-        expect(item1.equals(item2)).to.be.true;
+        expect(item1.equals(item2)).toBe(true);
     });
 
-    it('two items should be equal with different statements should not be equal', function () {
+    it('two items should be equal with different statements should not be equal', () => {
         const item1 = Item.fromNothing();
         item1.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P1', 'Q1')));
 
         const item2 = Item.fromNothing();
         item2.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q2')));
 
-        expect(item1.equals(item2)).to.be.false;
+        expect(item1.equals(item2)).toBe(false);
     });
 
-    it('two items should be equal with the same statements should be equal', function () {
+    it('two items should be equal with the same statements should be equal', () => {
         const item1 = Item.fromNothing();
         item1.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P1', 'Q1')));
         const item2 = Item.fromNothing();
         item2.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P1', 'Q1')));
 
-        expect(item1.equals(item2)).to.be.true;
+        expect(item1.equals(item2)).toBe(true);
     });
 });
 
-describe('diff', function () {
-    it('should find the differences between two different items', function () {
+describe('diff', () => {
+    it('should find the differences between two different items', () => {
         const item1 = Item.fromNothing();
         const item2 = Item.fromNothing();
 
@@ -260,7 +258,7 @@ describe('diff', function () {
         item2.labels.push(Label.fromString('nl', 'de zoon van god'));
 
         const diff = item1.diff(item2);
-        expect(diff).to.deep.equal([
+        expect(diff).toStrictEqual([
             {
                 type: 'label',
                 action: 'remove',
@@ -361,7 +359,7 @@ describe('diff', function () {
         ]);
     });
 
-    it('should not find differences when there aren\'t any', function () {
+    it('should not find differences when there aren\'t any', () => {
         const item1 = Item.fromNothing();
         item1.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P1', 'Q1')));
         item1.labels.push(Label.fromString('en', 'Jesus'));
@@ -378,6 +376,6 @@ describe('diff', function () {
 
         const diff = item1.diff(item2);
 
-        expect(diff).to.deep.equal([]);
+        expect(diff).toStrictEqual([]);
     });
 });

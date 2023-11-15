@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { GlobeCoordinateSnak } from '../../src';
 
 const globeCoordinateSnak = {
@@ -23,7 +21,7 @@ describe('globe Coordinate Snak', () => {
         it('should have the right JSON stringification', () => {
             const snak = new GlobeCoordinateSnak(globeCoordinateSnak);
 
-            expect(snak.toJSON()).to.deep.equal(globeCoordinateSnak);
+            expect(snak.toJSON()).toStrictEqual(globeCoordinateSnak);
         });
     });
 
@@ -32,7 +30,7 @@ describe('globe Coordinate Snak', () => {
             const a = new GlobeCoordinateSnak(globeCoordinateSnak);
             const b = new GlobeCoordinateSnak(globeCoordinateSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -41,7 +39,7 @@ describe('globe Coordinate Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -49,7 +47,7 @@ describe('globe Coordinate Snak', () => {
             const snak2 = new GlobeCoordinateSnak(globeCoordinateSnak);
             snak2.longitude = 4;
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 });

@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { WikibaseItemSnak } from '../../src';
 
 const wikibaseItemSnak = {
@@ -21,7 +19,7 @@ describe('Wikibase Item Snak', () => {
         it('should return the id including the Q when there is a ID', () => {
             const snak = new WikibaseItemSnak(wikibaseItemSnak);
 
-            expect(snak.id).to.equal(`Q${wikibaseItemSnak.datavalue.value['numeric-id']}`);
+            expect(snak.id).toEqual(`Q${wikibaseItemSnak.datavalue.value['numeric-id']}`);
         });
 
         it('should return undefined when there is no value', () => {
@@ -31,7 +29,7 @@ describe('Wikibase Item Snak', () => {
                 datatype: 'wikibase-item' as const
             });
 
-            expect(snak.id).to.equal(undefined);
+            expect(snak.id).toEqual(undefined);
         });
     });
 
@@ -41,8 +39,8 @@ describe('Wikibase Item Snak', () => {
 
             snak.id = 'Q1234';
 
-            expect(snak.id).to.equal('Q1234');
-            expect(snak.numericID).to.equal(1234);
+            expect(snak.id).toEqual('Q1234');
+            expect(snak.numericID).toEqual(1234);
         });
 
         it('should set both the id as numericID to undefined', () => {
@@ -50,8 +48,8 @@ describe('Wikibase Item Snak', () => {
 
             snak.id = undefined;
 
-            expect(snak.id).to.equal(undefined);
-            expect(snak.numericID).to.equal(undefined);
+            expect(snak.id).toEqual(undefined);
+            expect(snak.numericID).toEqual(undefined);
         });
     });
 
@@ -61,8 +59,8 @@ describe('Wikibase Item Snak', () => {
 
             snak.numericID = 1234;
 
-            expect(snak.id).to.equal('Q1234');
-            expect(snak.numericID).to.equal(1234);
+            expect(snak.id).toEqual('Q1234');
+            expect(snak.numericID).toEqual(1234);
         });
 
         it('should set both the id as numericID to undefined', () => {
@@ -70,8 +68,8 @@ describe('Wikibase Item Snak', () => {
 
             snak.numericID = undefined;
 
-            expect(snak.id).to.equal(undefined);
-            expect(snak.numericID).to.equal(undefined);
+            expect(snak.id).toEqual(undefined);
+            expect(snak.numericID).toEqual(undefined);
         });
     });
 
@@ -79,7 +77,7 @@ describe('Wikibase Item Snak', () => {
         it('should have the right JSON stringification', () => {
             const snak = new WikibaseItemSnak(wikibaseItemSnak);
 
-            expect(snak.toJSON()).to.deep.equal(wikibaseItemSnak);
+            expect(snak.toJSON()).toStrictEqual(wikibaseItemSnak);
         });
     });
 
@@ -88,7 +86,7 @@ describe('Wikibase Item Snak', () => {
             const a = new WikibaseItemSnak(wikibaseItemSnak);
             const b = new WikibaseItemSnak(wikibaseItemSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -97,7 +95,7 @@ describe('Wikibase Item Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -105,7 +103,7 @@ describe('Wikibase Item Snak', () => {
             const snak2 = new WikibaseItemSnak(wikibaseItemSnak);
             snak2.numericID = 2;
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 
@@ -113,9 +111,9 @@ describe('Wikibase Item Snak', () => {
         it('should be true if the items are equal', () => {
             const snak = WikibaseItemSnak.fromID('P134', 'Q1234');
 
-            expect(snak.id).to.equal('Q1234');
-            expect(snak.property).to.equal('P134');
-            expect(snak.hash).to.equal(undefined);
+            expect(snak.id).toEqual('Q1234');
+            expect(snak.property).toEqual('P134');
+            expect(snak.hash).toEqual(undefined);
         });
     });
 });

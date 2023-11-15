@@ -1,6 +1,4 @@
-import { describe, it } from 'mocha';
 import { Reference as wikidataReference } from '@wmde/wikibase-datamodel-types';
-import { expect } from 'chai';
 import { Reference } from '../src';
 import snakGenerator from '../src/utils/snakGenerator';
 import URLSnak from '../src/snaks/URLSnak';
@@ -53,14 +51,14 @@ describe('Reference', () => {
     describe('internalID', () => {
         it('should be the hash of the json', () => {
             const reference = new Reference(referenceJson);
-            expect(reference.internalID).to.equal('09053488de167eab55fa60977cf8c0be7653ef0c6dc29fc75413f149db15a808');
+            expect(reference.internalID).toEqual('09053488de167eab55fa60977cf8c0be7653ef0c6dc29fc75413f149db15a808');
         });
 
         it('should not change when the reference changes', () => {
             const reference = new Reference(referenceJson);
             const id = reference.internalID;
             reference.snaks.push(URLSnak.fromURL('P854', 'https://www.tagesspiegel.de/'));
-            expect(reference.internalID).to.equal(id);
+            expect(reference.internalID).toEqual(id);
         });
     });
 
@@ -68,7 +66,7 @@ describe('Reference', () => {
         it('should have the right JSON stringification', () => {
             const reference = new Reference(referenceJson);
 
-            expect(reference.toJSON()).to.deep.equal(referenceJson);
+            expect(reference.toJSON()).toStrictEqual(referenceJson);
         });
     });
 
@@ -80,7 +78,7 @@ describe('Reference', () => {
             reference.hash = referenceJson.hash;
             reference.snaksOrder = referenceJson['snaks-order'];
 
-            expect(reference.toJSON()).to.deep.equal(referenceJson);
+            expect(reference.toJSON()).toStrictEqual(referenceJson);
         });
     });
 
@@ -89,7 +87,7 @@ describe('Reference', () => {
             const reference = new Reference(referenceJson);
             const reference2 = new Reference(referenceJson);
 
-            expect(reference.equals(reference2)).to.be.true;
+            expect(reference.equals(reference2)).toBe(true);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -98,7 +96,7 @@ describe('Reference', () => {
 
             reference2.hash = 'some hash';
 
-            expect(reference.equals(reference2)).to.be.false;
+            expect(reference.equals(reference2)).toBe(false);
         });
     });
 });

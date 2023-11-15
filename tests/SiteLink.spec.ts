@@ -1,5 +1,3 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
 import { SiteLink } from '../src';
 
 const siteLinkWithUrl = {
@@ -28,13 +26,13 @@ describe('siteLink', () => {
         it('with the url specified', () => {
             const siteLink = new SiteLink(siteLinkWithUrl);
 
-            expect(siteLink.url).to.deep.equal('https://zu.wikipedia.org/wiki/Umuntu');
+            expect(siteLink.url).toStrictEqual('https://zu.wikipedia.org/wiki/Umuntu');
         });
 
         it('without the url specified', () => {
             const siteLink = new SiteLink(siteLinkWithOutUrl);
 
-            expect(siteLink.url).to.deep.equal('https://zu.wikipedia.org/wiki/Umuntu');
+            expect(siteLink.url).toStrictEqual('https://zu.wikipedia.org/wiki/Umuntu');
         });
     });
 
@@ -42,14 +40,14 @@ describe('siteLink', () => {
         it('should be true if the sites are equal', () => {
             const siteLink = new SiteLink(siteLinkWithOutUrl);
 
-            expect(siteLink.equals(siteLink)).to.be.true;
+            expect(siteLink.equals(siteLink)).toBe(true);
         });
 
         it('should be true if the aliases are equal but not the same object', () => {
             const siteLink = new SiteLink(siteLinkWithBadge);
             const siteLink2 = new SiteLink(siteLinkWithBadge);
 
-            expect(siteLink.equals(siteLink2)).to.be.true;
+            expect(siteLink.equals(siteLink2)).toBe(true);
         });
 
         it('should be false if the sites are NOT equal', () => {
@@ -58,7 +56,7 @@ describe('siteLink', () => {
 
             siteLink2.site = 'afwiki';
 
-            expect(siteLink.equals(siteLink2)).to.be.false;
+            expect(siteLink.equals(siteLink2)).toBe(false);
         });
 
         it('should be false if the titles are NOT equal', () => {
@@ -67,14 +65,14 @@ describe('siteLink', () => {
 
             siteLink2.title = 'human';
 
-            expect(siteLink.equals(siteLink2)).to.be.false;
+            expect(siteLink.equals(siteLink2)).toBe(false);
         });
 
         it('should be false if the badges are NOT equal', () => {
             const siteLink = new SiteLink(siteLinkWithOutUrl);
             const siteLink2 = new SiteLink(siteLinkWithBadge);
 
-            expect(siteLink.equals(siteLink2)).to.be.false;
+            expect(siteLink.equals(siteLink2)).toBe(false);
         });
     });
 
@@ -82,13 +80,13 @@ describe('siteLink', () => {
         it('should have the right JSON stringification', () => {
             const siteLink = new SiteLink(siteLinkWithUrl);
 
-            expect(siteLink.toJSON()).to.deep.equal(siteLinkWithUrl);
+            expect(siteLink.toJSON()).toStrictEqual(siteLinkWithUrl);
         });
 
         it('should have the right JSON stringification without the url', () => {
             const siteLink = new SiteLink(siteLinkWithOutUrl);
 
-            expect(siteLink.toJSON()).to.deep.equal(siteLinkWithOutUrl);
+            expect(siteLink.toJSON()).toStrictEqual(siteLinkWithOutUrl);
         });
     });
 });

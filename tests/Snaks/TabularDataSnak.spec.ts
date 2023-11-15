@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { TabularDataSnak } from '../../src';
 
 const tabularDataSnak = {
@@ -17,14 +15,14 @@ describe('Tabular Data Snak', () => {
         it('should have the right JSON stringification', () => {
             const snak = new TabularDataSnak(tabularDataSnak);
 
-            expect(snak.toJSON()).to.deep.equal(tabularDataSnak);
+            expect(snak.toJSON()).toStrictEqual(tabularDataSnak);
         });
     });
 
     it('should return the right commons link', () => {
         const snak = new TabularDataSnak(tabularDataSnak);
 
-        expect(snak.commonsLink).to.equal('https://commons.wikimedia.org/wiki/Data:Ncei.noaa.gov/weather/New York City.tab');
+        expect(snak.commonsLink).toEqual('https://commons.wikimedia.org/wiki/Data:Ncei.noaa.gov/weather/New York City.tab');
     });
 
     describe('equals', () => {
@@ -32,7 +30,7 @@ describe('Tabular Data Snak', () => {
             const a = new TabularDataSnak(tabularDataSnak);
             const b = new TabularDataSnak(tabularDataSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -41,7 +39,7 @@ describe('Tabular Data Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -49,7 +47,7 @@ describe('Tabular Data Snak', () => {
             const snak2 = new TabularDataSnak(tabularDataSnak);
             snak2.value = 'Data:top2000.tab';
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 });

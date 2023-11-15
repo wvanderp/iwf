@@ -1,5 +1,3 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
 import { isPString, isQString } from '../../../src';
 
 const QStrings: [string, boolean][] = [
@@ -30,7 +28,7 @@ describe('Statement', () => {
     describe('QString', () => {
         for (const [string, expected] of QStrings) {
             it(`should ${expected ? 'accept' : 'reject'} ${string} as a QString`, () => {
-                expect(isQString(string)).to.equal(expected);
+                expect(isQString(string)).toEqual(expected);
             });
         }
     });
@@ -38,7 +36,7 @@ describe('Statement', () => {
     describe('PString', () => {
         for (const [string, expected] of PStrings) {
             it(`should ${expected ? 'accept' : 'reject'} ${string} as a PString`, () => {
-                expect(isPString(string)).to.equal(expected);
+                expect(isPString(string)).toEqual(expected);
             });
         }
     });

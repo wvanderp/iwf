@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import WikibaseItemSnak from '../../../src/snaks/WikibaseItemSnak';
 import Statement from '../../../src/Statement';
 import statementDiff from '../../../src/utils/diff/statementsDiff';
@@ -20,7 +18,7 @@ describe('statement diff', () => {
             Statement.fromSnak(WikibaseItemSnak.fromID('P4', 'Q3'))
         ];
 
-        expect(statementDiff(a, b, 'Q15')).to.deep.equal([{
+        expect(statementDiff(a, b, 'Q15')).toStrictEqual([{
             action: 'add',
             parentID: 'Q15',
             type: 'statement',
@@ -76,7 +74,7 @@ describe('statement diff', () => {
             Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q2'))
         ];
 
-        expect(statementDiff(a, b, 'Q2')).to.deep.equal([]);
+        expect(statementDiff(a, b, 'Q2')).toStrictEqual([]);
     });
 
     it('should find diffs when the new array is empty', () => {
@@ -101,6 +99,6 @@ describe('statement diff', () => {
             }
         ];
 
-        expect(statementDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(statementDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 });

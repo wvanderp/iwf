@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { Alias } from '../../../src';
 import aliasDiff from '../../../src/utils/diff/aliasDiff';
 import { Changes } from '../../../src/utils/diff/Changes';
@@ -65,7 +63,7 @@ describe('alias diff', () => {
             }
         ];
 
-        expect(aliasDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(aliasDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 
     it('should not find changes if they are not there', () => {
@@ -79,7 +77,7 @@ describe('alias diff', () => {
             new Alias({ language: 'en', value: 'contrast' }),
         ];
 
-        expect(aliasDiff(a, b, 'Q2')).to.deep.equal([]);
+        expect(aliasDiff(a, b, 'Q2')).toStrictEqual([]);
     });
 
     it('should not find changes if there are duplicated values', () => {
@@ -94,7 +92,7 @@ describe('alias diff', () => {
             new Alias({ language: 'en', value: 'contrast' }),
         ];
 
-        expect(aliasDiff(a, b, 'Q2')).to.deep.equal([]);
+        expect(aliasDiff(a, b, 'Q2')).toStrictEqual([]);
     });
 
     it('should find all changes when the new array is empty', () => {
@@ -126,6 +124,6 @@ describe('alias diff', () => {
             }
         ];
 
-        expect(aliasDiff(a, b, 'Q2')).to.deep.equal(changes);
+        expect(aliasDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
 });

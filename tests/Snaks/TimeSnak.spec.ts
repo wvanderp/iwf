@@ -1,6 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
+
 import { TimeSnak } from '../../src';
 
 const timeSnak = {
@@ -25,7 +24,7 @@ describe('Time Snak', () => {
         it('should have the right JSON stringification', () => {
             const snak = new TimeSnak(timeSnak);
 
-            expect(snak.toJSON()).to.deep.equal(timeSnak);
+            expect(snak.toJSON()).toStrictEqual(timeSnak);
         });
     });
 
@@ -34,7 +33,7 @@ describe('Time Snak', () => {
             const a = new TimeSnak(timeSnak);
             const b = new TimeSnak(timeSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -43,7 +42,7 @@ describe('Time Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -51,7 +50,7 @@ describe('Time Snak', () => {
             const snak2 = new TimeSnak(timeSnak);
             snak2.time = '2013';
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 
@@ -62,10 +61,10 @@ describe('Time Snak', () => {
 
             const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
 
-            expect(snak.property).to.equal('P813');
-            expect(snak.time).to.equal(expectedString);
-            expect(snak.calendarmodel).to.equal('http://www.wikidata.org/entity/Q1985786');
-            expect(snak.precision).to.equal(11);
+            expect(snak.property).toEqual('P813');
+            expect(snak.time).toEqual(expectedString);
+            expect(snak.calendarmodel).toEqual('http://www.wikidata.org/entity/Q1985786');
+            expect(snak.precision).toEqual(11);
         });
 
         it('should create a snak from an ID', () => {
@@ -74,22 +73,22 @@ describe('Time Snak', () => {
 
             const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
 
-            expect(snak.property).to.equal('P813');
-            expect(snak.time).to.equal(expectedString);
-            expect(snak.calendarmodel).to.equal('http://www.wikidata.org/entity/Q1985727');
-            expect(snak.precision).to.equal(11);
+            expect(snak.property).toEqual('P813');
+            expect(snak.time).toEqual(expectedString);
+            expect(snak.calendarmodel).toEqual('http://www.wikidata.org/entity/Q1985727');
+            expect(snak.precision).toEqual(11);
         });
 
-        it('should create a snak from an ID', () => {
+        it('should create a snak from an ID in a different calender', () => {
             const date = new Date(-44, 11, 17);
             const snak = TimeSnak.fromDate('P813', date);
 
             const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
 
-            expect(snak.property).to.equal('P813');
-            expect(snak.time).to.equal(expectedString);
-            expect(snak.calendarmodel).to.equal('http://www.wikidata.org/entity/Q1985786');
-            expect(snak.precision).to.equal(11);
+            expect(snak.property).toEqual('P813');
+            expect(snak.time).toEqual(expectedString);
+            expect(snak.calendarmodel).toEqual('http://www.wikidata.org/entity/Q1985786');
+            expect(snak.precision).toEqual(11);
         });
     });
 });

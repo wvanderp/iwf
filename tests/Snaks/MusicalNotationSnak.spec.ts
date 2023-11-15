@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { MusicalNotationSnak } from '../../src';
 
 const musicalNotationSnak = {
@@ -17,7 +15,7 @@ describe('Musical Notation Snak', () => {
         it('should have the right JSON stringification', () => {
             const snak = new MusicalNotationSnak(musicalNotationSnak);
 
-            expect(snak.toJSON()).to.deep.equal(musicalNotationSnak);
+            expect(snak.toJSON()).toStrictEqual(musicalNotationSnak);
         });
     });
 
@@ -26,7 +24,7 @@ describe('Musical Notation Snak', () => {
             const a = new MusicalNotationSnak(musicalNotationSnak);
             const b = new MusicalNotationSnak(musicalNotationSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -35,7 +33,7 @@ describe('Musical Notation Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -43,7 +41,7 @@ describe('Musical Notation Snak', () => {
             const snak2 = new MusicalNotationSnak(musicalNotationSnak);
             snak2.value = 'F4';
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 });

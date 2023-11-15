@@ -1,5 +1,3 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
 import { Label } from '../src';
 
@@ -17,7 +15,7 @@ describe('Label', () => {
     describe('internalID', () => {
         it('should be the language and value of the label', () => {
             const label = new Label(labelJson);
-            expect(label.internalID).to.equal('en:Berlin');
+            expect(label.internalID).toEqual('en:Berlin');
         });
     });
 
@@ -25,7 +23,7 @@ describe('Label', () => {
         it('should have the right JSON stringification', () => {
             const label = new Label(labelJson);
 
-            expect(label.toJSON()).to.deep.equal(labelJson);
+            expect(label.toJSON()).toStrictEqual(labelJson);
         });
     });
 
@@ -33,21 +31,21 @@ describe('Label', () => {
         it('should be true if the labels are equal', () => {
             const label = new Label(labelJson);
 
-            expect(label.equals(label)).to.be.true;
+            expect(label.equals(label)).toBe(true);
         });
 
         it('should be true if the labels are equal but not the same object', () => {
             const label = new Label(labelJson);
             const label2 = new Label(labelJson);
 
-            expect(label.equals(label2)).to.be.true;
+            expect(label.equals(label2)).toBe(true);
         });
 
         it('should be false if the labels are NOT equal', () => {
             const label = new Label(labelJson);
             const label2 = new Label(labelJson2);
 
-            expect(label.equals(label2)).to.be.false;
+            expect(label.equals(label2)).toBe(false);
         });
     });
 
@@ -55,7 +53,7 @@ describe('Label', () => {
         it('should create a label from two strings', () => {
             const label = Label.fromString('nl', 'sinterklaas');
 
-            expect(label.toJSON()).to.deep.equal({
+            expect(label.toJSON()).toStrictEqual({
                 language: 'nl',
                 value: 'sinterklaas'
             });

@@ -1,12 +1,5 @@
-import chai from 'chai';
-import chaiAsPromised = require('chai-as-promised');
-import { describe, it } from 'mocha';
 import * as dotenv from 'dotenv';
-
 import { getToken } from '../src';
-
-chai.use(chaiAsPromised);
-const { expect } = chai;
 
 dotenv.config();
 declare let process : {
@@ -18,27 +11,27 @@ declare let process : {
 
 describe('get login token', () => {
     it('should return a login token', async function () {
-        this.timeout(10000);
+        jest.setTimeout(60000);
 
-        expect(process.env.WIKIDATA_USERNAME).to.be.a('string');
-        expect(process.env.WIKIDATA_PASSWORD).to.be.a('string');
-        expect(process.env.WIKIDATA_USERNAME).to.not.equal('');
-        expect(process.env.WIKIDATA_PASSWORD).to.not.equal('');
+        expect(typeof process.env.WIKIDATA_USERNAME).toBe('string');
+        expect(typeof process.env.WIKIDATA_PASSWORD).toBe('string');
+        expect(process.env.WIKIDATA_USERNAME).not.toEqual('');
+        expect(process.env.WIKIDATA_PASSWORD).not.toEqual('');
 
         const token = await getToken(
             process.env.WIKIDATA_USERNAME,
             process.env.WIKIDATA_PASSWORD
         );
 
-        expect(token).to.be.a('object');
-        expect(token).to.have.property('token');
-        expect(token).to.have.property('cookie');
-        expect(token.token).to.be.a('string');
-        expect(token.cookie).to.be.a('string');
+        expect(token).toBeInstanceOf(Object);
+        expect(token).toHaveProperty('token');
+        expect(token).toHaveProperty('cookie');
+        expect(typeof token.token).toBe('string');
+        expect(typeof token.cookie).toBe('string');
     });
 
     it('should fail gracefully when given wrong credentials', async function () {
-        this.timeout(10000);
+        jest.setTimeout(60000);
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
         const failFunction = async () => {
@@ -48,6 +41,6 @@ describe('get login token', () => {
             );
         };
 
-        expect(failFunction()).to.eventually.throw();
+        await expect(failFunction()).rejects.toThrow();
     });
 });

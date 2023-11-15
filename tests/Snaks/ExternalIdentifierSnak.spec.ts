@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { ExternalIdentifierSnak } from '../../src';
 
 const ExternalSnak = {
@@ -17,7 +15,7 @@ describe('External Identifier Snak', () => {
         it('should have the right JSON stringification', () => {
             const snak = new ExternalIdentifierSnak(ExternalSnak);
 
-            expect(snak.toJSON()).to.deep.equal(ExternalSnak);
+            expect(snak.toJSON()).toStrictEqual(ExternalSnak);
         });
     });
 
@@ -26,7 +24,7 @@ describe('External Identifier Snak', () => {
             const a = new ExternalIdentifierSnak(ExternalSnak);
             const b = new ExternalIdentifierSnak(ExternalSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -35,7 +33,7 @@ describe('External Identifier Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -43,7 +41,7 @@ describe('External Identifier Snak', () => {
             const snak2 = new ExternalIdentifierSnak(ExternalSnak);
             snak2.id = '1888155769085727880005';
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 
@@ -51,8 +49,8 @@ describe('External Identifier Snak', () => {
         it('should create a snak from an ID', () => {
             const snak = ExternalIdentifierSnak.fromID('P2013', 'airbus');
 
-            expect(snak.id).to.equal('airbus');
-            expect(snak.property).to.equal('P2013');
+            expect(snak.id).toEqual('airbus');
+            expect(snak.property).toEqual('P2013');
         });
     });
 });

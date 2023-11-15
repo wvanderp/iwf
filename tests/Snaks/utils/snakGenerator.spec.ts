@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import snakGenerator from '../../../src/utils/snakGenerator';
 
 const unknownSnak = {
@@ -11,6 +9,6 @@ const unknownSnak = {
 
 describe('snakGenerator', () => {
     it('should throw when unexpected snak type is found', () => {
-        expect(() => snakGenerator(unknownSnak)).to.throw();
+        expect(() => snakGenerator(unknownSnak)).toThrow();
     });
 });

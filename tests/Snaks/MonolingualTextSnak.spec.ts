@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { MonolingualTextSnak } from '../../src';
 
 const monolingualTextSnak = {
@@ -20,7 +18,7 @@ describe('Monolingual Text Snak', () => {
         it('should have the right JSON stringification', () => {
             const snak = new MonolingualTextSnak(monolingualTextSnak);
 
-            expect(snak.toJSON()).to.deep.equal(monolingualTextSnak);
+            expect(snak.toJSON()).toStrictEqual(monolingualTextSnak);
         });
     });
 
@@ -29,7 +27,7 @@ describe('Monolingual Text Snak', () => {
             const a = new MonolingualTextSnak(monolingualTextSnak);
             const b = new MonolingualTextSnak(monolingualTextSnak);
 
-            expect(a.equals(b)).to.be.true;
+            expect(a.equals(b)).toBe(true);
         });
 
         it('should be false if the property changes', () => {
@@ -38,7 +36,7 @@ describe('Monolingual Text Snak', () => {
 
             b.property = 'P42';
 
-            expect(a.equals(b)).to.be.false;
+            expect(a.equals(b)).toBe(false);
         });
 
         it('should be false if the items are NOT equal', () => {
@@ -46,7 +44,7 @@ describe('Monolingual Text Snak', () => {
             const snak2 = new MonolingualTextSnak(monolingualTextSnak);
             snak2.language = 'EN';
 
-            expect(snak.equals(snak2)).to.be.false;
+            expect(snak.equals(snak2)).toBe(false);
         });
     });
 
@@ -54,7 +52,7 @@ describe('Monolingual Text Snak', () => {
         it('should create a snak from a string', () => {
             const snak = MonolingualTextSnak.fromString('P1476', 'de', 'Zum Wettstreit um den h\u00F6chsten Gipfel Berlins');
 
-            expect(snak.toJSON()).to.deep.equal(monolingualTextSnak);
+            expect(snak.toJSON()).toStrictEqual(monolingualTextSnak);
         });
     });
 });
