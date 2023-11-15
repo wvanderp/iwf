@@ -1,6 +1,7 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
+// imported WikiBaseItemSnak because Snak is abstract
 import { WikibaseItemSnak } from '../src';
 
 describe('Snak', () => {

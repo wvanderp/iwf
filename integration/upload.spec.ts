@@ -36,7 +36,7 @@ const testServer = 'https://test.wikidata.org';
 const testItem = 'Q231400';
 
 describe('uploading to wikidata', () => {
-    it.only('should upload a item when requested', async function () {
+    it('should upload a item when requested', async function () {
         this.timeout(10000);
 
         // setup the tokens
