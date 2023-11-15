@@ -57,7 +57,8 @@
     "source-map-support": "^0.5.21",
     "ts-node": "10.9.1",
     "typedoc": "^0.25.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
     "@wmde/wikibase-datamodel-types": "git+https://github.com/wvanderp/WikibaseDataModelTypes.git",
@@ -70,7 +71,9 @@
   "scripts": {
     "build": "rimraf lib && tsc -P ./tsconfig.build.json",
     "docs": "typedoc --out docs src/index.ts",
-    "lint": "tsc --noEmit && eslint --ext ts,js src/ tests/",
+    "lint": "npm-run-all -c -s tsc eslint",
+    "tsc": "tsc --noEmit",
+    "eslint": "eslint --ext ts,js src/ tests/",
     "prepublish": "npm run build",
     "test": "mocha --recursive tests/**/*.spec.ts tests/**/**/*.spec.ts",
     "test:integration": "mocha integration/**/*.spec.ts",
