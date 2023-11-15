@@ -1,4 +1,3 @@
-
 import { requestItem } from '../src';
 
 describe('reading from wikidata', () => {

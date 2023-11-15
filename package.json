@@ -69,9 +69,10 @@
     "docs": "typedoc --out docs src/index.ts",
     "lint": "npm-run-all -c -s tsc eslint",
     "tsc": "tsc --noEmit",
-    "eslint": "eslint --ext ts,js src/ tests/",
+    "eslint": "eslint --ext ts,js src/ tests/ integration/",
     "prepublish": "npm run build",
     "test": "jest --testPathIgnorePatterns=\"/integration/\"",
+    "test:all": "jest",
     "coverage": "npm run test -- --coverage",
     "coverage:all": "jest --coverage",
     "clean": "rimraf lib/ .nyc_output/ coverage/ docs/"
