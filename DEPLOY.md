@@ -1,14 +1,16 @@
-this guide will instruct you on how to deploy iwf
+# Deploying iwf
 
-## pre-commit
+This guide will instruct you on how to deploy iwf
 
-First, run `npm run lint` and `npm run test` to lint and test the project. 
+## Pre-commit
 
-See if the results are acceptable. Then push the result to Github.
+First, run `npm run lint` and `npm run test` to lint and test the project.
 
-## tagging
+See if the results are acceptable. Then, push the result to Github.
 
-then tag a new version on Github
-increment the minor or the build number
-write the change notes 
-when the tag is saved, Github actions will trigger a build and upload to npm, and the building of the new documentation
+## Tagging
+
+* Then tag a new version on Github
+* Increment the minor or the build number
+* Write the change notes
+* When the tag is saved, Github actions will trigger a build and upload to npm, and the building of the new documentation
