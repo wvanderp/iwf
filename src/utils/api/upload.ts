@@ -221,7 +221,7 @@ export default async function upload(item: Item, options: UploadOptions): Promis
         || responseData.entity === undefined
     ) {
         // eslint-disable-next-line no-console
-        console.error(responseData.error);
+        console.error(JSON.stringify(responseData.error, null, 2));
         throw new Error('api request went wrong');
     }
 
