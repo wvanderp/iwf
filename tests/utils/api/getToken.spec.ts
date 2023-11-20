@@ -1,5 +1,5 @@
 import axios from 'axios';
-import getToken from '../../../src/utils/api/token';
+import getToken, { loginUrl } from '../../../src/utils/api/token';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -29,5 +29,15 @@ describe('getToken', () => {
         await expect(() => getToken('a', 'a', '')).rejects.toThrow();
         // @ts-expect-error testing
         await expect(() => getToken('a', 'a', null)).rejects.toThrow();
+    });
+
+    it('should return the correct url', () => {
+        // normal urls
+        expect(loginUrl('https://www.wikidata.org')).toBe('https://www.wikidata.org/w/api.php?action=login&format=json');
+        expect(loginUrl('https://test.wikidata.org')).toBe('https://test.wikidata.org/w/api.php?action=login&format=json');
+
+        // urls with a path
+        expect(loginUrl('https://www.wikidata.org/wiki/Main_Page')).toBe('https://www.wikidata.org/w/api.php?action=login&format=json');
+        expect(loginUrl('https://test.wikidata.org/wiki/Main_Page')).toBe('https://test.wikidata.org/w/api.php?action=login&format=json');
     });
 });

@@ -11,9 +11,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      WIKIDATA_USERNAME: ${{ secrets.WIKIDATA_USERNAME }}
+      WIKIDATA_PASSWORD: ${{ secrets.WIKIDATA_PASSWORD }}
+
     strategy:
       matrix:
         node-version: [16, 18, "latest"]
+      fail-fast: true
+      max-parallel: 1
 
     steps:
       - uses: actions/checkout@v4
@@ -25,5 +31,29 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+
       - run: npm run lint
+
       - run: npm run test:all
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: test
+    env:
+      WIKIDATA_USERNAME: ${{ secrets.WIKIDATA_USERNAME }}
+      WIKIDATA_PASSWORD: ${{ secrets.WIKIDATA_PASSWORD }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 🔎 Check IP
+        run: curl https://api.ipify.org
+
+      - run: npm ci
+      - run: npm run coverage:all
+      
+      - name: 📊 Codecov
+        uses: codecov/codecov-action@v3

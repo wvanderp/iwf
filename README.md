@@ -9,9 +9,9 @@ A better way of working with the wikidata
 
 ## Features
 
-- work with wikidata using classes
-- request items from wikidata
-- upload the changes
+- Work with wikidata using classes
+- Request items from wikidata
+- Upload the changes
 
 ## Getting Started
 
@@ -19,7 +19,7 @@ A better way of working with the wikidata
 npm i --save iwf
 ```
 
-you can easily request an item from wikidata and list all the labels.
+You can easily request an item from wikidata and list all the labels.
 
 ```typescript
 import {requestItem} from 'iwf';
@@ -49,7 +49,7 @@ upload(item, {
 
 ## Documentation
 
-To see all the functionality, extra documentation and examples, visit [the documentation](https://wvanderp.github.io/iwf/)
+To see all the functionality, extra documentation, and examples, visit [the documentation](https://wvanderp.github.io/iwf/)
 
 ## License
 

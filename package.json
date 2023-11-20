@@ -72,7 +72,7 @@
     "eslint": "eslint --ext ts,js src/ tests/ integration/",
     "prepublish": "npm run build",
     "test": "jest --testPathIgnorePatterns=\"/integration/\"",
-    "test:all": "jest",
+    "test:all": "jest --runInBand",
     "coverage": "npm run test -- --coverage",
     "coverage:all": "jest --coverage",
     "clean": "rimraf lib/ .nyc_output/ coverage/ docs/"

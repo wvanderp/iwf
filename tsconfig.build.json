@@ -6,10 +6,12 @@
     "./nyc_output",
     "coverage",
     "diff",
-    "tests",
+    "tests/**/*",
+    "integration/**/*",
     "./test.ts",
     "./lib",
-    "./scrap.ts"
+    "./scrap*.ts",
+    "**/*.spec.ts"
   ],
   "filesGlob": [
     "./src/**/*.ts"
