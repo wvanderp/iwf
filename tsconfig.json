@@ -74,6 +74,9 @@
     "diff",
     "./test.ts",
     "./lib",
-    "./scrap.ts"
+    "./scrap.ts",
+
+    /* this one is a bit tricky, because this is browser code and needs a different tsconfig.json */
+    "tests/browser", 
   ]
 }

@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Build and Load</title>
+</head>
+<body>
+    <h1>test</h1>
+    <script type="module">
+        import { requestItem } from '../../../../';
+        const item = requestItem('Q42');
+        item.then((item) => {
+            document.body.innerHTML = item.findLabel('en').value;
+        });
+    </script>
+    <h1>result</h1>
+</body>
+
+</html>

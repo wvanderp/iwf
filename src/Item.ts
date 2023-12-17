@@ -1,4 +1,3 @@
-import { createHash } from 'crypto';
 import {
     Item as WikidataItem,
     Labels as WikidataLabels,
@@ -27,6 +26,7 @@ import statementDiff from './utils/diff/statementsDiff';
 import { QString } from './types/strings';
 import { isQString } from './utils/guards/strings';
 import siteLinkDiff from './utils/diff/siteLinkDiff';
+import sha256 from './utils/hash';
 
 /**
  * this type omits the id because if an item is new there will be no id
@@ -128,9 +128,7 @@ export default class Item {
      */
     public get internalID(): string {
         if (this._internalID === '') {
-            this._internalID = createHash('sha256')
-                .update(JSON.stringify(this.toJSON()))
-                .digest('hex');
+            this._internalID = sha256(JSON.stringify(this.toJSON()));
         }
 
         return this._internalID;

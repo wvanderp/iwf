@@ -83,6 +83,24 @@
         "prefer-arrow-callback": "off",
         "sonarjs/no-duplicate-string": "off"
       }
+    },
+    {
+      "files": [
+        "tests/browser/**/*"
+      ],
+      "plugins": [
+        "cypress"
+      ],
+      "extends": [
+        "plugin:cypress/recommended"
+      ],
+      "env": {
+        "cypress/globals": true
+      },
+      "rules": {
+        "require-jsdoc": "off",
+        "jsdoc/require-jsdoc": "off"
+      }
     }
   ],
   "rules": {

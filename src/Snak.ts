@@ -1,7 +1,7 @@
-import { createHash } from 'crypto';
 import { Snaks as WikidataSnaks, SnakType as WikidataSnakType } from '@wmde/wikibase-datamodel-types';
 import { PString } from './types/strings';
 import { isPString } from './utils/guards/strings';
+import sha256 from './utils/hash';
 
 /**
  * @abstract
@@ -51,9 +51,7 @@ export default abstract class Snak {
      */
     public get internalID(): string {
         if (this._internalID === '') {
-            this._internalID = createHash('sha256')
-                .update(JSON.stringify(this.toJSON()))
-                .digest('hex');
+            this._internalID = sha256(JSON.stringify(this.toJSON()));
         }
 
         return this._internalID;

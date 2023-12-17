@@ -1,10 +1,10 @@
-import { createHash } from 'crypto';
 import { Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks, Snaks } from '@wmde/wikibase-datamodel-types';
 
 import Snak from './Snak';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
+import sha256 from './utils/hash';
 
 /**
  * Reduces an array of snaks into a object grouped by PropertyID
@@ -60,9 +60,7 @@ export default class Reference {
      */
     public get internalID(): string {
         if (this._internalID === '') {
-            this._internalID = createHash('sha256')
-                .update(JSON.stringify(this.toJSON()))
-                .digest('hex');
+            this._internalID = sha256(JSON.stringify(this.toJSON()));
         }
 
         return this._internalID;

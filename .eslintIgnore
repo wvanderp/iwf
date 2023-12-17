@@ -2,3 +2,5 @@ node_moduals
 .vscode
 .nyc_output
 coverage
+
+tests/browser

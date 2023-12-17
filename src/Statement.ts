@@ -1,4 +1,3 @@
-import { createHash } from 'crypto';
 import { Statement as wikidataStatement, Qualifiers as wikidataQualifiers } from '@wmde/wikibase-datamodel-types';
 
 import Reference from './Reference';
@@ -8,6 +7,7 @@ import { PString } from './types/strings';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 import normalizeOutput from './utils/normalizeOutput';
 import snakGenerator from './utils/snakGenerator';
+import sha256 from './utils/hash';
 
 /**
  * @class
@@ -60,9 +60,7 @@ export default class Statement {
      */
     public get internalID(): string {
         if (this._internalID === '') {
-            this._internalID = createHash('sha256')
-                .update(JSON.stringify(this.toJSON()))
-                .digest('hex');
+            this._internalID = sha256(JSON.stringify(this.toJSON()));
         }
 
         return this._internalID;
