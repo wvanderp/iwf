@@ -11,10 +11,7 @@ declare global {
 }
 
 async function login(username: string, password: string): Promise<void> {
-    const origin = window.location.origin;
-    const token = await getToken(username, password, {
-        origin
-    });
+    const token = await getToken(username, password);
 
     if (token) {
         document.body.innerHTML = `success: ${token}`;

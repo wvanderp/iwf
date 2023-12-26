@@ -42,7 +42,9 @@ describe('uploading to wikidata', () => {
         const token = await getToken(
             process.env.WIKIDATA_USERNAME,
             process.env.WIKIDATA_PASSWORD,
-            testServer
+            {
+                server: testServer
+            }
         );
 
         // write a empty item

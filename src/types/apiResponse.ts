@@ -15,13 +15,14 @@ export interface ActionLoginResponse {
         main: {
             '*': string
         },
-        login: {
+        login?: {
             '*': string
         }
     },
     login: {
-        result: string,
-        token: string
+        result: 'Aborted',
+        reason?: string, // only if result is not successful (maybe)
+        token?: string
     }
 }
 

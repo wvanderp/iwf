@@ -26,6 +26,7 @@ describe('getToken', () => {
         // @ts-expect-error testing
         await expect(() => getToken('a')).rejects.toThrow();
 
+        // @ts-expect-error testing
         await expect(() => getToken('a', 'a', '')).rejects.toThrow();
         // @ts-expect-error testing
         await expect(() => getToken('a', 'a', null)).rejects.toThrow();

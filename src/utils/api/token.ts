@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 import { ActionLoginResponse, QueryMetaTokenResponse } from '../../types/apiResponse';
 
@@ -82,17 +82,24 @@ interface LoginResponse {
 
 interface GetTokenConfig {
     server?: string; // The wikibase server to get the token from
-    origin?: string; // The origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
+    origin?: string; // The origin to use for the api calls aka the "domain" of the webapp (only needed for cors),
+    axiosOptions?: AxiosRequestConfig; // The options to pass to axios
+
 }
 
 /**
- * use this function to retrieve tokens by using a username and password.
+ * Use this function to retrieve tokens by using a username and password.
+ *
+ * If you are using this function in a browser environment you need to specify the origin.
+ * If you try to access a wikimedia server you need to be on a wikimedia domain. all other domains are blocked.
+ * see https://phabricator.wikimedia.org/T22814 and https://noc.wikimedia.org/conf/highlight.php?file=CommonSettings.php#:~:text=%24wgCrossSiteAJAXdomains
  *
  * @param {string} username The username of the user
  * @param {string} password The password of the user
  * @param {object} [config] The config for the function
  * @param {string} [config.server] The server to get the token from
  * @param {string} [config.origin] The origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
+ * @param {AxiosRequestConfig} [config.axiosOptions] The options to pass to axios. Please use sparingly as this may be considered a hack. Please open a issue if you need this.
  * @throws {Error} If the login was not successful
  * @returns {Token} A object containing the token and the cookie
  * @example
@@ -106,10 +113,17 @@ export default async function getToken(username: string, password: string, confi
     // checking the config
     const server = config?.server ?? 'https://www.wikidata.org';
 
+    // checking if we have enough information to survive in the hostile environment of the browser
     // @ts-expect-error - we are checking if it exist and not using it if it doesn't
-    if (typeof window !== 'undefined' && config?.origin === undefined) {
+    const inBrowser = typeof window !== 'undefined';
+
+    if (inBrowser && config?.origin === undefined) {
         // eslint-disable-next-line no-console
         console.warn('getToken: You are using this function in a browser environment without specifying the origin. This may lead to problems with cors.');
+    }
+
+    if (inBrowser && server.includes('wikidata')) {
+        throw new Error('getToken: You are using this function in a browser environment. Wikidata does not allow cors requests from other domains.');
     }
 
     // checking the username and password
@@ -126,13 +140,21 @@ export default async function getToken(username: string, password: string, confi
     // Getting the login cookie & token
     const body = qs.stringify({ username, password });
 
-    const cookieResult = await axios.post<ActionLoginResponse>(loginUrl(server, config?.origin), body);
+    const cookieResult = await axios.post<ActionLoginResponse>(
+        loginUrl(server, config?.origin),
+        body,
+        config?.axiosOptions
+    );
+
+    if (cookieResult.data.login.result === 'Aborted') {
+        throw new Error(`getting login token ${cookieResult.data.login.result}: ${cookieResult.data.login.reason}`);
+    }
 
     const { token: loginToken } = cookieResult.data.login;
     const cookies = cookieResult.headers['set-cookie'];
 
     if (cookies === undefined) {
-        throw new Error('cannot login');
+        throw new Error('cannot login: no cookies received');
     }
 
     // logging in
@@ -144,7 +166,13 @@ export default async function getToken(username: string, password: string, confi
     const loginResult = await axios.post<LoginResponse>(
         loginUrl(server, config?.origin),
         loginBody,
-        { headers: loginHeaders }
+        {
+            ...config?.axiosOptions,
+            headers: {
+                ...config?.axiosOptions?.headers,
+                ...loginHeaders
+            }
+        }
     );
 
     if (loginResult.data.login.result !== 'Success') {
@@ -155,7 +183,13 @@ export default async function getToken(username: string, password: string, confi
     const tokenCookies = loginResult.headers['set-cookie']?.join('; ') ?? '';
     const tokenResult = await axios.get<QueryMetaTokenResponse>(
         tokenUrl(server),
-        { headers: { Cookie: tokenCookies } }
+        {
+            ...config?.axiosOptions,
+            headers: {
+                ...config?.axiosOptions?.headers,
+                Cookie: tokenCookies
+            }
+        }
     );
 
     return {

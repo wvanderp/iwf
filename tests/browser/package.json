@@ -8,9 +8,10 @@
         "parcel": "^2.10.3"
     },
     "scripts": {
+        "app": "parcel serve cypress/e2e/*.html",
+        "clean": "rimraf lib/ .nyc_output/ coverage/ docs/ .parcel-cache/ dist/",
         "cypress:open": "cypress open",
         "cypress:run": "cypress run",
-        "app": "parcel serve cypress/e2e/*.html",
         "test": "concurrently --kill-others \"npm run app\" \"npm run cypress:run\""
     },
     "dependencies": {
