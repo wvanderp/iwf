@@ -1,6 +1,6 @@
 describe('template spec', () => {
     it('passes', () => {
-        cy.visit('http://localhost:1234/login.html');
+        cy.visit('http://localho.st:1234/login.html');
 
         // the following code is injected into the page
         // and executed in the browser

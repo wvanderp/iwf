@@ -2,7 +2,7 @@
 /* eslint-disable import/no-useless-path-segments */
 import {
     getToken
-} from '../../../../';
+} from '../../../../src/';
 
 declare global {
     interface Window {
@@ -11,7 +11,10 @@ declare global {
 }
 
 async function login(username: string, password: string): Promise<void> {
-    const token = await getToken(username, password);
+    const origin = window.location.origin;
+    const token = await getToken(username, password, {
+        origin
+    });
 
     if (token) {
         document.body.innerHTML = `success: ${token}`;

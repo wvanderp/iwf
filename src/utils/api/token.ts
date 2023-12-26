@@ -3,21 +3,29 @@ import qs from 'qs';
 import { ActionLoginResponse, QueryMetaTokenResponse } from '../../types/apiResponse';
 
 /**
- * generates the login url for a given server
+ * Generates the login url for a given server
  *
  * Main-account login via \"action=login\" is deprecated and may stop working without warning.
  * https://phabricator.wikimedia.org/T137805
  *
+ * According to the api documentation you need to specify a specific origin when relying on cors
+ * https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&list=search&srsearch=meaning
+ *
  * @private
- * @param {string} server the server to generate the url for
- * @returns {string} the login url
+ * @param {string} server The server to generate the url for
+ * @returns {string} The login url
+ * @param {string} [origin] The origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
  * @example
  *     const loginUrl = getLoginUrl('https://test.wikidata.org');
  *    // loginUrl = 'https://test.wikidata.org/w/api.php?action=login&format=json'
  */
-export function loginUrl(server: string): string {
-    const url = new URL(server);
-    return `${url.origin}/w/api.php?action=login&format=json`;
+export function loginUrl(server: string, origin?: string): string {
+    const serverURL = new URL(server);
+    const url = `${serverURL.origin}/w/api.php?action=login&format=json`;
+    if (origin) {
+        return `${url}&origin=${origin}`;
+    }
+    return url;
 }
 
 /**
@@ -26,13 +34,18 @@ export function loginUrl(server: string): string {
  * @private
  * @param {string} server the server to generate the url for
  * @returns {string} the token url
+ * @param {string} [origin] The origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
  * @example
  *    const tokenUrl = getTokenUrl('https://test.wikidata.org');
  *   // tokenUrl = 'https://test.wikidata.org/w/api.php?action=query&meta=tokens&type=csrf&format=json'
  */
-export function tokenUrl(server: string): string {
-    const url = new URL(server);
-    return `${url.origin}/w/api.php?action=query&meta=tokens&type=csrf&format=json`;
+export function tokenUrl(server: string, origin?: string): string {
+    const serverURL = new URL(server);
+    const url = `${serverURL.origin}/w/api.php?action=query&meta=tokens&type=csrf&format=json`;
+    if (origin) {
+        return `${url}&origin=${origin}`;
+    }
+    return url;
 }
 
 /**
@@ -67,12 +80,19 @@ interface LoginResponse {
     }
 }
 
+interface GetTokenConfig {
+    server?: string; // The wikibase server to get the token from
+    origin?: string; // The origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
+}
+
 /**
  * use this function to retrieve tokens by using a username and password.
  *
  * @param {string} username The username of the user
  * @param {string} password The password of the user
- * @param {string} [server] The server to get the token from
+ * @param {object} [config] The config for the function
+ * @param {string} [config.server] The server to get the token from
+ * @param {string} [config.origin] The origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
  * @throws {Error} If the login was not successful
  * @returns {Token} A object containing the token and the cookie
  * @example
@@ -82,7 +102,16 @@ interface LoginResponse {
  *          authToken: token
  *      });
  */
-export default async function getToken(username: string, password: string, server = 'https://www.wikidata.org'): Promise<Token> {
+export default async function getToken(username: string, password: string, config?: GetTokenConfig): Promise<Token> {
+    // checking the config
+    const server = config?.server ?? 'https://www.wikidata.org';
+
+    // @ts-expect-error - we are checking if it exist and not using it if it doesn't
+    if (typeof window !== 'undefined' && config?.origin === undefined) {
+        // eslint-disable-next-line no-console
+        console.warn('getToken: You are using this function in a browser environment without specifying the origin. This may lead to problems with cors.');
+    }
+
     // checking the username and password
     if (username === undefined || password === undefined || username === '' || password === '' || username === null || password === null) {
         throw new Error('username and password are required');
@@ -97,7 +126,7 @@ export default async function getToken(username: string, password: string, serve
     // Getting the login cookie & token
     const body = qs.stringify({ username, password });
 
-    const cookieResult = await axios.post<ActionLoginResponse>(loginUrl(server), body);
+    const cookieResult = await axios.post<ActionLoginResponse>(loginUrl(server, config?.origin), body);
 
     const { token: loginToken } = cookieResult.data.login;
     const cookies = cookieResult.headers['set-cookie'];
@@ -113,7 +142,7 @@ export default async function getToken(username: string, password: string, serve
     const loginBody = qs.stringify({ lgname: username, lgpassword: password, lgtoken: loginToken });
 
     const loginResult = await axios.post<LoginResponse>(
-        loginUrl(server),
+        loginUrl(server, config?.origin),
         loginBody,
         { headers: loginHeaders }
     );
