@@ -1,8 +1,21 @@
 {
-    // "extends": "../../tsconfig.json",
+    "extends": "../../tsconfig.json",
     "include": [
         "../../node_modules/cypress",
-        "**/*.cy.js"
+        "**/*.cy.js",
+        "cypress/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "build",
+        "./nyc_output",
+        "coverage",
+        "diff",
+        "./test.ts",
+        "./lib",
+        "./scrap.ts",
+        "../../src/",
+        "src"
     ],
     "compilerOptions": {
         "noEmit": true,

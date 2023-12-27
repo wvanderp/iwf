@@ -12,7 +12,10 @@
         "clean": "rimraf lib/ .nyc_output/ coverage/ docs/ .parcel-cache/ dist/",
         "cypress:open": "cypress open",
         "cypress:run": "cypress run",
-        "test": "concurrently --kill-others \"npm run app\" \"npm run cypress:run\""
+        "test": "concurrently --kill-others \"npm run app\" \"npm run cypress:run\"",
+        "lint": "npm-run-all -c -s eslint",
+        "tsc": "tsc --noEmit -P ./tsconfig.json",
+        "eslint": "eslint --ext ts,js cypress"
     },
     "dependencies": {
         "dotenv": "^16.3.1"

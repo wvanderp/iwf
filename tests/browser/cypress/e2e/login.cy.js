@@ -11,9 +11,9 @@ describe('template spec', () => {
         cy.window().then((win) => {
             try {
                 win.eval(functionCall);
-            } catch (e) {
+            } catch (error) {
                 // eslint-disable-next-line no-console
-                console.error(e);
+                console.error(error);
             }
         });
     });

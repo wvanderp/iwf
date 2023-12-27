@@ -3,4 +3,7 @@ node_moduals
 .nyc_output
 coverage
 
+dist
+.parcel-cache
+
 tests/browser

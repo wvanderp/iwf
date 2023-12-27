@@ -11,7 +11,8 @@
     "./test.ts",
     "./lib",
     "./scrap*.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "tests/browser",
   ],
   "filesGlob": [
     "./src/**/*.ts"

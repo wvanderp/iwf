@@ -20,7 +20,8 @@
     },
     "import/resolver": {
       "typescript": {
-        "alwaysTryTypes": true
+        "alwaysTryTypes": true,
+        "project":  ["tsconfig.json", "tests/browser/tsconfig.json"]
       },
       "node": {
         "extensions": [
@@ -99,7 +100,16 @@
       },
       "rules": {
         "require-jsdoc": "off",
-        "jsdoc/require-jsdoc": "off"
+        "jsdoc/require-jsdoc": "off",
+        "unicorn/prevent-abbreviations": [
+          "error",
+          {
+            "allowList": {
+              "e2e": true
+            }
+          }
+        ],
+        "unicorn/no-empty-file": "off"
       }
     }
   ],
