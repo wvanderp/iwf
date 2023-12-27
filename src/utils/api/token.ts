@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 import { ActionLoginResponse, QueryMetaTokenResponse } from '../../types/apiResponse';
 
@@ -84,7 +84,7 @@ interface GetTokenConfig {
     server?: string; // The wikibase server to get the token from
     origin?: string; // The origin to use for the api calls aka the "domain" of the webapp (only needed for cors),
     axiosOptions?: AxiosRequestConfig; // The options to pass to axios
-
+    axiosInstance?: AxiosInstance; // The axios instance to use for login and token requests (default: axios)
 }
 
 /**
@@ -94,12 +94,20 @@ interface GetTokenConfig {
  * If you try to access a wikimedia server you need to be on a wikimedia domain. all other domains are blocked.
  * see https://phabricator.wikimedia.org/T22814 and https://noc.wikimedia.org/conf/highlight.php?file=CommonSettings.php#:~:text=%24wgCrossSiteAJAXdomains
  *
+ * you can pass in a custom axios instance to use for the requests. this is mainly intended for cors circumvention purposes.
+ * use for example axios-over-http to do the actual requests on a server.
+ * the only requirement for these axios instances is that they have the same api as the axios package.
+ * the only required function is the main axios() function.
+ *
  * @param {string} username The username of the user
  * @param {string} password The password of the user
+ *
  * @param {object} [config] The config for the function
  * @param {string} [config.server] The server to get the token from
  * @param {string} [config.origin] The origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
  * @param {AxiosRequestConfig} [config.axiosOptions] The options to pass to axios. Please use sparingly as this may be considered a hack. Please open a issue if you need this.
+ * @param {AxiosInstance} [config.axiosInstance] The axios instance to use.this is mainly intended for cors circumvention purposes. use for example axios-over-http to do the actual requests on a server.
+ *
  * @throws {Error} If the login was not successful
  * @returns {Token} A object containing the token and the cookie
  * @example
@@ -131,6 +139,12 @@ export default async function getToken(username: string, password: string, confi
         throw new Error('username and password are required');
     }
 
+    // axios instance
+    // we need to have the ability to pass in a custom axios instance for cors circumvention
+    // so by default we use the axios instance from the axios package
+    // the only thing needed for this is that the axios instance has the same api as the axios package
+    const axiosInstance: AxiosInstance = config?.axiosInstance ?? axios;
+
     // Getting a edit token happens in three steps:
     // 1. Get a login token and cookie
     // 2. Use this token to login
@@ -140,11 +154,14 @@ export default async function getToken(username: string, password: string, confi
     // Getting the login cookie & token
     const body = qs.stringify({ username, password });
 
-    const cookieResult = await axios.post<ActionLoginResponse>(
-        loginUrl(server, config?.origin),
-        body,
-        config?.axiosOptions
-    );
+    const cookieConfig: AxiosRequestConfig = {
+        ...config?.axiosOptions,
+        method: 'POST',
+        url: loginUrl(server, config?.origin),
+        data: body,
+    };
+
+    const cookieResult = await axiosInstance<ActionLoginResponse>(cookieConfig);
 
     if (cookieResult.data.login.result === 'Aborted') {
         throw new Error(`getting login token ${cookieResult.data.login.result}: ${cookieResult.data.login.reason}`);
@@ -163,17 +180,18 @@ export default async function getToken(username: string, password: string, confi
     };
     const loginBody = qs.stringify({ lgname: username, lgpassword: password, lgtoken: loginToken });
 
-    const loginResult = await axios.post<LoginResponse>(
-        loginUrl(server, config?.origin),
-        loginBody,
-        {
-            ...config?.axiosOptions,
-            headers: {
-                ...config?.axiosOptions?.headers,
-                ...loginHeaders
-            }
+    const loginConfig: AxiosRequestConfig = {
+        ...config?.axiosOptions,
+        method: 'POST',
+        url: loginUrl(server, config?.origin),
+        data: loginBody,
+        headers: {
+            ...config?.axiosOptions?.headers,
+            ...loginHeaders
         }
-    );
+    };
+
+    const loginResult = await axiosInstance<LoginResponse>(loginConfig);
 
     if (loginResult.data.login.result !== 'Success') {
         throw new Error(`logging in ${loginResult.data.login.result}: ${loginResult.data.login.reason}`);
@@ -181,16 +199,16 @@ export default async function getToken(username: string, password: string, confi
 
     // getting the token
     const tokenCookies = loginResult.headers['set-cookie']?.join('; ') ?? '';
-    const tokenResult = await axios.get<QueryMetaTokenResponse>(
-        tokenUrl(server),
-        {
-            ...config?.axiosOptions,
-            headers: {
-                ...config?.axiosOptions?.headers,
-                Cookie: tokenCookies
-            }
+    const tokenConfig = {
+        ...config?.axiosOptions,
+        method: 'GET',
+        url: tokenUrl(server, config?.origin),
+        headers: {
+            ...config?.axiosOptions?.headers,
+            Cookie: tokenCookies
         }
-    );
+    };
+    const tokenResult = await axiosInstance<QueryMetaTokenResponse>(tokenConfig);
 
     return {
         token: tokenResult.data.query.tokens.csrftoken,

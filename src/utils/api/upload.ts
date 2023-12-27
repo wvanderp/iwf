@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable unicorn/no-nested-ternary */
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 
 import Item from '../../Item';
@@ -23,22 +23,25 @@ import { SiteLinkChange } from '../diff/siteLinkDiff';
  * - https://phabricator.wikimedia.org/diffusion/EWBA/browse/master/docs/change-op-serializations.wiki;d8911d30badb0df2ae9266b72e321e65fb46b998
  * -- seams outdated but is still a good source of information
  *
+ * see https://phabricator.wikimedia.org/T22814 and https://noc.wikimedia.org/conf/highlight.php?file=CommonSettings.php#:~:text=%24wgCrossSiteAJAXdomains
+ * for more information about cors and why the wikimedia servers block cors requests from non wikimedia domains
  */
 
 interface UploadOptions {
-    username?: string;
-    password?: string;
-    authToken?: Token;
-    anonymous?: boolean;
+    authToken?: Token; // authToken acquired from getToken or undefined if you want to upload anonymously
+    anonymous?: boolean; // if true the upload will be anonymous
 
-    userAgent?: string;
+    userAgent?: string; // the user agent to use for the api request
 
-    summary: string;
-    tags?: string[];
+    summary: string; // the summary for the edit (displayed in the history of wikidata)
+    tags?: string[]; // the tags for the edit (displayed in the history of wikidata)
 
-    maxLag?: number;
+    maxLag?: number; // the max lag in seconds for the api request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
 
-    server?: string;
+    server?: string; // the api endpoint to use (defaults to wikidata)
+
+    axiosOptions?: AxiosRequestConfig; // The options to pass to axios
+    axiosInstance?: AxiosInstance; // the axios instance to use for the upload. defaults to axios
 }
 
 type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
@@ -177,6 +180,15 @@ export async function generateUploadData(item: Item, server = 'https://wikidata.
  *
  * @param {Item} item The item you want to upload to wikidata
  * @param {UploadOptions} options The options for uploading
+ * @param {string} options.summary The summary for the edit (displayed in the history of wikidata)
+ * @param {string[]} [options.tags] The tags for the edit (displayed in the history of wikidata)
+ * @param {Token} [options.authToken] The token to use for authentication
+ * @param {boolean} [options.anonymous] If true the upload will be anonymous
+ * @param {number} [options.maxLag] The max lag in seconds for the api request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
+ * @param {string} [options.server] The api endpoint to use (defaults to wikidata)
+ * @param {string} [options.userAgent] The user agent to use for the api request
+ * @param {AxiosRequestConfig} [options.axiosOptions] The options to pass to axios
+ * @param {AxiosInstance} [options.axiosInstance] The axios instance to use for the upload. defaults to axios
  * @throws {Error} If no authentication method is provided or the upload fails
  * @returns {Promise<Item>} A Promise for the item after uploading
  * @example
@@ -193,6 +205,10 @@ export default async function upload(item: Item, options: UploadOptions): Promis
 
     const data = await generateUploadData(item, options.server);
 
+    // axios instance to use for the request
+    // you could need a custom axios instance for cors circumvention purposes
+    const axiosInstance: AxiosInstance = options?.axiosInstance ?? axios;
+
     const parameters = {
         tags: options.tags,
         data: JSON.stringify(data),
@@ -207,12 +223,18 @@ export default async function upload(item: Item, options: UploadOptions): Promis
 
     const url = generateURL(options.server);
 
-    const response = await axios.post<WbeditentityResponse>(
+    const editEntityConfig: AxiosRequestConfig = {
+        ...options.axiosOptions,
+        method: 'POST',
         url,
-        postString,
-        { headers }
-    );
+        data: postString,
+        headers: {
+            ...headers,
+            ...options.axiosOptions?.headers,
+        }
+    };
 
+    const response = await axiosInstance<WbeditentityResponse>(editEntityConfig);
     const { data: responseData } = response;
 
     if (

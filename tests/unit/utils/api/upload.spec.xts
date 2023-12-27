@@ -1,3 +1,8 @@
+// this test is commented out because the combination of the Axios instance trick
+// and the mocked Axios instance is not working
+// we can just inject the mock as the axiosInstance but I want to make something with the lib 
+// and using it might be the best way to test it
+
 import axios from 'axios';
 import qs from 'qs';
 import upload, { generateURL, validateAuthentication } from '../../../../src/utils/api/upload';
