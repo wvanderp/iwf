@@ -131,7 +131,8 @@ export default async function getToken(username: string, password: string, confi
     }
 
     if (inBrowser && server.includes('wikidata')) {
-        throw new Error('getToken: You are using this function in a browser environment. Wikidata does not allow cors requests from other domains.');
+        // eslint-disable-next-line no-console
+        console.warn('getToken: You are using this function in a browser environment. Wikidata does not allow cors requests from other domains.');
     }
 
     // checking the username and password
