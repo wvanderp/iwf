@@ -13,6 +13,7 @@ import { UploadFormat } from '../../types/uploadFormat';
 import { AliasChange } from '../diff/aliasDiff';
 import { LabelChange } from '../diff/labelDiff';
 import { SiteLinkChange } from '../diff/siteLinkDiff';
+import corsCheck from './corsCheck';
 
 /**
  * Api Documentation is scarce. so here is a semi comprehensive list of all pages that contain information about the api
@@ -39,6 +40,7 @@ interface UploadOptions {
     maxLag?: number; // the max lag in seconds for the api request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
 
     server?: string; // the api endpoint to use (defaults to wikidata)
+    origin?: string; // the origin to use for the api calls aka the "domain" of the webapp (only needed for cors),
 
     axiosOptions?: AxiosRequestConfig; // The options to pass to axios
     axiosInstance?: AxiosInstance; // the axios instance to use for the upload. defaults to axios
@@ -50,6 +52,7 @@ type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
  * generates the url for the api request
  * @private
  * @param {string} server the server to request from
+ * @param {string} [origin] the origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
  * @returns {string} the url to request from
  * @example
  *     const url = generateURL('https://www.wikidata.org');
@@ -57,9 +60,14 @@ type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
  *    const url = generateURL('https://wiki.openstreetmap.org');
  *   // url = 'https://wiki.openstreetmap.org/w/api.php?action=wbeditentity&format=json'
  */
-export function generateURL(server = 'https://www.wikidata.org'): string {
-    const url = new URL(server);
-    return `${url.origin}/w/api.php?action=wbeditentity&format=json`;
+export function generateURL(server: string, origin?: string): string {
+    const serverDomain = new URL(server);
+    const url = `${serverDomain.origin}/w/api.php?action=wbeditentity&format=json`;
+
+    if (origin) {
+        return `${url}&origin=${origin}`;
+    }
+    return url;
 }
 
 /**
@@ -107,7 +115,7 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
  * @throws {Error} if an invalid authentication method is provided
  * @param {Item} item the item to upload
  */
-export async function generateUploadData(item: Item, server = 'https://wikidata.org'): Promise<Record<string, unknown>> {
+export async function generateUploadData(item: Item, server: string): Promise<Record<string, unknown>> {
     // get diff from the original item/SonarSource/eslint-plugin-sonarjs/blob/master/docs/rules/.md
     const originalItem = item.id ? await requestItem(item.id, { server }) : Item.fromNothing();
 
@@ -186,6 +194,7 @@ export async function generateUploadData(item: Item, server = 'https://wikidata.
  * @param {boolean} [options.anonymous] If true the upload will be anonymous
  * @param {number} [options.maxLag] The max lag in seconds for the api request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
  * @param {string} [options.server] The api endpoint to use (defaults to wikidata)
+ * @param {string} [options.origin] The origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
  * @param {string} [options.userAgent] The user agent to use for the api request
  * @param {AxiosRequestConfig} [options.axiosOptions] The options to pass to axios
  * @param {AxiosInstance} [options.axiosInstance] The axios instance to use for the upload. defaults to axios
@@ -203,7 +212,12 @@ export default async function upload(item: Item, options: UploadOptions): Promis
 
     const authToken = authMethod === 'authToken' ? options.authToken?.token : '+\\';
 
-    const data = await generateUploadData(item, options.server);
+    const server = options.server ?? 'https://www.wikidata.org';
+
+    // checking for cors, browser and origin
+    corsCheck(server, options?.origin);
+
+    const data = await generateUploadData(item, server);
 
     // axios instance to use for the request
     // you could need a custom axios instance for cors circumvention purposes
@@ -221,7 +235,7 @@ export default async function upload(item: Item, options: UploadOptions): Promis
     const postString = qs.stringify(parameters, { arrayFormat: 'repeat' });
     const headers = authMethod === 'authToken' && options.authToken ? { Cookie: options.authToken.cookie } : undefined;
 
-    const url = generateURL(options.server);
+    const url = generateURL(server);
 
     const editEntityConfig: AxiosRequestConfig = {
         ...options.axiosOptions,

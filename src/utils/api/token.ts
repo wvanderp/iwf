@@ -1,6 +1,8 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 import { ActionLoginResponse, QueryMetaTokenResponse } from '../../types/apiResponse';
+import corsCheck from './corsCheck';
 
 /**
  * Generates the login url for a given server
@@ -46,6 +48,23 @@ export function tokenUrl(server: string, origin?: string): string {
         return `${url}&origin=${origin}`;
     }
     return url;
+}
+
+/**
+ * joins the cookies together
+ *
+ * this function exist because normally the set-cookie header is a array of strings
+ * but for some reason axiosOverHttp returns a string instead of a array of strings
+ *
+ * @private
+ * @param {string[] | string} cookies an array or a string of cookies
+ * @returns {string} the joined cookies
+ */
+function joinCookies(cookies: string[] | string): string {
+    if (Array.isArray(cookies)) {
+        return cookies.join('; ');
+    }
+    return cookies;
 }
 
 /**
@@ -121,19 +140,8 @@ export default async function getToken(username: string, password: string, confi
     // checking the config
     const server = config?.server ?? 'https://www.wikidata.org';
 
-    // checking if we have enough information to survive in the hostile environment of the browser
-    // @ts-expect-error - we are checking if it exist and not using it if it doesn't
-    const inBrowser = typeof window !== 'undefined';
-
-    if (inBrowser && config?.origin === undefined) {
-        // eslint-disable-next-line no-console
-        console.warn('getToken: You are using this function in a browser environment without specifying the origin. This may lead to problems with cors.');
-    }
-
-    if (inBrowser && server.includes('wikidata')) {
-        // eslint-disable-next-line no-console
-        console.warn('getToken: You are using this function in a browser environment. Wikidata does not allow cors requests from other domains.');
-    }
+    // checking for cors, browser and origin
+    corsCheck(server, config?.origin);
 
     // checking the username and password
     if (username === undefined || password === undefined || username === '' || password === '' || username === null || password === null) {
@@ -169,7 +177,12 @@ export default async function getToken(username: string, password: string, confi
     }
 
     const { token: loginToken } = cookieResult.data.login;
-    const cookies = cookieResult.headers['set-cookie'];
+
+    if (cookieResult.headers['set-cookie'] === undefined) {
+        throw new Error('cannot login: no login token received');
+    }
+
+    const cookies = joinCookies(cookieResult.headers['set-cookie']);
 
     if (cookies === undefined) {
         throw new Error('cannot login: no cookies received');
@@ -177,7 +190,7 @@ export default async function getToken(username: string, password: string, confi
 
     // logging in
     const loginHeaders = {
-        Cookie: cookies.join('; ')
+        Cookie: cookies
     };
     const loginBody = qs.stringify({ lgname: username, lgpassword: password, lgtoken: loginToken });
 
@@ -198,8 +211,14 @@ export default async function getToken(username: string, password: string, confi
         throw new Error(`logging in ${loginResult.data.login.result}: ${loginResult.data.login.reason}`);
     }
 
+    if (loginResult.headers['set-cookie'] === undefined) {
+        throw new Error('cannot login: no login cookies received');
+    }
+
+    const loginCookies = joinCookies(loginResult.headers['set-cookie']);
+
     // getting the token
-    const tokenCookies = loginResult.headers['set-cookie']?.join('; ') ?? '';
+    const tokenCookies = loginCookies ?? '';
     const tokenConfig = {
         ...config?.axiosOptions,
         method: 'GET',
