@@ -11,6 +11,27 @@ const urlSnak = {
 };
 
 describe('URL Snak', () => {
+    describe('get', () => {
+        it('should return the value', () => {
+            const snak = new URLSnak(urlSnak);
+
+            expect(snak.value).toBe('http://www.berlin.de/special/immobilien-und-wohnen/stadtteile/');
+        });
+
+        it('should return undefined if there is no value', () => {
+            const snak = new URLSnak(urlSnak);
+            snak.value = undefined;
+
+            expect(snak.value).toBe(undefined);
+        });
+
+        it('should return the value encoded', () => {
+            const snak = URLSnak.fromURL('P854', 'https://www.GünterStraßenbahn.AT/');
+
+            expect(snak.value).toBe('https://www.G%C3%BCnterStra%C3%9Fenbahn.AT/');
+        });
+    });
+
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new URLSnak(urlSnak);

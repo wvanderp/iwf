@@ -28,11 +28,14 @@ export default class URLSnak extends Snak {
     }
 
     /**
+     * the value will be url encoded
+     *
      * @alias url
      * @returns {string | undefined} the value of the snak
      */
     get value(): string | undefined {
-        return this.url;
+        if (!this.url) return undefined;
+        return encodeURI(this.url);
     }
 
     /**
