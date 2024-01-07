@@ -11,7 +11,6 @@ import {
     getToken,
     upload
 } from '../../src';
-import { generateURL } from '../../src/utils/api/upload';
 import {
     exampleCommonsMediaSnak,
     exampleExternalIdSnak,
@@ -41,32 +40,6 @@ const testServer = 'https://test.wikidata.org';
 const testItem = 'Q231400';
 
 describe('uploading to wikidata', () => {
-    describe('generate url', () => {
-        it('should generate a url', () => {
-            const url = generateURL('https://wikidata.org', true);
-
-            expect(url).toBe('https://wikidata.org/w/api.php?action=wbeditentity&format=json&new=item');
-        });
-
-        it('should generate a url with a custom domain', () => {
-            const url = generateURL('https://test.wikidata.org', true);
-
-            expect(url).toBe('https://test.wikidata.org/w/api.php?action=wbeditentity&format=json&new=item');
-        });
-
-        it('should generate a url without new', () => {
-            const url = generateURL('https://wikidata.org', false);
-
-            expect(url).toBe('https://wikidata.org/w/api.php?action=wbeditentity&format=json');
-        });
-
-        it('should generate a url with a origin', () => {
-            const url = generateURL('https://wikidata.org', false, 'https://example.org');
-
-            expect(url).toBe('https://wikidata.org/w/api.php?action=wbeditentity&format=json&origin=https://example.org');
-        });
-    });
-
     it(
         'should upload a item when requested',
         async function () {
