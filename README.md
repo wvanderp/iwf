@@ -9,9 +9,9 @@ A better way of working with the wikidata
 
 ## Features
 
-- Work with wikidata using classes
 - Request items from wikidata
-- Upload the changes
+- Work with wikidata using classes
+- Upload the changes back to wikidata
 
 ## Getting Started
 
@@ -50,6 +50,16 @@ upload(item, {
 ## Documentation
 
 To see all the functionality, extra documentation, and examples, visit [the documentation](https://wvanderp.github.io/iwf/)
+
+## Where can you help?
+
+You are already helping by using this library, but if you want to do more, there are a few things you can do:
+
+- If you find a bug, please report it here on github.
+- If you have an idea for a new feature, please create an issue here on github.
+- If you want to help with the development, you can fork this repository and create a pull request.
+
+There is a [FUTURE.md](FUTURE.md) file that contains ideas for future development. If you want to help, you can look there for ideas.
 
 ## License
 

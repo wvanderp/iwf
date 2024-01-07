@@ -1,6 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
 import { TimeSnak } from '../../../src';
+import { formatISOString } from '../../../src/snaks/TimeSnak';
 
 const timeSnak = {
     snaktype: 'value' as const,
@@ -20,6 +21,32 @@ const timeSnak = {
 };
 
 describe('Time Snak', () => {
+    describe('formatISOString', () => {
+        it('should format a date to an ISO string', () => {
+            const isoString = formatISOString(2020, 12, 17);
+
+            expect(isoString).toEqual('+2020-12-17T00:00:00Z');
+        });
+
+        it('should format a date to an ISO string with a negative year', () => {
+            const isoString = formatISOString(-44, 12, 17);
+
+            expect(isoString).toEqual('-44-12-17T00:00:00Z');
+        });
+
+        it('should ignore any time information', () => {
+            const isoString = formatISOString(2020, 12, 17);
+
+            expect(isoString).toEqual('+2020-12-17T00:00:00Z');
+        });
+
+        it('should add a leading zero to digits below 10', () => {
+            const isoString = formatISOString(2021, 2, 7);
+
+            expect(isoString).toEqual('+2021-02-07T00:00:00Z');
+        });
+    });
+
     describe('toJSON', () => {
         it('should have the right JSON stringification', () => {
             const snak = new TimeSnak(timeSnak);
@@ -56,22 +83,9 @@ describe('Time Snak', () => {
 
     describe('fromDate', () => {
         it('should create a snak from the ID', () => {
-            const date = new Date(44, 11, 17);
-            const snak = TimeSnak.fromDate('P813', date);
+            const snak = TimeSnak.fromDate('P813', 44, 12, 17);
 
-            const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
-
-            expect(snak.property).toEqual('P813');
-            expect(snak.time).toEqual(expectedString);
-            expect(snak.calendarmodel).toEqual('http://www.wikidata.org/entity/Q1985786');
-            expect(snak.precision).toEqual(11);
-        });
-
-        it('should create a snak from an ID', () => {
-            const date = new Date(44, 11, 17);
-            const snak = TimeSnak.fromDate('P813', date, 'http://www.wikidata.org/entity/Q1985727');
-
-            const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
+            const expectedString = '+44-12-17T00:00:00Z';
 
             expect(snak.property).toEqual('P813');
             expect(snak.time).toEqual(expectedString);
@@ -79,15 +93,49 @@ describe('Time Snak', () => {
             expect(snak.precision).toEqual(11);
         });
 
-        it('should create a snak from an ID in a different calender', () => {
-            const date = new Date(-44, 11, 17);
-            const snak = TimeSnak.fromDate('P813', date);
+        it('should create a snak from an ID with a different calender', () => {
+            const snak = TimeSnak.fromDate('P813', 44, 12, 17, 'http://www.wikidata.org/entity/Q1985786');
 
-            const expectedString = date.toISOString().slice(0, 1) === '-' ? date.toISOString() : `+${date.toISOString()}`;
+            const expectedString = '+44-12-17T00:00:00Z';
 
             expect(snak.property).toEqual('P813');
             expect(snak.time).toEqual(expectedString);
             expect(snak.calendarmodel).toEqual('http://www.wikidata.org/entity/Q1985786');
+            expect(snak.precision).toEqual(11);
+        });
+
+        it('should create a snak from an ID in a negative year', () => {
+            const snak = TimeSnak.fromDate('P813', -44, 12, 17);
+
+            const expectedString = '-44-12-17T00:00:00Z';
+
+            expect(snak.property).toEqual('P813');
+            expect(snak.time).toEqual(expectedString);
+            expect(snak.calendarmodel).toEqual('http://www.wikidata.org/entity/Q1985727');
+            expect(snak.precision).toEqual(11);
+        });
+    });
+
+    describe('fromDateObject', () => {
+        it('should create a snak from the ID', () => {
+            const snak = TimeSnak.fromDateObject('P813', new Date(Date.parse('2022-12-17')));
+
+            const expectedString = '+2022-12-17T00:00:00Z';
+
+            expect(snak.property).toEqual('P813');
+            expect(snak.time).toEqual(expectedString);
+            expect(snak.calendarmodel).toEqual('http://www.wikidata.org/entity/Q1985727');
+            expect(snak.precision).toEqual(11);
+        });
+
+        it('should work with a time near 00:00:00', () => {
+            const snak = TimeSnak.fromDateObject('P813', new Date(Date.parse('2022-12-17T00:00:00')));
+
+            const expectedString = '+2022-12-17T00:00:00Z';
+
+            expect(snak.property).toEqual('P813');
+            expect(snak.time).toEqual(expectedString);
+            expect(snak.calendarmodel).toEqual('http://www.wikidata.org/entity/Q1985727');
             expect(snak.precision).toEqual(11);
         });
     });

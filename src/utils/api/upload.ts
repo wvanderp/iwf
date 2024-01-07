@@ -52,6 +52,7 @@ type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
  * generates the url for the api request
  * @private
  * @param {string} server the server to request from
+ * @param {boolean} isNewItem if the item is new or not
  * @param {string} [origin] the origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
  * @returns {string} the url to request from
  * @example
@@ -60,14 +61,20 @@ type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
  *    const url = generateURL('https://wiki.openstreetmap.org');
  *   // url = 'https://wiki.openstreetmap.org/w/api.php?action=wbeditentity&format=json'
  */
-export function generateURL(server: string, origin?: string): string {
+export function generateURL(server: string, isNewItem: boolean, origin?: string): string {
     const serverDomain = new URL(server);
-    const url = `${serverDomain.origin}/w/api.php?action=wbeditentity&format=json`;
+    const base = `${serverDomain.origin}/w/api.php`;
 
-    if (origin) {
-        return `${url}&origin=${origin}`;
-    }
-    return url;
+    const urlParameters = {
+        action: 'wbeditentity',
+        format: 'json',
+
+        // you need to include this if the item is new
+        new: isNewItem ? 'item' : undefined,
+        origin: origin ?? undefined
+    };
+
+    return `${base}?${qs.stringify(urlParameters, { arrayFormat: 'repeat' })}`;
 }
 
 /**
@@ -235,7 +242,8 @@ export default async function upload(item: Item, options: UploadOptions): Promis
     const postString = qs.stringify(parameters, { arrayFormat: 'repeat' });
     const headers = authMethod === 'authToken' && options.authToken ? { Cookie: options.authToken.cookie } : undefined;
 
-    const url = generateURL(server);
+    const isNewItem = item.id === undefined;
+    const url = generateURL(server, isNewItem, options.origin);
 
     const editEntityConfig: AxiosRequestConfig = {
         ...options.axiosOptions,
