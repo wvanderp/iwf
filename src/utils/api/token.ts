@@ -25,7 +25,7 @@ export function loginUrl(server: string, origin?: string): string {
     const serverURL = new URL(server);
     const url = `${serverURL.origin}/w/api.php?action=login&format=json`;
     if (origin) {
-        return `${url}&origin=${origin}`;
+        return `${url}&origin=${encodeURIComponent(origin)}`;
     }
     return url;
 }
@@ -45,7 +45,7 @@ export function tokenUrl(server: string, origin?: string): string {
     const serverURL = new URL(server);
     const url = `${serverURL.origin}/w/api.php?action=query&meta=tokens&type=csrf&format=json`;
     if (origin) {
-        return `${url}&origin=${origin}`;
+        return `${url}&origin=${encodeURIComponent(origin)}`;
     }
     return url;
 }
@@ -60,7 +60,7 @@ export function tokenUrl(server: string, origin?: string): string {
  * @param {string[] | string} cookies an array or a string of cookies
  * @returns {string} the joined cookies
  */
-function joinCookies(cookies: string[] | string): string {
+export function joinCookies(cookies: string[] | string): string {
     if (Array.isArray(cookies)) {
         return cookies.join('; ');
     }

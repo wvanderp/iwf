@@ -90,6 +90,16 @@ describe('validateAuthentication', () => {
 describe('upload', () => {
     const item = Item.fromNothing();
 
+    let consoleErrorSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+        consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        consoleErrorSpy.mockRestore();
+    });
+
     describe('uploading', () => {
         it('should use the anonymous key if there is no key, but the anonymous key is set', async () => {
             const axiosMock = jest.fn();
