@@ -176,8 +176,8 @@ describe('Statement', () => {
         });
 
         it('should not equal if the qualifiersOrder is changed', () => {
-            const a = new Statement(JSON.parse(JSON.stringify(statementJson)));
-            const b = new Statement(JSON.parse(JSON.stringify(statementJson)));
+            const a = new Statement(structuredClone(statementJson));
+            const b = new Statement(structuredClone(statementJson));
 
             b.qualifiersOrder.pop();
 

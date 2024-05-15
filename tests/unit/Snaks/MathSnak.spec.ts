@@ -4,7 +4,7 @@ const mathSnak = {
     snaktype: 'value' as const,
     property: 'P2534',
     datavalue: {
-        value: 'k = \\frac{R}{N_\\text{A}}',
+        value: String.raw`k = \frac{R}{N_\text{A}}`,
         type: 'string' as const
     },
     datatype: 'math' as const

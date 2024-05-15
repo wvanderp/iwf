@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "ABCE",
+        "adams",
         "Autobuild",
         "batchcomplete",
         "calendarmodel",
@@ -40,6 +41,7 @@
         "sitelink",
         "Sitelinks",
         "snak",
+        "snaks",
         "Snaks",
         "snaktype",
         "sonarjs",
@@ -47,6 +49,8 @@
         "verschil",
         "Wbeditentity",
         "wikibase",
+        "wikidata",
+        "wikipedia",
         "wmde",
         "wvdp"
     ]

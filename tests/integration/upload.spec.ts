@@ -43,6 +43,12 @@ describe('uploading to wikidata', () => {
     it(
         'should upload a item when requested',
         async function () {
+            // check if the credentials are set in the environment
+            expect(typeof process.env.WIKIDATA_USERNAME).toBe('string');
+            expect(typeof process.env.WIKIDATA_PASSWORD).toBe('string');
+            expect(process.env.WIKIDATA_USERNAME).not.toEqual('');
+            expect(process.env.WIKIDATA_PASSWORD).not.toEqual('');
+
             // setup the tokens
             const token = await getToken(
                 process.env.WIKIDATA_USERNAME,

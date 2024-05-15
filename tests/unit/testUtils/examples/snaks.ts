@@ -130,7 +130,7 @@ const musicalNotationJson: WikidataMusicalNotationSnak = {
     snaktype: 'value',
     property: 'P6883',
     datavalue: {
-        value: "\\relative c' {c d e f g a b c}",
+        value: String.raw`\relative c' {c d e f g a b c}`,
         type: 'string'
     },
     datatype: 'musical-notation'
