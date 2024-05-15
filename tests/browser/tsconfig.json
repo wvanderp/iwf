@@ -27,6 +27,7 @@
         "types": [
             "cypress"
         ],
-        "allowJs": true
+        "allowJs": true,
+        "sourceMap": false
     }
 }

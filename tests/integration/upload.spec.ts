@@ -11,6 +11,7 @@ import {
     getToken,
     upload
 } from '../../src';
+
 import {
     exampleCommonsMediaSnak,
     exampleExternalIdSnak,
