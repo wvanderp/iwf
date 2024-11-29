@@ -2,10 +2,12 @@ import { GeoShapeSnak as WikidataGeoShapeSnak } from '@wmde/wikibase-datamodel-t
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
+const dataType = 'geo-shape';
+
 /**
- * class for the GeoShapeSnak
+ * Class for the GeoShapeSnak
  *
- * most used property of this type P3896 (geoshape)
+ * Most used property of this type P3896 (geoshape)
  *
  * @class
  */
@@ -13,7 +15,7 @@ export default class GeoShapeSnak extends Snak {
     /** the wiki commons file name */
     fileName: string | null;
 
-    datatype = 'geo-shape';
+    datatype = dataType;
 
     /**
      * @param {WikidataGeoShapeSnak} snak the snak for this class in json format
@@ -47,11 +49,11 @@ export default class GeoShapeSnak extends Snak {
             property: this.property,
             hash: this.hash,
             datavalue: this.hasValue ? {
-                value: this.fileName,
-                type: 'string'
+                value: this.fileName as string,
+                type: 'string' as const
             } : undefined,
-            datatype: this.datatype
-        }) as WikidataGeoShapeSnak;
+            datatype: dataType
+        });
     }
 
     /**

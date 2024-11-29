@@ -3,9 +3,9 @@ import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * class for the TabularDataSnak
+ * Class for the TabularDataSnak
  *
- * most used property of this type P4150 (weather history)
+ * Most used property of this type P4150 (weather history)
  *
  * @class
  */

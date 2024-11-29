@@ -3,10 +3,12 @@ import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
+const dataType = 'monolingualtext';
+
 /**
- * class for the MonolingualTextSnak
+ * Class for the MonolingualTextSnak
  *
- * most used property of this type P1476 (title)
+ * Most used property of this type P1476 (title)
  *
  * @class
  */
@@ -17,7 +19,7 @@ export default class MonolingualTextSnak extends Snak {
     /** the language of the value */
     language: string | undefined;
 
-    datatype = 'monolingualtext';
+    datatype = dataType;
 
     /**
      *
@@ -45,13 +47,13 @@ export default class MonolingualTextSnak extends Snak {
             hash: this.hash,
             datavalue: this.hasValue ? {
                 value: {
-                    text: this.text,
-                    language: this.language
+                    text: this.text as string,
+                    language: this.language as MonolingualLanguages
                 },
-                type: 'monolingualtext'
+                type: 'monolingualtext' as const
             } : undefined,
-            datatype: this.datatype
-        }) as WikidataMonolingualTextSnak;
+            datatype: dataType
+        });
     }
 
     /**
@@ -90,7 +92,7 @@ export default class MonolingualTextSnak extends Snak {
                 },
                 type: 'monolingualtext'
             },
-            datatype: 'monolingualtext'
+            datatype: dataType
         });
     }
 }

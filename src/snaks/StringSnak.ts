@@ -4,9 +4,9 @@ import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * class for the StringSnak
+ * Class for the StringSnak
  *
- * most used property of this type P1545 (series ordinal)
+ * Most used property of this type P1545 (series ordinal)
  *
  * @class
  */

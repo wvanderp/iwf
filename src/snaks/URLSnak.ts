@@ -5,9 +5,9 @@ import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * class for the URLSnak
+ * Class for the URLSnak
  *
- * most used property of this type P854 (reference URL)
+ * Most used property of this type P854 (reference URL)
  *
  * @class
  */

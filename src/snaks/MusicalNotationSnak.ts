@@ -2,17 +2,19 @@ import { MusicalNotationSnak as WikidataMusicalNotationSnak } from '@wmde/wikiba
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
+const dataType = 'musical-notation';
+
 /**
- * class for the MusicalNotationSnak
+ * Class for the MusicalNotationSnak
  *
- * most used property of this type P6883 (LilyPond notation)
+ * Most used property of this type P6883 (LilyPond notation)
  *
  * @class
  */
 export default class MusicalNotationSnak extends Snak {
     value: string | undefined;
 
-    datatype = 'musical-notation';
+    datatype = dataType;
 
     /**
      * @param {WikidataMusicalNotationSnak} snak the snak for this class in json format
@@ -37,11 +39,11 @@ export default class MusicalNotationSnak extends Snak {
             property: this.property,
             hash: this.hash,
             datavalue: this.hasValue ? {
-                value: this.value,
-                type: 'string'
+                value: this.value as string,
+                type: 'string' as const
             } : undefined,
-            datatype: this.datatype
-        }) as WikidataMusicalNotationSnak;
+            datatype: dataType
+        });
     }
 
     /**

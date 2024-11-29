@@ -28,9 +28,9 @@ export function formatISOString(year: number, month: number, day: number): strin
 }
 
 /**
- * class for the TimeSnak
+ * Class for the TimeSnak
  *
- * most used property of this type P1619 (date of official opening)
+ * Most used property of this type P1619 (date of official opening)
  *
  * @class
  */

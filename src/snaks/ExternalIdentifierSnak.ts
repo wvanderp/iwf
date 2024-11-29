@@ -3,17 +3,19 @@ import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
+const dataType = 'external-id';
+
 /**
- * class for the ExternalIdentifierSnak
+ * Class for the ExternalIdentifierSnak
  *
- * most used property of this type P698 (PubMed ID)
+ * Most used property of this type P698 (PubMed ID)
  *
  * @class
  */
 export default class ExternalIdentifierSnak extends Snak {
     id: string | null;
 
-    datatype = 'external-id';
+    datatype = dataType;
 
     /**
      * @param {WikidataExternalIdentifierSnak} snak the snak for this class in json format
@@ -38,11 +40,11 @@ export default class ExternalIdentifierSnak extends Snak {
             property: this.property,
             hash: this.hash,
             datavalue: this.hasValue ? {
-                value: this.id,
-                type: 'string'
+                value: this.id as string,
+                type: 'string' as const
             } : undefined,
-            datatype: this.datatype
-        }) as WikidataExternalIdentifierSnak;
+            datatype: dataType
+        });
     }
 
     /**
@@ -73,7 +75,7 @@ export default class ExternalIdentifierSnak extends Snak {
         return new ExternalIdentifierSnak({
             snaktype: 'value',
             property,
-            datatype: 'external-id',
+            datatype: dataType,
             datavalue: {
                 value: id,
                 type: 'string'

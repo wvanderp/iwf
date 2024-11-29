@@ -1,11 +1,14 @@
 import { CommonsMediaSnak as WikidataCommonsMediaSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
+import { PString } from '../types/strings';
+
+const dataType = 'commonsMedia';
 
 /**
- * class for the CommonsMediaSnak
+ * Class for the CommonsMediaSnak
  *
- * most used property of this type P18 (image)
+ * Most used property of this type P18 (image)
  *
  * @class
  */
@@ -13,7 +16,7 @@ export default class CommonsMediaSnak extends Snak {
     /** the file name as used in the wiki commons url */
     fileName: string | null;
 
-    datatype = 'commonsMedia';
+    datatype = dataType;
 
     /**
      * @param {WikidataCommonsMediaSnak} snak the snak for this class in json format
@@ -57,11 +60,11 @@ export default class CommonsMediaSnak extends Snak {
             property: this.property,
             hash: this.hash,
             datavalue: this.hasValue ? {
-                value: this.fileName,
-                type: 'string'
+                value: this.fileName as string,
+                type: 'string' as const
             } : undefined,
-            datatype: this.datatype
-        }) as WikidataCommonsMediaSnak;
+            datatype: dataType
+        });
     }
 
     /**
@@ -76,5 +79,27 @@ export default class CommonsMediaSnak extends Snak {
      */
     equals(other: CommonsMediaSnak): boolean {
         return this.fileName === other.fileName && this.property === other.property;
+    }
+
+    /**
+     * create a snak from a property and a file name
+     *
+     * @static
+     * @param {PString} property the property of the snak in 'P-form'
+     * @param {string} fileName the file name
+     * @returns {CommonsMediaSnak} a snak with the given properties
+     * @example
+     *   const snak = CommonsMediaSnak.fromFileName('P18', 'Example.jpg');
+     */
+    static fromFileName(property: PString, fileName: string): CommonsMediaSnak {
+        return new CommonsMediaSnak({
+            snaktype: 'value',
+            property,
+            datatype: dataType,
+            datavalue: {
+                value: fileName,
+                type: 'string'
+            }
+        });
     }
 }

@@ -2,10 +2,12 @@ import { GlobeCoordinateSnak as WikidataGlobeCoordinateSnak } from '@wmde/wikiba
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
+const dataType = 'globe-coordinate';
+
 /**
- * class for the GlobeCoordinateSnak
+ * Class for the GlobeCoordinateSnak
  *
- * most used property of this type P625 (coordinate location)
+ * Most used property of this type P625 (coordinate location)
  *
  * @class
  */
@@ -28,7 +30,7 @@ export default class GlobeCoordinateSnak extends Snak {
      */
     globe: string | undefined;
 
-    datatype = 'globe-coordinate';
+    datatype = dataType;
 
     /**
      * @param {WikidataGlobeCoordinateSnak} snak the snak for this class in json format
@@ -58,16 +60,16 @@ export default class GlobeCoordinateSnak extends Snak {
             hash: this.hash,
             datavalue: this.hasValue ? {
                 value: {
-                    latitude: this.latitude,
-                    longitude: this.longitude,
-                    altitude: this.altitude,
-                    precision: this.precision,
-                    globe: this.globe
+                    latitude: this.latitude as number,
+                    longitude: this.longitude as number,
+                    altitude: this.altitude as null,
+                    precision: this.precision as number,
+                    globe: this.globe as string
                 },
                 type: 'globecoordinate' as const
             } : undefined,
-            datatype: this.datatype
-        }) as WikidataGlobeCoordinateSnak;
+            datatype: dataType
+        });
     }
 
     /**

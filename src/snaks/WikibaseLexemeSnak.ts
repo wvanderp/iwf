@@ -1,37 +1,39 @@
-import { WikibaseItemSnak as WikidataWikibaseItemSnak } from '@wmde/wikibase-datamodel-types';
+import { WikiBaseLexemeSnak as WikidataWikiBaseLexemeSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
-import { PString, QString } from '../types/strings';
+import { LString, PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * Class for the WikibaseItemSnak
+ * Class for the WikibaseLexeme
  *
- * Most used property of this type P2860 (cites work)
+ * Most used property of this type ...
  *
  * @class
  */
-export default class WikibaseItemSnak extends Snak {
-    private _numericID: number | undefined;
+export default class WikibaseLexemeSnak extends Snak {
+    _numericID: number | undefined;
 
-    datatype = 'wikibase-item';
+    datatype = 'wikibase-lexeme';
 
     /**
-     * @param {WikidataWikibaseItemSnak} snak the snak for this class in json format
+     * @param {WikidataWikiBaseLexemeSnak} snak the snak for this class in json format
      * @example
-     *     const snak = new WikibaseItemSnak(snak);
+     *  const snak = new WikibaseLexemeSnak(json);
      */
-    constructor(snak: WikidataWikibaseItemSnak) {
+    constructor(snak: WikidataWikiBaseLexemeSnak) {
         super(snak);
 
         this._numericID = snak.datavalue?.value['numeric-id'];
     }
 
     /**
+     * the lexeme id will be prefixed with L
+     *
      * @alias id
      * @returns {string | undefined} the value of the snak
      */
     public get id(): string | undefined {
-        return this.hasValue ? `Q${this._numericID}` : undefined;
+        return this.hasValue ? `L${this._numericID}` : undefined;
     }
 
     /**
@@ -70,59 +72,59 @@ export default class WikibaseItemSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataWikibaseItemSnak} the snak as json
+     * @returns {WikidataWikiBaseLexemeSnak} the snak as json
      * @example
-     *      const json = itemSnak.toJson();
+     *      const json = WikibaseLexemeSnak.toJson();
      */
-    toJSON(): WikidataWikibaseItemSnak {
+    toJSON(): WikidataWikiBaseLexemeSnak {
         return normalizeOutput({
             snaktype: this.snaktype,
             property: this.property,
             hash: this.hash,
             datavalue: this.hasValue ? {
                 value: {
-                    'entity-type': 'item' as const,
+                    'entity-type': 'lexeme',
                     'numeric-id': this._numericID,
                     id: this.id
                 },
-                type: 'wikibase-entityid' as const
+                type: 'wikibase-entityid'
             } : undefined,
             datatype: this.datatype
-        }) as WikidataWikibaseItemSnak;
+        }) as WikidataWikiBaseLexemeSnak;
     }
 
     /**
      * this function checks if two snaks are equal
      *
-     * @param {WikibaseItemSnak} other the other snak
+     * @param {WikibaseLexemeSnak} other the other snak
      * @returns {boolean} true if the snaks are equal
      * @example
-     *    if (snak.equals(other)) {
+     *    if (WikibaseLexemeSnak.equals(other)) {
      *     // do something
      *   }
      */
-    equals(other: WikibaseItemSnak): boolean {
+    equals(other: WikibaseLexemeSnak): boolean {
         return this._numericID === other._numericID && this.property === other.property;
     }
 
     /**
-     * create a snak from some basic data
+     * Create a new instance of the class from some basic data
      *
      * @static
      * @param {PString} property the property of the snak in 'P-form'
-     * @param {QString} id the Wikibase item id in the `Q-form`
-     * @returns {WikibaseItemSnak} a snak with the given properties
+     * @param {LString} id the id of the lexeme in 'L-form'
+     * @returns {WikibaseLexemeSnak} a new instance of the class
      * @example
-     *    const snak = WikibaseItemSnak.fromData('P2860', 'Q42');
+     *      const snak = WikibaseLexemeSnak.fromData('P1', 'L1');
      */
-    static fromID(property: PString, id: QString): WikibaseItemSnak {
-        return new WikibaseItemSnak({
+    static fromData(property: PString, id: LString): WikibaseLexemeSnak {
+        return new WikibaseLexemeSnak({
             snaktype: 'value',
             property,
-            datatype: 'wikibase-item',
+            datatype: 'wikibase-lexeme',
             datavalue: {
                 value: {
-                    'entity-type': 'item',
+                    'entity-type': 'lexeme',
                     'numeric-id': Number.parseInt(id.slice(1), 10),
                     id
                 },

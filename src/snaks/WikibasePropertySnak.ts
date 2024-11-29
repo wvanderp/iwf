@@ -4,9 +4,9 @@ import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * class for the wikibase property snak
+ * Class for the wikibase property snak
  *
- * most used property of this type P1659 (see also)
+ * Most used property of this type P1659 (see also)
  *
  * @class
  */

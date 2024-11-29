@@ -2,10 +2,12 @@ import { MathSnak as WikidataMathSnak } from '@wmde/wikibase-datamodel-types';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
+const dataType = 'math';
+
 /**
- * class for the MathSnak
+ * Class for the MathSnak
  *
- * most used property of this type P2534 (defining formula)
+ * Most used property of this type P2534 (defining formula)
  *
  * @class
  */
@@ -13,7 +15,7 @@ export default class MathSnak extends Snak {
     /** A math expression */
     value: string | undefined;
 
-    datatype = 'math';
+    datatype = dataType;
 
     /**
      * @param {WikidataMathSnak} snak the snak for this class in json format
@@ -38,11 +40,11 @@ export default class MathSnak extends Snak {
             property: this.property,
             hash: this.hash,
             datavalue: this.hasValue ? {
-                value: this.value,
-                type: 'string'
+                value: this.value as string,
+                type: 'string' as const
             } : undefined,
-            datatype: this.datatype
-        }) as WikidataMathSnak;
+            datatype: dataType
+        });
     }
 
     /**

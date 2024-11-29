@@ -13,6 +13,9 @@ import TimeSnak from '../../snaks/TimeSnak';
 import URLSnak from '../../snaks/URLSnak';
 import WikibaseItemSnak from '../../snaks/WikibaseItemSnak';
 import WikibasePropertySnak from '../../snaks/WikibasePropertySnak';
+import EntitySchemaSnak from '../../snaks/EntitySchemaSnak';
+import WikibaseSenseSnak from '../../snaks/WikibaseSenseSnak';
+import WikibaseLexemeSnak from '../../snaks/WikibaseLexemeSnak';
 
 /**
  *
@@ -194,4 +197,43 @@ export function isWikibaseItemSnak(snak: Snak): snak is WikibaseItemSnak {
  */
 export function isWikibasePropertySnak(snak: Snak): snak is WikibasePropertySnak {
     return snak instanceof WikibasePropertySnak;
+}
+
+/**
+ *
+ * @param {Snak} snak the snak to check
+ * @returns {snak is EntitySchemaSnak} true if the snak is a EntitySchemaSnak
+ * @example
+ * if (isEntitySchemaSnak(snak)) {
+ *  // do something
+ * }
+ */
+export function isEntitySchemaSnak(snak: Snak): snak is EntitySchemaSnak {
+    return snak instanceof EntitySchemaSnak;
+}
+
+/**
+ *
+ * @param {Snak} snak the snak to check
+ * @returns {snak is WikibaseSenseSnak} true if the snak is a WikibaseSenseSnak
+ * @example
+ * if (isWikibaseSenseSnak(snak)) {
+ *  // do something
+ * }
+ */
+export function isWikibaseSenseSnak(snak: Snak): snak is WikibaseSenseSnak {
+    return snak instanceof WikibaseSenseSnak;
+}
+
+/**
+ *
+ * @param {Snak} snak the snak to check
+ * @returns {snak is WikibaseLexemeSnak} true if the snak is a WikibaseLexemeSnak
+ * @example
+ * if (isWikibaseLexemeSnak(snak)) {
+ *  // do something
+ * }
+ */
+export function isWikibaseLexemeSnak(snak: Snak): snak is WikibaseLexemeSnak {
+    return snak instanceof WikibaseLexemeSnak;
 }

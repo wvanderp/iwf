@@ -25,17 +25,21 @@ function formatNumberFromNumber(amount: number): string {
  * @param amount the number that should be formatted
  * @returns the formatted number as a string
  */
-function formatNumberFromString(amount: string): string {
+function formatNumberFromString(amount: string | undefined): string {
+    if (!amount) throw new Error('amount is undefined');
+
     if (amount.startsWith('+') || amount.startsWith('-')) {
         return amount;
     }
     return `+${amount}`;
 }
 
+const dataType = 'quantity';
+
 /**
- * class for the QuantitySnak
+ * Class for the QuantitySnak
  *
- * most used property of this type P1215 (apparent magnitude)
+ * Most used property of this type P1215 (apparent magnitude)
  *
  * @class
  */
@@ -46,9 +50,9 @@ export default class QuantitySnak extends Snak {
 
     private _lowerBound: string | undefined = undefined;
 
-    unit: string | undefined;
+    unit: string;
 
-    datatype = 'quantity';
+    datatype = dataType;
 
     /**
      * @param {WikidataQuantitySnak} snak the snak for this class in json format
@@ -80,6 +84,10 @@ export default class QuantitySnak extends Snak {
         this._amount = amount ? formatNumberFromString(amount) : undefined;
         this._upperBound = upperBound ? formatNumberFromString(upperBound) : undefined;
         this._lowerBound = lowerBound ? formatNumberFromString(lowerBound) : undefined;
+
+        if (!snak.datavalue?.value.unit) {
+            throw new Error('unit is not defined');
+        }
 
         this.unit = snak.datavalue?.value.unit;
     }
@@ -154,15 +162,15 @@ export default class QuantitySnak extends Snak {
             hash: this.hash,
             datavalue: this.hasValue ? {
                 value: {
-                    amount: this._amount ? formatNumberFromString(this._amount) : undefined,
+                    amount: formatNumberFromString(this._amount),
                     unit: this.unit,
                     upperBound: this._upperBound ? formatNumberFromString(this._upperBound) : undefined,
                     lowerBound: this._lowerBound ? formatNumberFromString(this._lowerBound) : undefined,
                 },
-                type: 'quantity'
+                type: 'quantity' as const
             } : undefined,
-            datatype: this.datatype
-        }) as WikidataQuantitySnak;
+            datatype: dataType
+        });
     }
 
     /**

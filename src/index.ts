@@ -8,6 +8,7 @@ export { default as SiteLink } from './SiteLink';
 export { default as Snak } from './Snak';
 
 export { default as CommonsMediaSnak } from './snaks/CommonsMediaSnak';
+export { default as EntitySchemaSnak } from './snaks/EntitySchemaSnak';
 export { default as ExternalIdentifierSnak } from './snaks/ExternalIdentifierSnak';
 export { default as GeoShapeSnak } from './snaks/GeoShapeSnak';
 export { default as GlobeCoordinateSnak } from './snaks/GlobeCoordinateSnak';
@@ -20,21 +21,34 @@ export { default as TabularDataSnak } from './snaks/TabularDataSnak';
 export { default as TimeSnak } from './snaks/TimeSnak';
 export { default as URLSnak } from './snaks/URLSnak';
 export { default as WikibaseItemSnak } from './snaks/WikibaseItemSnak';
+export { default as WikibaseLexemeSnak } from './snaks/WikibaseLexemeSnak';
 export { default as WikibasePropertySnak } from './snaks/WikibasePropertySnak';
+export { default as WikibaseSenseSnak } from './snaks/WikibaseSenseSnak';
 
 export { default as requestItem } from './utils/api/request';
 export { default as upload } from './utils/api/upload';
 export { default as getToken } from './utils/api/token';
 
-export { QString } from './types/strings';
-export { PString } from './types/strings';
+export {
+    QString,
+    PString,
+    EString,
+    LString,
+    SenseString,
+} from './types/strings';
 
-export { isQString } from './utils/guards/strings';
-export { isPString } from './utils/guards/strings';
+export {
+    isQString,
+    isPString,
+    isEString,
+    isLString,
+    isSenseString,
+} from './utils/guards/strings';
 export { default as isStatementChange } from './utils/guards/Changes';
 
 export {
     isCommonsMediaSnak,
+    isEntitySchemaSnak,
     isExternalIdentifierSnak,
     isGeoShapeSnak,
     isGlobeCoordinateSnak,
@@ -47,5 +61,7 @@ export {
     isTimeSnak,
     isURLSnak,
     isWikibaseItemSnak,
+    isWikibaseLexemeSnak,
     isWikibasePropertySnak,
+    isWikibaseSenseSnak,
 } from './utils/guards/snak';
