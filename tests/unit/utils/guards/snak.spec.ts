@@ -1,5 +1,6 @@
 import {
     exampleCommonsMediaSnak,
+    exampleEntitySchemaSnak,
     exampleExternalIdSnak,
     exampleGeoShapeSnak,
     exampleGlobeCoordinateSnak,
@@ -12,10 +13,13 @@ import {
     exampleTimeSnak,
     exampleUrlSnak,
     exampleWikibaseItemSnak,
-    exampleWikibasePropertySnak
+    exampleWikibaseLexemeSnak,
+    exampleWikibasePropertySnak,
+    exampleWikibaseSenseSnak
 } from '../../testUtils/examples/snaks';
 import {
     isCommonsMediaSnak,
+    isEntitySchemaSnak,
     isExternalIdentifierSnak,
     isGeoShapeSnak,
     isGlobeCoordinateSnak,
@@ -28,7 +32,9 @@ import {
     isTimeSnak,
     isURLSnak,
     isWikibaseItemSnak,
-    isWikibasePropertySnak
+    isWikibaseLexemeSnak,
+    isWikibasePropertySnak,
+    isWikibaseSenseSnak
 } from '../../../../src/utils/guards/snak';
 
 describe(
@@ -171,5 +177,35 @@ describe('isWikibasePropertySnak', function () {
 
     it('should return false if the snak is not a isWikibasePropertySnak', function () {
         expect(isWikibasePropertySnak(exampleCommonsMediaSnak)).toBe(false);
+    });
+});
+
+describe('isWikibaseSenseSnak', function () {
+    it('should return true if the snak is a WikibaseSenseSnak', function () {
+        expect(isWikibaseSenseSnak(exampleWikibaseSenseSnak)).toBe(true);
+    });
+
+    it('should return false if the snak is not a isWikibaseSenseSnak', function () {
+        expect(isWikibaseSenseSnak(exampleCommonsMediaSnak)).toBe(false);
+    });
+});
+
+describe('isWikibaseLexemeSnak', function () {
+    it('should return true if the snak is a WikibaseLexemeSnak', function () {
+        expect(isWikibaseLexemeSnak(exampleWikibaseLexemeSnak)).toBe(true);
+    });
+
+    it('should return false if the snak is not a isWikibaseLexemeSnak', function () {
+        expect(isWikibaseLexemeSnak(exampleCommonsMediaSnak)).toBe(false);
+    });
+});
+
+describe('isEntitySchemaSnak', function () {
+    it('should return true if the snak is a EntitySchemaSnak', function () {
+        expect(isEntitySchemaSnak(exampleEntitySchemaSnak)).toBe(true);
+    });
+
+    it('should return false if the snak is not a isEntitySchemaSnak', function () {
+        expect(isEntitySchemaSnak(exampleCommonsMediaSnak)).toBe(false);
     });
 });

@@ -12,7 +12,6 @@ declare global {
 
 const testServer = 'https://test.wikidata.org';
 
-
 async function login(username: string, password: string): Promise<void> {
     const token = await getToken(username, password, {
         server: testServer,

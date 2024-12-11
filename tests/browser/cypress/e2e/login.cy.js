@@ -1,5 +1,5 @@
-describe('template spec', () => {
-    it('passes', () => {
+describe('logging in', () => {
+    it('should log in', () => {
         cy.visit('http://localho.st:1234/login.html');
 
         // The following code is injected into the page and executed in the browser
@@ -14,6 +14,7 @@ describe('template spec', () => {
                 console.error(error);
             }
 
+            // eslint-disable-next-line cypress/no-unnecessary-waiting
             cy.wait(5000);
             cy.get('body').should('contain', 'success:');
         });

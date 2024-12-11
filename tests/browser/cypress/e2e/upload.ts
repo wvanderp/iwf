@@ -55,7 +55,7 @@ async function uploadTestPart1(username: string, password: string): Promise<void
     const token = await getTokenForTest(username, password);
 
     // write a empty item
-    let item = Item.fromNothing();
+    const item = Item.fromNothing();
     item.id = testItem;
 
     const uploadedItem = await upload(item, {
@@ -74,7 +74,7 @@ async function uploadTestPart2(username: string, password: string): Promise<void
     const token = await getTokenForTest(username, password);
 
     // get the item
-    let item = await requestItem(testItem);
+    const item = await requestItem(testItem);
 
     // fill the item with stuff
     item.labels.push(
@@ -137,7 +137,6 @@ async function uploadTestPart2(username: string, password: string): Promise<void
 }
 
 async function uploadTestPart3(username: string, password: string): Promise<void> {
-
     // setup the tokens
     const token = await getTokenForTest(username, password);
 

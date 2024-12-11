@@ -12,11 +12,15 @@ import {
     TimeSnak as WikidataTimeSnak,
     URLSnak as WikidataURLSnak,
     WikibaseItemSnak as WikidataWikibaseItemSnak,
-    WikibasePropertySnak as WikidataWikibasePropertySnak
+    WikibasePropertySnak as WikidataWikibasePropertySnak,
+    WikibaseSenseSnak as WikidataWikibaseSenseSnak,
+    WikiBaseLexemeSnak as WikidataWikiBaseLexemeSnak,
+    EntitySchemaSnak as WikidataEntitySchemaSnak
 } from '@wmde/wikibase-datamodel-types';
 
 import {
     CommonsMediaSnak,
+    EntitySchemaSnak,
     ExternalIdentifierSnak,
     GeoShapeSnak,
     GlobeCoordinateSnak,
@@ -29,7 +33,9 @@ import {
     TimeSnak,
     URLSnak,
     WikibaseItemSnak,
-    WikibasePropertySnak
+    WikibaseLexemeSnak,
+    WikibasePropertySnak,
+    WikibaseSenseSnak
 } from '../../../../src';
 
 // CommonsMediaSnak
@@ -219,6 +225,8 @@ const urlJson: WikidataURLSnak = {
 const urlSnak = new URLSnak(urlJson);
 export { urlSnak as exampleUrlSnak };
 
+const wikibaseEntityId = 'wikibase-entityid' as const;
+
 // WikibaseItemSnak
 const wikibaseItemJson: WikidataWikibaseItemSnak = {
     snaktype: 'value',
@@ -229,7 +237,7 @@ const wikibaseItemJson: WikidataWikibaseItemSnak = {
             'numeric-id': 11518,
             id: 'Q11518'
         },
-        type: 'wikibase-entityid'
+        type: wikibaseEntityId
     },
     datatype: 'wikibase-item'
 };
@@ -247,10 +255,62 @@ const wikibasePropertyJson: WikidataWikibasePropertySnak = {
             'numeric-id': 31,
             id: 'P31'
         },
-        type: 'wikibase-entityid'
+        type: wikibaseEntityId
     },
     datatype: 'wikibase-property'
 };
 
 const wikibasePropertySnak = new WikibasePropertySnak(wikibasePropertyJson);
 export { wikibasePropertySnak as exampleWikibasePropertySnak };
+
+// WikibaseSenseSnak
+const wikibaseSenseJson: WikidataWikibaseSenseSnak = {
+    snaktype: 'value',
+    property: 'P5137',
+    datavalue: {
+        value: {
+            id: 'L123-S456',
+            'entity-type': 'sense'
+        },
+        type: wikibaseEntityId
+    },
+    datatype: 'wikibase-sense'
+};
+
+const wikibaseSenseSnak = new WikibaseSenseSnak(wikibaseSenseJson);
+export { wikibaseSenseSnak as exampleWikibaseSenseSnak };
+
+// WikibaseLexemeSnak
+const wikibaseLexemeJson: WikidataWikiBaseLexemeSnak = {
+    snaktype: 'value',
+    property: 'P5185',
+    datavalue: {
+        value: {
+            'entity-type': 'lexeme',
+            'numeric-id': 123,
+            id: 'L123'
+        },
+        type: wikibaseEntityId
+    },
+    datatype: 'wikibase-lexeme'
+};
+
+const wikibaseLexemeSnak = new WikibaseLexemeSnak(wikibaseLexemeJson);
+export { wikibaseLexemeSnak as exampleWikibaseLexemeSnak };
+
+// EntitySchemaSnak
+const entitySchemaJson: WikidataEntitySchemaSnak = {
+    snaktype: 'value',
+    property: 'P2356',
+    datavalue: {
+        value: {
+            id: 'E123',
+            'entity-type': 'entity-schema'
+        },
+        type: wikibaseEntityId
+    },
+    datatype: 'entity-schema'
+};
+
+const entitySchemaSnak = new EntitySchemaSnak(entitySchemaJson);
+export { entitySchemaSnak as exampleEntitySchemaSnak };
