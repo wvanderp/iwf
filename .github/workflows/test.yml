@@ -50,7 +50,7 @@ jobs:
           node-version: 22
 
       - run: npm ci
-      - run: npm run coverage:all
+      - run: npm run coverage
       
       - name: 📊 Codecov
         uses: codecov/codecov-action@v4
