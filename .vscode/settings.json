@@ -54,5 +54,6 @@
         "wikipedia",
         "wmde",
         "wvdp"
-    ]
+    ],
+    "editor.formatOnSave": true
 }

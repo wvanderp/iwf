@@ -56,4 +56,13 @@ describe('Commons Media Snak', () => {
             expect(snak.equals(snak2)).toBe(false);
         });
     });
+
+    describe('fromFileName', () => {
+        it('should create a snak from a file name', () => {
+            const snak = CommonsMediaSnak.fromFileName('P42', 'Flag of Amsterdam.svg');
+
+            expect(snak.fileName).toEqual('Flag of Amsterdam.svg');
+            expect(snak.property).toEqual('P42');
+        });
+    });
 });

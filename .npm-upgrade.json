@@ -1,0 +1,56 @@
+{
+  "ignore": {
+    "@typescript-eslint/eslint-plugin": {
+      "versions": "8.18.1",
+      "reason": "airbnb-eslint"
+    },
+    "@typescript-eslint/parser": {
+      "versions": "8.18.1",
+      "reason": "airbnb-eslint"
+    },
+    "eslint": {
+      "versions": "9.17.0",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-import-resolver-typescript": {
+      "versions": "3.7.0",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-plugin-compat": {
+      "versions": "6.0.2",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-plugin-cypress": {
+      "versions": "4.1.0",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-plugin-import": {
+      "versions": "2.31.0",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-plugin-jest": {
+      "versions": "28.10.0",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-plugin-jsdoc": {
+      "versions": "",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-plugin-jsonc": {
+      "versions": "2.18.2",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-plugin-no-secrets": {
+      "versions": "2.1.1",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-plugin-sonarjs": {
+      "versions": "3.0.1",
+      "reason": "airbnb-eslint"
+    },
+    "eslint-plugin-unicorn": {
+      "versions": "56.0.1",
+      "reason": "airbnb-eslint"
+    }
+  }
+}

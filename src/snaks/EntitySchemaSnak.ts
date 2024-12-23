@@ -25,7 +25,10 @@ export default class EntitySchemaSnak extends Snak {
     constructor(snak: WikidataEntitySchemaSnak) {
         super(snak);
 
-        this._numericID = Number.parseInt(snak.datavalue?.value.id ?? '', 10) || undefined;
+        // the ID is prefixed with E so we need to remove it
+        this._numericID = snak.datavalue?.value.id
+            ? Number.parseInt(snak.datavalue.value.id.slice(1), 10)
+            : undefined;
     }
 
     /**
