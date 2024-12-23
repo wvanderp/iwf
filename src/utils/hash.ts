@@ -12,5 +12,8 @@ import { Sha256 } from '@aws-crypto/sha256-js';
 export default function sha256(input: string): string {
     const hash = new Sha256();
     hash.update(input);
-    return Buffer.from(hash.digestSync()).toString('hex');
+    // Convert the hash to a Uint8Array and then use reduce to convert each byte to a hexadecimal string
+    // padStart ensures each byte is represented by two hexadecimal characters
+    return new Uint8Array(hash.digestSync())
+        .reduce((string_, byte) => string_ + byte.toString(16).padStart(2, '0'), '');
 }

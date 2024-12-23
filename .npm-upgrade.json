@@ -1,11 +1,11 @@
 {
   "ignore": {
     "@typescript-eslint/eslint-plugin": {
-      "versions": "8.18.1",
+      "versions": "",
       "reason": "airbnb-eslint"
     },
     "@typescript-eslint/parser": {
-      "versions": "8.18.1",
+      "versions": "",
       "reason": "airbnb-eslint"
     },
     "eslint": {
