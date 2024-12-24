@@ -5,9 +5,11 @@ import { isQString } from '../guards/strings';
 
 /**
  * @private
- * @param {string} qid the id of the entity
- * @returns {string} the url with qid
+ * @param {string} qid The ID of the entity.
+ * @param {string} server The server to use.
+ * @returns {string} The URL with QID.
  * @example
+ *     const url = baseURL('Q42');
  */
 export function baseURL(qid: string, server = 'https://www.wikidata.org'): string {
     const url = new URL(server);
@@ -17,23 +19,23 @@ export function baseURL(qid: string, server = 'https://www.wikidata.org'): strin
 /**
  * @private
  * @typedef {Object} RequestConfig
- * @property {string} server the server to use
+ * @property {string} server The server to use.
  * @example
  *     const config = {
  *        server: 'https://www.wikidata.org'
  *    }
- *   const item = requestItem('Q42', config)
+ *     const item = requestItem('Q42', config);
  */
 interface RequestConfig {
     server: string;
 }
 
 /**
- * @param {string} qid the id of the entity
- * @param {RequestConfig} config the config object
- * @returns {Promise<Item>} the promise of a wikidata Item
+ * @param {string} qid The ID of the entity.
+ * @param {RequestConfig} config The config object.
+ * @returns {Promise<Item>} The promise of a Wikidata Item.
  * @example
- *      const item = requestItem('Q42')
+ *     const item = requestItem('Q42');
  */
 export default async function requestItem(qid: string, config?: RequestConfig): Promise<Item> {
     if (!qid) throw new Error('No QID provided');

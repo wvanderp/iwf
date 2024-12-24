@@ -90,6 +90,16 @@ describe('getLabel', () => {
 
         expect(findLabel).toEqual(undefined);
     });
+
+    it('should find a label if the selected language is not present but the Multiple language is', () => {
+        const item = Item.fromNothing();
+        item.labels.push(Label.fromString('mul', 'Jesus'));
+
+        const findLabel = item.findLabel('en');
+
+        expect(findLabel?.language).toEqual('mul');
+        expect(findLabel?.value).toEqual('Jesus');
+    });
 });
 
 describe('addStatement', () => {
@@ -377,5 +387,38 @@ describe('diff', () => {
         const diff = item1.diff(item2);
 
         expect(diff).toStrictEqual([]);
+    });
+});
+
+describe('Edge cases according to O1', () => {
+    it('should handle an item with an empty string label', () => {
+        const item1 = Item.fromNothing();
+        item1.labels.push(Label.fromString('en', ''));
+        expect(item1.findLabel('en')?.value).toEqual('');
+    });
+
+    it('should handle removing a statement from an item that has no statements', () => {
+        const item1 = Item.fromNothing();
+        expect(() => item1.removeStatement(Statement.fromSnak(WikibaseItemSnak.fromID('P1', 'Q1')))).not.toThrow();
+    });
+
+    it('should handle adding multiple identical statements', () => {
+        const item1 = Item.fromNothing();
+        const s1 = Statement.fromSnak(WikibaseItemSnak.fromID('P1', 'Q1'));
+        item1.addStatement(s1);
+        item1.addStatement(s1);
+        expect(item1.statements.length).toBe(2);
+    });
+
+    it('should consider items with statements in different order as equal if statements are the same', () => {
+        const item1 = Item.fromNothing();
+        const item2 = Item.fromNothing();
+        const s1 = Statement.fromSnak(WikibaseItemSnak.fromID('P1', 'Q1'));
+        const s2 = Statement.fromSnak(WikibaseItemSnak.fromID('P2', 'Q2'));
+
+        item1.addStatement([s1, s2]);
+        item2.addStatement([s2, s1]);
+
+        expect(item1.equals(item2)).toBe(false);
     });
 });

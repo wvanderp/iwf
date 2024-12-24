@@ -56,4 +56,32 @@ describe('EntitySchemaSnak', () => {
             expect(snak.property).toEqual('P2013');
         });
     });
+
+    describe('id setter', () => {
+        it('should set snaktype to novalue when id is undefined', () => {
+            const snak = new EntitySchemaSnak(EntitySnak);
+            snak.id = undefined;
+            expect(snak.snaktype).toBe('novalue');
+            expect(snak.id).toBeUndefined();
+        });
+
+        it('should update the id correctly when set to a new E value', () => {
+            const snak = new EntitySchemaSnak(EntitySnak);
+            snak.id = 'E999999';
+            expect(snak.id).toBe('E999999');
+        });
+    });
+
+    describe('numericID property', () => {
+        it('should return the correct numericID', () => {
+            const snak = new EntitySchemaSnak(EntitySnak);
+            expect(snak.numericID).toBe(123456);
+        });
+
+        it('should set the numericID correctly', () => {
+            const snak = new EntitySchemaSnak(EntitySnak);
+            snak.numericID = 999999;
+            expect(snak.numericID).toBe(999999);
+        });
+    });
 });

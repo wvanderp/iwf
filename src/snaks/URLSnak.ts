@@ -5,9 +5,9 @@ import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * Class for the URLSnak
+ * Class for the URLSnak.
  *
- * Most used property of this type P854 (reference URL)
+ * Most used property of this type is P854 (reference URL).
  *
  * @class
  */
@@ -17,7 +17,7 @@ export default class URLSnak extends Snak {
     datatype = 'url';
 
     /**
-     * @param {WikidataURLSnak} snak the snak for this class in json format
+     * @param {WikidataURLSnak} snak The snak for this class in JSON format.
      * @example
      *     const snak = new URLSnak(json);
      */
@@ -28,10 +28,10 @@ export default class URLSnak extends Snak {
     }
 
     /**
-     * the value will be url encoded
+     * The value will be URL encoded.
      *
      * @alias url
-     * @returns {string | undefined} the value of the snak
+     * @returns {string | undefined} The value of the snak.
      */
     get value(): string | undefined {
         if (!this.url) return undefined;
@@ -40,7 +40,7 @@ export default class URLSnak extends Snak {
 
     /**
      * @alias url
-     * @param {string | undefined} value the value of the snak
+     * @param {string | undefined} value The value of the snak.
      */
     set value(value: string | undefined) {
         this.url = value;
@@ -48,9 +48,9 @@ export default class URLSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataURLSnak} the snak as json
+     * @returns {WikidataURLSnak} The snak as JSON.
      * @example
-     *      const json = urlSnak.toJson();
+     *      const json = urlSnak.toJSON();
      */
     toJSON(): WikidataURLSnak {
         return normalizeOutput({
@@ -66,28 +66,26 @@ export default class URLSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {URLSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {URLSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *   if (urlSnak.equals(other)) {
      *     // do something
      *   }
      */
     equals(other: URLSnak): boolean {
-        return this.value === other.value && this.property === other.property;
+        return this.url === other.url && this.property === other.property;
     }
 
     /**
      * @static
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {string} url the url
-     * @returns {URLSnak} a snak with the given properties
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {string} url The URL.
+     * @returns {URLSnak} A snak with the given properties.
      * @example
-     *    if (snak.equals(other)) {
-     *     // do something
-     *   }
+     *    const snak = URLSnak.fromURL('P854', 'https://example.com');
      */
     static fromURL(property: PString, url: string): URLSnak {
         return new URLSnak({

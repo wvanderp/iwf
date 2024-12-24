@@ -5,20 +5,20 @@ import normalizeOutput from '../utils/normalizeOutput';
 const dataType = 'geo-shape';
 
 /**
- * Class for the GeoShapeSnak
+ * Class for the GeoShapeSnak.
  *
- * Most used property of this type P3896 (geoshape)
+ * Most used property of this type is P3896 (geoshape).
  *
  * @class
  */
 export default class GeoShapeSnak extends Snak {
-    /** the wiki commons file name */
+    /** The Wikimedia Commons file name */
     fileName: string | null;
 
     datatype = dataType;
 
     /**
-     * @param {WikidataGeoShapeSnak} snak the snak for this class in json format
+     * @param {WikidataGeoShapeSnak} snak The snak for this class in JSON format.
      * @example
      *   const snak = new GeoShapeSnak(json);
      */
@@ -29,19 +29,20 @@ export default class GeoShapeSnak extends Snak {
     }
 
     /**
-     * gets the link to the wiki commons page
+     * Gets the link to the Wikimedia Commons page.
      *
-     * @returns {string} the link to the wiki commons page
+     * @returns {string} The link to the Wikimedia Commons page.
      */
     public get commonsLink(): string {
         return `https://commons.wikimedia.org/wiki/${this.fileName}`;
     }
 
     /**
+     * Converts the snak to JSON format.
      *
-     * @returns {WikidataGeoShapeSnak} the snak as json
+     * @returns {WikidataGeoShapeSnak} The snak as JSON.
      * @example
-     *      const json = geoShapeSnak.toJson();
+     *      const json = geoShapeSnak.toJSON();
      */
     toJSON(): WikidataGeoShapeSnak {
         return normalizeOutput({
@@ -57,10 +58,10 @@ export default class GeoShapeSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * Checks if two snaks are equal.
      *
-     * @param {GeoShapeSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {GeoShapeSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something

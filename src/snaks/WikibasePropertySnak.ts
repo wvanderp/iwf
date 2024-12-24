@@ -4,20 +4,20 @@ import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * Class for the wikibase property snak
+ * Class for the WikibasePropertySnak.
  *
- * Most used property of this type P1659 (see also)
+ * Most used property of this type P1659 (see also).
  *
  * @class
  */
 export default class WikibasePropertySnak extends Snak {
-    /** the numeric id of the property */
+    /** The numeric ID of the property */
     private _numericID: number | undefined;
 
     datatype = 'wikibase-property';
 
     /**
-     * @param {WikidataWikibasePropertySnak} snak the snak for this class in json format
+     * @param {WikidataWikibasePropertySnak} snak The snak for this class in JSON format.
      * @example
      *   const snak = new WikibasePropertySnak(snak);
      */
@@ -28,19 +28,19 @@ export default class WikibasePropertySnak extends Snak {
     }
 
     /**
-     * returns the ID of the property with the P
+     * Returns the ID of the property with the P.
      *
-     * @returns {PString | undefined} the ID of the property with the P
+     * @returns {PString | undefined} The ID of the property with the P.
      */
     public get id(): PString | undefined {
         return this.hasValue && this._numericID ? `P${this._numericID}` : undefined;
     }
 
     /**
-     * This function parses the string by slicing the first char and then number.parseInt
-     * if value is undefined it also sets the snaktype to 'novalue
+     * This function parses the string by slicing the first char and then Number.parseInt.
+     * If value is undefined, it also sets the snaktype to 'novalue'.
      *
-     * @property {PString | undefined} value the value that you want to set
+     * @property {PString | undefined} value The value that you want to set.
      */
     public set id(value: PString | undefined) {
         if (value === undefined) {
@@ -53,18 +53,18 @@ export default class WikibasePropertySnak extends Snak {
     }
 
     /**
-     * returns the numeric part of the property
+     * Returns the numeric part of the property.
      *
-     * @returns {number | undefined} the numeric ID of the property
+     * @returns {number | undefined} The numeric ID of the property.
      */
     public get numericID(): number | undefined {
         return this._numericID;
     }
 
     /**
-     * if value is undefined it also sets the snaktype to 'novalue
+     * If value is undefined, it also sets the snaktype to 'novalue'.
      *
-     * @property {number | undefined} value the numeric id to be set in the snak
+     * @property {number | undefined} value The numeric ID to be set in the snak.
      */
     public set numericID(value: number | undefined) {
         if (value === undefined) {
@@ -76,7 +76,7 @@ export default class WikibasePropertySnak extends Snak {
 
     /**
      *
-     * @returns {WikidataWikibasePropertySnak} the snak as json
+     * @returns {WikidataWikibasePropertySnak} The snak as JSON.
      * @example
      *      const json = propertySnak.toJson();
      */
@@ -98,10 +98,10 @@ export default class WikibasePropertySnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {WikibasePropertySnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {WikibasePropertySnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something

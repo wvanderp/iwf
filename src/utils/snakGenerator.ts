@@ -33,12 +33,12 @@ import WikibaseItemSnak from '../snaks/WikibaseItemSnak';
 import WikibasePropertySnak from '../snaks/WikibasePropertySnak';
 
 /**
- * this function takes the json version of a snak and passes it to the proper constructor
+ * This function takes the JSON version of a snak and passes it to the proper constructor.
  *
  * @private
- * @param {wikidataSnak} snak the snak that needs a constructor
- * @throws {Error} if the snak type is not supported
- * @returns {Snaks} the snak as a class
+ * @param {wikidataSnak} snak The snak that needs a constructor.
+ * @throws {Error} If the snak type is not supported.
+ * @returns {Snaks} The snak as a class.
  */
 export default function snakGenerator(snak: wikidataSnak): Snaks {
     switch (snak.datatype) {
@@ -99,7 +99,7 @@ export default function snakGenerator(snak: wikidataSnak): Snaks {
         }
 
         default: {
-            throw new Error(`the value of ${snak.datatype} is not a valid snak type`);
+            throw new Error(`The value of ${snak.datatype} is not a valid snak type.`);
         }
     }
 }

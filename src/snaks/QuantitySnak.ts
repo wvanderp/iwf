@@ -4,11 +4,11 @@ import { PString, QString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * this function mainly exist because wikidata has the weird habit of indicating positive numbers with the plus sign (+)
+ * This function mainly exists because Wikidata has the weird habit of indicating positive numbers with the plus sign (+).
  *
  * @private
- * @param {number} amount the number that should be formatted
- * @returns {string} the formatted number as a string
+ * @param {number} amount The number that should be formatted.
+ * @returns {string} The formatted number as a string.
  */
 function formatNumberFromNumber(amount: number): string {
     if (amount >= (0)) {
@@ -18,12 +18,12 @@ function formatNumberFromNumber(amount: number): string {
 }
 
 /**
- * this function also mainly exist because wikidata has the weird habit of indicating positive numbers with the plus sign (+)
- * but this one works on strings
+ * This function also mainly exists because Wikidata has the weird habit of indicating positive numbers with the plus sign (+),
+ * but this one works on strings.
  *
  * @private
- * @param amount the number that should be formatted
- * @returns the formatted number as a string
+ * @param {string | undefined} amount The number that should be formatted.
+ * @returns {string} The formatted number as a string.
  */
 function formatNumberFromString(amount: string | undefined): string {
     if (!amount) throw new Error('amount is undefined');
@@ -37,9 +37,9 @@ function formatNumberFromString(amount: string | undefined): string {
 const dataType = 'quantity';
 
 /**
- * Class for the QuantitySnak
+ * Class for the QuantitySnak.
  *
- * Most used property of this type P1215 (apparent magnitude)
+ * Most used property of this type is P1215 (apparent magnitude).
  *
  * @class
  */
@@ -55,8 +55,8 @@ export default class QuantitySnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataQuantitySnak} snak the snak for this class in json format
-     * @throws {Error} if the upperBound is smaller than the amount or the lowerBound is bigger than the amount
+     * @param {WikidataQuantitySnak} snak The snak for this class in JSON format.
+     * @throws {Error} If the upperBound is smaller than the amount or the lowerBound is bigger than the amount.
      * @example
      *     const snak = new QuantitySnak(json);
      */
@@ -93,14 +93,14 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
-     * @returns {number | undefined} the amount of the quantity
+     * @returns {number | undefined} The amount of the quantity.
      */
     get amount(): number | undefined {
         return this._amount ? Number(this._amount) : undefined;
     }
 
     /**
-     * @param {number | undefined} number the number that the amount will be set to
+     * @param {number | undefined} number The number that the amount will be set to.
      */
     set amount(number: number | undefined) {
         if (number === undefined) {
@@ -112,14 +112,14 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
-     * @returns {number | undefined} the upperBound of the quantity
+     * @returns {number | undefined} The upperBound of the quantity.
      */
     get upperBound(): number | undefined {
         return this._upperBound ? Number(this._upperBound) : undefined;
     }
 
     /**
-     * @param {number | undefined} number the number that the upperBound will be set to
+     * @param {number | undefined} number The number that the upperBound will be set to.
      */
     set upperBound(number: number | undefined) {
         if (number === undefined) {
@@ -131,14 +131,14 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
-     * @returns {number | undefined} the lowerBound of the quantity
+     * @returns {number | undefined} The lowerBound of the quantity.
      */
     get lowerBound(): number | undefined {
         return this._lowerBound ? Number(this._lowerBound) : undefined;
     }
 
     /**
-     * @param {number | undefined} number the number that the lowerBound will be set to
+     * @param {number | undefined} number The number that the lowerBound will be set to.
      */
     set lowerBound(number: number | undefined) {
         if (number === undefined) {
@@ -150,10 +150,11 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
+     * Returns the snak as JSON.
      *
-     * @returns {WikidataQuantitySnak} the snak as json
+     * @returns {WikidataQuantitySnak} The snak as JSON.
      * @example
-     *      const json = quantitySnak.toJson();
+     *      const json = quantitySnak.toJSON();
      */
     toJSON(): WikidataQuantitySnak {
         return normalizeOutput({
@@ -174,10 +175,10 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {QuantitySnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {QuantitySnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something
@@ -192,15 +193,15 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
-     * create a snak from some basic data
+     * Create a snak from some basic data.
      *
      * @static
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {number} quantity amount of the quantity
-     * @param {number} [lowerBound] lowerBound of the quantity
-     * @param {number} [upperBound] upperBound of the quantity
-     * @param {QString} [unit] unit of the quantity
-     * @returns {QuantitySnak} a snak with the given properties
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {number} quantity Amount of the quantity.
+     * @param {number} [lowerBound] LowerBound of the quantity.
+     * @param {number} [upperBound] UpperBound of the quantity.
+     * @param {QString} [unit] Unit of the quantity.
+     * @returns {QuantitySnak} A snak with the given properties.
      * @example
      *     const snak = QuantitySnak.fromNumbers('P1215', 1);
      */

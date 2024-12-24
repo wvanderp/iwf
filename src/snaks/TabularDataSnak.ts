@@ -3,9 +3,9 @@ import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * Class for the TabularDataSnak
+ * Class for the TabularDataSnak.
  *
- * Most used property of this type P4150 (weather history)
+ * Most used property of this type is P4150 (weather history).
  *
  * @class
  */
@@ -15,7 +15,7 @@ export default class TabularDataSnak extends Snak {
     datatype = 'tabular-data';
 
     /**
-     * @param {WikidataTabularDataSnak} snak the snak for this class in json format
+     * @param {WikidataTabularDataSnak} snak The snak for this class in JSON format.
      * @example
      *      const snak = new TabularDataSnak(json);
      */
@@ -26,9 +26,9 @@ export default class TabularDataSnak extends Snak {
     }
 
     /**
-     * gets the link to the wiki commons page
+     * Gets the link to the Wiki Commons page.
      *
-     * @returns {string} the link to the wiki commons page
+     * @returns {string} The link to the Wiki Commons page.
      */
     public get commonsLink(): string {
         return `https://commons.wikimedia.org/wiki/${this.value}`;
@@ -36,9 +36,9 @@ export default class TabularDataSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataTabularDataSnak} the snak as json
+     * @returns {WikidataTabularDataSnak} The snak as JSON.
      * @example
-     *      const json = tabularSnak.toJson();
+     *      const json = tabularSnak.toJSON();
      */
     toJSON(): WikidataTabularDataSnak {
         return normalizeOutput({
@@ -54,10 +54,10 @@ export default class TabularDataSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {TabularDataSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {TabularDataSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something

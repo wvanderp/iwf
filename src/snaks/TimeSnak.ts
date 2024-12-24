@@ -4,19 +4,19 @@ import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * the formatting is a bit weird because it is iso 8601 like but with the following exceptions:
- * 1. you need to add a '+' in front of the date if it is after 0 AD and a '-' if it is before 0 AD
- * 2. you cant be more precise than a day. so the time is always 00:00:00
+ * The formatting is a bit weird because it is ISO 8601-like but with the following exceptions:
+ * 1. You need to add a '+' in front of the date if it is after 0 AD and a '-' if it is before 0 AD.
+ * 2. You can't be more precise than a day, so the time is always 00:00:00.
  *
- * so the date  30 January 2020 would be +2020-1-30T00:00:00Z
+ * So the date 30 January 2020 would be +2020-01-30T00:00:00Z.
  *
  * @see https://www.wikidata.org/wiki/Help:Dates
  *
  * @private
- * @param {number} year the year of the date
- * @param {number} month the month of the date (1-12) so just the normal months
- * @param {number} day the day of the date (1-31)
- * @returns {string} the date in the special wikidata iso format
+ * @param {number} year The year of the date.
+ * @param {number} month The month of the date (1-12), so just the normal months.
+ * @param {number} day The day of the date (1-31).
+ * @returns {string} The date in the special Wikidata ISO format.
  * @example
  */
 export function formatISOString(year: number, month: number, day: number): string {
@@ -28,9 +28,9 @@ export function formatISOString(year: number, month: number, day: number): strin
 }
 
 /**
- * Class for the TimeSnak
+ * Class for the TimeSnak.
  *
- * Most used property of this type P1619 (date of official opening)
+ * Most used property of this type is P1619 (date of official opening).
  *
  * @class
  */
@@ -50,7 +50,7 @@ export default class TimeSnak extends Snak {
     datatype = 'time';
 
     /**
-     * @param {WikidataTimeSnak} snak the snak for this class in json format
+     * @param {WikidataTimeSnak} snak The snak for this class in JSON format.
      * @example
      *     const snak = new TimeSnak(json);
      */
@@ -67,9 +67,9 @@ export default class TimeSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataTimeSnak} the snak as json
+     * @returns {WikidataTimeSnak} The snak as JSON.
      * @example
-     *      const json = timeSnak.toJson();
+     *      const json = timeSnak.toJSON();
      */
     toJSON(): WikidataTimeSnak {
         return normalizeOutput({
@@ -92,10 +92,10 @@ export default class TimeSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {TimeSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {TimeSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *   if (snak.equals(other)) {
      *     // do something
@@ -112,16 +112,16 @@ export default class TimeSnak extends Snak {
     }
 
     /**
-     * dates only so add all of the date (year, month, day)
+     * Dates only, so add all of the date (year, month, day).
      *
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {number} year the year of the date
-     * @param {number} month the month of the date (1-12) so just the normal months
-     * @param {number} day the day of the date (1-31)
-     * @param {CalendarModels} calendarModel the calendarModel for the snak
-     * @returns {TimeSnak} the timeSnak
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {number} year The year of the date.
+     * @param {number} month The month of the date (1-12), so just the normal months.
+     * @param {number} day The day of the date (1-31).
+     * @param {CalendarModels} calendarModel The calendar model for the snak.
+     * @returns {TimeSnak} The TimeSnak.
      * @example
-     *    const snak = TimeSnak.fromDate('P1619', new Date(), 'http://www.wikidata.org/entity/Q1985727');
+     *    const snak = TimeSnak.fromDate('P1619', 2020, 1, 30, 'http://www.wikidata.org/entity/Q1985727');
      */
     static fromDate(property: PString, year: number, month: number, day: number, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985727'): TimeSnak {
         const isoString = formatISOString(year, month, day);
@@ -146,14 +146,14 @@ export default class TimeSnak extends Snak {
     /**
      * Create a TimeSnak from a Date object.
      *
-     * WARNING: JS Date are horrible and you should not use them. Use a library like moment.js instead.
-     * when using it normally you should be fine but anything before 1970 will be wrong.
-     * also timezones are not supported so you need to use UTC which is conflicts with wikidata that assumes that all dates are in the local timezone
+     * WARNING: JS Dates are horrible and you should not use them. Use a library like moment.js instead.
+     * When using it normally you should be fine, but anything before 1970 will be wrong.
+     * Also, timezones are not supported, so you need to use UTC which conflicts with Wikidata that assumes that all dates are in the local timezone.
      *
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {Date} date the Date object
-     * @param {CalendarModels} calendarModel the calendarModel for the snak
-     * @returns {TimeSnak} the timeSnak
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {Date} date The Date object.
+     * @param {CalendarModels} calendarModel The calendar model for the snak.
+     * @returns {TimeSnak} The TimeSnak.
      * @example
      *    const snak = TimeSnak.fromDateObject('P1619', new Date(), 'http://www.wikidata.org/entity/Q1985727');
      */

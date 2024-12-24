@@ -4,9 +4,9 @@ import { PString, QString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * Class for the WikibaseItemSnak
+ * Class for the WikibaseItemSnak.
  *
- * Most used property of this type P2860 (cites work)
+ * Most used property of this type is P2860 (cites work).
  *
  * @class
  */
@@ -16,7 +16,7 @@ export default class WikibaseItemSnak extends Snak {
     datatype = 'wikibase-item';
 
     /**
-     * @param {WikidataWikibaseItemSnak} snak the snak for this class in json format
+     * @param {WikidataWikibaseItemSnak} snak The snak for this class in JSON format.
      * @example
      *     const snak = new WikibaseItemSnak(snak);
      */
@@ -28,7 +28,7 @@ export default class WikibaseItemSnak extends Snak {
 
     /**
      * @alias id
-     * @returns {string | undefined} the value of the snak
+     * @returns {string | undefined} The value of the snak.
      */
     public get id(): string | undefined {
         return this.hasValue ? `Q${this._numericID}` : undefined;
@@ -36,7 +36,7 @@ export default class WikibaseItemSnak extends Snak {
 
     /**
      * @alias id
-     * @param {string | undefined} value the value of the snak
+     * @param {string | undefined} value The value of the snak.
      */
     public set id(value: string | undefined) {
         if (value === undefined) {
@@ -50,7 +50,7 @@ export default class WikibaseItemSnak extends Snak {
 
     /**
      * @alias numericID
-     * @returns {number | undefined} the value of the snak
+     * @returns {number | undefined} The value of the snak.
      */
     public get numericID(): number | undefined {
         return this._numericID;
@@ -58,7 +58,7 @@ export default class WikibaseItemSnak extends Snak {
 
     /**
      * @alias numericID
-     * @param {number | undefined} value the value of the snak
+     * @param {number | undefined} value The value of the snak.
      */
     public set numericID(value: number | undefined) {
         if (value === undefined) {
@@ -70,9 +70,9 @@ export default class WikibaseItemSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataWikibaseItemSnak} the snak as json
+     * @returns {WikidataWikibaseItemSnak} The snak as JSON.
      * @example
-     *      const json = itemSnak.toJson();
+     *      const json = itemSnak.toJSON();
      */
     toJSON(): WikidataWikibaseItemSnak {
         return normalizeOutput({
@@ -92,10 +92,10 @@ export default class WikibaseItemSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {WikibaseItemSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {WikibaseItemSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something
@@ -106,14 +106,14 @@ export default class WikibaseItemSnak extends Snak {
     }
 
     /**
-     * create a snak from some basic data
+     * Create a snak from some basic data.
      *
      * @static
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {QString} id the Wikibase item id in the `Q-form`
-     * @returns {WikibaseItemSnak} a snak with the given properties
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {QString} id The Wikibase item id in the `Q-form`.
+     * @returns {WikibaseItemSnak} A snak with the given properties.
      * @example
-     *    const snak = WikibaseItemSnak.fromData('P2860', 'Q42');
+     *    const snak = WikibaseItemSnak.fromID('P2860', 'Q42');
      */
     static fromID(property: PString, id: QString): WikibaseItemSnak {
         return new WikibaseItemSnak({

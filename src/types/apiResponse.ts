@@ -7,7 +7,7 @@ export interface WbeditentityResponse {
         code?: string,
         info?: string
     };
-    servedby? : string;
+    servedby?: string;
 }
 
 export interface ActionLoginResponse {
@@ -21,7 +21,7 @@ export interface ActionLoginResponse {
     },
     login: {
         result: 'Aborted',
-        reason?: string, // only if result is not successful (maybe)
+        reason?: string, // Only if the result is not successful (maybe)
         token?: string
     }
 }

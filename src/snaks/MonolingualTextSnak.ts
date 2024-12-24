@@ -6,24 +6,23 @@ import normalizeOutput from '../utils/normalizeOutput';
 const dataType = 'monolingualtext';
 
 /**
- * Class for the MonolingualTextSnak
+ * Class for the MonolingualTextSnak.
  *
- * Most used property of this type P1476 (title)
+ * Most used property of this type is P1476 (title).
  *
  * @class
  */
 export default class MonolingualTextSnak extends Snak {
-    /** the value of the snak */
+    /** The value of the snak. */
     text: string | undefined;
 
-    /** the language of the value */
+    /** The language of the value. */
     language: string | undefined;
 
     datatype = dataType;
 
     /**
-     *
-     * @param {WikidataMonolingualTextSnak} snak the snak that will be parsed
+     * @param {WikidataMonolingualTextSnak} snak The snak that will be parsed.
      * @example
      *   const snak = new MonolingualTextSnak(json);
      */
@@ -35,10 +34,9 @@ export default class MonolingualTextSnak extends Snak {
     }
 
     /**
-     *
-     * @returns {WikidataMonolingualTextSnak} the snak as json
+     * @returns {WikidataMonolingualTextSnak} The snak as JSON.
      * @example
-     *      const json = MonolingualSnak.toJson();
+     *      const json = monolingualTextSnak.toJSON();
      */
     toJSON(): WikidataMonolingualTextSnak {
         return normalizeOutput({
@@ -57,10 +55,10 @@ export default class MonolingualTextSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {MonolingualTextSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {MonolingualTextSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something
@@ -74,12 +72,12 @@ export default class MonolingualTextSnak extends Snak {
 
     /**
      * @static
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {MonolingualLanguages} language the language of the snak
-     * @param {string} value the value
-     * @returns {MonolingualTextSnak} a snak with the given properties
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {MonolingualLanguages} language The language of the snak.
+     * @param {string} value The value.
+     * @returns {MonolingualTextSnak} A snak with the given properties.
      * @example
-     *   const snak = MonolingualTextSnak.fromValue('P1476', 'en', 'test');
+     *   const snak = MonolingualTextSnak.fromString('P1476', 'en', 'test');
      */
     static fromString(property: PString, language: MonolingualLanguages, value: string): MonolingualTextSnak {
         return new MonolingualTextSnak({

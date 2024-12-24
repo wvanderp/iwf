@@ -13,13 +13,13 @@ export interface AliasChange extends Change {
 }
 
 /**
- * finds the added, removed, and changed aliases between two Arrays
+ * Finds the added, removed, and changed aliases between two arrays.
  *
  * @private
- * @param {Alias[]} o the old array
- * @param {Alias[]} n the new array
- * @param {QString | 'unknown'} parentID the ID of the parent of both the old and the new array
- * @returns {AliasChange[]} the changes from the old array to the new array
+ * @param {Alias[]} o The old array.
+ * @param {Alias[]} n The new array.
+ * @param {QString | 'unknown'} parentID The ID of the parent of both the old and the new array.
+ * @returns {AliasChange[]} The changes from the old array to the new array.
  */
 export default function aliasDiff(o: Alias[], n: Alias[], parentID: QString | 'unknown'): AliasChange[] {
     const { added, updated, removed } = diffArray(

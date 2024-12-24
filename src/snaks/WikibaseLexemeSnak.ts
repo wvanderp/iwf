@@ -4,9 +4,9 @@ import { LString, PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * Class for the WikibaseLexeme
+ * Class for the WikibaseLexemeSnak.
  *
- * Most used property of this type ...
+ * Most used property of this type...
  *
  * @class
  */
@@ -16,7 +16,7 @@ export default class WikibaseLexemeSnak extends Snak {
     datatype = 'wikibase-lexeme';
 
     /**
-     * @param {WikidataWikiBaseLexemeSnak} snak the snak for this class in json format
+     * @param {WikidataWikiBaseLexemeSnak} snak The snak for this class in JSON format.
      * @example
      *  const snak = new WikibaseLexemeSnak(json);
      */
@@ -27,10 +27,10 @@ export default class WikibaseLexemeSnak extends Snak {
     }
 
     /**
-     * the lexeme id will be prefixed with L
+     * The lexeme ID will be prefixed with L.
      *
      * @alias id
-     * @returns {string | undefined} the value of the snak
+     * @returns {string | undefined} The value of the snak.
      */
     public get id(): string | undefined {
         return this.hasValue ? `L${this._numericID}` : undefined;
@@ -38,7 +38,7 @@ export default class WikibaseLexemeSnak extends Snak {
 
     /**
      * @alias id
-     * @param {string | undefined} value the value of the snak
+     * @param {string | undefined} value The value of the snak.
      */
     public set id(value: string | undefined) {
         if (value === undefined) {
@@ -52,7 +52,7 @@ export default class WikibaseLexemeSnak extends Snak {
 
     /**
      * @alias numericID
-     * @returns {number | undefined} the value of the snak
+     * @returns {number | undefined} The value of the snak.
      */
     public get numericID(): number | undefined {
         return this._numericID;
@@ -60,7 +60,7 @@ export default class WikibaseLexemeSnak extends Snak {
 
     /**
      * @alias numericID
-     * @param {number | undefined} value the value of the snak
+     * @param {number | undefined} value The value of the snak.
      */
     public set numericID(value: number | undefined) {
         if (value === undefined) {
@@ -72,7 +72,7 @@ export default class WikibaseLexemeSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataWikiBaseLexemeSnak} the snak as json
+     * @returns {WikidataWikiBaseLexemeSnak} The snak as JSON.
      * @example
      *      const json = WikibaseLexemeSnak.toJson();
      */
@@ -94,10 +94,10 @@ export default class WikibaseLexemeSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {WikibaseLexemeSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {WikibaseLexemeSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (WikibaseLexemeSnak.equals(other)) {
      *     // do something
@@ -108,12 +108,12 @@ export default class WikibaseLexemeSnak extends Snak {
     }
 
     /**
-     * Create a new instance of the class from some basic data
+     * Create a new instance of the class from some basic data.
      *
      * @static
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {LString} id the id of the lexeme in 'L-form'
-     * @returns {WikibaseLexemeSnak} a new instance of the class
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {LString} id The ID of the lexeme in 'L-form'.
+     * @returns {WikibaseLexemeSnak} A new instance of the class.
      * @example
      *      const snak = WikibaseLexemeSnak.fromData('P1', 'L1');
      */

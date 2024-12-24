@@ -13,7 +13,7 @@ import sha256 from './utils/hash';
  * @class
  */
 export default class Statement {
-    /** a place to store the internalID so that it does not change if the contents of the object changes */
+    /** A place to store the internalID so that it does not change if the contents of the object change */
     private _internalID = '';
 
     id: string | undefined;
@@ -31,8 +31,7 @@ export default class Statement {
     qualifiersOrder: string[];
 
     /**
-     *
-     * @param {wikidataStatement} statement the statement in a json format
+     * @param {wikidataStatement} statement The statement in a JSON format
      * @example
      *     const statement = new Statement(json);
      */
@@ -54,9 +53,9 @@ export default class Statement {
     }
 
     /**
-     * gets the unique hash of the statement
+     * Gets the unique hash of the statement.
      *
-     * @returns {string} the id
+     * @returns {string} The ID
      */
     public get internalID(): string {
         if (this._internalID === '') {
@@ -67,9 +66,9 @@ export default class Statement {
     }
 
     /**
-     * gets the property of the statement
+     * Gets the property of the statement.
      *
-     * @returns {PString | undefined} the property of the statement
+     * @returns {PString | undefined} The property of the statement
      * @example
      * const property = statement.property;
      */
@@ -78,9 +77,9 @@ export default class Statement {
     }
 
     /**
-     * @returns {wikidataStatement} the statement in a json format
+     * @returns {wikidataStatement} The statement in a JSON format
      * @example
-     *      const json = statement.toJson();
+     *      const json = statement.toJSON();
      */
     toJSON(): wikidataStatement {
         const references = this.references.map((reference) => reference.toJSON());
@@ -111,10 +110,10 @@ export default class Statement {
     }
 
     /**
-     * creates a statement from a snak
+     * Creates a statement from a snak.
      *
-     * @param {Snak} snak the snak for the statement
-     * @returns {Statement} the statement
+     * @param {Snak} snak The snak for the statement
+     * @returns {Statement} The statement
      * @example
      *  const statement = Statement.fromSnak(snak);
      */
@@ -127,9 +126,10 @@ export default class Statement {
     }
 
     /**
+     * Compares this statement with another statement.
      *
-     * @param {Statement} other the other statement
-     * @returns {boolean} if the two statements are equal
+     * @param {Statement} other The other statement
+     * @returns {boolean} True if the two statements are equal
      * @example
      *   if (statement1.equals(statement2)) {
      *      // do something

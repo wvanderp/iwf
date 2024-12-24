@@ -7,12 +7,12 @@ import snakGenerator from './utils/snakGenerator';
 import sha256 from './utils/hash';
 
 /**
- * Reduces an array of snaks into a object grouped by PropertyID
+ * Reduces an array of snaks into an object grouped by PropertyID.
  *
  * @private
- * @param {object} accumulator the accumulator object
- * @param {Snak} value the Snak
- * @returns {object} an Object with groups of snaks by ID
+ * @param {Record<string, Snaks[]>} accumulator The accumulator object.
+ * @param {Snaks} value The Snak.
+ * @returns {Record<string, Snaks[]>} An object with groups of snaks by ID.
  */
 function groupByPropertyReducer(accumulator: Record<string, Snaks[]>, value: Snaks): Record<string, Snaks[]> {
     if (accumulator[value.property] === undefined) {
@@ -24,12 +24,12 @@ function groupByPropertyReducer(accumulator: Record<string, Snaks[]>, value: Sna
 }
 
 /**
- * A class for References
+ * A class for References.
  *
  * @class
  */
 export default class Reference {
-    /** a place to store the internalID so that it does not change if the contents of the object changes */
+    /** A place to store the internalID so that it does not change if the contents of the object change. */
     private _internalID = '';
 
     hash: string | undefined;
@@ -39,8 +39,7 @@ export default class Reference {
     snaks: Snak[];
 
     /**
-     *
-     * @param {WikidataReference} reference the Reference in json format
+     * @param {WikidataReference} reference The Reference in JSON format.
      * @example
      *   const reference = new Reference(json);
      */
@@ -54,9 +53,9 @@ export default class Reference {
     }
 
     /**
-     * create a unique id for the Reference
+     * Creates a unique ID for the Reference.
      *
-     * @returns {string} the id
+     * @returns {string} The ID.
      */
     public get internalID(): string {
         if (this._internalID === '') {
@@ -67,9 +66,9 @@ export default class Reference {
     }
 
     /**
-     * @returns {WikidataReference} the Reference in a json format
+     * @returns {WikidataReference} The Reference in a JSON format.
      * @example
-     *      const json = reference.toJson();
+     *      const json = reference.toJSON();
      */
     toJSON(): WikidataReference {
         return normalizeOutput({
@@ -85,10 +84,10 @@ export default class Reference {
     }
 
     /**
-     * this function checks if References are equal
+     * Checks if References are equal.
      *
-     * @param {Reference} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {Reference} other The other Reference.
+     * @returns {boolean} True if the References are equal.
      * @example
      *     const reference = Reference.fromSnaks([
      *        new Snak('P123', 'Q42'),
@@ -108,11 +107,11 @@ export default class Reference {
     }
 
     /**
-     * creates a new reference from snaks
+     * Creates a new Reference from snaks.
      *
      * @static
-     * @param {Snak} snaks the snaks for the reference
-     * @returns {Reference} the reference objects
+     * @param {Snak[]} snaks The snaks for the Reference.
+     * @returns {Reference} The Reference object.
      * @example
      *    const reference = Reference.fromSnaks([
      *       new Snak('P123', 'Q42'),

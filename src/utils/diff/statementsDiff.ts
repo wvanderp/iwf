@@ -16,13 +16,13 @@ export interface StatementChange extends Change {
 }
 
 /**
- * finds the added, removed, and changed aliases between two Arrays
+ * Finds the added, removed, and changed statements between two arrays.
  *
  * @private
- * @param {Statement[]} o the old array
- * @param {Statement[]} n the new array
- * @param {QString | 'unknown'} parentID the ID of the parent of both the old and the new array
- * @returns {StatementChange[]} the changes from the old array to the new array
+ * @param {Statement[]} o The old array.
+ * @param {Statement[]} n The new array.
+ * @param {QString | 'unknown'} parentID The ID of the parent of both the old and the new array.
+ * @returns {StatementChange[]} The changes from the old array to the new array.
  */
 export default function statementDiff(o: Statement[], n: Statement[], parentID: QString | 'unknown'): StatementChange[] {
     const { added, updated, removed } = diffArray(

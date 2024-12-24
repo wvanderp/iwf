@@ -5,9 +5,9 @@ import normalizeOutput from '../utils/normalizeOutput';
 const dataType = 'musical-notation';
 
 /**
- * Class for the MusicalNotationSnak
+ * Class for the MusicalNotationSnak.
  *
- * Most used property of this type P6883 (LilyPond notation)
+ * Most used property of this type is P6883 (LilyPond notation).
  *
  * @class
  */
@@ -17,7 +17,7 @@ export default class MusicalNotationSnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataMusicalNotationSnak} snak the snak for this class in json format
+     * @param {WikidataMusicalNotationSnak} snak The snak for this class in JSON format.
      * @example
      *  const snak = new MusicalNotationSnak(json);
      */
@@ -28,10 +28,9 @@ export default class MusicalNotationSnak extends Snak {
     }
 
     /**
-     *
-     * @returns {WikidataMusicalNotationSnak} the snak as json
+     * @returns {WikidataMusicalNotationSnak} The snak as JSON.
      * @example
-     *      const json = MusicSnak.toJson();
+     *      const json = musicalNotationSnak.toJSON();
      */
     toJSON(): WikidataMusicalNotationSnak {
         return normalizeOutput({
@@ -47,10 +46,10 @@ export default class MusicalNotationSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {MusicalNotationSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {MusicalNotationSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something

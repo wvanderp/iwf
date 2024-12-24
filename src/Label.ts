@@ -2,19 +2,19 @@ import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-ty
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
- * class for labels
+ * Class for labels.
  *
  * @class
  */
 export default class Label {
-    /** the language of the description */
+    /** The language of the label. */
     language: LabelLanguages;
 
-    /** the value of the description */
+    /** The value of the label. */
     value: string;
 
     /**
-     * @param {LabelAndDescription} label the label for this class in json format
+     * @param {LabelAndDescription} label The label for this class in JSON format.
      * @example
      *  const label = new Label({ language: 'en', value: 'Douglas Adams' });
      */
@@ -24,18 +24,18 @@ export default class Label {
     }
 
     /**
-     * create a unique id for the Label
+     * Create a unique ID for the Label.
      *
-     * @returns {string} the id
+     * @returns {string} The ID.
      */
     public get internalID(): string {
         return `${this.language}:${this.value}`;
     }
 
     /**
-     * @returns {LabelAndDescription} the label as json
+     * @returns {LabelAndDescription} The label as JSON.
      * @example
-     *      const json = label.toJson();
+     *      const json = label.toJSON();
      */
     toJSON(): LabelAndDescription {
         return normalizeOutput({
@@ -45,10 +45,10 @@ export default class Label {
     }
 
     /**
-     * this function checks if two Labels are equal
+     * This function checks if two Labels are equal.
      *
-     * @param {LabelAndDescription} other the other Label
-     * @returns {boolean} true if the Labels are equal
+     * @param {LabelAndDescription} other The other Label.
+     * @returns {boolean} True if the Labels are equal.
      * @example
      *     const label1 = new Label({ language: 'en', value: 'foo' });
      *     const label2 = new Label({ language: 'en', value: 'bar' });
@@ -60,13 +60,13 @@ export default class Label {
     }
 
     /**
-     * create a label from a language and a value
+     * Create a label from a language and a value.
      *
-     * @param {string} language the language of the label
-     * @param {string} value the value of the label
-     * @returns {Label} the label object
+     * @param {LabelLanguages} language The language of the label.
+     * @param {string} value The value of the label.
+     * @returns {Label} The label object.
      * @example
-     *     const label = Label.fromString('en', 'Douglas Adams')
+     *     const label = Label.fromString('en', 'Douglas Adams');
      */
     static fromString(language: LabelLanguages, value: string): Label {
         return new Label({ language, value });

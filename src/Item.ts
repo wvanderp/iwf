@@ -29,7 +29,7 @@ import siteLinkDiff from './utils/diff/siteLinkDiff';
 import sha256 from './utils/hash';
 
 /**
- * this type omits the id because if an item is new there will be no id
+ * This type omits the id because if an item is new there will be no id.
  */
 type ItemInput = Optional<WikidataItem, 'id'>;
 
@@ -37,61 +37,58 @@ type ItemInput = Optional<WikidataItem, 'id'>;
  * @class
  */
 export default class Item {
-    /** a place to store the internalID so that it does not change if the contents of the object changes */
+    /** A place to store the internalID so that it does not change if the contents of the object change. */
     private _internalID = '';
 
-    /** the id used by wikibase */
+    /** The id used by Wikibase. */
     pageid: number | undefined;
 
-    /** the namespace the item is located in */
+    /** The namespace the item is located in. */
     ns: number | undefined;
 
-    /** the title of the item. Usually the Q-id of the item */
+    /** The title of the item. Usually the Q-id of the item. */
     title: string | undefined;
 
-    /** the id of the last revision of the item */
+    /** The id of the last revision of the item. */
     lastrevid: number | undefined;
 
-    /** the date of last modified */
+    /** The date of last modification. */
     modified: Date | undefined;
 
-    /** the type of the entity. always 'item' */
+    /** The type of the entity. Always 'item'. */
     type: 'item';
 
-    /** the Q-id of the item */
+    /** The Q-id of the item. */
     id: QString | undefined;
 
-    /** the labels of the item */
+    /** The labels of the item. */
     labels: Label[];
 
-    /** the descriptions of the item */
+    /** The descriptions of the item. */
     descriptions: Description[];
 
-    /** the aliases of the item */
+    /** The aliases of the item. */
     aliases: Alias[];
 
-    /** the statements of the item */
+    /** The statements of the item. */
     statements: Statement[];
 
-    /** the sitelinks of the item */
+    /** The sitelinks of the item. */
     sitelinks: SiteLink[];
 
     /**
-     *
-     * @param {ItemInput} item the item in json format
-     * @throws {Error} if the id is not a QString
+     * @param {ItemInput} item The item in JSON format.
+     * @throws {Error} If the id is not a QString.
      * @example
      *     const item = new Item({
      *          type: "item",
      *          id: "q2",
-     *
      *          labels: {},
      *          descriptions: {},
      *          aliases: {},
-     *
      *          claims: {},
      *          sitelinks: {}
-     *    })
+     *     })
      */
     constructor(item: ItemInput) {
         this.pageid = item.pageid;
@@ -101,7 +98,7 @@ export default class Item {
         this.modified = item.modified ? new Date(item.modified) : undefined;
 
         if (item.id !== undefined && !isQString(item.id)) {
-            throw new Error(`the ID Provided for the item is not a QString. it was ${item.id}`);
+            throw new Error(`The ID provided for the item is not a QString. It was ${item.id}`);
         }
         this.id = item.id;
 
@@ -122,9 +119,9 @@ export default class Item {
     }
 
     /**
-     * create a unique id for the Item
+     * Creates a unique id for the Item.
      *
-     * @returns {string} the id
+     * @returns {string} The id.
      */
     public get internalID(): string {
         if (this._internalID === '') {
@@ -135,24 +132,29 @@ export default class Item {
     }
 
     /**
-     * tries to find a label int the requested language.
-     * if non can be found, it will return undefined
+     * Tries to find a label in the requested language.
+     * If the `default for all languages` (mul) label is present, it will return that one.
+     * If none can be found, it will return undefined.
      *
-     * @param {string} language the language of the label
-     * @returns {Label | undefined} the labelA label if it found one or undefined
+     * @param {string} language The language of the label.
+     * @returns {Label | undefined} The label if it found one or undefined.
      * @example
      *      const label = item.findLabel("nl")
      *      console.log(label.value)
      *      // Douglas Adams
      */
-    findLabel(language: string) {
-        return this.labels.find((label) => label.language === language);
+    findLabel(language: string): Label | undefined {
+        const label = this.labels.find((label) => label.language === language);
+        if (label) {
+            return label;
+        }
+        return this.labels.find((label) => label.language === 'mul');
     }
 
     /**
-     * adds a statement to the item
+     * Adds a statement to the item.
      *
-     * @param {Statement | Statement[]} statement the statement to add
+     * @param {Statement | Statement[]} statement The statement to add.
      * @example
      *   const statement = Statement.fromSnak(URLSnak.fromURL("p1", "https://www.wikidata.org"))
      *   item.addStatement(statement)
@@ -166,10 +168,10 @@ export default class Item {
     }
 
     /**
-     * removes a statement from the item
+     * Removes a statement from the item.
      *
      * @see removeStatements
-     * @param {Statement} statement the statement to remove
+     * @param {Statement} statement The statement to remove.
      * @example
      *     const statement = item.statements[0]
      *     item.removeStatement(statement)
@@ -182,10 +184,10 @@ export default class Item {
     }
 
     /**
-     * removes multiple statements from the item
+     * Removes multiple statements from the item.
      *
      * @see removeStatement
-     * @param {Statement[]} statements the statements to remove
+     * @param {Statement[]} statements The statements to remove.
      * @example
      *   const statements = item.statements
      *   item.removeStatements(statements)
@@ -195,10 +197,10 @@ export default class Item {
     }
 
     /**
-     * this function checks if two items are equal
+     * Checks if two items are equal.
      *
-     * @param {Item} other the other item
-     * @returns {boolean} true if the items are equal
+     * @param {Item} other The other item.
+     * @returns {boolean} True if the items are equal.
      * @example
      *      const itemA = Item.fromNothing()
      *      const itemB = Item.fromNothing()
@@ -240,10 +242,10 @@ export default class Item {
     }
 
     /**
-     * finds the difference between two items
+     * Finds the difference between two items.
      *
-     * @param {Item} other the other item
-     * @returns {Changes} the changes between the two items
+     * @param {Item} other The other item.
+     * @returns {Changes[]} The changes between the two items.
      * @example
      *   const itemA = Item.fromNothing()
      *   const itemB = Item.fromNothing()
@@ -264,11 +266,11 @@ export default class Item {
     }
 
     /**
-     * stringifies the Item into the same json format as the api
+     * Stringifies the Item into the same JSON format as the API.
      *
-     * @returns {WikidataItem} the item as json
+     * @returns {WikidataItem} The item as JSON.
      * @example
-     *      const json = item.toJson();
+     *      const json = item.toJSON();
      */
     toJSON(): WikidataItem {
         return normalizeOutput({
@@ -318,9 +320,9 @@ export default class Item {
     }
 
     /**
-     * generates a new empty item object
+     * Generates a new empty item object.
      *
-     * @returns {Item} returns a empty item
+     * @returns {Item} Returns an empty item.
      * @example
      *      const newItem = Item.fromNothing()
      */

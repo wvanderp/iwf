@@ -5,35 +5,35 @@ import normalizeOutput from '../utils/normalizeOutput';
 const dataType = 'globe-coordinate';
 
 /**
- * Class for the GlobeCoordinateSnak
+ * Class for the GlobeCoordinateSnak.
  *
- * Most used property of this type P625 (coordinate location)
+ * Most used property of this type is P625 (coordinate location).
  *
  * @class
  */
 export default class GlobeCoordinateSnak extends Snak {
-    /** the latitude of the Coordinate */
+    /** The latitude of the Coordinate */
     latitude: number | undefined;
 
-    /** the longitude of the Coordinate */
+    /** The longitude of the Coordinate */
     longitude: number | undefined;
 
-    /** the altitude of the Coordinate */
+    /** The altitude of the Coordinate */
     altitude: null | undefined;
 
-    /** the precision of the Coordinate */
+    /** The precision of the Coordinate */
     precision: number | undefined;
 
     /**
-     * the "globe" that this coordinate refers to.
-     * Globe defaults to "Earth" (globe: http://www.wikidata.org/entity/Q2)
+     * The "globe" that this coordinate refers to.
+     * Globe defaults to "Earth" (globe: http://www.wikidata.org/entity/Q2).
      */
     globe: string | undefined;
 
     datatype = dataType;
 
     /**
-     * @param {WikidataGlobeCoordinateSnak} snak the snak for this class in json format
+     * @param {WikidataGlobeCoordinateSnak} snak The snak for this class in JSON format.
      * @example
      *   const snak = new GlobeCoordinateSnak(json);
      */
@@ -48,10 +48,9 @@ export default class GlobeCoordinateSnak extends Snak {
     }
 
     /**
-     *
-     * @returns {WikidataGlobeCoordinateSnak} the snak as json
+     * @returns {WikidataGlobeCoordinateSnak} The snak as JSON.
      * @example
-     *      const json = coordinateSnak.toJson();
+     *      const json = globeCoordinateSnak.toJSON();
      */
     toJSON(): WikidataGlobeCoordinateSnak {
         return normalizeOutput({
@@ -73,10 +72,10 @@ export default class GlobeCoordinateSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {GlobeCoordinateSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {GlobeCoordinateSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *   if (snak.equals(other)) {
      *     // do something

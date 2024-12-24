@@ -5,9 +5,9 @@ import normalizeOutput from '../utils/normalizeOutput';
 const dataType = 'math';
 
 /**
- * Class for the MathSnak
+ * Class for the MathSnak.
  *
- * Most used property of this type P2534 (defining formula)
+ * Most used property of this type is P2534 (defining formula).
  *
  * @class
  */
@@ -18,7 +18,7 @@ export default class MathSnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataMathSnak} snak the snak for this class in json format
+     * @param {WikidataMathSnak} snak The snak for this class in JSON format.
      * @example
      *   const snak = new MathSnak(json);
      */
@@ -29,10 +29,9 @@ export default class MathSnak extends Snak {
     }
 
     /**
-     *
-     * @returns {WikidataMathSnak} the snak as json
+     * @returns {WikidataMathSnak} The snak as JSON.
      * @example
-     *      const json = mathSnak.toJson();
+     *      const json = mathSnak.toJSON();
      */
     toJSON(): WikidataMathSnak {
         return normalizeOutput({
@@ -48,10 +47,10 @@ export default class MathSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {MathSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {MathSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *   if (snak.equals(other)) {
      *     // do something

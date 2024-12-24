@@ -6,7 +6,7 @@ import normalizeOutput from '../utils/normalizeOutput';
 const dataType = 'entity-schema';
 
 /**
- * Class for the EntitySchemaSnak
+ * Class for the EntitySchemaSnak.
  *
  * Most used property of this type ...
  *
@@ -18,7 +18,7 @@ export default class EntitySchemaSnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataEntitySchemaSnak} snak the snak for this class in json format
+     * @param {WikidataEntitySchemaSnak} snak The snak for this class in JSON format.
      * @example
      *  const snak = new EntitySchemaSnak(json);
      */
@@ -32,10 +32,10 @@ export default class EntitySchemaSnak extends Snak {
     }
 
     /**
-     * the value will be prefixed with E
+     * The value will be prefixed with E.
      *
      * @alias id
-     * @returns {string | undefined} the value of the snak
+     * @returns {string | undefined} The value of the snak.
      */
     get id(): string | undefined {
         return this.hasValue ? `E${this._numericID}` : undefined;
@@ -43,7 +43,7 @@ export default class EntitySchemaSnak extends Snak {
 
     /**
      * @alias id
-     * @param {string | undefined} value the value of the snak
+     * @param {string | undefined} value The value of the snak.
      */
     set id(value: string | undefined) {
         if (value === undefined) {
@@ -57,7 +57,7 @@ export default class EntitySchemaSnak extends Snak {
 
     /**
      * @alias numericID
-     * @returns {number | undefined} the value of the snak
+     * @returns {number | undefined} The value of the snak.
      */
     get numericID(): number | undefined {
         return this._numericID;
@@ -65,17 +65,16 @@ export default class EntitySchemaSnak extends Snak {
 
     /**
      * @alias numericID
-     * @param {number | undefined} value the value of the snak
+     * @param {number | undefined} value The value of the snak.
      */
     set numericID(value: number | undefined) {
         this._numericID = value;
     }
 
     /**
-     *
-     * @returns {WikidataEntitySchemaSnak} the snak as json
+     * @returns {WikidataEntitySchemaSnak} The snak as JSON.
      * @example
-     *      const json = EntitySchemaSnak.toJson();
+     *      const json = EntitySchemaSnak.toJSON();
      */
     toJSON(): WikidataEntitySchemaSnak {
         return normalizeOutput({
@@ -94,10 +93,10 @@ export default class EntitySchemaSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {EntitySchemaSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {EntitySchemaSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something
@@ -108,12 +107,12 @@ export default class EntitySchemaSnak extends Snak {
     }
 
     /**
-     * create a snak from a property and a id string
+     * Create a snak from a property and an ID string.
      *
      * @static
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {EString} id the entity schema id
-     * @returns {EntitySchemaSnak} a snak with the given properties
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {EString} id The entity schema ID.
+     * @returns {EntitySchemaSnak} A snak with the given properties.
      * @example
      *   const snak = EntitySchemaSnak.fromID('P698', 'E12345678');
      */

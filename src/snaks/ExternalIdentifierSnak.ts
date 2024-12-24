@@ -6,9 +6,9 @@ import normalizeOutput from '../utils/normalizeOutput';
 const dataType = 'external-id';
 
 /**
- * Class for the ExternalIdentifierSnak
+ * Class for the ExternalIdentifierSnak.
  *
- * Most used property of this type P698 (PubMed ID)
+ * Most used property of this type is P698 (PubMed ID).
  *
  * @class
  */
@@ -18,7 +18,7 @@ export default class ExternalIdentifierSnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataExternalIdentifierSnak} snak the snak for this class in json format
+     * @param {WikidataExternalIdentifierSnak} snak The snak for this class in JSON format.
      * @example
      *    const snak = new ExternalIdentifierSnak(json);
      */
@@ -29,10 +29,11 @@ export default class ExternalIdentifierSnak extends Snak {
     }
 
     /**
+     * Converts the snak to JSON format.
      *
-     * @returns {WikidataExternalIdentifierSnak} the snak as json
+     * @returns {WikidataExternalIdentifierSnak} The snak as JSON.
      * @example
-     *      const json = wikidataExtIDSnak.toJson();
+     *      const json = wikidataExtIDSnak.toJSON();
      */
     toJSON(): WikidataExternalIdentifierSnak {
         return normalizeOutput({
@@ -48,10 +49,10 @@ export default class ExternalIdentifierSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * Checks if two snaks are equal.
      *
-     * @param {ExternalIdentifierSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {ExternalIdentifierSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *   if (snak.equals(other)) {
      *     // do something
@@ -62,12 +63,12 @@ export default class ExternalIdentifierSnak extends Snak {
     }
 
     /**
-     * create a snak from a property and a id string
+     * Creates a snak from a property and an ID string.
      *
      * @static
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {string} id the external identifier
-     * @returns {ExternalIdentifierSnak} a snak with the given properties
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {string} id The external identifier.
+     * @returns {ExternalIdentifierSnak} A snak with the given properties.
      * @example
      *   const snak = ExternalIdentifierSnak.fromID('P698', '12345678');
      */

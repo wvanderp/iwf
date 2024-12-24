@@ -2,22 +2,23 @@ import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-ty
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
- * class for descriptions
+ * Class for descriptions.
  *
  * @class
  */
 export default class Description {
-    /** the language of the description */
+    /** The language of the description. */
     language: LabelLanguages;
 
-    /** the value of the description */
+    /** The value of the description. */
     value: string;
 
     /**
+     * Constructor for the Description class.
      *
-     * @param {LabelAndDescription} label the label in json format
+     * @param {LabelAndDescription} label The label in JSON format.
      * @example
-     *   const Description = new Description({ language: 'en', value: 'Douglas Adams' });
+     *   const description = new Description({ language: 'en', value: 'Douglas Adams' });
      */
     constructor(label: LabelAndDescription) {
         this.language = label.language;
@@ -25,18 +26,20 @@ export default class Description {
     }
 
     /**
-     * create a unique id for the Description
+     * Create a unique ID for the Description.
      *
-     * @returns {string} the id
+     * @returns {string} The ID.
      */
     public get internalID(): string {
         return `${this.language}:${this.value}`;
     }
 
     /**
-     * @returns {LabelAndDescription} the Description in a json format
+     * Convert the Description to a JSON format.
+     *
+     * @returns {LabelAndDescription} The Description in JSON format.
      * @example
-     *      const json = description.toJson();
+     *      const json = description.toJSON();
      */
     toJSON(): LabelAndDescription {
         return normalizeOutput({
@@ -46,10 +49,10 @@ export default class Description {
     }
 
     /**
-     * this function checks if two descriptions are equal
+     * Check if two descriptions are equal.
      *
-     * @param {LabelAndDescription} other the other Label
-     * @returns {boolean} true if the descriptions are equal
+     * @param {LabelAndDescription} other The other label.
+     * @returns {boolean} True if the descriptions are equal.
      * @example
      *   const description1 = new Description({ language: 'en', value: 'foo' });
      *   const description2 = new Description({ language: 'en', value: 'bar' });
@@ -61,13 +64,13 @@ export default class Description {
     }
 
     /**
-     * create a Description from a language and a value
+     * Create a Description from a language and a value.
      *
-     * @param {string} language the language of the Description
-     * @param {string} value the value of the Description
-     * @returns {Description} the Description object
+     * @param {string} language The language of the Description.
+     * @param {string} value The value of the Description.
+     * @returns {Description} The Description object.
      * @example
-     *     const Description = Description.fromString('en', 'Douglas Adams')
+     *     const description = Description.fromString('en', 'Douglas Adams');
      */
     static fromString(language: LabelLanguages, value: string): Description {
         return new Description({ language, value });

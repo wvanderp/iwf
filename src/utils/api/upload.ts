@@ -16,45 +16,45 @@ import { SiteLinkChange } from '../diff/siteLinkDiff';
 import corsCheck from './corsCheck';
 
 /**
- * Api Documentation is scarce. so here is a semi comprehensive list of all pages that contain information about the api
- * - https://www.mediawiki.org/wiki/Wikibase serialized object that is used as the data source. A newly cre/API
+ * API Documentation is scarce, so here is a semi-comprehensive list of all pages that contain information about the API:
+ * - https://www.mediawiki.org/wiki/Wikibase/API
  * - https://www.wikidata.org/w/api.php?action=help&modules=wbeditentity
  * - https://github.com/wikimedia/mediawiki-extensions-Wikibase/blob/master/repo/tests/phpunit/includes/Api/EditEntityTest.php
  * -- (tests are a good source of information)
  * - https://phabricator.wikimedia.org/diffusion/EWBA/browse/master/docs/change-op-serializations.wiki;d8911d30badb0df2ae9266b72e321e65fb46b998
- * -- seams outdated but is still a good source of information
+ * -- seems outdated but is still a good source of information
  *
- * see https://phabricator.wikimedia.org/T22814 and https://noc.wikimedia.org/conf/highlight.php?file=CommonSettings.php#:~:text=%24wgCrossSiteAJAXdomains
- * for more information about cors and why the wikimedia servers block cors requests from non wikimedia domains
+ * See https://phabricator.wikimedia.org/T22814 and https://noc.wikimedia.org/conf/highlight.php?file=CommonSettings.php#:~:text=%24wgCrossSiteAJAXdomains
+ * for more information about CORS and why the Wikimedia servers block CORS requests from non-Wikimedia domains.
  */
 
 interface UploadOptions {
-    authToken?: Token; // authToken acquired from getToken or undefined if you want to upload anonymously
-    anonymous?: boolean; // if true the upload will be anonymous
+    authToken?: Token; // AuthToken acquired from getToken or undefined if you want to upload anonymously
+    anonymous?: boolean; // If true, the upload will be anonymous
 
-    userAgent?: string; // the user agent to use for the api request
+    userAgent?: string; // The user agent to use for the API request
 
-    summary: string; // the summary for the edit (displayed in the history of wikidata)
-    tags?: string[]; // the tags for the edit (displayed in the history of wikidata)
+    summary: string; // The summary for the edit (displayed in the history of Wikidata)
+    tags?: string[]; // The tags for the edit (displayed in the history of Wikidata)
 
-    maxLag?: number; // the max lag in seconds for the api request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
+    maxLag?: number; // The max lag in seconds for the API request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
 
-    server?: string; // the api endpoint to use (defaults to wikidata)
-    origin?: string; // the origin to use for the api calls aka the "domain" of the webapp (only needed for cors),
+    server?: string; // The API endpoint to use (defaults to Wikidata)
+    origin?: string; // The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
 
     axiosOptions?: AxiosRequestConfig; // The options to pass to axios
-    axiosInstance?: AxiosInstance; // the axios instance to use for the upload. defaults to axios
+    axiosInstance?: AxiosInstance; // The axios instance to use for the upload. Defaults to axios
 }
 
 type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
 
 /**
- * generates the url for the api request
+ * Generates the URL for the API request.
  * @private
- * @param {string} server the server to request from
- * @param {boolean} isNewItem if the item is new or not
- * @param {string} [origin] the origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
- * @returns {string} the url to request from
+ * @param {string} server The server to request from
+ * @param {boolean} isNewItem If the item is new or not
+ * @param {string} [origin] The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
+ * @returns {string} The URL to request from
  * @example
  *     const url = generateURL('https://www.wikidata.org');
  *    // url = 'https://www.wikidata.org/w/api.php?action=wbeditentity&format=json'
@@ -69,7 +69,7 @@ export function generateURL(server: string, isNewItem: boolean, origin?: string)
         action: 'wbeditentity',
         format: 'json',
 
-        // you need to include this if the item is new
+        // You need to include this if the item is new
         new: isNewItem ? 'item' : undefined,
         origin: origin ?? undefined
     };
@@ -79,12 +79,12 @@ export function generateURL(server: string, isNewItem: boolean, origin?: string)
 
 /**
  * @private
- * @param {UploadOptions} options the options used tp configure the upload
- * @throws {Error} if no authentication method is provided
- * @returns {AuthMethod} the method used for authentication
+ * @param {UploadOptions} options The options used to configure the upload
+ * @throws {Error} If no authentication method is provided
+ * @returns {AuthMethod} The method used for authentication
  */
 export function validateAuthentication(options: UploadOptions): AuthMethod {
-    // decide the most likely auth methods we use it later to check the all requirements for the auth methods are met
+    // Decide the most likely auth methods we use it later to check all requirements for the auth methods are met
     const authMethod: AuthMethod = options.anonymous
         ? 'anonymous'
         : options.authToken
@@ -93,7 +93,7 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
 
     switch (authMethod) {
         case 'unknown': {
-            throw new Error('you need to provide a auth method. either authToken or upload anonymously');
+            throw new Error('You need to provide an auth method. Either authToken or upload anonymously.');
         }
 
         case 'authToken': {
@@ -102,28 +102,30 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
 
         case 'anonymous': {
             if (options.authToken && options.anonymous) {
-                throw new Error('don\'t provide a authToken if you want to upload anonymously');
+                throw new Error('Don\'t provide an authToken if you want to upload anonymously.');
             }
             return 'anonymous';
         }
 
         default: {
-            throw new Error('no auth method detected');
+            throw new Error('No auth method detected.');
         }
     }
 }
 
 /**
- * This function generates the object to upload to the wikidata api
- * It diffs the old item with the new item and uses that data to see witch properties have been removed
- * Because removed properties need special syntax
+ * This function generates the object to upload to the Wikidata API.
+ * It diffs the old item with the new item and uses that data to see which properties have been removed.
+ * Because removed properties need special syntax.
  *
  * @private
- * @throws {Error} if an invalid authentication method is provided
- * @param {Item} item the item to upload
+ * @throws {Error} If an invalid authentication method is provided
+ * @param {Item} item The item to upload
+ * @param {string} server The server to request from
+ * @returns {Promise<Record<string, unknown>>} The data to upload
  */
 export async function generateUploadData(item: Item, server: string): Promise<Record<string, unknown>> {
-    // get diff from the original item/SonarSource/eslint-plugin-sonarjs/blob/master/docs/rules/.md
+    // Get diff from the original item
     const originalItem = item.id ? await requestItem(item.id, { server }) : Item.fromNothing();
 
     const diffs = originalItem.diff(item);
@@ -133,12 +135,12 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
 
     const json = getData(item);
 
-    // applying the removed items from the diff to the upload data
+    // Applying the removed items from the diff to the upload data
     const removedStatements = diffs.filter((diff) => isStatementChange(diff) && diff.action === 'remove') as StatementChange[];
 
     for (const removedStatement of removedStatements) {
         if (!removedStatement.old?.id) {
-            // you don't have to remove statements that were never uploaded
+            // You don't have to remove statements that were never uploaded
             continue;
         }
 
@@ -148,7 +150,7 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
         json.claims[removedStatement.old.mainsnak.property].push({ remove: '', id: removedStatement.old.id });
     }
 
-    // removing aliases
+    // Removing aliases
     const removedAliases = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'alias') as AliasChange[];
 
     for (const removedAlias of removedAliases) {
@@ -160,7 +162,7 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
         }
     }
 
-    // removing labels
+    // Removing labels
     const removedLabels = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'label') as LabelChange[];
 
     for (const removedLabel of removedLabels) {
@@ -169,7 +171,7 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
         }
     }
 
-    // removing descriptions
+    // Removing descriptions
     const removedDescriptions = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'description') as LabelChange[];
 
     for (const removedDescription of removedDescriptions) {
@@ -178,7 +180,7 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
         }
     }
 
-    // removing sitelinks
+    // Removing sitelinks
     // https://github.com/wikimedia/mediawiki-extensions-Wikibase/blob/master/repo/tests/phpunit/includes/Api/EditEntityTest.php#L165
     const removedSitelinks = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'siteLink') as SiteLinkChange[];
 
@@ -193,22 +195,22 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
 
 /**
  *
- * @param {Item} item The item you want to upload to wikidata
+ * @param {Item} item The item you want to upload to Wikidata
  * @param {UploadOptions} options The options for uploading
- * @param {string} options.summary The summary for the edit (displayed in the history of wikidata)
- * @param {string[]} [options.tags] The tags for the edit (displayed in the history of wikidata)
+ * @param {string} options.summary The summary for the edit (displayed in the history of Wikidata)
+ * @param {string[]} [options.tags] The tags for the edit (displayed in the history of Wikidata)
  * @param {Token} [options.authToken] The token to use for authentication
- * @param {boolean} [options.anonymous] If true the upload will be anonymous
- * @param {number} [options.maxLag] The max lag in seconds for the api request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
- * @param {string} [options.server] The api endpoint to use (defaults to wikidata)
- * @param {string} [options.origin] The origin to use for the api calls aka the "domain" of the webapp (only needed for cors)
- * @param {string} [options.userAgent] The user agent to use for the api request
+ * @param {boolean} [options.anonymous] If true, the upload will be anonymous
+ * @param {number} [options.maxLag] The max lag in seconds for the API request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
+ * @param {string} [options.server] The API endpoint to use (defaults to Wikidata)
+ * @param {string} [options.origin] The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
+ * @param {string} [options.userAgent] The user agent to use for the API request
  * @param {AxiosRequestConfig} [options.axiosOptions] The options to pass to axios
- * @param {AxiosInstance} [options.axiosInstance] The axios instance to use for the upload. defaults to axios
+ * @param {AxiosInstance} [options.axiosInstance] The axios instance to use for the upload. Defaults to axios
  * @throws {Error} If no authentication method is provided or the upload fails
  * @returns {Promise<Item>} A Promise for the item after uploading
  * @example
- *      const token = await getToken('your wikidata username', 'your wikidata password');
+ *      const token = await getToken('your Wikidata username', 'your Wikidata password');
  *      upload(item, {
  *          summary: 'test update',
  *          authToken: token
@@ -221,13 +223,13 @@ export default async function upload(item: Item, options: UploadOptions): Promis
 
     const server = options.server ?? 'https://www.wikidata.org';
 
-    // checking for cors, browser and origin
+    // Checking for CORS, browser, and origin
     corsCheck(server, options?.origin);
 
     const data = await generateUploadData(item, server);
 
-    // axios instance to use for the request
-    // you could need a custom axios instance for cors circumvention purposes
+    // Axios instance to use for the request
+    // You could need a custom axios instance for CORS circumvention purposes
     const axiosInstance: AxiosInstance = options?.axiosInstance ?? axios;
 
     const parameters = {
@@ -266,7 +268,7 @@ export default async function upload(item: Item, options: UploadOptions): Promis
     ) {
         // eslint-disable-next-line no-console
         console.error(JSON.stringify(responseData.error, null, 2));
-        throw new Error('api request went wrong');
+        throw new Error('API request went wrong');
     }
 
     return new Item(responseData.entity);

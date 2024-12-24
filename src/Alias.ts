@@ -3,22 +3,23 @@ import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-ty
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
- * class for aliases
+ * Class for aliases.
  *
  * @class
  */
 export default class Alias {
-    /** the language of the alias */
+    /** The language of the alias. */
     language: LabelLanguages;
 
-    /** the value of the alias */
+    /** The value of the alias. */
     value: string;
 
     /**
+     * Constructor for Alias.
      *
-     * @param {LabelAndDescription} alias  the alias in json format
+     * @param {LabelAndDescription} alias The alias in JSON format.
      * @example
-     *    const Alias = new Alias({ language: 'en', value: 'Douglas Adams' });
+     *    const alias = new Alias({ language: 'en', value: 'Douglas Adams' });
      */
     constructor(alias: LabelAndDescription) {
         this.language = alias.language;
@@ -26,18 +27,20 @@ export default class Alias {
     }
 
     /**
-     * create a unique id for the Alias
+     * Create a unique ID for the Alias.
      *
-     * @returns {string} the id
+     * @returns {string} The ID.
      */
     public get internalID(): string {
         return `${this.language}:${this.value}`;
     }
 
     /**
-     * @returns {LabelAndDescription} the alias in a json format
+     * Convert the alias to a JSON format.
+     *
+     * @returns {LabelAndDescription} The alias in JSON format.
      * @example
-     *      const json = alias.toJson();
+     *      const json = alias.toJSON();
      */
     toJSON(): LabelAndDescription {
         return normalizeOutput({
@@ -47,10 +50,10 @@ export default class Alias {
     }
 
     /**
-     * this function checks if two Aliases are equal
+     * Check if two Aliases are equal.
      *
-     * @param {LabelAndDescription} other the other Label
-     * @returns {boolean} true if the Aliases are equal
+     * @param {LabelAndDescription} other The other alias.
+     * @returns {boolean} True if the aliases are equal.
      * @example
      *    const alias1 = new Alias({ language: 'en', value: 'foo' });
      *    const alias2 = new Alias({ language: 'en', value: 'bar' });
@@ -62,13 +65,13 @@ export default class Alias {
     }
 
     /**
-     * create a Alias from a language and a value
+     * Create an Alias from a language and a value.
      *
-     * @param {string} language the language of the Alias
-     * @param {string} value the value of the Alias
-     * @returns {Alias} the Alias object
+     * @param {LabelLanguages} language The language of the Alias.
+     * @param {string} value The value of the Alias.
+     * @returns {Alias} The Alias object.
      * @example
-     *     const Alias = Alias.fromString('en', 'Douglas Adams')
+     *     const alias = Alias.fromString('en', 'Douglas Adams');
      */
     static fromString(language: LabelLanguages, value: string): Alias {
         return new Alias({ language, value });

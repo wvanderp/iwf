@@ -5,7 +5,7 @@ import normalizeOutput from './utils/normalizeOutput';
 import arrayEqual from './utils/arrayEqual';
 
 /**
- * the class for a site link
+ * The class for a sitelink.
  *
  * @class
  */
@@ -19,7 +19,7 @@ export default class SiteLink {
     _url: string | undefined;
 
     /**
-     * @param {WikidataSiteLink} siteLink The siteLink for this class
+     * @param {WikidataSiteLink} siteLink The siteLink for this class.
      * @example
      *   const siteLink = new SiteLink({
      *       site: 'enwiki',
@@ -36,10 +36,10 @@ export default class SiteLink {
     }
 
     /**
-     * if the private property _url is set then we know the url already exists
-     * else we look it up with wikidata-properties package
+     * If the private property _url is set, then we know the URL already exists.
+     * Otherwise, we look it up with the wikidata-properties package.
      *
-     * @returns {string} the url of the site link
+     * @returns {string} The URL of the site link.
      */
     get url(): string {
         if (this._url !== undefined) return this._url;
@@ -52,19 +52,19 @@ export default class SiteLink {
     }
 
     /**
-     * create a unique id for the site link
+     * Create a unique ID for the site link.
      *
-     * @returns {string} the id
+     * @returns {string} The ID.
      */
     public get internalID(): string {
         return `${this.site}:${this.title}`;
     }
 
     /**
-     * this function checks if SiteLinks are equal
+     * This function checks if SiteLinks are equal.
      *
-     * @param {SiteLink} other the other SiteLink
-     * @returns {boolean} true if the SiteLink are equal
+     * @param {SiteLink} other The other SiteLink.
+     * @returns {boolean} True if the SiteLinks are equal.
      * @example
      *     const siteLink1 = new SiteLink({ site: 'enwiki', title: 'foo' });
      *     const siteLink2 = new SiteLink({ site: 'enwiki', title: 'bar' });
@@ -81,9 +81,9 @@ export default class SiteLink {
     }
 
     /**
-     * @returns {WikidataSiteLink} the SiteLink in a json format
+     * @returns {WikidataSiteLink} The SiteLink in a JSON format.
      * @example
-     *      const json = siteLink.toJson();
+     *      const json = siteLink.toJSON();
      */
     toJSON(): WikidataSiteLink {
         return normalizeOutput({
@@ -95,23 +95,23 @@ export default class SiteLink {
     }
 
     /**
-     * create a SiteLink from a language and a value
+     * Create a SiteLink from a language and a value.
      *
-     * @param {string} site to what wiki is the site link
-     * @param {string} title the title of the page
-     * @param {[string[]]} badges the badges of the site link like featured article
-     * @param {[string]} url the url of the page with domain
-     * @returns {SiteLink} the SiteLink object
+     * @param {string} site To what wiki is the site link.
+     * @param {string} title The title of the page.
+     * @param {string[]} [badges] The badges of the site link, like featured article.
+     * @param {string} [url] The URL of the page with domain.
+     * @returns {SiteLink} The SiteLink object.
      * @example
-     *  const SiteLink = SiteLink.fromString('enwiki', 'Berlin');
+     *  const siteLink = SiteLink.fromString('enwiki', 'Berlin');
      *
      *  // or
      *
-     *  const SiteLink = SiteLink.fromString('enwiki', 'Berlin', ['Q17437796']);
+     *  const siteLink = SiteLink.fromString('enwiki', 'Berlin', ['Q17437796']);
      *
      *  // or
      *
-     *  const SiteLink = SiteLink.fromString(
+     *  const siteLink = SiteLink.fromString(
      *      'enwiki',
      *      'Berlin',
      *      ['Q17437796'],

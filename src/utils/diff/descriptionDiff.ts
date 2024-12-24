@@ -12,13 +12,13 @@ export interface DescriptionChange extends Change {
 }
 
 /**
- * finds the added, removed, and changed descriptions between two Arrays
+ * Finds the added, removed, and changed descriptions between two arrays.
  *
  * @private
- * @param {Description[]} o the old array
- * @param {Description[]} n the new array
- * @param {QString | 'unknown'} parentID the ID of the parent of both the old and the new array
- * @returns {DescriptionChange[]} the changes from the old array to the new array
+ * @param {Description[]} o The old array.
+ * @param {Description[]} n The new array.
+ * @param {QString | 'unknown'} parentID The ID of the parent of both the old and the new array.
+ * @returns {DescriptionChange[]} The changes from the old array to the new array.
  */
 export default function descriptionDiff(o: Description[], n: Description[], parentID: QString | 'unknown'): DescriptionChange[] {
     const changes: DescriptionChange[] = [];

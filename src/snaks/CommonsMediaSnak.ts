@@ -6,20 +6,20 @@ import { PString } from '../types/strings';
 const dataType = 'commonsMedia';
 
 /**
- * Class for the CommonsMediaSnak
+ * Class for the CommonsMediaSnak.
  *
- * Most used property of this type P18 (image)
+ * Most used property of this type is P18 (image).
  *
  * @class
  */
 export default class CommonsMediaSnak extends Snak {
-    /** the file name as used in the wiki commons url */
+    /** The file name as used in the Wiki Commons URL */
     fileName: string | null;
 
     datatype = dataType;
 
     /**
-     * @param {WikidataCommonsMediaSnak} snak the snak for this class in json format
+     * @param {WikidataCommonsMediaSnak} snak The snak for this class in JSON format.
      * @example
      *    const snak = new CommonsMediaSnak(json);
      */
@@ -30,29 +30,28 @@ export default class CommonsMediaSnak extends Snak {
     }
 
     /**
-     * gets the link to the image.
-     * uses the special:redirect function of wiki commons to find the right url
+     * Gets the link to the image.
+     * Uses the `Special:Redirect` function of Wiki Commons to find the right URL.
      *
-     * @returns {string} the link to the image
+     * @returns {string} The link to the image.
      */
     public get imageLink(): string {
         return `https://commons.wikimedia.org/wiki/Special:Redirect/file/${this.fileName}`;
     }
 
     /**
-     * gets the link to the wiki commons page
+     * Gets the link to the Wiki Commons page.
      *
-     * @returns {string} the link to the wiki commons page
+     * @returns {string} The link to the Wiki Commons page.
      */
     public get commonsLink(): string {
         return `https://commons.wikimedia.org/wiki/File:${this.fileName}`;
     }
 
     /**
-     *
-     * @returns {WikidataCommonsMediaSnak} the snak as json
+     * @returns {WikidataCommonsMediaSnak} The snak as JSON.
      * @example
-     *      const json = CommonsSnak.toJson();
+     *      const json = CommonsSnak.toJSON();
      */
     toJSON(): WikidataCommonsMediaSnak {
         return normalizeOutput({
@@ -68,10 +67,10 @@ export default class CommonsMediaSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {CommonsMediaSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {CommonsMediaSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *   if (snak.equals(other)) {
      *     // do something
@@ -82,12 +81,12 @@ export default class CommonsMediaSnak extends Snak {
     }
 
     /**
-     * create a snak from a property and a file name
+     * Creates a snak from a property and a file name.
      *
      * @static
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {string} fileName the file name
-     * @returns {CommonsMediaSnak} a snak with the given properties
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {string} fileName The file name.
+     * @returns {CommonsMediaSnak} A snak with the given properties.
      * @example
      *   const snak = CommonsMediaSnak.fromFileName('P18', 'Example.jpg');
      */

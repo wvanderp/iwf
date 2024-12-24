@@ -4,9 +4,9 @@ import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
- * Class for the StringSnak
+ * Class for the StringSnak.
  *
- * Most used property of this type P1545 (series ordinal)
+ * Most used property of this type P1545 (series ordinal).
  *
  * @class
  */
@@ -16,7 +16,7 @@ export default class StringSnak extends Snak {
     datatype = 'string';
 
     /**
-     * @param {WikidataStringSnak} snak the snak for this class in json format
+     * @param {WikidataStringSnak} snak The snak for this class in JSON format.
      * @example
      *      const snak = new StringSnak(json);
      */
@@ -28,7 +28,7 @@ export default class StringSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataStringSnak} the snak as json
+     * @returns {WikidataStringSnak} The snak as JSON.
      * @example
      *      const json = stringSnak.toJson();
      */
@@ -46,10 +46,10 @@ export default class StringSnak extends Snak {
     }
 
     /**
-     * this function checks if two snaks are equal
+     * This function checks if two snaks are equal.
      *
-     * @param {StringSnak} other the other snak
-     * @returns {boolean} true if the snaks are equal
+     * @param {StringSnak} other The other snak.
+     * @returns {boolean} True if the snaks are equal.
      * @example
      *    if (stringSnak.equals(other)) {
      *      // do something
@@ -61,9 +61,9 @@ export default class StringSnak extends Snak {
 
     /**
      * @static
-     * @param {PString} property the property of the snak in 'P-form'
-     * @param {string} string the string
-     * @returns {StringSnak} a snak with the given properties
+     * @param {PString} property The property of the snak in 'P-form'.
+     * @param {string} string The string.
+     * @returns {StringSnak} A snak with the given properties.
      * @example
      *   if (snak.equals(other)) {
      *     // do something

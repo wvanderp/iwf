@@ -1,12 +1,12 @@
 /**
- * Does a deep compare of two arrays
+ * Does a deep compare of two arrays.
  *
- * source: https://stackoverflow.com/a/16436975
+ * Source: https://stackoverflow.com/a/16436975
  *
  * @private
- * @param {Array} a array a
- * @param {Array} b array b
- * @returns {boolean} if the arrays are equal
+ * @param {Array} a Array a.
+ * @param {Array} b Array b.
+ * @returns {boolean} If the arrays are equal.
  */
 export default function arrayEqual<T>(a: T[] | undefined, b: T[] | undefined): boolean {
     if (a === b) return true;
@@ -20,15 +20,15 @@ export default function arrayEqual<T>(a: T[] | undefined, b: T[] | undefined): b
 }
 
 /**
- * Does a deep compare of two arrays with a function
+ * Does a deep compare of two arrays with a function.
  *
- * based on source: https://stackoverflow.com/a/16436975
+ * Based on source: https://stackoverflow.com/a/16436975
  *
  * @private
- * @param {Array} a array a
- * @param {Array} b array b
- * @param {Function} compareFunction a function tat compares to objects in the array
- * @returns {boolean} if the arrays are equal
+ * @param {Array} a Array a.
+ * @param {Array} b Array b.
+ * @param {Function} compareFunction A function that compares two objects in the array.
+ * @returns {boolean} If the arrays are equal.
  */
 export function arrayEqualWith<T>(
     a: T[] | undefined,

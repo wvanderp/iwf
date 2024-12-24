@@ -2,16 +2,16 @@
 // @ts-nocheck
 
 /**
- * this function removes keys which are undefined.
- * because although javascript doesn't care if a key does not exist of if it is undefined.
- * the JSON.stringify will show the keys as undefined and so we can faithfully recreate the json
+ * This function removes keys which are undefined.
+ * Although JavaScript doesn't care if a key does not exist or if it is undefined,
+ * JSON.stringify will show the keys as undefined, so we can faithfully recreate the JSON.
  *
  * https://stackoverflow.com/a/38340374
  *
  * @private
  * @template T
- * @param {T} object the object that will be cleaned
- * @returns {T} the cleaned object
+ * @param {T} object The object that will be cleaned.
+ * @returns {T} The cleaned object.
  */
 function removeEmpty<T>(object: T): T {
     for (const key of Object.keys(object)) {
@@ -23,14 +23,14 @@ function removeEmpty<T>(object: T): T {
 }
 
 /**
- * helper function for cleaning objects.
- * I don't want to muddy the example from Stack Overflow so this is a wrapper.
+ * Helper function for cleaning objects.
+ * This is a wrapper to avoid muddying the example from Stack Overflow.
  *
  * @see removeEmpty
  * @private
  * @template T
- * @param {T} object the object that will be cleaned
- * @returns {T} the cleaned object
+ * @param {T} object The object that will be cleaned.
+ * @returns {T} The cleaned object.
  */
 export default function normalizeOutput<T>(object: T): T {
     return removeEmpty(object);
