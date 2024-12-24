@@ -144,9 +144,9 @@ export default class Item {
      *      // Douglas Adams
      */
     findLabel(language: string): Label | undefined {
-        const label = this.labels.find((label) => label.language === language);
-        if (label) {
-            return label;
+        const foundLabel = this.labels.find((label) => label.language === language);
+        if (foundLabel) {
+            return foundLabel;
         }
         return this.labels.find((label) => label.language === 'mul');
     }
