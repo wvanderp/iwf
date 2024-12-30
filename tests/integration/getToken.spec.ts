@@ -28,6 +28,9 @@ describe('get login token', () => {
         expect(token).toHaveProperty('cookie');
         expect(typeof token.token).toBe('string');
         expect(typeof token.cookie).toBe('string');
+
+        expect(token.token).not.toEqual('+\\');
+        expect(token.cookie).not.toEqual('');
     });
 
     it('should fail gracefully when given wrong credentials', async function () {
