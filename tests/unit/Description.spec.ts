@@ -12,6 +12,11 @@ const descriptionJson2 = {
 } as LabelAndDescription;
 
 describe('Description', () => {
+    describe('constructor', () => {
+        it("should throw when language is 'mul'", () => {
+            expect(() => new Description({ language: 'mul', value: 'anything' } as LabelAndDescription)).toThrow("The 'mul' language is not allowed for descriptions.");
+        });
+    });
     describe('internalID', () => {
         it('should be the language and value of the Description', () => {
             const description = new Description(descriptionJson);

@@ -1,4 +1,4 @@
-name: Docs
+name: "📚 Docs"
 on:
   release:
     types: [published]
@@ -6,10 +6,15 @@ on:
 
 jobs:
   build-and-deploy:
+    name: "📚 Build and deploy"
     runs-on: ubuntu-latest
     steps:
       - name: 🛎️ Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
       - name: 🔧 Install and Build
         run: |

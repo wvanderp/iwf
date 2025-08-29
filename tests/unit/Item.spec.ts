@@ -102,6 +102,94 @@ describe('getLabel', () => {
     });
 });
 
+describe('findDescription', () => {
+    it('should find a description if it is present', () => {
+        const item = Item.fromNothing();
+        item.descriptions.push(Description.fromString('en', 'the son of god'));
+
+        const found = item.findDescription('en');
+
+        expect(found?.language).toEqual('en');
+        expect(found?.value).toEqual('the son of god');
+    });
+
+    it('should return undefined if the description in the requested language is absent', () => {
+        const item = Item.fromNothing();
+        item.descriptions.push(Description.fromString('en', 'the son of god'));
+
+        const found = item.findDescription('fr');
+
+        expect(found).toEqual(undefined);
+    });
+
+    it('should return undefined when there are no descriptions', () => {
+        const item = Item.fromNothing();
+        const found = item.findDescription('en');
+        expect(found).toEqual(undefined);
+    });
+
+    it('should not use a mul description as a fallback (descriptions are language-specific)', () => {
+        const item = Item.fromNothing();
+        item.descriptions.push(Description.fromString('mul', 'universal description'));
+
+        const found = item.findDescription('en');
+
+        expect(found).toEqual(undefined);
+    });
+});
+
+describe('findAlias', () => {
+    it('should find aliases for a language if present', () => {
+        const item = Item.fromNothing();
+        item.aliases.push(Alias.fromString('en', 'Messiah'));
+
+        const found = item.findAliases('en');
+
+        expect(found.length).toEqual(1);
+        expect(found[0].language).toEqual('en');
+        expect(found[0].value).toEqual('Messiah');
+    });
+
+    it('should return empty array if the alias in the requested language is absent', () => {
+        const item = Item.fromNothing();
+        item.aliases.push(Alias.fromString('en', 'Messiah'));
+
+        const found = item.findAliases('fr');
+
+        expect(found).toEqual([]);
+    });
+
+    it('should return empty array when there are no aliases', () => {
+        const item = Item.fromNothing();
+        const found = item.findAliases('en');
+        expect(found).toEqual([]);
+    });
+
+    it('should return mul aliases when specific language is absent but mul is present', () => {
+        const item = Item.fromNothing();
+        item.aliases.push(Alias.fromString('mul', 'universal alias'));
+
+        const found = item.findAliases('en');
+
+        expect(found.length).toEqual(1);
+        expect(found[0].language).toEqual('mul');
+        expect(found[0].value).toEqual('universal alias');
+    });
+
+    it('should return multiple aliases for the same language', () => {
+        const item = Item.fromNothing();
+        item.aliases.push(
+            Alias.fromString('en', 'Messiah'),
+            Alias.fromString('en', 'Christ')
+        );
+
+        const found = item.findAliases('en');
+
+        expect(found.length).toEqual(2);
+        expect(found.map((a) => a.value).sort()).toEqual(['Christ', 'Messiah']);
+    });
+});
+
 describe('addStatement', () => {
     it('should add a statement', () => {
         const item = Item.fromNothing();

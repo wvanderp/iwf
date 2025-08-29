@@ -152,6 +152,37 @@ export default class Item {
     }
 
     /**
+     * Tries to find a description in the requested language.
+     * If none can be found, it will return undefined.
+     *
+     * @param {string} language The language of the description.
+     * @returns {Description | undefined} The description if it found one or undefined.
+     * @example
+     *      const description = item.findDescription('en')
+     *      console.log(description?.value)
+     */
+    findDescription(language: string): Description | undefined {
+        return this.descriptions.find((description) => description.language === language);
+    }
+
+    /**
+     * Finds all aliases in the requested language.
+     * If none are present for the requested language, it will fall back to aliases with language 'mul'.
+     * Returns an empty array when no aliases match.
+     *
+     * @param {string} language The language of the aliases.
+     * @returns {Alias[]} All aliases in the requested language (or 'mul' fallback), or an empty array.
+     * @example
+     *      const aliases = item.findAliases('en')
+     *      console.log(aliases.map(a => a.value))
+     */
+    findAliases(language: string): Alias[] {
+        const found = this.aliases.filter((alias) => alias.language === language);
+        if (found.length > 0) return found;
+        return this.aliases.filter((alias) => alias.language === 'mul');
+    }
+
+    /**
      * Adds a statement to the item.
      *
      * @param {Statement | Statement[]} statement The statement to add.

@@ -7,8 +7,11 @@ import normalizeOutput from './utils/normalizeOutput';
  * @class
  */
 export default class Description {
-    /** The language of the description. */
-    language: LabelLanguages;
+    /**
+     * The language of the description.
+     * Nearly all languages are supported, but wikidata does not have `mul` (default for all languages) for descriptions
+     */
+    language: Exclude<LabelLanguages, 'mul'>;
 
     /** The value of the description. */
     value: string;
@@ -21,7 +24,10 @@ export default class Description {
      *   const description = new Description({ language: 'en', value: 'Douglas Adams' });
      */
     constructor(label: LabelAndDescription) {
-        this.language = label.language;
+        if (label.language === 'mul') {
+            throw new Error("The 'mul' language is not allowed for descriptions.");
+        }
+        this.language = label.language as Exclude<LabelLanguages, 'mul'>;
         this.value = label.value;
     }
 
