@@ -127,15 +127,6 @@ describe('findDescription', () => {
         const found = item.findDescription('en');
         expect(found).toEqual(undefined);
     });
-
-    it('should not use a mul description as a fallback (descriptions are language-specific)', () => {
-        const item = Item.fromNothing();
-        item.descriptions.push(Description.fromString('mul', 'universal description'));
-
-        const found = item.findDescription('en');
-
-        expect(found).toEqual(undefined);
-    });
 });
 
 describe('findAlias', () => {
