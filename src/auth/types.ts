@@ -16,6 +16,7 @@ export interface RequestConfig {
 export interface AuthProvider {
     /**
      * Adds authentication to a request configuration
+     *
      * @param request The base request configuration
      * @returns The request configuration with authentication added
      */
@@ -23,6 +24,7 @@ export interface AuthProvider {
 
     /**
      * Fetches a CSRF token for the given site
+     *
      * @param site The wiki site URL (e.g., 'https://www.wikidata.org')
      * @returns The CSRF token
      */
@@ -31,6 +33,7 @@ export interface AuthProvider {
     /**
      * Optional hook called when an authentication error occurs
      * Allows the provider to attempt recovery (e.g., refresh tokens)
+     *
      * @param error The error that occurred
      */
     onAuthError?(error: Error): Promise<void>;
@@ -42,6 +45,7 @@ export interface AuthProvider {
 export interface TokenStore {
     /**
      * Load a refresh token from storage
+     *
      * @param key Optional key to identify which token to load
      * @returns The refresh token, or undefined if not found
      */
@@ -49,6 +53,7 @@ export interface TokenStore {
 
     /**
      * Save a refresh token to storage
+     *
      * @param value The refresh token to save
      * @param key Optional key to identify the token
      */
@@ -120,7 +125,7 @@ export interface BotPasswordConfig {
 /**
  * PKCE (Proof Key for Code Exchange) parameters
  */
-export interface PKCEParams {
+export interface PKCEParameters {
     codeVerifier: string;
     codeChallenge: string;
     codeChallengeMethod: string;

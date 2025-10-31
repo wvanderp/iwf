@@ -9,8 +9,8 @@ import {
 describe('redactHeaders', () => {
     it('should redact sensitive headers', () => {
         const headers = {
-            'Authorization': 'Bearer secret-token',
-            'Cookie': 'session=abc123',
+            Authorization: 'Bearer secret-token',
+            Cookie: 'session=abc123',
             'Set-Cookie': 'session=def456',
             'Content-Type': 'application/json',
             'User-Agent': 'test-agent'
@@ -18,8 +18,8 @@ describe('redactHeaders', () => {
 
         const redacted = redactHeaders(headers);
 
-        expect(redacted['Authorization']).toBe('[REDACTED]');
-        expect(redacted['Cookie']).toBe('[REDACTED]');
+        expect(redacted.Authorization).toBe('[REDACTED]');
+        expect(redacted.Cookie).toBe('[REDACTED]');
         expect(redacted['Set-Cookie']).toBe('[REDACTED]');
         expect(redacted['Content-Type']).toBe('application/json');
         expect(redacted['User-Agent']).toBe('test-agent');
@@ -27,25 +27,25 @@ describe('redactHeaders', () => {
 
     it('should handle case-insensitive header names', () => {
         const headers = {
-            'authorization': 'Bearer secret-token',
-            'COOKIE': 'session=abc123'
+            authorization: 'Bearer secret-token',
+            COOKIE: 'session=abc123'
         };
 
         const redacted = redactHeaders(headers);
 
-        expect(redacted['authorization']).toBe('[REDACTED]');
-        expect(redacted['COOKIE']).toBe('[REDACTED]');
+        expect(redacted.authorization).toBe('[REDACTED]');
+        expect(redacted.COOKIE).toBe('[REDACTED]');
     });
 
     it('should not modify original headers object', () => {
         const headers = {
-            'Authorization': 'Bearer secret-token'
+            Authorization: 'Bearer secret-token'
         };
 
         const redacted = redactHeaders(headers);
 
-        expect(headers['Authorization']).toBe('Bearer secret-token');
-        expect(redacted['Authorization']).toBe('[REDACTED]');
+        expect(headers.Authorization).toBe('Bearer secret-token');
+        expect(redacted.Authorization).toBe('[REDACTED]');
     });
 });
 
@@ -131,9 +131,7 @@ describe('calculateBackoffDelay', () => {
         const expectedBase = 4000;
 
         // Run multiple times to ensure jitter is applied
-        const delays = Array.from({ length: 10 }, () => 
-            calculateBackoffDelay(attempt, baseDelay, maxDelay, true)
-        );
+        const delays = Array.from({ length: 10 }, () => calculateBackoffDelay(attempt, baseDelay, maxDelay, true));
 
         // Should have some variation
         const uniqueDelays = new Set(delays);
@@ -162,7 +160,7 @@ describe('calculateBackoffDelay', () => {
         const baseDelay = 1000;
         const maxDelay = 30000;
 
-        for (let attempt = 0; attempt < 10; attempt++) {
+        for (let attempt = 0; attempt < 10; attempt += 1) {
             const delay = calculateBackoffDelay(attempt, baseDelay, maxDelay, true);
             expect(delay).toBeGreaterThanOrEqual(0);
         }
@@ -185,7 +183,7 @@ describe('parseRetryAfter', () => {
     });
 
     it('should return undefined for invalid input', () => {
-        expect(parseRetryAfter(undefined)).toBeUndefined();
+        expect(parseRetryAfter()).toBeUndefined();
         expect(parseRetryAfter('invalid')).toBeUndefined();
         expect(parseRetryAfter('')).toBeUndefined();
     });

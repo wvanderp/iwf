@@ -34,14 +34,19 @@ interface CsrfTokenResponse {
  * Bot Password authentication provider
  * Uses MediaWiki Action API login with bot passwords
  */
-export class BotPasswordAuth implements AuthProvider {
+export default class BotPasswordAuth implements AuthProvider {
     private readonly username: string;
+
     private readonly password: string;
+
     private readonly userAgent: string;
+
     private readonly cookieJar: CookieJar;
+
     private readonly axiosInstance: AxiosInstance;
 
     private loggedInSites: Set<string> = new Set();
+
     private csrfTokenCache: Map<string, string> = new Map();
 
     constructor(config: BotPasswordConfig) {
@@ -69,6 +74,9 @@ export class BotPasswordAuth implements AuthProvider {
 
     /**
      * Ensures the user is logged in to the specified site
+     *
+     * @param site
+     * @example
      */
     async ensureLoggedIn(site: string): Promise<void> {
         if (this.loggedInSites.has(site)) {
@@ -79,7 +87,7 @@ export class BotPasswordAuth implements AuthProvider {
         const apiURL = `${siteURL.origin}/w/api.php`;
 
         // Step 1: Get login token
-        const loginTokenParams = {
+        const loginTokenParameters = {
             action: 'query',
             meta: 'tokens',
             type: 'login',
@@ -87,7 +95,7 @@ export class BotPasswordAuth implements AuthProvider {
         };
 
         const tokenResponse = await this.axiosInstance.get<LoginTokenResponse>(
-            `${apiURL}?${qs.stringify(loginTokenParams)}`
+            `${apiURL}?${qs.stringify(loginTokenParameters)}`
         );
 
         const loginToken = tokenResponse.data.query.tokens.logintoken;
@@ -96,7 +104,7 @@ export class BotPasswordAuth implements AuthProvider {
         }
 
         // Step 2: Perform login
-        const loginParams = {
+        const loginParameters = {
             action: 'login',
             lgname: this.username,
             lgpassword: this.password,
@@ -106,7 +114,7 @@ export class BotPasswordAuth implements AuthProvider {
 
         const loginResponse = await this.axiosInstance.post<LoginResponse>(
             apiURL,
-            qs.stringify(loginParams),
+            qs.stringify(loginParameters),
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -115,9 +123,13 @@ export class BotPasswordAuth implements AuthProvider {
         );
 
         const loginResult = loginResponse.data.login.result;
+        const failureReason = loginResponse.data.login.reason;
         if (loginResult !== 'Success') {
+            const failureMessage = failureReason
+                ? `Login failed: ${loginResult} - ${failureReason}`
+                : `Login failed: ${loginResult}`;
             throw new PermissionDeniedError(
-                `Login failed: ${loginResult}${loginResponse.data.login.reason ? ` - ${loginResponse.data.login.reason}` : ''}`,
+                failureMessage,
                 { site, username: this.username }
             );
         }
@@ -125,6 +137,7 @@ export class BotPasswordAuth implements AuthProvider {
         this.loggedInSites.add(site);
     }
 
+    // eslint-disable-next-line class-methods-use-this
     async authorize(request: RequestConfig): Promise<RequestConfig> {
         // Cookie jar is automatically attached by axios-cookiejar-support
         // Just return the request as-is
@@ -145,7 +158,7 @@ export class BotPasswordAuth implements AuthProvider {
         const siteURL = new URL(site);
         const apiURL = `${siteURL.origin}/w/api.php`;
 
-        const params = {
+        const parameters = {
             action: 'query',
             meta: 'tokens',
             type: 'csrf',
@@ -153,7 +166,7 @@ export class BotPasswordAuth implements AuthProvider {
         };
 
         const response = await this.axiosInstance.get<CsrfTokenResponse>(
-            `${apiURL}?${qs.stringify(params)}`
+            `${apiURL}?${qs.stringify(parameters)}`
         );
 
         const csrfToken = response.data.query.tokens.csrftoken;
@@ -175,6 +188,8 @@ export class BotPasswordAuth implements AuthProvider {
 
     /**
      * Gets the axios instance (for use in upload operations)
+     *
+     * @example
      */
     getAxiosInstance(): AxiosInstance {
         return this.axiosInstance;

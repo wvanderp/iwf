@@ -1,10 +1,14 @@
+/* eslint-disable max-classes-per-file */
 /**
  * Base class for all iwf authentication errors
  */
 export class IWFError extends Error {
     public readonly code: string;
+
     public readonly wiki?: string;
+
     public readonly title?: string;
+
     public readonly details?: Record<string, unknown>;
 
     constructor(message: string, code: string, details?: { wiki?: string; title?: string; [key: string]: unknown }) {
@@ -71,11 +75,11 @@ export class AbuseFilterError extends IWFError {
 }
 
 /**
- * Thrown when content is blocked by spam blacklist
+ * Thrown when content is blocked by spam blocklist
  */
-export class SpamBlacklistError extends IWFError {
+export class SpamBlocklistError extends IWFError {
     constructor(message: string, details?: Record<string, unknown>) {
-        super(message, 'SPAM_BLACKLIST', details);
+        super(message, 'SPAM_BLOCKLIST', details);
     }
 }
 
@@ -84,6 +88,7 @@ export class SpamBlacklistError extends IWFError {
  */
 export class CaptchaNeededError extends IWFError {
     public readonly captchaId?: string;
+
     public readonly captchaType?: string;
 
     constructor(message: string, captchaId?: string, captchaType?: string, details?: Record<string, unknown>) {
@@ -116,6 +121,11 @@ export class APIError extends IWFError {
 
 /**
  * Maps MediaWiki API error codes to typed errors
+ *
+ * @param apiErrorCode
+ * @param message
+ * @param details
+ * @example
  */
 export function mapAPIError(
     apiErrorCode: string,
@@ -125,37 +135,44 @@ export function mapAPIError(
     switch (apiErrorCode) {
         case 'notloggedin':
         case 'assertuserfailed':
-        case 'assertnameduserfailed':
+        case 'assertnameduserfailed': {
             return new NotLoggedInError(message, { ...details, apiCode: apiErrorCode });
+        }
 
         case 'permissiondenied':
         case 'badtoken':
         case 'readonly':
         case 'blocked':
-        case 'autoblocked':
+        case 'autoblocked': {
             return new PermissionDeniedError(message, { ...details, apiCode: apiErrorCode });
+        }
 
         case 'ratelimited':
-        case 'maxlag':
+        case 'maxlag': {
             return new RateLimitedError(message, undefined, { ...details, apiCode: apiErrorCode });
+        }
 
         case 'abusefilter-disallowed':
-        case 'abusefilter-warning':
+        case 'abusefilter-warning': {
             return new AbuseFilterError(message, details?.filter as string, { ...details, apiCode: apiErrorCode });
+        }
 
         case 'spamblacklist':
-        case 'spam-blacklist':
-            return new SpamBlacklistError(message, { ...details, apiCode: apiErrorCode });
+        case 'spam-blacklist': {
+            return new SpamBlocklistError(message, { ...details, apiCode: apiErrorCode });
+        }
 
-        case 'captcha':
+        case 'captcha': {
             return new CaptchaNeededError(
                 message,
                 details?.captcha as string,
                 details?.type as string,
                 { ...details, apiCode: apiErrorCode }
             );
+        }
 
-        default:
+        default: {
             return new APIError(message, apiErrorCode, details);
+        }
     }
 }

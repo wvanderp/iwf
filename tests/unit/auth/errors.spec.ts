@@ -5,7 +5,7 @@ import {
     PermissionDeniedError,
     RateLimitedError,
     AbuseFilterError,
-    SpamBlacklistError,
+    SpamBlocklistError,
     CaptchaNeededError,
     NetworkError,
     APIError,
@@ -89,11 +89,11 @@ describe('AbuseFilterError', () => {
     });
 });
 
-describe('SpamBlacklistError', () => {
+describe('SpamBlocklistError', () => {
     it('should have correct code', () => {
-        const error = new SpamBlacklistError('Spam detected');
+        const error = new SpamBlocklistError('Spam detected');
 
-        expect(error.code).toBe('SPAM_BLACKLIST');
+        expect(error.code).toBe('SPAM_BLOCKLIST');
         expect(error.message).toBe('Spam detected');
     });
 });
@@ -174,11 +174,11 @@ describe('mapAPIError', () => {
         expect((error as AbuseFilterError).filterId).toBe('123');
     });
 
-    it('should map spamblacklist to SpamBlacklistError', () => {
+    it('should map spamblacklist to SpamBlocklistError', () => {
         const error = mapAPIError('spamblacklist', 'Spam detected');
 
-        expect(error).toBeInstanceOf(SpamBlacklistError);
-        expect(error.code).toBe('SPAM_BLACKLIST');
+        expect(error).toBeInstanceOf(SpamBlocklistError);
+        expect(error.code).toBe('SPAM_BLOCKLIST');
     });
 
     it('should map captcha to CaptchaNeededError', () => {

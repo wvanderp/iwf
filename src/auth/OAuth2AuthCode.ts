@@ -1,6 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
-import { AuthProvider, OAuth2Config, AccessToken, OAuth2TokenResponse, RequestConfig, PKCEParams } from './types';
+import {
+    AuthProvider, OAuth2Config, AccessToken, OAuth2TokenResponse, RequestConfig, PKCEParameters
+} from './types';
 import { FileTokenStore } from './tokenStore';
 import { generateCodeVerifier, generateCodeChallenge } from './utils';
 import { AuthExpiredError, NotLoggedInError } from './errors';
@@ -13,17 +15,25 @@ const TOKEN_REFRESH_SKEW = 60000; // Refresh 60 seconds before expiry
  * OAuth 2.0 Authorization Code with PKCE authentication provider
  * Supports both interactive authorization and headless refresh token flow
  */
-export class OAuth2AuthCode implements AuthProvider {
+export default class OAuth2AuthCode implements AuthProvider {
     private readonly clientId: string;
+
     private readonly clientSecret?: string;
+
     private readonly tokenStore: FileTokenStore;
+
     private readonly scopes: string[];
+
     private readonly userAgent: string;
+
     private readonly tokenEndpoint: string;
+
     private readonly authorizeEndpoint: string;
 
     private accessToken?: AccessToken;
+
     private refreshToken?: string;
+
     private csrfTokenCache: Map<string, string> = new Map();
 
     constructor(config: OAuth2Config) {
@@ -38,14 +48,16 @@ export class OAuth2AuthCode implements AuthProvider {
 
     /**
      * Begins the interactive OAuth authorization flow
+     *
      * @param callbackUrl The URL to redirect to after authorization
      * @returns Authorization URL and PKCE verifier to use in completeInteractiveAuth
+     * @example
      */
-    beginInteractiveAuth(callbackUrl: string): { authorizeUrl: string; pkceParams: PKCEParams } {
+    beginInteractiveAuth(callbackUrl: string): { authorizeUrl: string; pkceParams: PKCEParameters } {
         const codeVerifier = generateCodeVerifier();
         const codeChallenge = generateCodeChallenge(codeVerifier);
 
-        const params = {
+        const parameters = {
             response_type: 'code',
             client_id: this.clientId,
             redirect_uri: callbackUrl,
@@ -54,7 +66,7 @@ export class OAuth2AuthCode implements AuthProvider {
             code_challenge_method: 'S256'
         };
 
-        const authorizeUrl = `${this.authorizeEndpoint}?${qs.stringify(params)}`;
+        const authorizeUrl = `${this.authorizeEndpoint}?${qs.stringify(parameters)}`;
 
         return {
             authorizeUrl,
@@ -68,12 +80,14 @@ export class OAuth2AuthCode implements AuthProvider {
 
     /**
      * Completes the interactive OAuth authorization flow
+     *
      * @param code The authorization code received from the callback
      * @param codeVerifier The PKCE code verifier from beginInteractiveAuth
      * @param callbackUrl The callback URL (must match the one used in beginInteractiveAuth)
+     * @example
      */
     async completeInteractiveAuth(code: string, codeVerifier: string, callbackUrl: string): Promise<void> {
-        const params: Record<string, string> = {
+        const parameters: Record<string, string> = {
             grant_type: 'authorization_code',
             code,
             redirect_uri: callbackUrl,
@@ -82,12 +96,12 @@ export class OAuth2AuthCode implements AuthProvider {
         };
 
         if (this.clientSecret) {
-            params.client_secret = this.clientSecret;
+            parameters.client_secret = this.clientSecret;
         }
 
         const response = await axios.post<OAuth2TokenResponse>(
             this.tokenEndpoint,
-            qs.stringify(params),
+            qs.stringify(parameters),
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -113,6 +127,8 @@ export class OAuth2AuthCode implements AuthProvider {
 
     /**
      * Initializes from stored refresh token (for headless CI usage)
+     *
+     * @example
      */
     async initializeFromRefreshToken(): Promise<void> {
         const storedToken = await this.tokenStore.loadRefreshToken();
@@ -126,26 +142,28 @@ export class OAuth2AuthCode implements AuthProvider {
 
     /**
      * Refreshes the access token using the refresh token
+     *
+     * @example
      */
     private async refreshAccessToken(): Promise<void> {
         if (!this.refreshToken) {
             throw new AuthExpiredError('No refresh token available');
         }
 
-        const params: Record<string, string> = {
+        const parameters: Record<string, string> = {
             grant_type: 'refresh_token',
             refresh_token: this.refreshToken,
             client_id: this.clientId
         };
 
         if (this.clientSecret) {
-            params.client_secret = this.clientSecret;
+            parameters.client_secret = this.clientSecret;
         }
 
         try {
             const response = await axios.post<OAuth2TokenResponse>(
                 this.tokenEndpoint,
-                qs.stringify(params),
+                qs.stringify(parameters),
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -173,6 +191,8 @@ export class OAuth2AuthCode implements AuthProvider {
 
     /**
      * Ensures we have a valid access token, refreshing if necessary
+     *
+     * @example
      */
     private async ensureValidAccessToken(): Promise<string> {
         // If no access token, try to refresh
@@ -216,7 +236,7 @@ export class OAuth2AuthCode implements AuthProvider {
         const siteURL = new URL(site);
         const apiURL = `${siteURL.origin}/w/api.php`;
 
-        const params = {
+        const parameters = {
             action: 'query',
             meta: 'tokens',
             type: 'csrf',
@@ -224,10 +244,10 @@ export class OAuth2AuthCode implements AuthProvider {
         };
 
         const response = await axios.get(
-            `${apiURL}?${qs.stringify(params)}`,
+            `${apiURL}?${qs.stringify(parameters)}`,
             {
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                     'User-Agent': this.userAgent
                 }
             }
@@ -248,7 +268,8 @@ export class OAuth2AuthCode implements AuthProvider {
         this.csrfTokenCache.clear();
 
         // Try to refresh the access token
-        if (error instanceof AuthExpiredError || (error as { response?: { status: number } }).response?.status === 401) {
+        const is401Error = (error as { response?: { status: number } }).response?.status === 401;
+        if (error instanceof AuthExpiredError || is401Error) {
             await this.refreshAccessToken();
         }
     }

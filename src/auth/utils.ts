@@ -2,13 +2,16 @@ import { createHash, randomBytes } from 'crypto';
 
 /**
  * Redacts sensitive information from headers
+ *
+ * @param headers
+ * @example
  */
 export function redactHeaders(headers: Record<string, string>): Record<string, string> {
     const redacted = { ...headers };
-    const sensitiveKeys = ['authorization', 'cookie', 'set-cookie'];
+    const sensitiveKeys = new Set(['authorization', 'cookie', 'set-cookie']);
 
     for (const key of Object.keys(redacted)) {
-        if (sensitiveKeys.includes(key.toLowerCase())) {
+        if (sensitiveKeys.has(key.toLowerCase())) {
             redacted[key] = '[REDACTED]';
         }
     }
@@ -18,6 +21,8 @@ export function redactHeaders(headers: Record<string, string>): Record<string, s
 
 /**
  * Generates a random string for PKCE code verifier
+ *
+ * @example
  */
 export function generateCodeVerifier(): string {
     return randomBytes(32).toString('base64url');
@@ -25,6 +30,9 @@ export function generateCodeVerifier(): string {
 
 /**
  * Generates a code challenge from a code verifier using S256 method
+ *
+ * @param verifier
+ * @example
  */
 export function generateCodeChallenge(verifier: string): string {
     const hash = createHash('sha256');
@@ -34,10 +42,12 @@ export function generateCodeChallenge(verifier: string): string {
 
 /**
  * Calculates jittered delay for exponential backoff
+ *
  * @param attempt The attempt number (0-indexed)
  * @param baseDelay Base delay in milliseconds
  * @param maxDelay Maximum delay in milliseconds
  * @param jitter Whether to add jitter
+ * @example
  */
 export function calculateBackoffDelay(
     attempt: number,
@@ -60,8 +70,10 @@ export function calculateBackoffDelay(
 
 /**
  * Parses Retry-After header value
+ *
  * @param retryAfter The Retry-After header value (either seconds or HTTP date)
  * @returns Delay in seconds, or undefined if invalid
+ * @example
  */
 export function parseRetryAfter(retryAfter: string | undefined): number | undefined {
     if (!retryAfter) {

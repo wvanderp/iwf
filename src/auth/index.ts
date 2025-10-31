@@ -3,8 +3,8 @@
  * Provides OAuth 2.0 and Bot Password authentication for MediaWiki APIs
  */
 
-export { OAuth2AuthCode } from './OAuth2AuthCode';
-export { BotPasswordAuth } from './BotPasswordAuth';
+export { default as OAuth2AuthCode } from './OAuth2AuthCode';
+export { default as BotPasswordAuth } from './BotPasswordAuth';
 export { FileTokenStore, MemoryTokenStore } from './tokenStore';
 
 export {
@@ -15,7 +15,7 @@ export {
     RequestConfig,
     AccessToken,
     OAuth2TokenResponse,
-    PKCEParams,
+    PKCEParameters,
     AxiosConfig,
     RetryConfig
 } from './types';
@@ -27,7 +27,7 @@ export {
     PermissionDeniedError,
     RateLimitedError,
     AbuseFilterError,
-    SpamBlacklistError,
+    SpamBlocklistError,
     CaptchaNeededError,
     NetworkError,
     APIError,

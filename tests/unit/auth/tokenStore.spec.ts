@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import { join } from 'path';
+import path from 'path';
 import { FileTokenStore, MemoryTokenStore } from '../../../src/auth/tokenStore';
 
 describe('MemoryTokenStore', () => {
@@ -57,17 +57,17 @@ describe('MemoryTokenStore', () => {
 });
 
 describe('FileTokenStore', () => {
-    const testDir = join('/tmp', `iwf-test-${Date.now()}`);
+    const testDirectory = path.join('/tmp', `iwf-test-${Date.now()}`);
     let store: FileTokenStore;
 
     beforeEach(() => {
-        store = new FileTokenStore(testDir, 'tokens.json');
+        store = new FileTokenStore(testDirectory, 'tokens.json');
     });
 
     afterEach(async () => {
         // Clean up test directory
         try {
-            await fs.rm(testDir, { recursive: true, force: true });
+            await fs.rm(testDirectory, { recursive: true, force: true });
         } catch {
             // Ignore errors
         }
@@ -107,14 +107,14 @@ describe('FileTokenStore', () => {
     it('should create directory if it does not exist', async () => {
         await store.saveRefreshToken('test-token');
 
-        const stats = await fs.stat(testDir);
+        const stats = await fs.stat(testDirectory);
         expect(stats.isDirectory()).toBe(true);
     });
 
     it('should persist tokens across instances', async () => {
         await store.saveRefreshToken('test-token');
 
-        const newStore = new FileTokenStore(testDir, 'tokens.json');
+        const newStore = new FileTokenStore(testDirectory, 'tokens.json');
         const token = await newStore.loadRefreshToken();
 
         expect(token).toBe('test-token');
@@ -123,8 +123,9 @@ describe('FileTokenStore', () => {
     it('should set restrictive file permissions', async () => {
         await store.saveRefreshToken('test-token');
 
-        const filepath = join(testDir, 'tokens.json');
+        const filepath = path.join(testDirectory, 'tokens.json');
         const stats = await fs.stat(filepath);
+        /* eslint-disable-next-line no-bitwise */
         const mode = stats.mode & 0o777;
 
         // Should be 0o600 (owner read/write only)
@@ -154,9 +155,9 @@ describe('FileTokenStore', () => {
 
     it('should handle malformed JSON file gracefully', async () => {
         // Create directory and write invalid JSON
-        await fs.mkdir(testDir, { recursive: true });
-        const filepath = join(testDir, 'tokens.json');
-        await fs.writeFile(filepath, 'invalid json', 'utf-8');
+        await fs.mkdir(testDirectory, { recursive: true });
+        const filepath = path.join(testDirectory, 'tokens.json');
+        await fs.writeFile(filepath, 'invalid json', 'utf8');
 
         const token = await store.loadRefreshToken();
 
