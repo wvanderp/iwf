@@ -65,7 +65,35 @@ await upload(item, {
 
 ## Authentication
 
-The library supports both authenticated and anonymous operations. For editing operations, you'll need a Wikidata account. Anonymous operations are limited to reading data.
+The library supports modern authentication methods for editing operations:
+
+- **OAuth 2.0 with PKCE**: Recommended for production use with automatic token refresh
+- **Bot Passwords**: Simple alternative for basic bot operations
+
+For detailed authentication setup and usage, see [AUTHENTICATION.md](AUTHENTICATION.md).
+
+Quick example with Bot Password:
+
+```typescript
+import { Item, BotPasswordAuth, Label, Statement, WikibaseItemSnak } from 'iwf';
+
+// Create auth provider
+const auth = new BotPasswordAuth({
+    username: 'YourUsername@YourBotName',
+    password: 'your-bot-password',
+    userAgent: 'YourApp/1.0 (your@email.com)'
+});
+
+// Create and modify item
+const item = Item.fromNothing();
+item.labels.push(Label.fromString('en', 'new planet'));
+item.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P31', 'Q634')));
+
+// Upload with new auth system (API integration pending)
+// await upload(item, { auth, summary: 'Adding new astronomical object' });
+```
+
+**Note**: The upload API is being updated to use the new authentication system. The old `getToken()` method is deprecated.
 
 ## Documentation
 
