@@ -287,7 +287,7 @@ YourBotName/1.0 (https://example.com/bot-info; contact@example.com) iwf/0.1.1
 
 To use OAuth 2.0, you need to register an OAuth client:
 
-1. Visit https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2
+1. Visit <https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2>
 2. Fill in application details:
    - Application name
    - Application description
@@ -304,6 +304,7 @@ Make sure you've completed the interactive auth flow at least once, or that your
 ### "Login failed: Aborted"
 
 For bot passwords, ensure:
+
 - Username is in format `MainAccount@BotName`
 - Password is the bot password, not your account password
 - Bot password has the correct grants enabled
@@ -321,12 +322,14 @@ You're making requests too quickly. The library will automatically retry with ba
 **Breaking Change**: The old `getToken(username, password)` function is deprecated and will be removed in a future version.
 
 Old code:
+
 ```typescript
 const token = await getToken('username', 'password');
 await upload(item, { summary: 'Edit', authToken: token });
 ```
 
 New code (Bot Password):
+
 ```typescript
 const auth = new BotPasswordAuth({
     username: 'Username@BotName',
@@ -337,6 +340,7 @@ const auth = new BotPasswordAuth({
 ```
 
 New code (OAuth):
+
 ```typescript
 const auth = new OAuth2AuthCode({ /* config */ });
 await auth.initializeFromRefreshToken();

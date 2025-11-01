@@ -118,6 +118,8 @@ interface GetTokenConfig {
  * The only requirement for these axios instances is that they have the same API as the axios package.
  * The only required function is the main axios() function.
  *
+ * @deprecated This function is replaced by an OAuth 2.0 authentication flow or by the use of bot passwords.
+ *
  * @param {string} username The username of the user
  * @param {string} password The password of the user
  *

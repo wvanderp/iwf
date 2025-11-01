@@ -183,6 +183,7 @@ describe('parseRetryAfter', () => {
     });
 
     it('should return undefined for invalid input', () => {
+        // @ts-expect-error forcing invalid input
         expect(parseRetryAfter()).toBeUndefined();
         expect(parseRetryAfter('invalid')).toBeUndefined();
         expect(parseRetryAfter('')).toBeUndefined();
