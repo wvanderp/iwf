@@ -65,11 +65,9 @@ await upload(item, {
 
 ## Authentication
 
-The library supports Bot Password authentication for editing operations.
+The library supports Bot Password authentication for editing operations. Bot passwords are app-specific passwords that can be created in your Wikidata account settings.
 
-For detailed authentication setup and usage, see [AUTHENTICATION.md](AUTHENTICATION.md).
-
-Quick example with Bot Password:
+Example with Bot Password:
 
 ```typescript
 import { Item, BotPasswordAuth, Label, Statement, WikibaseItemSnak } from 'iwf';
