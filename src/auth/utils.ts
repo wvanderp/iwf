@@ -1,5 +1,3 @@
-import { createHash, randomBytes } from 'crypto';
-
 /**
  * Redacts sensitive information from headers
  *
@@ -17,27 +15,6 @@ export function redactHeaders(headers: Record<string, string>): Record<string, s
     }
 
     return redacted;
-}
-
-/**
- * Generates a random string for PKCE code verifier
- *
- * @example
- */
-export function generateCodeVerifier(): string {
-    return randomBytes(32).toString('base64url');
-}
-
-/**
- * Generates a code challenge from a code verifier using S256 method
- *
- * @param verifier
- * @example
- */
-export function generateCodeChallenge(verifier: string): string {
-    const hash = createHash('sha256');
-    hash.update(verifier);
-    return hash.digest('base64url');
 }
 
 /**

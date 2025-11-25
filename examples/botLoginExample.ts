@@ -55,7 +55,6 @@ async function main(): Promise<void> {
         // (BotPasswordAuth implements a no-op onAuthError we can call safely)
         if (typeof (auth as any).onAuthError === 'function') {
             try {
-                // @ts-expect-error - pass the error to onAuthError if signature supported
                 await (auth as any).onAuthError(err as Error);
             } catch (cleanupErr) {
                 // ignore

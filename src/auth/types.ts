@@ -40,46 +40,6 @@ export interface AuthProvider {
 }
 
 /**
- * Interface for storing and retrieving refresh tokens
- */
-export interface TokenStore {
-    /**
-     * Load a refresh token from storage
-     *
-     * @param key Optional key to identify which token to load
-     * @returns The refresh token, or undefined if not found
-     */
-    loadRefreshToken(key?: string): Promise<string | undefined>;
-
-    /**
-     * Save a refresh token to storage
-     *
-     * @param value The refresh token to save
-     * @param key Optional key to identify the token
-     */
-    saveRefreshToken(value: string, key?: string): Promise<void>;
-}
-
-/**
- * OAuth 2.0 access token with expiry information
- */
-export interface AccessToken {
-    token: string;
-    expiresAt: number; // Unix timestamp in milliseconds
-}
-
-/**
- * OAuth 2.0 token response from the authorization server
- */
-export interface OAuth2TokenResponse {
-    access_token: string;
-    token_type: string;
-    expires_in: number;
-    refresh_token?: string;
-    scope?: string;
-}
-
-/**
  * Configuration for creating an axios instance
  */
 export interface AxiosConfig {
@@ -101,32 +61,10 @@ export interface RetryConfig {
 }
 
 /**
- * OAuth 2.0 configuration
- */
-export interface OAuth2Config {
-    clientId: string;
-    clientSecret?: string;
-    tokenStore?: TokenStore;
-    scopes?: string[];
-    userAgent: string;
-    tokenEndpoint?: string;
-    authorizeEndpoint?: string;
-}
-
-/**
  * Bot password configuration
  */
 export interface BotPasswordConfig {
     username: string; // Should be in format "MainAccount@BotName"
     password: string; // Bot password, not main account password
     userAgent: string;
-}
-
-/**
- * PKCE (Proof Key for Code Exchange) parameters
- */
-export interface PKCEParameters {
-    codeVerifier: string;
-    codeChallenge: string;
-    codeChallengeMethod: string;
 }

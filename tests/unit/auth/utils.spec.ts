@@ -1,7 +1,5 @@
 import {
     redactHeaders,
-    generateCodeVerifier,
-    generateCodeChallenge,
     calculateBackoffDelay,
     parseRetryAfter
 } from '../../../src/auth/utils';
@@ -46,58 +44,6 @@ describe('redactHeaders', () => {
 
         expect(headers.Authorization).toBe('Bearer secret-token');
         expect(redacted.Authorization).toBe('[REDACTED]');
-    });
-});
-
-describe('generateCodeVerifier', () => {
-    it('should generate a valid code verifier', () => {
-        const verifier = generateCodeVerifier();
-
-        expect(verifier).toBeTruthy();
-        expect(typeof verifier).toBe('string');
-        expect(verifier.length).toBeGreaterThan(40); // Base64url of 32 bytes is 43 chars
-    });
-
-    it('should generate different verifiers each time', () => {
-        const verifier1 = generateCodeVerifier();
-        const verifier2 = generateCodeVerifier();
-
-        expect(verifier1).not.toBe(verifier2);
-    });
-
-    it('should only contain base64url characters', () => {
-        const verifier = generateCodeVerifier();
-        const base64urlRegex = /^[\w-]+$/;
-
-        expect(base64urlRegex.test(verifier)).toBe(true);
-    });
-});
-
-describe('generateCodeChallenge', () => {
-    it('should generate a valid code challenge', () => {
-        const verifier = generateCodeVerifier();
-        const challenge = generateCodeChallenge(verifier);
-
-        expect(challenge).toBeTruthy();
-        expect(typeof challenge).toBe('string');
-        expect(challenge.length).toBeGreaterThan(40);
-    });
-
-    it('should generate the same challenge for the same verifier', () => {
-        const verifier = generateCodeVerifier();
-        const challenge1 = generateCodeChallenge(verifier);
-        const challenge2 = generateCodeChallenge(verifier);
-
-        expect(challenge1).toBe(challenge2);
-    });
-
-    it('should generate different challenges for different verifiers', () => {
-        const verifier1 = generateCodeVerifier();
-        const verifier2 = generateCodeVerifier();
-        const challenge1 = generateCodeChallenge(verifier1);
-        const challenge2 = generateCodeChallenge(verifier2);
-
-        expect(challenge1).not.toBe(challenge2);
     });
 });
 

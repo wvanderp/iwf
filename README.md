@@ -65,10 +65,7 @@ await upload(item, {
 
 ## Authentication
 
-The library supports modern authentication methods for editing operations:
-
-- **OAuth 2.0 with PKCE**: Recommended for production use with automatic token refresh
-- **Bot Passwords**: Simple alternative for basic bot operations
+The library supports Bot Password authentication for editing operations.
 
 For detailed authentication setup and usage, see [AUTHENTICATION.md](AUTHENTICATION.md).
 
@@ -89,11 +86,9 @@ const item = Item.fromNothing();
 item.labels.push(Label.fromString('en', 'new planet'));
 item.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P31', 'Q634')));
 
-// Upload with new auth system (API integration pending)
-// await upload(item, { auth, summary: 'Adding new astronomical object' });
+// Get CSRF token for API calls
+const csrfToken = await auth.getCsrfToken('https://www.wikidata.org');
 ```
-
-**Note**: The upload API is being updated to use the new authentication system. The old `getToken()` method is deprecated.
 
 ## Documentation
 
