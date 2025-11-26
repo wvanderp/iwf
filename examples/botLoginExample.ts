@@ -53,9 +53,9 @@ async function main(): Promise<void> {
     } catch (err: unknown) {
         // If the provider exposes an onAuthError hook, call it to allow recovery
         // (BotPasswordAuth implements a no-op onAuthError we can call safely)
-        if (typeof (auth as any).onAuthError === 'function') {
+        if ((typeof auth.onAuthError) === 'function') {
             try {
-                await (auth as any).onAuthError(err as Error);
+                await auth.onAuthError(err as Error);
             } catch (cleanupErr) {
                 // ignore
             }
