@@ -70,15 +70,12 @@
   "scripts": {
     "build": "rimraf lib && tsc -P ./tsconfig.build.json",
     "docs": "typedoc --out docs src/index.ts",
-    "lint": "npm-run-all -c -s tsc eslint lint:browser",
-    "lint:browser": "cd tests/browser && npm run lint && cd ../..",
+    "lint": "npm-run-all -c -s tsc eslint",
     "tsc": "tsc --noEmit",
     "eslint": "eslint --ext ts --ext js src/ tests/integration tests/unit",
-    "prepare": "cd tests/browser && npm install && cd ../..",
     "prepublishOnly": "npm run build",
     "test": "jest --testPathIgnorePatterns=\"integration/\"",
     "test:all": "jest --runInBand",
-    "test:browser": "cd tests/browser && npm run test",
     "coverage": "npm run test -- --coverage",
     "coverage:all": "jest --coverage",
     "clean": "rimraf lib/ .nyc_output/ coverage/ docs/"
