@@ -90,6 +90,45 @@ describe('calculateBackoffDelay', () => {
         }
     });
 
+    it('should produce max jitter when Math.random returns 1', () => {
+        const baseDelay = 1000;
+        const maxDelay = 30000;
+        const attempt = 2;
+        const expectedBase = 4000;
+
+        const spy = jest.spyOn(Math, 'random').mockReturnValue(1);
+        const delay = calculateBackoffDelay(attempt, baseDelay, maxDelay, true);
+        spy.mockRestore();
+
+        expect(delay).toBeCloseTo(expectedBase * 1.25);
+    });
+
+    it('should produce min jitter when Math.random returns 0', () => {
+        const baseDelay = 1000;
+        const maxDelay = 30000;
+        const attempt = 2;
+        const expectedBase = 4000;
+
+        const spy = jest.spyOn(Math, 'random').mockReturnValue(0);
+        const delay = calculateBackoffDelay(attempt, baseDelay, maxDelay, true);
+        spy.mockRestore();
+
+        expect(delay).toBeCloseTo(expectedBase * 0.75);
+    });
+
+    it('should produce no jitter when Math.random returns 0.5', () => {
+        const baseDelay = 1000;
+        const maxDelay = 30000;
+        const attempt = 2;
+        const expectedBase = 4000;
+
+        const spy = jest.spyOn(Math, 'random').mockReturnValue(0.5);
+        const delay = calculateBackoffDelay(attempt, baseDelay, maxDelay, true);
+        spy.mockRestore();
+
+        expect(delay).toBe(expectedBase);
+    });
+
     it('should not add jitter when disabled', () => {
         const baseDelay = 1000;
         const maxDelay = 30000;

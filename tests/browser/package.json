@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "description": "browser test for iwf",
     "devDependencies": {
-        "concurrently": "^9.1.0",
-        "cypress": "^13.16.1",
-        "parcel": "^2.13.2"
+        "concurrently": "^9.2.1",
+        "cypress": "^15.7.0",
+        "parcel": "^2.16.1"
     },
     "scripts": {
         "app": "parcel serve cypress/e2e/*.html",
@@ -18,6 +18,6 @@
         "eslint": "eslint --ext ts,js cypress"
     },
     "dependencies": {
-        "dotenv": "^16.4.7"
+        "dotenv": "^17.2.3"
     }
 }
