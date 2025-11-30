@@ -65,7 +65,28 @@ await upload(item, {
 
 ## Authentication
 
-The library supports both authenticated and anonymous operations. For editing operations, you'll need a Wikidata account. Anonymous operations are limited to reading data.
+The library supports Bot Password authentication for editing operations. Bot passwords are app-specific passwords that can be created in your Wikidata account settings.
+
+Example with Bot Password:
+
+```typescript
+import { Item, BotPasswordAuth, Label, Statement, WikibaseItemSnak } from 'iwf';
+
+// Create auth provider
+const auth = new BotPasswordAuth({
+    username: 'YourUsername@YourBotName',
+    password: 'your-bot-password',
+    userAgent: 'YourApp/1.0 (your@email.com)'
+});
+
+// Create and modify item
+const item = Item.fromNothing();
+item.labels.push(Label.fromString('en', 'new planet'));
+item.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P31', 'Q634')));
+
+// Get CSRF token for API calls
+const csrfToken = await auth.getCsrfToken('https://www.wikidata.org');
+```
 
 ## Documentation
 
