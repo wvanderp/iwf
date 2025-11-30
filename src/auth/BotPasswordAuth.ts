@@ -1,8 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import qs from 'qs';
-import { CookieJar } from 'tough-cookie';
-import { wrapper } from 'axios-cookiejar-support';
-import { AuthProvider, BotPasswordConfig, RequestConfig } from './types';
+import { BotPasswordConfig } from './types';
 import { NotLoggedInError, PermissionDeniedError } from './errors';
 
 interface LoginTokenResponse {
@@ -34,14 +32,12 @@ interface CsrfTokenResponse {
  * Bot Password authentication provider
  * Uses MediaWiki Action API login with bot passwords
  */
-export default class BotPasswordAuth implements AuthProvider {
+export default class BotPasswordAuth {
     private readonly username: string;
 
     private readonly password: string;
 
     private readonly userAgent: string;
-
-    private readonly cookieJar: CookieJar;
 
     private readonly axiosInstance: AxiosInstance;
 
@@ -49,8 +45,21 @@ export default class BotPasswordAuth implements AuthProvider {
 
     private csrfTokenCache: Map<string, string> = new Map();
 
+    private cookies: Map<string, string[]> = new Map();
+
+    /**
+     * Creates a new BotPasswordAuth instance
+     *
+     * @param {BotPasswordConfig} config Bot password configuration
+     *
+     * @example
+     *   const botAuth = new BotPasswordAuth({
+     *       username: 'MainAccount@BotName',
+     *       password: 'botpassword123',
+     *       userAgent: 'MyIWFBot/1.0 (https://example.com/my-bot-info)'
+     *   });
+     */
     constructor(config: BotPasswordConfig) {
-        // Validate username format (should be MainAccount@BotName)
         if (!config.username.includes('@')) {
             throw new Error('Bot password username must be in format "MainAccount@BotName"');
         }
@@ -58,25 +67,48 @@ export default class BotPasswordAuth implements AuthProvider {
         this.username = config.username;
         this.password = config.password;
         this.userAgent = config.userAgent;
-        this.cookieJar = new CookieJar();
 
-        // Create axios instance with cookie jar support
         this.axiosInstance = axios.create({
             timeout: 30000,
             headers: {
                 'User-Agent': this.userAgent
-            }
+            },
+            withCredentials: true
         });
 
-        wrapper(this.axiosInstance);
-        (this.axiosInstance.defaults as { jar?: CookieJar }).jar = this.cookieJar;
+        // Intercept responses to store cookies
+        this.axiosInstance.interceptors.response.use((response: AxiosResponse) => {
+            const { 'set-cookie': setCookie } = response.headers;
+            if (setCookie) {
+                const { origin } = new URL(response.config.url || '');
+                const existing = this.cookies.get(origin) || [];
+                this.cookies.set(origin, [...existing, ...setCookie]);
+            }
+            return response;
+        });
+
+        // Intercept requests to add cookies
+        this.axiosInstance.interceptors.request.use((requestConfig) => {
+            const { origin } = new URL(requestConfig.url || '');
+            const storedCookies = this.cookies.get(origin);
+            if (storedCookies) {
+                const cookieHeader = storedCookies
+                    .map((c) => c.split(';')[0])
+                    .join('; ');
+                // eslint-disable-next-line no-param-reassign
+                requestConfig.headers.Cookie = cookieHeader;
+            }
+            return requestConfig;
+        });
     }
 
     /**
      * Ensures the user is logged in to the specified site
      *
-     * @param site
+     * @param {string} site The site URL
+     * @returns {Promise<void>} Resolves when logged in
      * @example
+     *   await botAuth.ensureLoggedIn('https://en.wikipedia.org');
      */
     async ensureLoggedIn(site: string): Promise<void> {
         if (this.loggedInSites.has(site)) {
@@ -87,15 +119,13 @@ export default class BotPasswordAuth implements AuthProvider {
         const apiURL = `${siteURL.origin}/w/api.php`;
 
         // Step 1: Get login token
-        const loginTokenParameters = {
-            action: 'query',
-            meta: 'tokens',
-            type: 'login',
-            format: 'json'
-        };
-
         const tokenResponse = await this.axiosInstance.get<LoginTokenResponse>(
-            `${apiURL}?${qs.stringify(loginTokenParameters)}`
+            `${apiURL}?${qs.stringify({
+                action: 'query',
+                meta: 'tokens',
+                type: 'login',
+                format: 'json'
+            })}`
         );
 
         const loginToken = tokenResponse.data.query.tokens.logintoken;
@@ -104,32 +134,24 @@ export default class BotPasswordAuth implements AuthProvider {
         }
 
         // Step 2: Perform login
-        const loginParameters = {
-            action: 'login',
-            lgname: this.username,
-            lgpassword: this.password,
-            lgtoken: loginToken,
-            format: 'json'
-        };
-
         const loginResponse = await this.axiosInstance.post<LoginResponse>(
             apiURL,
-            qs.stringify(loginParameters),
+            qs.stringify({
+                action: 'login',
+                lgname: this.username,
+                lgpassword: this.password,
+                lgtoken: loginToken,
+                format: 'json'
+            }),
             {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }
         );
 
-        const loginResult = loginResponse.data.login.result;
-        const failureReason = loginResponse.data.login.reason;
-        if (loginResult !== 'Success') {
-            const failureMessage = failureReason
-                ? `Login failed: ${loginResult} - ${failureReason}`
-                : `Login failed: ${loginResult}`;
+        const { result, reason } = loginResponse.data.login;
+        if (result !== 'Success') {
             throw new PermissionDeniedError(
-                failureMessage,
+                reason ? `Login failed: ${result} - ${reason}` : `Login failed: ${result}`,
                 { site, username: this.username }
             );
         }
@@ -137,36 +159,32 @@ export default class BotPasswordAuth implements AuthProvider {
         this.loggedInSites.add(site);
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    async authorize(request: RequestConfig): Promise<RequestConfig> {
-        // Cookie jar is automatically attached by axios-cookiejar-support
-        // Just return the request as-is
-        return request;
-    }
-
+    /**
+     * Get a CSRF token for the specified site
+     *
+     * @param {string} site The site URL
+     * @returns {Promise<string>} The CSRF token
+     * @example
+     *   const csrfToken = await botAuth.getCsrfToken('https://en.wikipedia.org');
+     */
     async getCsrfToken(site: string): Promise<string> {
-        // Ensure we're logged in first
         await this.ensureLoggedIn(site);
 
-        // Check cache
         const cached = this.csrfTokenCache.get(site);
         if (cached) {
             return cached;
         }
 
-        // Fetch CSRF token
         const siteURL = new URL(site);
         const apiURL = `${siteURL.origin}/w/api.php`;
 
-        const parameters = {
-            action: 'query',
-            meta: 'tokens',
-            type: 'csrf',
-            format: 'json'
-        };
-
         const response = await this.axiosInstance.get<CsrfTokenResponse>(
-            `${apiURL}?${qs.stringify(parameters)}`
+            `${apiURL}?${qs.stringify({
+                action: 'query',
+                meta: 'tokens',
+                type: 'csrf',
+                format: 'json'
+            })}`
         );
 
         const csrfToken = response.data.query.tokens.csrftoken;
@@ -174,22 +192,29 @@ export default class BotPasswordAuth implements AuthProvider {
             throw new NotLoggedInError('Failed to obtain CSRF token - may not be logged in');
         }
 
-        // Cache the token
         this.csrfTokenCache.set(site, csrfToken);
         return csrfToken;
     }
 
-    async onAuthError(): Promise<void> {
-        // Clear all cached state and force re-login
+    /**
+     * Clears cached login state and tokens, forcing re-login on next request
+     *
+     * @example
+     *   botAuth.clearCache();
+     */
+    clearCache(): void {
         this.loggedInSites.clear();
         this.csrfTokenCache.clear();
-        // Cookie jar will be automatically refreshed on next login
+        this.cookies.clear();
     }
 
     /**
      * Gets the axios instance (for use in upload operations)
      *
+     * @returns {AxiosInstance} The axios instance
+     *
      * @example
+     *   const axiosInstance = botAuth.getAxiosInstance();
      */
     getAxiosInstance(): AxiosInstance {
         return this.axiosInstance;

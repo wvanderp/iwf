@@ -5,13 +5,7 @@
 
 export { default as BotPasswordAuth } from './BotPasswordAuth';
 
-export {
-    AuthProvider,
-    BotPasswordConfig,
-    RequestConfig,
-    AxiosConfig,
-    RetryConfig
-} from './types';
+export { BotPasswordConfig } from './types';
 
 export {
     IWFError,
@@ -27,7 +21,6 @@ export {
     mapAPIError
 } from './errors';
 
-export { createAxios, createAxiosWithCookieJar } from './axios';
 export {
     redactHeaders,
     calculateBackoffDelay,
