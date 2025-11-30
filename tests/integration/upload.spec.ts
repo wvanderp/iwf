@@ -4,11 +4,11 @@ import * as dotenv from 'dotenv';
 
 import {
     Alias,
+    BotPasswordAuth,
     Description,
     Item,
     Label,
     Statement,
-    getToken,
     upload
 } from '../../src';
 
@@ -50,14 +50,12 @@ describe('uploading to wikidata', () => {
             expect(process.env.WIKIDATA_USERNAME).not.toEqual('');
             expect(process.env.WIKIDATA_PASSWORD).not.toEqual('');
 
-            // setup the tokens
-            const token = await getToken(
-                process.env.WIKIDATA_USERNAME,
-                process.env.WIKIDATA_PASSWORD,
-                {
-                    server: testServer
-                }
-            );
+            // setup authentication using BotPasswordAuth
+            const auth = new BotPasswordAuth({
+                username: process.env.WIKIDATA_USERNAME,
+                password: process.env.WIKIDATA_PASSWORD,
+                userAgent: 'IWF Integration Test/1.0 (https://github.com/wvanderp/iwf)'
+            });
 
             // write a empty item
             let item = Item.fromNothing();
@@ -65,8 +63,7 @@ describe('uploading to wikidata', () => {
 
             const uploadedItem = await upload(item, {
                 summary: 'live test of IWF step 1 (https://github.com/wvanderp/iwf)',
-                authToken: token,
-
+                auth,
                 server: testServer
             });
 
@@ -126,8 +123,7 @@ describe('uploading to wikidata', () => {
 
             const uploadedItem2 = await upload(item, {
                 summary: 'live test of IWF step 2 (https://github.com/wvanderp/iwf)',
-                authToken: token,
-
+                auth,
                 server: testServer
             });
 
@@ -150,8 +146,7 @@ describe('uploading to wikidata', () => {
 
             const uploadedItem3 = await upload(item, {
                 summary: 'live test of IWF step 3 (https://github.com/wvanderp/iwf)',
-                authToken: token,
-
+                auth,
                 server: testServer
             });
 

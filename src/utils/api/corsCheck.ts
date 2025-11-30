@@ -11,11 +11,11 @@ export default function corsCheck(server: string, origin?: string): void {
 
     if (inBrowser && origin === undefined) {
         // eslint-disable-next-line no-console
-        console.warn('getToken: You are using this function in a browser environment without specifying the origin. This may lead to problems with CORS.');
+        console.warn('API Warning: You are using this function in a browser environment without specifying the origin. This may lead to problems with CORS.');
     }
 
     if (inBrowser && server.includes('wikidata')) {
         // eslint-disable-next-line no-console
-        console.warn('getToken: You are using this function in a browser environment. Wikidata does not allow CORS requests from other domains.');
+        console.warn('API Warning: You are using this function in a browser environment. Wikidata does not allow CORS requests from other domains.');
     }
 }

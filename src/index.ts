@@ -27,7 +27,6 @@ export { default as WikibaseSenseSnak } from './snaks/WikibaseSenseSnak';
 
 export { default as requestItem } from './utils/api/request';
 export { default as upload } from './utils/api/upload';
-export { default as getToken } from './utils/api/token';
 
 // Auth module exports
 export * from './auth';

@@ -6,7 +6,6 @@ import qs from 'qs';
 import Item from '../../Item';
 import { WbeditentityResponse } from '../../types/apiResponse';
 import requestItem from './request';
-import { Token } from './token';
 import { StatementChange } from '../diff/statementsDiff';
 import isStatementChange from '../guards/Changes';
 import { UploadFormat } from '../../types/uploadFormat';
@@ -14,6 +13,7 @@ import { AliasChange } from '../diff/aliasDiff';
 import { LabelChange } from '../diff/labelDiff';
 import { SiteLinkChange } from '../diff/siteLinkDiff';
 import corsCheck from './corsCheck';
+import BotPasswordAuth from '../../auth/BotPasswordAuth';
 
 /**
  * API Documentation is scarce, so here is a semi-comprehensive list of all pages that contain information about the API:
@@ -29,10 +29,8 @@ import corsCheck from './corsCheck';
  */
 
 interface UploadOptions {
-    authToken?: Token; // AuthToken acquired from getToken or undefined if you want to upload anonymously
+    auth?: BotPasswordAuth; // BotPasswordAuth instance for authentication
     anonymous?: boolean; // If true, the upload will be anonymous
-
-    userAgent?: string; // The user agent to use for the API request
 
     summary: string; // The summary for the edit (displayed in the history of Wikidata)
     tags?: string[]; // The tags for the edit (displayed in the history of Wikidata)
@@ -43,10 +41,9 @@ interface UploadOptions {
     origin?: string; // The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
 
     axiosOptions?: AxiosRequestConfig; // The options to pass to axios
-    axiosInstance?: AxiosInstance; // The axios instance to use for the upload. Defaults to axios
 }
 
-type AuthMethod = 'authToken' | 'anonymous' | 'unknown';
+type AuthMethod = 'auth' | 'anonymous';
 
 /**
  * Generates the URL for the API request.
@@ -80,37 +77,23 @@ export function generateURL(server: string, isNewItem: boolean, origin?: string)
 /**
  * @private
  * @param {UploadOptions} options The options used to configure the upload
- * @throws {Error} If no authentication method is provided
+ * @throws {Error} If no authentication method is provided or conflicting options are set
  * @returns {AuthMethod} The method used for authentication
  */
 export function validateAuthentication(options: UploadOptions): AuthMethod {
-    // Decide the most likely auth methods we use it later to check all requirements for the auth methods are met
-    const authMethod: AuthMethod = options.anonymous
-        ? 'anonymous'
-        : options.authToken
-            ? 'authToken'
-            : 'unknown';
-
-    switch (authMethod) {
-        case 'unknown': {
-            throw new Error('You need to provide an auth method. Either authToken or upload anonymously.');
-        }
-
-        case 'authToken': {
-            return 'authToken';
-        }
-
-        case 'anonymous': {
-            if (options.authToken && options.anonymous) {
-                throw new Error('Don\'t provide an authToken if you want to upload anonymously.');
-            }
-            return 'anonymous';
-        }
-
-        default: {
-            throw new Error('No auth method detected.');
-        }
+    if (options.anonymous && options.auth) {
+        throw new Error('Don\'t provide auth if you want to upload anonymously.');
     }
+
+    if (options.anonymous) {
+        return 'anonymous';
+    }
+
+    if (options.auth) {
+        return 'auth';
+    }
+
+    throw new Error('You need to provide an auth method. Either auth (BotPasswordAuth) or set anonymous to true.');
 }
 
 /**
@@ -194,55 +177,74 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
 }
 
 /**
+ * Uploads an Item to a Wikibase instance (e.g., Wikidata)
  *
  * @param {Item} item The item you want to upload to Wikidata
  * @param {UploadOptions} options The options for uploading
  * @param {string} options.summary The summary for the edit (displayed in the history of Wikidata)
  * @param {string[]} [options.tags] The tags for the edit (displayed in the history of Wikidata)
- * @param {Token} [options.authToken] The token to use for authentication
+ * @param {BotPasswordAuth} [options.auth] The BotPasswordAuth instance to use for authentication
  * @param {boolean} [options.anonymous] If true, the upload will be anonymous
  * @param {number} [options.maxLag] The max lag in seconds for the API request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
  * @param {string} [options.server] The API endpoint to use (defaults to Wikidata)
  * @param {string} [options.origin] The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
- * @param {string} [options.userAgent] The user agent to use for the API request
  * @param {AxiosRequestConfig} [options.axiosOptions] The options to pass to axios
- * @param {AxiosInstance} [options.axiosInstance] The axios instance to use for the upload. Defaults to axios
  * @throws {Error} If no authentication method is provided or the upload fails
  * @returns {Promise<Item>} A Promise for the item after uploading
  * @example
- *      const token = await getToken('your Wikidata username', 'your Wikidata password');
- *      upload(item, {
+ *      // Using BotPasswordAuth (recommended)
+ *      const auth = new BotPasswordAuth({
+ *          username: 'MainAccount@BotName',
+ *          password: 'botpassword123',
+ *          userAgent: 'MyBot/1.0'
+ *      });
+ *      await upload(item, {
  *          summary: 'test update',
- *          authToken: token
+ *          auth
+ *      });
+ *
+ * @example
+ *      // Anonymous upload
+ *      await upload(item, {
+ *          summary: 'anonymous edit',
+ *          anonymous: true,
+ *          origin: 'https://my-app.example.com'
  *      });
  */
 export default async function upload(item: Item, options: UploadOptions): Promise<Item> {
     const authMethod = validateAuthentication(options);
 
-    const authToken = authMethod === 'authToken' ? options.authToken?.token : '+\\';
-
     const server = options.server ?? 'https://www.wikidata.org';
+
+    // Get token and axios instance based on auth method
+    let csrfToken: string;
+    let axiosInstance: AxiosInstance;
+
+    if (authMethod === 'auth' && options.auth) {
+        // Use BotPasswordAuth - get CSRF token and use its axios instance
+        csrfToken = await options.auth.getCsrfToken(server);
+        axiosInstance = options.auth.getAxiosInstance();
+    } else {
+        // Anonymous - use default anonymous token
+        csrfToken = '+\\';
+        axiosInstance = axios;
+    }
 
     // Checking for CORS, browser, and origin
     corsCheck(server, options?.origin);
 
     const data = await generateUploadData(item, server);
 
-    // Axios instance to use for the request
-    // You could need a custom axios instance for CORS circumvention purposes
-    const axiosInstance: AxiosInstance = options?.axiosInstance ?? axios;
-
     const parameters = {
         tags: options.tags,
         data: JSON.stringify(data),
         id: item.id,
         summary: options.summary,
-        token: authToken,
+        token: csrfToken,
         maxlag: options.maxLag
     };
 
     const postString = qs.stringify(parameters, { arrayFormat: 'repeat' });
-    const headers = authMethod === 'authToken' && options.authToken ? { Cookie: options.authToken.cookie } : undefined;
 
     const isNewItem = item.id === undefined;
     const url = generateURL(server, isNewItem, options.origin);
@@ -253,8 +255,7 @@ export default async function upload(item: Item, options: UploadOptions): Promis
         url,
         data: postString,
         headers: {
-            ...headers,
-            ...options.axiosOptions?.headers,
+            ...options.axiosOptions?.headers
         }
     };
 

@@ -44,7 +44,7 @@ console.log(item.labels);
 Create a new item and upload it to Wikidata. This example creates a new astronomical object:
 
 ```typescript
-import { Item, getToken, upload, Label, Statement, WikibaseItemSnak } from 'iwf';
+import { Item, BotPasswordAuth, upload, Label, Statement, WikibaseItemSnak } from 'iwf';
 
 const item = Item.fromNothing();
 
@@ -54,12 +54,16 @@ item.labels.push(Label.fromString('en', 'new planet'));
 // Add a statement: instance of (P31) celestial body (Q634)
 item.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P31', 'Q634')));
 
-// Authenticate and upload
-const token = await getToken('your Wikidata username', 'your Wikidata password');
+// Authenticate with bot password and upload
+const auth = new BotPasswordAuth({
+    username: 'YourUsername@YourBotName',
+    password: 'your-bot-password',
+    userAgent: 'YourApp/1.0 (your@email.com)'
+});
 
 await upload(item, {
     summary: 'Adding new astronomical object',
-    authToken: token
+    auth
 });
 ```
 

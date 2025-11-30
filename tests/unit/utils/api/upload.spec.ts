@@ -1,12 +1,17 @@
 import qs from 'qs';
+import axios from 'axios';
 import upload, { generateURL, validateAuthentication } from '../../../../src/utils/api/upload';
-import { Item } from '../../../../src';
-import { Token } from '../../../../src/utils/api/token';
+import { BotPasswordAuth, Item } from '../../../../src';
 
-const token: Token = {
-    token: 'token',
-    cookie: 'cookie'
-};
+// Mock axios
+jest.mock('axios');
+const mockedAxios = axios as jest.MockedFunction<typeof axios>;
+
+// Mock BotPasswordAuth for testing
+const mockBotPasswordAuth = {
+    getCsrfToken: jest.fn().mockResolvedValue('mock-csrf-token'),
+    getAxiosInstance: jest.fn().mockReturnValue(jest.fn())
+} as unknown as BotPasswordAuth;
 
 describe('generate url', () => {
     it('should generate a url', () => {
@@ -61,25 +66,35 @@ describe('validateAuthentication', () => {
         });
     });
 
-    describe('authToken', () => {
-        it('should you provide a correct authToken it should return the correct authMethod', () => {
+    describe('auth (BotPasswordAuth)', () => {
+        it('should return auth when BotPasswordAuth is provided', () => {
             expect(
                 validateAuthentication({
                     summary: 'Upload summary',
                     tags: [''],
-                    authToken: token
+                    auth: mockBotPasswordAuth
                 })
-            ).toEqual('authToken');
+            ).toEqual('auth');
         });
     });
 
     describe('anonymous', () => {
-        it('should throw if a authToken is available but the anonymous key is set', () => {
+        it('should return anonymous when anonymous flag is set', () => {
+            expect(
+                validateAuthentication({
+                    summary: 'Upload summary',
+                    tags: [''],
+                    anonymous: true
+                })
+            ).toEqual('anonymous');
+        });
+
+        it('should throw if auth is available but the anonymous key is set', () => {
             expect(
                 () => validateAuthentication({
                     summary: 'Upload summary',
                     tags: [''],
-                    authToken: token,
+                    auth: mockBotPasswordAuth,
                     anonymous: true
                 })
             ).toThrow();
@@ -93,7 +108,8 @@ describe('upload', () => {
     let consoleErrorSpy: jest.SpyInstance;
 
     beforeEach(() => {
-        consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+        consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+        jest.clearAllMocks();
     });
 
     afterEach(() => {
@@ -101,9 +117,8 @@ describe('upload', () => {
     });
 
     describe('uploading', () => {
-        it('should use the anonymous key if there is no key, but the anonymous key is set', async () => {
-            const axiosMock = jest.fn();
-            axiosMock.mockResolvedValue({
+        it('should use the anonymous token when anonymous flag is set', async () => {
+            mockedAxios.mockResolvedValue({
                 data: {
                     entity: Item.fromNothing().toJSON(),
                     success: 1
@@ -113,24 +128,20 @@ describe('upload', () => {
             await upload(item, {
                 summary: 'Upload summary',
                 tags: [''],
-                anonymous: true,
-
-                // @ts-expect-error testing
-                axiosInstance: axiosMock
+                anonymous: true
             });
 
-            expect(axiosMock).toHaveBeenCalledTimes(1);
+            expect(mockedAxios).toHaveBeenCalledTimes(1);
 
-            const arguments_ = axiosMock.mock?.calls[0][0];
-            const data = qs.parse(arguments_?.data);
+            const callArgs = mockedAxios.mock.calls[0][0] as { data: string };
+            const data = qs.parse(callArgs.data);
             expect(data.token).toEqual('+\\');
             expect(data.summary).toEqual('Upload summary');
             expect(data.tags).toEqual('');
         });
 
-        it('throw when uploading does not succeeds', async () => {
-            const axiosMock = jest.fn();
-            axiosMock.mockResolvedValue({
+        it('should throw when uploading does not succeed', async () => {
+            mockedAxios.mockResolvedValue({
                 data: {
                     error: 'something went wrong'
                 }
@@ -139,11 +150,35 @@ describe('upload', () => {
             await expect(upload(item, {
                 summary: 'Upload summary',
                 tags: [''],
-                anonymous: true,
-
-                // @ts-expect-error testing
-                axiosInstance: axiosMock
+                anonymous: true
             })).rejects.toThrow();
+        });
+
+        it('should use BotPasswordAuth when auth is provided', async () => {
+            const mockAxiosInstance = jest.fn().mockResolvedValue({
+                data: {
+                    entity: Item.fromNothing().toJSON(),
+                    success: 1
+                }
+            });
+
+            const mockAuth = {
+                getCsrfToken: jest.fn().mockResolvedValue('test-csrf-token'),
+                getAxiosInstance: jest.fn().mockReturnValue(mockAxiosInstance)
+            } as unknown as BotPasswordAuth;
+
+            await upload(item, {
+                summary: 'Upload summary',
+                auth: mockAuth
+            });
+
+            expect(mockAuth.getCsrfToken).toHaveBeenCalledWith('https://www.wikidata.org');
+            expect(mockAuth.getAxiosInstance).toHaveBeenCalled();
+            expect(mockAxiosInstance).toHaveBeenCalledTimes(1);
+
+            const callArgs = mockAxiosInstance.mock.calls[0][0] as { data: string };
+            const data = qs.parse(callArgs.data);
+            expect(data.token).toEqual('test-csrf-token');
         });
     });
 });
