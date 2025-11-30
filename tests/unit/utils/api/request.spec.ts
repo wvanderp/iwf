@@ -61,6 +61,21 @@ describe('requestItem functions', () => {
         const data = await requestItem(QID);
         expect(data.toJSON()).toStrictEqual(wikidataJSON);
         expect(mockedAxios.get).toHaveBeenCalledTimes(1);
+        expect(mockedAxios.get).toHaveBeenCalledWith(
+            `https://www.wikidata.org/wiki/Special:EntityData/${QID}.json`,
+            { headers: { 'User-Agent': 'iwf/0.1.1' } }
+        );
+    });
+
+    it('should use custom user-agent when provided', async () => {
+        mockedAxios.get.mockResolvedValue(contents);
+
+        const data = await requestItem(QID, { userAgent: 'CustomApp/1.0' });
+        expect(data.toJSON()).toStrictEqual(wikidataJSON);
+        expect(mockedAxios.get).toHaveBeenCalledWith(
+            `https://www.wikidata.org/wiki/Special:EntityData/${QID}.json`,
+            { headers: { 'User-Agent': 'CustomApp/1.0' } }
+        );
     });
 
     it('should handle garbage inputs', async () => {

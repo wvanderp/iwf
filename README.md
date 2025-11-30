@@ -35,7 +35,7 @@ You can easily request an item from Wikidata and list all the labels. For exampl
 import { requestItem } from 'iwf';
 
 // Request the item for Douglas Adams (Q42)
-const item = await requestItem('Q42');
+const item = await requestItem('Q42', { userAgent: 'YourApp/1.0' });
 
 // Prints all available labels in different languages
 console.log(item.labels);

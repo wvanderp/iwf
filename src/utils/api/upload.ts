@@ -41,6 +41,7 @@ interface UploadOptions {
     origin?: string; // The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
 
     axiosOptions?: AxiosRequestConfig; // The options to pass to axios
+    userAgent?: string; // The user agent to use for the request (required for anonymous uploads)
 }
 
 type AuthMethod = 'auth' | 'anonymous';
@@ -189,6 +190,7 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
  * @param {string} [options.server] The API endpoint to use (defaults to Wikidata)
  * @param {string} [options.origin] The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
  * @param {AxiosRequestConfig} [options.axiosOptions] The options to pass to axios
+ * @param {string} [options.userAgent] The user agent to use for the request (required for anonymous uploads)
  * @throws {Error} If no authentication method is provided or the upload fails
  * @returns {Promise<Item>} A Promise for the item after uploading
  * @example
@@ -208,13 +210,22 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
  *      await upload(item, {
  *          summary: 'anonymous edit',
  *          anonymous: true,
- *          origin: 'https://my-app.example.com'
+ *          origin: 'https://my-app.example.com',
+ *          userAgent: 'MyApp/1.0'
  *      });
  */
 export default async function upload(item: Item, options: UploadOptions): Promise<Item> {
     const authMethod = validateAuthentication(options);
 
     const server = options.server ?? 'https://www.wikidata.org';
+
+    // Determine user agent
+    let userAgent: string | undefined;
+    if (authMethod === 'auth' && options.auth) {
+        userAgent = options.auth.getUserAgent();
+    } else if (options.userAgent) {
+        userAgent = options.userAgent;
+    }
 
     // Get token and axios instance based on auth method
     let csrfToken: string;
@@ -255,7 +266,8 @@ export default async function upload(item: Item, options: UploadOptions): Promis
         url,
         data: postString,
         headers: {
-            ...options.axiosOptions?.headers
+            ...options.axiosOptions?.headers,
+            ...(userAgent ? { 'User-Agent': userAgent } : {})
         }
     };
 

@@ -219,4 +219,16 @@ export default class BotPasswordAuth {
     getAxiosInstance(): AxiosInstance {
         return this.axiosInstance;
     }
+
+    /**
+     * Gets the user agent string
+     *
+     * @returns {string} The user agent
+     *
+     * @example
+     *   const userAgent = botAuth.getUserAgent();
+     */
+    getUserAgent(): string {
+        return this.userAgent;
+    }
 }
