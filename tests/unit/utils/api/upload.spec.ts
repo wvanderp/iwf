@@ -1,8 +1,15 @@
 /* eslint-disable unicorn/empty-brace-spaces */
 import qs from 'qs';
 import axios from 'axios';
-import upload, { generateURL, validateAuthentication } from '../../../../src/utils/api/upload';
-import { BotPasswordAuth, Item } from '../../../../src';
+import upload, { generateURL, validateAuthentication, generateUploadData } from '../../../../src/utils/api/upload';
+import {
+    BotPasswordAuth,
+    Item,
+    Statement,
+    WikibaseItemSnak,
+    requestItem
+} from '../../../../src';
+import { UploadFormat } from '../../../../src/types/uploadFormat';
 
 // Mock axios
 jest.mock('axios');
@@ -182,5 +189,115 @@ describe('upload', () => {
             const data = qs.parse(callArguments.data);
             expect(data.token).toEqual('test-csrf-token');
         });
+    });
+});
+
+describe('generateUploadData', () => {
+    const server = 'https://www.wikidata.org';
+
+    const mockRequest = requestItem as unknown as jest.MockedFunction<typeof requestItem>;
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should add a remove entry for removed statements that have an id', async () => {
+        const statement = Statement.fromSnak(WikibaseItemSnak.fromID('P111', 'Q2'));
+        statement.id = 'S1';
+
+        const original = new Item({
+            type: 'item',
+            id: 'Q1',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: { P111: [statement.toJSON()] },
+            sitelinks: {}
+        });
+
+        const updated = new Item({
+            type: 'item',
+            id: 'Q1',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: {},
+            sitelinks: {}
+        });
+
+        mockRequest.mockResolvedValue(original);
+
+        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+
+        expect(data.claims.P111).toBeDefined();
+        expect(data.claims.P111[0]).toEqual({ remove: '', id: 'S1' });
+    });
+
+    it('should not add a remove entry for removed statements without an id', async () => {
+        const statement = Statement.fromSnak(WikibaseItemSnak.fromID('P222', 'Q2'));
+        // no id set
+
+        const original = new Item({
+            type: 'item',
+            id: 'Q2',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: { P222: [statement.toJSON()] },
+            sitelinks: {}
+        });
+
+        const updated = new Item({
+            type: 'item',
+            id: 'Q2',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: {},
+            sitelinks: {}
+        });
+
+        mockRequest.mockResolvedValue(original);
+
+        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+
+        expect(data.claims.P222).toBeUndefined();
+    });
+
+    it('should add remove entries for labels, descriptions, aliases and sitelinks', async () => {
+        const original = new Item({
+            type: 'item',
+            id: 'Q3',
+            labels: { en: { language: 'en', value: 'OldLabel' } },
+            descriptions: { en: { language: 'en', value: 'OldDescription' } },
+            aliases: { en: [{ language: 'en', value: 'OldAlias' }] },
+            claims: {},
+            sitelinks: { enwiki: { site: 'enwiki', title: 'OldTitle' } }
+        });
+
+        const updated = new Item({
+            type: 'item',
+            id: 'Q3',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: {},
+            sitelinks: {}
+        });
+
+        mockRequest.mockResolvedValue(original);
+
+        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+
+        // Labels and descriptions should be set to an empty value
+        expect(data.labels.en).toEqual({ language: 'en', value: '' });
+        expect(data.descriptions.en).toEqual({ language: 'en', value: '' });
+
+        // Aliases should include a remove entry
+        expect(data.aliases.en).toBeDefined();
+        expect(data.aliases.en[0]).toEqual({ language: 'en', value: 'OldAlias', remove: '' });
+
+        // Sitelinks should be set to an empty title
+        expect(data.sitelinks.enwiki).toEqual({ site: 'enwiki', title: '' });
     });
 });
