@@ -165,7 +165,8 @@ describe('upload', () => {
 
             const mockAuth = {
                 getCsrfToken: jest.fn().mockResolvedValue('test-csrf-token'),
-                getAxiosInstance: jest.fn().mockReturnValue(mockAxiosInstance)
+                getAxiosInstance: jest.fn().mockReturnValue(mockAxiosInstance),
+                getUserAgent: jest.fn().mockReturnValue('test-user-agent')
             } as unknown as BotPasswordAuth;
 
             await upload(item, {
