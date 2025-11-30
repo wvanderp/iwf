@@ -133,8 +133,8 @@ describe('upload', () => {
 
             expect(mockedAxios).toHaveBeenCalledTimes(1);
 
-            const callArgs = mockedAxios.mock.calls[0][0] as { data: string };
-            const data = qs.parse(callArgs.data);
+            const callArguments = mockedAxios.mock.calls[0][0] as unknown as { data: string };
+            const data = qs.parse(callArguments.data);
             expect(data.token).toEqual('+\\');
             expect(data.summary).toEqual('Upload summary');
             expect(data.tags).toEqual('');
@@ -176,8 +176,8 @@ describe('upload', () => {
             expect(mockAuth.getAxiosInstance).toHaveBeenCalled();
             expect(mockAxiosInstance).toHaveBeenCalledTimes(1);
 
-            const callArgs = mockAxiosInstance.mock.calls[0][0] as { data: string };
-            const data = qs.parse(callArgs.data);
+            const callArguments = mockAxiosInstance.mock.calls[0][0] as unknown as { data: string };
+            const data = qs.parse(callArguments.data);
             expect(data.token).toEqual('test-csrf-token');
         });
     });
