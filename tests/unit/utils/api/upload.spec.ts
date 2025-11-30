@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/empty-brace-spaces */
 import qs from 'qs';
 import axios from 'axios';
 import upload, { generateURL, validateAuthentication } from '../../../../src/utils/api/upload';
