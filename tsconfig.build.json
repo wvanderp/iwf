@@ -1,5 +1,8 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src"
+  },
   "exclude": [
     "node_modules",
     "build",
@@ -11,8 +14,7 @@
     "./test.ts",
     "./lib",
     "./scrap*.ts",
-    "**/*.spec.ts",
-    "tests/browser",
+    "**/*.spec.ts"
   ],
   "filesGlob": [
     "./src/**/*.ts"
