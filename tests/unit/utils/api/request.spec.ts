@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 
+import packageJson from '../../../../package.json';
+
 import { baseURL } from '../../../../src/utils/api/request';
 import { requestItem } from '../../../../src';
 
@@ -58,12 +60,14 @@ describe('requestItem functions', () => {
     it('should return the right data when a QID is given', async () => {
         mockedAxios.get.mockResolvedValue(contents);
 
+        const userAgent = `iwf/${packageJson.version}`;
+
         const data = await requestItem(QID);
         expect(data.toJSON()).toStrictEqual(wikidataJSON);
         expect(mockedAxios.get).toHaveBeenCalledTimes(1);
         expect(mockedAxios.get).toHaveBeenCalledWith(
             `https://www.wikidata.org/wiki/Special:EntityData/${QID}.json`,
-            { headers: { 'User-Agent': 'iwf/0.1.1' } }
+            { headers: { 'User-Agent': userAgent } }
         );
     });
 
