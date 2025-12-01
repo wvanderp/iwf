@@ -6,14 +6,18 @@ import {
     BotPasswordAuth,
     Item,
     Statement,
-    WikibaseItemSnak,
-    requestItem
+    WikibaseItemSnak
 } from '../../../../src';
 import { UploadFormat } from '../../../../src/types/uploadFormat';
+import requestItem from '../../../../src/utils/api/request';
 
 // Mock axios
 jest.mock('axios');
 const mockedAxios = axios as jest.MockedFunction<typeof axios>;
+
+// Mock requestItem
+jest.mock('../../../../src/utils/api/request');
+const mockRequestItem = requestItem as jest.MockedFunction<typeof requestItem>;
 
 // Mock BotPasswordAuth for testing
 const mockBotPasswordAuth = {
@@ -195,8 +199,6 @@ describe('upload', () => {
 describe('generateUploadData', () => {
     const server = 'https://www.wikidata.org';
 
-    const mockRequest = requestItem as unknown as jest.MockedFunction<typeof requestItem>;
-
     beforeEach(() => {
         jest.clearAllMocks();
     });
@@ -225,7 +227,7 @@ describe('generateUploadData', () => {
             sitelinks: {}
         });
 
-        mockRequest.mockResolvedValue(original);
+        mockRequestItem.mockResolvedValue(original);
 
         const data = await generateUploadData(updated, server) as unknown as UploadFormat;
 
@@ -257,7 +259,7 @@ describe('generateUploadData', () => {
             sitelinks: {}
         });
 
-        mockRequest.mockResolvedValue(original);
+        mockRequestItem.mockResolvedValue(original);
 
         const data = await generateUploadData(updated, server) as unknown as UploadFormat;
 
@@ -285,7 +287,7 @@ describe('generateUploadData', () => {
             sitelinks: {}
         });
 
-        mockRequest.mockResolvedValue(original);
+        mockRequestItem.mockResolvedValue(original);
 
         const data = await generateUploadData(updated, server) as unknown as UploadFormat;
 
