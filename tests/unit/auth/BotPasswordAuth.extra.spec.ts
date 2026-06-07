@@ -49,7 +49,7 @@ describe('BotPasswordAuth extra coverage', () => {
         expect(config.headers.Cookie).toBe('session=abc; csrftoken=def');
     });
 
-    it('falls back to an empty URL string inside both interceptor paths', async () => {
+    it('falls back to an empty URL string inside both interceptor paths', () => {
         const auth = new BotPasswordAuth({
             username: 'TestUser@BotName',
             password: 'botpassword123',

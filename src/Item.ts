@@ -1,11 +1,6 @@
 import {
     Item as WikidataItem,
-    Labels as WikidataLabels,
     Statement as WikidataStatement,
-    Descriptions as WikidataDescriptions,
-    Aliases as WikidataAliases,
-    StatementMap as WikidataClaims,
-    Sitelinks as WikidataSiteLinks,
     LabelAndDescription
 } from '@wmde/wikibase-datamodel-types';
 

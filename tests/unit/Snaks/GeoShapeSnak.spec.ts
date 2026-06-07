@@ -69,7 +69,7 @@ describe('Commons Media Snak', () => {
 
     describe('commonsLink accessor', () => {
         it('should have the commonsLink property', () => {
-            expect(GeoShapeSnak.prototype.hasOwnProperty('commonsLink')).toBe(true);
+            expect(Object.prototype.hasOwnProperty.call(GeoShapeSnak.prototype, 'commonsLink')).toBe(true);
         });
 
         it('should return the correct commonsLink for a value snak', () => {

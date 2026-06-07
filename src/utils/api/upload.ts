@@ -190,9 +190,9 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
  * @param [options.server] The API endpoint to use (defaults to Wikidata)
  * @param [options.origin] The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
  * @param [options.axiosOptions] The options to pass to axios
- * @param {string} [options.userAgent] The user agent to use for the request (required for anonymous uploads)
+ * @param [options.userAgent] The user agent to use for the request (required for anonymous uploads)
  * @throws {Error} If no authentication method is provided or the upload fails
- * @returns {Promise<Item>} A Promise for the item after uploading
+ * @returns A Promise for the item after uploading
  * @example
  *      // Using BotPasswordAuth (recommended)
  *      const auth = new BotPasswordAuth({

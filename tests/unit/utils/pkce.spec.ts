@@ -1,7 +1,5 @@
 import { generateCodeChallenge, generateCodeVerifier } from '../../../src/utils/pkce';
 
-type CryptoRandomValues = typeof globalThis.crypto.getRandomValues;
-
 describe('pkce', () => {
     afterEach(() => {
         vi.restoreAllMocks();

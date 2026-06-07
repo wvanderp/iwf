@@ -177,7 +177,7 @@ describe('findAlias', () => {
         const found = item.findAliases('en');
 
         expect(found.length).toEqual(2);
-        expect(found.map((a) => a.value).sort()).toEqual(['Christ', 'Messiah']);
+        expect(found.map((a) => a.value).toSorted()).toEqual(['Christ', 'Messiah']);
     });
 });
 

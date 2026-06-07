@@ -13,7 +13,9 @@ import noSecrets from 'eslint-plugin-no-secrets';
 import compat from 'eslint-plugin-compat';
 import globals from 'globals';
 
-export default tseslint.config(
+type FlatConfig = import('eslint').Linter.Config;
+
+export default [
     // ──────────────────────────────────────────────
     // Global ignores
     // ──────────────────────────────────────────────
@@ -51,7 +53,7 @@ export default tseslint.config(
     // ──────────────────────────────────────────────
     // Plugin: sonarjs – code quality & bug detection
     // ──────────────────────────────────────────────
-    sonarjs.configs!.recommended as unknown as Parameters<typeof tseslint.config>[number],
+    sonarjs.configs!.recommended as unknown as FlatConfig,
 
     // ──────────────────────────────────────────────
     // Plugin: unicorn – misc best practices
@@ -249,6 +251,7 @@ export default tseslint.config(
             // TypeScript handles these
             'import-x/no-unresolved': 'off',
             'import-x/named': 'off',
+            'sonarjs/no-clear-text-protocols': 'off',
         },
     },
 
@@ -290,4 +293,4 @@ export default tseslint.config(
             'n/no-unpublished-import': 'off',
         },
     },
-);
+] satisfies FlatConfig[];
