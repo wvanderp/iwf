@@ -3,8 +3,8 @@ import { Sha256 } from '@aws-crypto/sha256-js';
 /**
  * Calculates the SHA256 hash of a string.
  *
- * @param {string} input The string to hash.
- * @returns {string} The hash of the string.
+ * @param input The string to hash.
+ * @returns The hash of the string.
  * @example
  *    const hash = sha256('hello');
  *    console.log(hash); // 185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969

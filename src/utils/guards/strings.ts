@@ -9,8 +9,8 @@ const QStringRegex = /Q\d+$/m;
  * Tests if a string is a QString.
  * Can also be used as a type guard.
  *
- * @param {string} string_ The string to test.
- * @returns {string_ is QString} True if the string is a QString.
+ * @param string_ The string to test.
+ * @returns True if the string is a QString.
  * @example
  *    const id = 'Q123';
  *    if (!isQString(id)) {
@@ -28,8 +28,8 @@ const PStringRegex = /P\d+$/m;
  * Tests if a string is a PString.
  * Can also be used as a type guard.
  *
- * @param {string} string_ The string to test.
- * @returns {string_ is PString} True if the string is a PString.
+ * @param string_ The string to test.
+ * @returns True if the string is a PString.
  * @example
  *    const property = 'P123';
  *    if (!isPString(property)) {
@@ -47,8 +47,8 @@ const LStringRegex = /L\d+$/m;
  * Tests if a string is a LString.
  * Can also be used as a type guard.
  *
- * @param {string} string_ The string to test.
- * @returns {string_ is LString} True if the string is a LString.
+ * @param string_ The string to test.
+ * @returns True if the string is a LString.
  * @example
  *    const property = 'L123';
  *    if (!isLString(property)) {
@@ -66,8 +66,8 @@ const EStringRegex = /E\d+$/m;
  * Tests if a string is an EString.
  * Can also be used as a type guard.
  *
- * @param {string} string_ The string to test.
- * @returns {string_ is EString} True if the string is an EString.
+ * @param string_ The string to test.
+ * @returns True if the string is an EString.
  * @example
  *    const property = 'E123';
  *    if (!isEString(property)) {
@@ -85,8 +85,8 @@ const SenseStringRegex = /L\d+-S\d+$/m;
  * Tests if a string is a SenseString.
  * Can also be used as a type guard.
  *
- * @param {string} string_ The string to test.
- * @returns {string_ is SenseString} True if the string is a SenseString.
+ * @param string_ The string to test.
+ * @returns True if the string is a SenseString.
  * @example
  *    const property = 'L123-S4';
  *    if (!isSenseString(property)) {

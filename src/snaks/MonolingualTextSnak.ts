@@ -1,4 +1,5 @@
 import { MonolingualTextSnak as WikidataMonolingualTextSnak, MonolingualLanguages } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -22,7 +23,7 @@ export default class MonolingualTextSnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataMonolingualTextSnak} snak The snak that will be parsed.
+     * @param snak The snak that will be parsed.
      * @example
      *   const snak = new MonolingualTextSnak(json);
      */
@@ -34,7 +35,7 @@ export default class MonolingualTextSnak extends Snak {
     }
 
     /**
-     * @returns {WikidataMonolingualTextSnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = monolingualTextSnak.toJSON();
      */
@@ -57,8 +58,8 @@ export default class MonolingualTextSnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {MonolingualTextSnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something
@@ -72,10 +73,10 @@ export default class MonolingualTextSnak extends Snak {
 
     /**
      * @static
-     * @param {PString} property The property of the snak in 'P-form'.
-     * @param {MonolingualLanguages} language The language of the snak.
-     * @param {string} value The value.
-     * @returns {MonolingualTextSnak} A snak with the given properties.
+     * @param property The property of the snak in 'P-form'.
+     * @param language The language of the snak.
+     * @param value The value.
+     * @returns A snak with the given properties.
      * @example
      *   const snak = MonolingualTextSnak.fromString('P1476', 'en', 'test');
      */

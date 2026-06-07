@@ -32,8 +32,8 @@ type AxiosInstanceWithHandlers = ReturnType<OAuthAuth['getAxiosInstance']> & {
 /**
  * Installs a minimal browser-like environment for OAuth redirect tests.
  *
- * @param {string} [href] The location href to expose on the global object.
- * @returns {{ store: Map<string, string>; sessionStorage: BrowserSessionStorage }} The backing store and storage API.
+ * @param [href] The location href to expose on the global object.
+ * @returns The backing store and storage API.
  * @example
  *   const { sessionStorage } = installBrowser('https://app.example.test/callback?code=123');
  *   sessionStorage.setItem('iwf_oauth_state', 'state');
@@ -192,7 +192,7 @@ describe('OAuthAuth', () => {
                 refresh_token: 'new-refresh-token',
                 expires_in: 3600
             }
-        } as never);
+        });
 
         await auth.handleCallback();
 
@@ -243,7 +243,7 @@ describe('OAuthAuth', () => {
                 access_token: 'refreshed-token',
                 expires_in: 3600
             }
-        } as never);
+        });
 
         await expect(auth.getValidAccessToken()).resolves.toBe('refreshed-token');
         expect(internal.tokens?.refreshToken).toBe('refresh-token');
@@ -281,7 +281,7 @@ describe('OAuthAuth', () => {
                 refresh_token: 'new-refresh-token',
                 expires_in: 3600
             }
-        } as never);
+        });
 
         await expect(auth.getValidAccessToken()).resolves.toBe('refreshed-token');
         expect(internal.tokens?.refreshToken).toBe('new-refresh-token');
@@ -304,7 +304,7 @@ describe('OAuthAuth', () => {
         vi.spyOn(axios, 'post').mockResolvedValue({
             status: 401,
             data: {}
-        } as never);
+        });
 
         await expect(auth.getValidAccessToken()).rejects.toThrow(AuthExpiredError);
         expect(internal.tokens).toBeUndefined();
@@ -363,7 +363,7 @@ describe('OAuthAuth', () => {
                     }
                 }
             }
-        } as never);
+        });
 
         await expect(auth.getCsrfToken('https://www.wikidata.org')).resolves.toBe('csrf-token');
         expect(internal.csrfTokenCache.get('https://www.wikidata.org')).toBe('csrf-token');
@@ -390,7 +390,7 @@ describe('OAuthAuth', () => {
                     }
                 }
             }
-        } as never);
+        });
 
         await expect(auth.getCsrfToken('https://www.wikidata.org')).rejects.toThrow(NotLoggedInError);
     });

@@ -4,8 +4,9 @@ import {
 import diffArray from 'diff-arrays-of-objects';
 
 import Statement from '../../Statement';
-import { Change } from './Change';
 import { QString } from '../../types/strings';
+
+import { Change } from './Change';
 
 export interface StatementChange extends Change {
     type: 'statement',

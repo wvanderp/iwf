@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { WikidataResponse } from '@wmde/wikibase-datamodel-types';
+
 import Item from '../../Item';
 import { isQString } from '../guards/strings';
-
 import PackageJSON from '../../../package.json';
 
 /**
@@ -36,9 +36,9 @@ interface RequestConfig {
 }
 
 /**
- * @param {string} qid The ID of the entity.
- * @param {RequestConfig} config The config object.
- * @returns {Promise<Item>} The promise of a Wikidata Item.
+ * @param qid The ID of the entity.
+ * @param config The config object.
+ * @returns The promise of a Wikidata Item.
  * @example
  *     const item = requestItem('Q42');
  *     const item = requestItem('Q42', { userAgent: 'YourApp/1.0' });

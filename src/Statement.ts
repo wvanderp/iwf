@@ -31,7 +31,7 @@ export default class Statement {
     qualifiersOrder: string[];
 
     /**
-     * @param {wikidataStatement} statement The statement in a JSON format
+     * @param statement The statement in a JSON format
      * @example
      *     const statement = new Statement(json);
      */
@@ -55,7 +55,7 @@ export default class Statement {
     /**
      * Gets the unique hash of the statement.
      *
-     * @returns {string} The ID
+     * @returns The ID
      */
     public get internalID(): string {
         if (this._internalID === '') {
@@ -68,7 +68,7 @@ export default class Statement {
     /**
      * Gets the property of the statement.
      *
-     * @returns {PString | undefined} The property of the statement
+     * @returns The property of the statement
      * @example
      * const property = statement.property;
      */
@@ -77,7 +77,7 @@ export default class Statement {
     }
 
     /**
-     * @returns {wikidataStatement} The statement in a JSON format
+     * @returns The statement in a JSON format
      * @example
      *      const json = statement.toJSON();
      */
@@ -106,14 +106,14 @@ export default class Statement {
             id: this.id,
             rank: this.rank,
             references: references.length === 0 ? undefined : references
-        }) as wikidataStatement;
+        });
     }
 
     /**
      * Creates a statement from a snak.
      *
-     * @param {Snak} snak The snak for the statement
-     * @returns {Statement} The statement
+     * @param snak The snak for the statement
+     * @returns The statement
      * @example
      *  const statement = Statement.fromSnak(snak);
      */
@@ -128,8 +128,8 @@ export default class Statement {
     /**
      * Compares this statement with another statement.
      *
-     * @param {Statement} other The other statement
-     * @returns {boolean} True if the two statements are equal
+     * @param other The other statement
+     * @returns True if the two statements are equal
      * @example
      *   if (statement1.equals(statement2)) {
      *      // do something

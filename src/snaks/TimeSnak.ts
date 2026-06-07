@@ -1,4 +1,5 @@
 import { TimeSnak as WikidataTimeSnak, CalendarModels } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -50,7 +51,7 @@ export default class TimeSnak extends Snak {
     datatype = 'time';
 
     /**
-     * @param {WikidataTimeSnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @example
      *     const snak = new TimeSnak(json);
      */
@@ -67,7 +68,7 @@ export default class TimeSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataTimeSnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = timeSnak.toJSON();
      */
@@ -94,8 +95,8 @@ export default class TimeSnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {TimeSnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *   if (snak.equals(other)) {
      *     // do something
@@ -114,12 +115,12 @@ export default class TimeSnak extends Snak {
     /**
      * Dates only, so add all of the date (year, month, day).
      *
-     * @param {PString} property The property of the snak in 'P-form'.
-     * @param {number} year The year of the date.
-     * @param {number} month The month of the date (1-12), so just the normal months.
-     * @param {number} day The day of the date (1-31).
-     * @param {CalendarModels} calendarModel The calendar model for the snak.
-     * @returns {TimeSnak} The TimeSnak.
+     * @param property The property of the snak in 'P-form'.
+     * @param year The year of the date.
+     * @param month The month of the date (1-12), so just the normal months.
+     * @param day The day of the date (1-31).
+     * @param calendarModel The calendar model for the snak.
+     * @returns The TimeSnak.
      * @example
      *    const snak = TimeSnak.fromDate('P1619', 2020, 1, 30, 'http://www.wikidata.org/entity/Q1985727');
      */
@@ -152,10 +153,10 @@ export default class TimeSnak extends Snak {
      * When using it normally you should be fine, but anything before 1970 will be wrong.
      * Also, timezones are not supported, so you need to use UTC which conflicts with Wikidata that assumes that all dates are in the local timezone.
      *
-     * @param {PString} property The property of the snak in 'P-form'.
-     * @param {Date} date The Date object.
-     * @param {CalendarModels} calendarModel The calendar model for the snak.
-     * @returns {TimeSnak} The TimeSnak.
+     * @param property The property of the snak in 'P-form'.
+     * @param date The Date object.
+     * @param calendarModel The calendar model for the snak.
+     * @returns The TimeSnak.
      * @example
      *    const snak = TimeSnak.fromDateObject('P1619', new Date(), 'http://www.wikidata.org/entity/Q1985727');
      */

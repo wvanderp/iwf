@@ -7,7 +7,7 @@
 export default function corsCheck(server: string, origin?: string): void {
     // Checking if we have enough information to survive in the hostile environment of the browser.
     // @ts-expect-error - We are checking if it exists and not using it if it doesn't.
-    const inBrowser = typeof window !== 'undefined';
+    const inBrowser = globalThis.window !== undefined;
 
     if (inBrowser && origin === undefined) {
         // eslint-disable-next-line no-console

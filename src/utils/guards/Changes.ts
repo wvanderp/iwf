@@ -4,8 +4,8 @@ import { StatementChange } from '../diff/statementsDiff';
 /**
  * A guard for the StatementChange type.
  *
- * @param {Change} change The change to check.
- * @returns {change is StatementChange} True if the change is a StatementChange.
+ * @param change The change to check.
+ * @returns True if the change is a StatementChange.
  * @example
  *   if (isStatementChange(change)) {
  *      // Do something

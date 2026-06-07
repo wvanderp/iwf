@@ -3,16 +3,17 @@ import qs from 'qs';
 
 import Item from '../../Item';
 import { WbeditentityResponse } from '../../types/apiResponse';
-import requestItem from './request';
 import { StatementChange } from '../diff/statementsDiff';
 import isStatementChange from '../guards/Changes';
 import { UploadFormat } from '../../types/uploadFormat';
 import { AliasChange } from '../diff/aliasDiff';
 import { LabelChange } from '../diff/labelDiff';
 import { SiteLinkChange } from '../diff/siteLinkDiff';
-import corsCheck from './corsCheck';
 import BotPasswordAuth from '../../auth/BotPasswordAuth';
 import OAuthAuth from '../../auth/OAuthAuth';
+
+import corsCheck from './corsCheck';
+import requestItem from './request';
 
 /**
  * API Documentation is scarce, so here is a semi-comprehensive list of all pages that contain information about the API:
@@ -179,16 +180,16 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
 /**
  * Uploads an Item to a Wikibase instance (e.g., Wikidata)
  *
- * @param {Item} item The item you want to upload to Wikidata
- * @param {UploadOptions} options The options for uploading
- * @param {string} options.summary The summary for the edit (displayed in the history of Wikidata)
- * @param {string[]} [options.tags] The tags for the edit (displayed in the history of Wikidata)
- * @param {BotPasswordAuth|OAuthAuth} [options.auth] The authentication instance to use (BotPasswordAuth or OAuthAuth)
- * @param {boolean} [options.anonymous] If true, the upload will be anonymous
- * @param {number} [options.maxLag] The max lag in seconds for the API request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
- * @param {string} [options.server] The API endpoint to use (defaults to Wikidata)
- * @param {string} [options.origin] The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
- * @param {AxiosRequestConfig} [options.axiosOptions] The options to pass to axios
+ * @param item The item you want to upload to Wikidata
+ * @param options The options for uploading
+ * @param options.summary The summary for the edit (displayed in the history of Wikidata)
+ * @param [options.tags] The tags for the edit (displayed in the history of Wikidata)
+ * @param [options.auth] The authentication instance to use (BotPasswordAuth or OAuthAuth)
+ * @param [options.anonymous] If true, the upload will be anonymous
+ * @param [options.maxLag] The max lag in seconds for the API request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
+ * @param [options.server] The API endpoint to use (defaults to Wikidata)
+ * @param [options.origin] The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
+ * @param [options.axiosOptions] The options to pass to axios
  * @param {string} [options.userAgent] The user agent to use for the request (required for anonymous uploads)
  * @throws {Error} If no authentication method is provided or the upload fails
  * @returns {Promise<Item>} A Promise for the item after uploading

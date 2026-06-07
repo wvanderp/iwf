@@ -13,12 +13,12 @@ export class IWFError extends Error {
     /**
      * Creates a new IWFError instance
      *
-     * @param {string} message The error message
-     * @param {string} code The error code
-     * @param {Record} details Additional error details
-     * @param {string} [details.wiki] The wiki where the error occurred
-     * @param {string} [details.title] The title related to the error
-     * @returns {IWFError} The created IWFError instance
+     * @param message The error message
+     * @param code The error code
+     * @param details Additional error details
+     * @param [details.wiki] The wiki where the error occurred
+     * @param [details.title] The title related to the error
+     * @returns The created IWFError instance
      * @example
      *   throw new IWFError('An error occurred', 'SOME_ERROR_CODE', { wiki: 'enwiki' });
      */
@@ -29,7 +29,7 @@ export class IWFError extends Error {
         this.wiki = details?.wiki;
         this.title = details?.title;
         this.details = details;
-        Error.captureStackTrace(this, this.constructor);
+        
     }
 }
 
@@ -41,9 +41,9 @@ export class AuthExpiredError extends IWFError {
     /**
      * Creates a new AuthExpiredError instance
      *
-     * @param {string} message The error message
-     * @param {Record} details Additional error details
-     * @returns {AuthExpiredError} The created AuthExpiredError instance
+     * @param message The error message
+     * @param details Additional error details
+     * @returns The created AuthExpiredError instance
      * @example
      *   throw new AuthExpiredError('Authentication has expired', { wiki: 'enwiki' });
      */
@@ -59,9 +59,9 @@ export class NotLoggedInError extends IWFError {
     /**
      * Creates a new NotLoggedInError instance
      *
-     * @param {string} message The error message
-     * @param {Record} details Additional error details
-     * @returns {NotLoggedInError} The created NotLoggedInError instance
+     * @param message The error message
+     * @param details Additional error details
+     * @returns The created NotLoggedInError instance
      * @example
      *   throw new NotLoggedInError('User is not logged in', { wiki: 'enwiki' });
      */
@@ -77,9 +77,9 @@ export class PermissionDeniedError extends IWFError {
     /**
      * Creates a new PermissionDeniedError instance
      *
-     * @param {string} message The error message
-     * @param {Record} details Additional error details
-     * @returns {PermissionDeniedError} The created PermissionDeniedError instance
+     * @param message The error message
+     * @param details Additional error details
+     * @returns The created PermissionDeniedError instance
      * @example
      *   throw new PermissionDeniedError('User lacks permissions', { wiki: 'enwiki' });
      */
@@ -97,10 +97,10 @@ export class RateLimitedError extends IWFError {
     /**
      * Creates a new RateLimitedError instance
      *
-     * @param {string} message The error message
-     * @param {number} [retryAfter] Suggested retry after time in seconds
-     * @param {Record} details Additional error details
-     * @returns {RateLimitedError} The created RateLimitedError instance
+     * @param message The error message
+     * @param [retryAfter] Suggested retry after time in seconds
+     * @param details Additional error details
+     * @returns The created RateLimitedError instance
      * @example
      *   throw new RateLimitedError('Rate limit exceeded', 120, { wiki: 'enwiki' });
      */
@@ -119,10 +119,10 @@ export class AbuseFilterError extends IWFError {
     /**
      * Creates a new AbuseFilterError instance
      *
-     * @param {string} message The error message
-     * @param {string} [filterId] The ID of the abuse filter that was triggered
-     * @param {Record} details Additional error details
-     * @returns {AbuseFilterError} The created AbuseFilterError instance
+     * @param message The error message
+     * @param [filterId] The ID of the abuse filter that was triggered
+     * @param details Additional error details
+     * @returns The created AbuseFilterError instance
      * @example
      *   throw new AbuseFilterError('Edit blocked by abuse filter', '1234', { wiki: 'enwiki' });
      */
@@ -139,9 +139,9 @@ export class SpamBlocklistError extends IWFError {
     /**
      * Creates a new SpamBlocklistError instance
      *
-     * @param {string} message The error message
-     * @param {Record} details Additional error details
-     * @returns {SpamBlocklistError} The created SpamBlocklistError instance
+     * @param message The error message
+     * @param details Additional error details
+     * @returns The created SpamBlocklistError instance
      * @example
      *   throw new SpamBlocklistError('Content blocked by spam blocklist', { wiki: 'enwiki' });
      */
@@ -161,11 +161,11 @@ export class CaptchaNeededError extends IWFError {
     /**
      * Creates a new CaptchaNeededError instance
      *
-     * @param {string} message The error message
-     * @param {string} [captchaId] The ID of the required captcha
-     * @param {string} [captchaType] The type of the required captcha
-     * @param {Record} details Additional error details
-     * @returns {CaptchaNeededError} The created CaptchaNeededError instance
+     * @param message The error message
+     * @param [captchaId] The ID of the required captcha
+     * @param [captchaType] The type of the required captcha
+     * @param details Additional error details
+     * @returns The created CaptchaNeededError instance
      * @example
      *   throw new CaptchaNeededError('Captcha is required', 'captcha123', 'text', { wiki: 'enwiki' });
      */
@@ -183,9 +183,9 @@ export class NetworkError extends IWFError {
     /**
      * Creates a new NetworkError instance
      *
-     * @param {string} message The error message
-     * @param {Record} details Additional error details
-     * @returns {NetworkError} The created NetworkError instance
+     * @param message The error message
+     * @param details Additional error details
+     * @returns The created NetworkError instance
      * @example
      *   throw new NetworkError('Network request failed', { wiki: 'enwiki' });
      */
@@ -203,10 +203,10 @@ export class APIError extends IWFError {
     /**
      * Creates a new APIError instance
      *
-     * @param {string} message The error message
-     * @param {string} [apiCode] The MediaWiki API error code
-     * @param {Record} details Additional error details
-     * @returns {APIError} The created APIError instance
+     * @param message The error message
+     * @param [apiCode] The MediaWiki API error code
+     * @param details Additional error details
+     * @returns The created APIError instance
      * @example
      *   throw new APIError('API returned an unknown error', 'unknown_error', { wiki: 'enwiki' });
      */
@@ -219,13 +219,13 @@ export class APIError extends IWFError {
 /**
  * Maps MediaWiki API error codes to typed errors
  *
- * @param {string} apiErrorCode The MediaWiki API error code
- * @param {string} message The error message
- * @param {Record} details Additional error details
- * @param {string} [details.wiki] The wiki where the error occurred
- * @param {string} [details.title] The title related to the error
+ * @param apiErrorCode The MediaWiki API error code
+ * @param message The error message
+ * @param details Additional error details
+ * @param [details.wiki] The wiki where the error occurred
+ * @param [details.title] The title related to the error
  *
- * @returns {IWFError} The mapped IWFError instance
+ * @returns The mapped IWFError instance
  *
  * @example
  *   const error = mapAPIError('notloggedin', 'User is not logged in', { wiki: 'enwiki' });

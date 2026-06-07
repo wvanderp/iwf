@@ -1,4 +1,5 @@
 import { Snaks as WikidataSnaks, SnakType as WikidataSnakType } from '@wmde/wikibase-datamodel-types';
+
 import { PString } from './types/strings';
 import { isPString } from './utils/guards/strings';
 import sha256 from './utils/hash';
@@ -23,7 +24,7 @@ export default abstract class Snak {
     /**
      * Creates an instance of Snak.
      *
-     * @param {WikidataSnaks} snak - The snak in a JSON format.
+     * @param snak - The snak in a JSON format.
      * @example
      * const snak = new Snak(json);
      */
@@ -42,7 +43,7 @@ export default abstract class Snak {
     /**
      * Checks if the snak has a value.
      *
-     * @returns {boolean} True if the snak has a value.
+     * @returns True if the snak has a value.
      */
     public get hasValue(): boolean {
         return this.snaktype === 'value';
@@ -51,7 +52,7 @@ export default abstract class Snak {
     /**
      * Creates a unique ID for the Snak.
      *
-     * @returns {string} The ID.
+     * @returns The ID.
      */
     public get internalID(): string {
         if (this._internalID === '') {

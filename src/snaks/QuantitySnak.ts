@@ -1,4 +1,5 @@
 import { QuantitySnak as WikidataQuantitySnak } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import { PString, QString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -55,7 +56,7 @@ export default class QuantitySnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataQuantitySnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @throws {Error} If the upperBound is smaller than the amount or the lowerBound is bigger than the amount.
      * @example
      *     const snak = new QuantitySnak(json);
@@ -93,14 +94,14 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
-     * @returns {number | undefined} The amount of the quantity.
+     * @returns The amount of the quantity.
      */
     get amount(): number | undefined {
         return this._amount ? Number(this._amount) : undefined;
     }
 
     /**
-     * @param {number | undefined} number The number that the amount will be set to.
+     * @param number The number that the amount will be set to.
      */
     set amount(number: number | undefined) {
         if (number === undefined) {
@@ -112,14 +113,14 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
-     * @returns {number | undefined} The upperBound of the quantity.
+     * @returns The upperBound of the quantity.
      */
     get upperBound(): number | undefined {
         return this._upperBound ? Number(this._upperBound) : undefined;
     }
 
     /**
-     * @param {number | undefined} number The number that the upperBound will be set to.
+     * @param number The number that the upperBound will be set to.
      */
     set upperBound(number: number | undefined) {
         if (number === undefined) {
@@ -131,14 +132,14 @@ export default class QuantitySnak extends Snak {
     }
 
     /**
-     * @returns {number | undefined} The lowerBound of the quantity.
+     * @returns The lowerBound of the quantity.
      */
     get lowerBound(): number | undefined {
         return this._lowerBound ? Number(this._lowerBound) : undefined;
     }
 
     /**
-     * @param {number | undefined} number The number that the lowerBound will be set to.
+     * @param number The number that the lowerBound will be set to.
      */
     set lowerBound(number: number | undefined) {
         if (number === undefined) {
@@ -152,7 +153,7 @@ export default class QuantitySnak extends Snak {
     /**
      * Returns the snak as JSON.
      *
-     * @returns {WikidataQuantitySnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = quantitySnak.toJSON();
      */
@@ -177,8 +178,8 @@ export default class QuantitySnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {QuantitySnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something
@@ -196,12 +197,12 @@ export default class QuantitySnak extends Snak {
      * Create a snak from some basic data.
      *
      * @static
-     * @param {PString} property The property of the snak in 'P-form'.
-     * @param {number} quantity Amount of the quantity.
-     * @param {number} [lowerBound] LowerBound of the quantity.
-     * @param {number} [upperBound] UpperBound of the quantity.
-     * @param {QString} [unit] Unit of the quantity.
-     * @returns {QuantitySnak} A snak with the given properties.
+     * @param property The property of the snak in 'P-form'.
+     * @param quantity Amount of the quantity.
+     * @param [lowerBound] LowerBound of the quantity.
+     * @param [upperBound] UpperBound of the quantity.
+     * @param [unit] Unit of the quantity.
+     * @returns A snak with the given properties.
      * @example
      *     const snak = QuantitySnak.fromNumbers('P1215', 1);
      */

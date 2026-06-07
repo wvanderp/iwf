@@ -14,7 +14,7 @@ describe('pkce', () => {
             }
 
             return typedArray;
-        }) as CryptoRandomValues));
+        })));
         vi.spyOn(globalThis.crypto.subtle, 'digest').mockResolvedValue(Uint8Array.from([5, 6, 7, 8]).buffer);
 
         expect(generateCodeVerifier(4)).toBe('AQIDBA');

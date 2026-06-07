@@ -17,7 +17,7 @@ describe('upload extra coverage', () => {
                 entity: Item.fromNothing().toJSON(),
                 success: 1
             }
-        } as never);
+        });
 
         await upload(Item.fromNothing(), {
             summary: 'Anonymous upload',

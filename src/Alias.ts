@@ -17,7 +17,7 @@ export default class Alias {
     /**
      * Constructor for Alias.
      *
-     * @param {LabelAndDescription} alias The alias in JSON format.
+     * @param alias The alias in JSON format.
      * @example
      *    const alias = new Alias({ language: 'en', value: 'Douglas Adams' });
      */
@@ -29,7 +29,7 @@ export default class Alias {
     /**
      * Create a unique ID for the Alias.
      *
-     * @returns {string} The ID.
+     * @returns The ID.
      */
     public get internalID(): string {
         return `${this.language}:${this.value}`;
@@ -38,7 +38,7 @@ export default class Alias {
     /**
      * Convert the alias to a JSON format.
      *
-     * @returns {LabelAndDescription} The alias in JSON format.
+     * @returns The alias in JSON format.
      * @example
      *      const json = alias.toJSON();
      */
@@ -52,8 +52,8 @@ export default class Alias {
     /**
      * Check if two Aliases are equal.
      *
-     * @param {LabelAndDescription} other The other alias.
-     * @returns {boolean} True if the aliases are equal.
+     * @param other The other alias.
+     * @returns True if the aliases are equal.
      * @example
      *    const alias1 = new Alias({ language: 'en', value: 'foo' });
      *    const alias2 = new Alias({ language: 'en', value: 'bar' });
@@ -67,9 +67,9 @@ export default class Alias {
     /**
      * Create an Alias from a language and a value.
      *
-     * @param {LabelLanguages} language The language of the Alias.
-     * @param {string} value The value of the Alias.
-     * @returns {Alias} The Alias object.
+     * @param language The language of the Alias.
+     * @param value The value of the Alias.
+     * @returns The Alias object.
      * @example
      *     const alias = Alias.fromString('en', 'Douglas Adams');
      */

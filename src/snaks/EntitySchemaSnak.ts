@@ -1,4 +1,5 @@
 import { EntitySchemaSnak as WikidataEntitySchemaSnak } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import { EString, PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -18,7 +19,7 @@ export default class EntitySchemaSnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataEntitySchemaSnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @example
      *  const snak = new EntitySchemaSnak(json);
      */
@@ -35,7 +36,7 @@ export default class EntitySchemaSnak extends Snak {
      * The value will be prefixed with E.
      *
      * @alias id
-     * @returns {string | undefined} The value of the snak.
+     * @returns The value of the snak.
      */
     get id(): string | undefined {
         return this.hasValue ? `E${this._numericID}` : undefined;
@@ -43,7 +44,7 @@ export default class EntitySchemaSnak extends Snak {
 
     /**
      * @alias id
-     * @param {string | undefined} value The value of the snak.
+     * @param value The value of the snak.
      */
     set id(value: string | undefined) {
         if (value === undefined) {
@@ -57,7 +58,7 @@ export default class EntitySchemaSnak extends Snak {
 
     /**
      * @alias numericID
-     * @returns {number | undefined} The value of the snak.
+     * @returns The value of the snak.
      */
     get numericID(): number | undefined {
         return this._numericID;
@@ -65,14 +66,14 @@ export default class EntitySchemaSnak extends Snak {
 
     /**
      * @alias numericID
-     * @param {number | undefined} value The value of the snak.
+     * @param value The value of the snak.
      */
     set numericID(value: number | undefined) {
         this._numericID = value;
     }
 
     /**
-     * @returns {WikidataEntitySchemaSnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = EntitySchemaSnak.toJSON();
      */
@@ -95,8 +96,8 @@ export default class EntitySchemaSnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {EntitySchemaSnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something
@@ -110,9 +111,9 @@ export default class EntitySchemaSnak extends Snak {
      * Create a snak from a property and an ID string.
      *
      * @static
-     * @param {PString} property The property of the snak in 'P-form'.
-     * @param {EString} id The entity schema ID.
-     * @returns {EntitySchemaSnak} A snak with the given properties.
+     * @param property The property of the snak in 'P-form'.
+     * @param id The entity schema ID.
+     * @returns A snak with the given properties.
      * @example
      *   const snak = EntitySchemaSnak.fromID('P698', 'E12345678');
      */

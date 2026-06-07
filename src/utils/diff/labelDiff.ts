@@ -1,6 +1,8 @@
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
+
 import Label from '../../Label';
 import { QString } from '../../types/strings';
+
 import { Change } from './Change';
 
 export interface LabelChange extends Change {

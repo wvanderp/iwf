@@ -14,7 +14,7 @@ const descriptionJson2 = {
 describe('Description', () => {
     describe('constructor', () => {
         it("should throw when language is 'mul'", () => {
-            expect(() => new Description({ language: 'mul', value: 'anything' } as LabelAndDescription)).toThrow("The 'mul' language is not allowed for descriptions.");
+            expect(() => new Description({ language: 'mul', value: 'anything' })).toThrow("The 'mul' language is not allowed for descriptions.");
         });
     });
     describe('internalID', () => {

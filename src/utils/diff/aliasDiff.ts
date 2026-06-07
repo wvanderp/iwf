@@ -1,7 +1,9 @@
 import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
 import diffArray from 'diff-arrays-of-objects';
+
 import { QString } from '../../types/strings';
 import Alias from '../../Alias';
+
 import { Change } from './Change';
 
 export interface AliasChange extends Change {

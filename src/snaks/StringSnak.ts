@@ -1,4 +1,5 @@
 import { StringSnak as WikidataStringSnak } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -16,7 +17,7 @@ export default class StringSnak extends Snak {
     datatype = 'string';
 
     /**
-     * @param {WikidataStringSnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @example
      *      const snak = new StringSnak(json);
      */
@@ -28,7 +29,7 @@ export default class StringSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataStringSnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = stringSnak.toJson();
      */
@@ -48,8 +49,8 @@ export default class StringSnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {StringSnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *    if (stringSnak.equals(other)) {
      *      // do something
@@ -61,9 +62,9 @@ export default class StringSnak extends Snak {
 
     /**
      * @static
-     * @param {PString} property The property of the snak in 'P-form'.
-     * @param {string} string The string.
-     * @returns {StringSnak} A snak with the given properties.
+     * @param property The property of the snak in 'P-form'.
+     * @param string The string.
+     * @returns A snak with the given properties.
      * @example
      *   if (snak.equals(other)) {
      *     // do something

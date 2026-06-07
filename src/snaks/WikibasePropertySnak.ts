@@ -1,4 +1,5 @@
 import { WikibasePropertySnak as WikidataWikibasePropertySnak } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -17,7 +18,7 @@ export default class WikibasePropertySnak extends Snak {
     datatype = 'wikibase-property';
 
     /**
-     * @param {WikidataWikibasePropertySnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @example
      *   const snak = new WikibasePropertySnak(snak);
      */
@@ -30,7 +31,7 @@ export default class WikibasePropertySnak extends Snak {
     /**
      * Returns the ID of the property with the P.
      *
-     * @returns {PString | undefined} The ID of the property with the P.
+     * @returns The ID of the property with the P.
      */
     public get id(): PString | undefined {
         return this.hasValue && this._numericID ? `P${this._numericID}` : undefined;
@@ -55,7 +56,7 @@ export default class WikibasePropertySnak extends Snak {
     /**
      * Returns the numeric part of the property.
      *
-     * @returns {number | undefined} The numeric ID of the property.
+     * @returns The numeric ID of the property.
      */
     public get numericID(): number | undefined {
         return this._numericID;
@@ -76,7 +77,7 @@ export default class WikibasePropertySnak extends Snak {
 
     /**
      *
-     * @returns {WikidataWikibasePropertySnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = propertySnak.toJson();
      */
@@ -100,8 +101,8 @@ export default class WikibasePropertySnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {WikibasePropertySnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something

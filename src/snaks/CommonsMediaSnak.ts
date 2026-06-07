@@ -1,4 +1,5 @@
 import { CommonsMediaSnak as WikidataCommonsMediaSnak } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 import { PString } from '../types/strings';
@@ -19,7 +20,7 @@ export default class CommonsMediaSnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataCommonsMediaSnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @example
      *    const snak = new CommonsMediaSnak(json);
      */
@@ -33,7 +34,7 @@ export default class CommonsMediaSnak extends Snak {
      * Gets the link to the image.
      * Uses the `Special:Redirect` function of Wiki Commons to find the right URL.
      *
-     * @returns {string} The link to the image.
+     * @returns The link to the image.
      */
     public get imageLink(): string {
         return `https://commons.wikimedia.org/wiki/Special:Redirect/file/${this.fileName}`;
@@ -42,14 +43,14 @@ export default class CommonsMediaSnak extends Snak {
     /**
      * Gets the link to the Wiki Commons page.
      *
-     * @returns {string} The link to the Wiki Commons page.
+     * @returns The link to the Wiki Commons page.
      */
     public get commonsLink(): string {
         return `https://commons.wikimedia.org/wiki/File:${this.fileName}`;
     }
 
     /**
-     * @returns {WikidataCommonsMediaSnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = CommonsSnak.toJSON();
      */
@@ -69,8 +70,8 @@ export default class CommonsMediaSnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {CommonsMediaSnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *   if (snak.equals(other)) {
      *     // do something
@@ -84,9 +85,9 @@ export default class CommonsMediaSnak extends Snak {
      * Creates a snak from a property and a file name.
      *
      * @static
-     * @param {PString} property The property of the snak in 'P-form'.
-     * @param {string} fileName The file name.
-     * @returns {CommonsMediaSnak} A snak with the given properties.
+     * @param property The property of the snak in 'P-form'.
+     * @param fileName The file name.
+     * @returns A snak with the given properties.
      * @example
      *   const snak = CommonsMediaSnak.fromFileName('P18', 'Example.jpg');
      */

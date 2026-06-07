@@ -20,8 +20,8 @@ import WikibaseLexemeSnak from '../../snaks/WikibaseLexemeSnak';
 /**
  * Tests if a snak is a CommonsMediaSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is CommonsMediaSnak} True if the snak is a CommonsMediaSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a CommonsMediaSnak.
  * @example
  *  if (isCommonsMediaSnak(snak)) {
  *    // Do something
@@ -34,8 +34,8 @@ export function isCommonsMediaSnak(snak: Snak): snak is CommonsMediaSnak {
 /**
  * Tests if a snak is an ExternalIdentifierSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is ExternalIdentifierSnak} True if the snak is an ExternalIdentifierSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is an ExternalIdentifierSnak.
  * @example
  * if (isExternalIdentifierSnak(snak)) {
  *  // Do something
@@ -48,8 +48,8 @@ export function isExternalIdentifierSnak(snak: Snak): snak is ExternalIdentifier
 /**
  * Tests if a snak is a GeoShapeSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is GeoShapeSnak} True if the snak is a GeoShapeSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a GeoShapeSnak.
  * @example
  * if (isGeoShapeSnak(snak)) {
  *  // Do something
@@ -62,8 +62,8 @@ export function isGeoShapeSnak(snak: Snak): snak is GeoShapeSnak {
 /**
  * Tests if a snak is a GlobeCoordinateSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is GlobeCoordinateSnak} True if the snak is a GlobeCoordinateSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a GlobeCoordinateSnak.
  * @example
  * if (isGlobeCoordinateSnak(snak)) {
  *  // Do something
@@ -76,8 +76,8 @@ export function isGlobeCoordinateSnak(snak: Snak): snak is GlobeCoordinateSnak {
 /**
  * Tests if a snak is a MathSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is MathSnak} True if the snak is a MathSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a MathSnak.
  * @example
  * if (isMathSnak(snak)) {
  *  // Do something
@@ -90,8 +90,8 @@ export function isMathSnak(snak: Snak): snak is MathSnak {
 /**
  * Tests if a snak is a MonolingualTextSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is MonolingualTextSnak} True if the snak is a MonolingualTextSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a MonolingualTextSnak.
  * @example
  * if (isMonolingualTextSnak(snak)) {
  *  // Do something
@@ -104,8 +104,8 @@ export function isMonolingualTextSnak(snak: Snak): snak is MonolingualTextSnak {
 /**
  * Tests if a snak is a MusicalNotationSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is MusicalNotationSnak} True if the snak is a MusicalNotationSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a MusicalNotationSnak.
  * @example
  * if (isMusicalNotationSnak(snak)) {
  *  // Do something
@@ -118,8 +118,8 @@ export function isMusicalNotationSnak(snak: Snak): snak is MusicalNotationSnak {
 /**
  * Tests if a snak is a QuantitySnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is QuantitySnak} True if the snak is a QuantitySnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a QuantitySnak.
  * @example
  * if (isQuantitySnak(snak)) {
  *  // Do something
@@ -132,8 +132,8 @@ export function isQuantitySnak(snak: Snak): snak is QuantitySnak {
 /**
  * Tests if a snak is a StringSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is StringSnak} True if the snak is a StringSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a StringSnak.
  * @example
  * if (isStringSnak(snak)) {
  *  // Do something
@@ -146,8 +146,8 @@ export function isStringSnak(snak: Snak): snak is StringSnak {
 /**
  * Tests if a snak is a TabularDataSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is TabularDataSnak} True if the snak is a TabularDataSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a TabularDataSnak.
  * @example
  * if (isTabularDataSnak(snak)) {
  *  // Do something
@@ -160,8 +160,8 @@ export function isTabularDataSnak(snak: Snak): snak is TabularDataSnak {
 /**
  * Tests if a snak is a TimeSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is TimeSnak} True if the snak is a TimeSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a TimeSnak.
  * @example
  * if (isTimeSnak(snak)) {
  *  // Do something
@@ -174,8 +174,8 @@ export function isTimeSnak(snak: Snak): snak is TimeSnak {
 /**
  * Tests if a snak is a URLSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is URLSnak} True if the snak is a URLSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a URLSnak.
  * @example
  * if (isURLSnak(snak)) {
  *  // Do something
@@ -188,8 +188,8 @@ export function isURLSnak(snak: Snak): snak is URLSnak {
 /**
  * Tests if a snak is a WikibaseItemSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is WikibaseItemSnak} True if the snak is a WikibaseItemSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a WikibaseItemSnak.
  * @example
  * if (isWikibaseItemSnak(snak)) {
  *  // Do something
@@ -202,8 +202,8 @@ export function isWikibaseItemSnak(snak: Snak): snak is WikibaseItemSnak {
 /**
  * Tests if a snak is a WikibasePropertySnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is WikibasePropertySnak} True if the snak is a WikibasePropertySnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a WikibasePropertySnak.
  * @example
  * if (isWikibasePropertySnak(snak)) {
  *  // Do something
@@ -216,8 +216,8 @@ export function isWikibasePropertySnak(snak: Snak): snak is WikibasePropertySnak
 /**
  * Tests if a snak is an EntitySchemaSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is EntitySchemaSnak} True if the snak is an EntitySchemaSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is an EntitySchemaSnak.
  * @example
  * if (isEntitySchemaSnak(snak)) {
  *  // Do something
@@ -230,8 +230,8 @@ export function isEntitySchemaSnak(snak: Snak): snak is EntitySchemaSnak {
 /**
  * Tests if a snak is a WikibaseSenseSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is WikibaseSenseSnak} True if the snak is a WikibaseSenseSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a WikibaseSenseSnak.
  * @example
  * if (isWikibaseSenseSnak(snak)) {
  *  // Do something
@@ -244,8 +244,8 @@ export function isWikibaseSenseSnak(snak: Snak): snak is WikibaseSenseSnak {
 /**
  * Tests if a snak is a WikibaseLexemeSnak.
  *
- * @param {Snak} snak The snak to check.
- * @returns {snak is WikibaseLexemeSnak} True if the snak is a WikibaseLexemeSnak.
+ * @param snak The snak to check.
+ * @returns True if the snak is a WikibaseLexemeSnak.
  * @example
  * if (isWikibaseLexemeSnak(snak)) {
  *  // Do something

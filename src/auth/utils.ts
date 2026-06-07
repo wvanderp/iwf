@@ -1,8 +1,8 @@
 /**
  * Redacts sensitive information from headers
  *
- * @param {Record<string, string>} headers The headers to redact
- * @returns {Record<string, string>} The redacted headers
+ * @param headers The headers to redact
+ * @returns The redacted headers
  * @example
  *   const headers = {
  *      'Authorization': 'Bearer token123',
@@ -32,11 +32,11 @@ export function redactHeaders(headers: Record<string, string>): Record<string, s
 /**
  * Calculates jittered delay for exponential backoff
  *
- * @param {number} attempt The attempt number (0-indexed)
- * @param {number} baseDelay Base delay in milliseconds
- * @param {number} maxDelay Maximum delay in milliseconds
- * @param {boolean} jitter Whether to add jitter
- * @returns {number} The calculated delay in milliseconds
+ * @param attempt The attempt number (0-indexed)
+ * @param baseDelay Base delay in milliseconds
+ * @param maxDelay Maximum delay in milliseconds
+ * @param jitter Whether to add jitter
+ * @returns The calculated delay in milliseconds
  * @example
  *   const delay = calculateBackoffDelay(3, 1000, 30000, true);
  *  // delay could be around 8000 ms with jitter
@@ -64,8 +64,8 @@ export function calculateBackoffDelay(
 /**
  * Parses Retry-After header value
  *
- * @param {string | undefined} retryAfter The Retry-After header value (either seconds or HTTP date)
- * @returns {number | undefined} Delay in seconds, or undefined if invalid
+ * @param retryAfter The Retry-After header value (either seconds or HTTP date)
+ * @returns Delay in seconds, or undefined if invalid
  * @example
  *  const delay = parseRetryAfter('120'); // 120
  */

@@ -1,4 +1,5 @@
 import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
+
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
@@ -14,7 +15,7 @@ export default class Label {
     value: string;
 
     /**
-     * @param {LabelAndDescription} label The label for this class in JSON format.
+     * @param label The label for this class in JSON format.
      * @example
      *  const label = new Label({ language: 'en', value: 'Douglas Adams' });
      */
@@ -26,14 +27,14 @@ export default class Label {
     /**
      * Create a unique ID for the Label.
      *
-     * @returns {string} The ID.
+     * @returns The ID.
      */
     public get internalID(): string {
         return `${this.language}:${this.value}`;
     }
 
     /**
-     * @returns {LabelAndDescription} The label as JSON.
+     * @returns The label as JSON.
      * @example
      *      const json = label.toJSON();
      */
@@ -47,8 +48,8 @@ export default class Label {
     /**
      * This function checks if two Labels are equal.
      *
-     * @param {LabelAndDescription} other The other Label.
-     * @returns {boolean} True if the Labels are equal.
+     * @param other The other Label.
+     * @returns True if the Labels are equal.
      * @example
      *     const label1 = new Label({ language: 'en', value: 'foo' });
      *     const label2 = new Label({ language: 'en', value: 'bar' });
@@ -62,9 +63,9 @@ export default class Label {
     /**
      * Create a label from a language and a value.
      *
-     * @param {LabelLanguages} language The language of the label.
-     * @param {string} value The value of the label.
-     * @returns {Label} The label object.
+     * @param language The language of the label.
+     * @param value The value of the label.
+     * @returns The label object.
      * @example
      *     const label = Label.fromString('en', 'Douglas Adams');
      */

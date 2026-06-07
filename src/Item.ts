@@ -77,7 +77,7 @@ export default class Item {
     sitelinks: SiteLink[];
 
     /**
-     * @param {ItemInput} item The item in JSON format.
+     * @param item The item in JSON format.
      * @throws {Error} If the id is not a QString.
      * @example
      *     const item = new Item({
@@ -121,7 +121,7 @@ export default class Item {
     /**
      * Creates a unique id for the Item.
      *
-     * @returns {string} The id.
+     * @returns The id.
      */
     public get internalID(): string {
         if (this._internalID === '') {
@@ -136,8 +136,8 @@ export default class Item {
      * If the `default for all languages` (mul) label is present, it will return that one.
      * If none can be found, it will return undefined.
      *
-     * @param {string} language The language of the label.
-     * @returns {Label | undefined} The label if it found one or undefined.
+     * @param language The language of the label.
+     * @returns The label if it found one or undefined.
      * @example
      *      const label = item.findLabel("nl")
      *      console.log(label.value)
@@ -155,8 +155,8 @@ export default class Item {
      * Tries to find a description in the requested language.
      * If none can be found, it will return undefined.
      *
-     * @param {string} language The language of the description.
-     * @returns {Description | undefined} The description if it found one or undefined.
+     * @param language The language of the description.
+     * @returns The description if it found one or undefined.
      * @example
      *      const description = item.findDescription('en')
      *      console.log(description?.value)
@@ -170,8 +170,8 @@ export default class Item {
      * If none are present for the requested language, it will fall back to aliases with language 'mul'.
      * Returns an empty array when no aliases match.
      *
-     * @param {string} language The language of the aliases.
-     * @returns {Alias[]} All aliases in the requested language (or 'mul' fallback), or an empty array.
+     * @param language The language of the aliases.
+     * @returns All aliases in the requested language (or 'mul' fallback), or an empty array.
      * @example
      *      const aliases = item.findAliases('en')
      *      console.log(aliases.map(a => a.value))
@@ -185,7 +185,7 @@ export default class Item {
     /**
      * Adds a statement to the item.
      *
-     * @param {Statement | Statement[]} statement The statement to add.
+     * @param statement The statement to add.
      * @example
      *   const statement = Statement.fromSnak(URLSnak.fromURL("p1", "https://www.wikidata.org"))
      *   item.addStatement(statement)
@@ -202,7 +202,7 @@ export default class Item {
      * Removes a statement from the item.
      *
      * @see removeStatements
-     * @param {Statement} statement The statement to remove.
+     * @param statement The statement to remove.
      * @example
      *     const statement = item.statements[0]
      *     item.removeStatement(statement)
@@ -218,7 +218,7 @@ export default class Item {
      * Removes multiple statements from the item.
      *
      * @see removeStatement
-     * @param {Statement[]} statements The statements to remove.
+     * @param statements The statements to remove.
      * @example
      *   const statements = item.statements
      *   item.removeStatements(statements)
@@ -230,8 +230,8 @@ export default class Item {
     /**
      * Checks if two items are equal.
      *
-     * @param {Item} other The other item.
-     * @returns {boolean} True if the items are equal.
+     * @param other The other item.
+     * @returns True if the items are equal.
      * @example
      *      const itemA = Item.fromNothing()
      *      const itemB = Item.fromNothing()
@@ -280,8 +280,8 @@ export default class Item {
     /**
      * Finds the difference between two items.
      *
-     * @param {Item} other The other item.
-     * @returns {Changes[]} The changes between the two items.
+     * @param other The other item.
+     * @returns The changes between the two items.
      * @example
      *   const itemA = Item.fromNothing()
      *   const itemB = Item.fromNothing()
@@ -304,7 +304,7 @@ export default class Item {
     /**
      * Stringifies the Item into the same JSON format as the API.
      *
-     * @returns {WikidataItem} The item as JSON.
+     * @returns The item as JSON.
      * @example
      *      const json = item.toJSON();
      */
@@ -358,7 +358,7 @@ export default class Item {
     /**
      * Generates a new empty item object.
      *
-     * @returns {Item} Returns an empty item.
+     * @returns Returns an empty item.
      * @example
      *      const newItem = Item.fromNothing()
      */
@@ -366,11 +366,11 @@ export default class Item {
         return new Item({
             type: 'item',
             id: undefined,
-            labels: {} as WikidataLabels,
-            descriptions: {} as WikidataDescriptions,
-            aliases: {} as WikidataAliases,
-            claims: {} as WikidataClaims,
-            sitelinks: {} as WikidataSiteLinks
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: {},
+            sitelinks: {}
         });
     }
 }

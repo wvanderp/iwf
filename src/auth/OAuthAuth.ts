@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
+
 import { generateCodeVerifier, generateCodeChallenge } from '../utils/pkce';
+
 import { OAuthConfig } from './types';
 import { AuthExpiredError, NotLoggedInError, PermissionDeniedError } from './errors';
 
@@ -72,7 +74,7 @@ export default class OAuthAuth {
     /**
      * Creates a new OAuthAuth instance
      *
-     * @param {OAuthConfig} config OAuth 2.0 configuration
+     * @param config OAuth 2.0 configuration
      * @example
      *   const auth = new OAuthAuth({
      *       clientId: 'my-client-id',
@@ -92,7 +94,7 @@ export default class OAuthAuth {
      *
      * Must be called in a browser environment.
      *
-     * @returns {Promise<void>} Resolves before the redirect (the page will navigate away)
+     * @returns Resolves before the redirect (the page will navigate away)
      * @throws {Error} If called outside a browser environment
      * @example
      *   await auth.login();
@@ -100,7 +102,7 @@ export default class OAuthAuth {
      */
     async login(): Promise<void> {
         // @ts-expect-error - We are checking if window exists and not using it if it doesn't.
-        if (typeof window === 'undefined') {
+        if (globalThis.window === undefined) {
             throw new TypeError('OAuthAuth.login() can only be called in a browser environment.');
         }
 
@@ -131,7 +133,7 @@ export default class OAuthAuth {
      *
      * Must be called on the page matching `redirectUri`.
      *
-     * @returns {Promise<void>} Resolves when tokens have been stored
+     * @returns Resolves when tokens have been stored
      * @throws {Error} If the OAuth state is invalid, the code is missing, or the token exchange fails
      * @example
      *   // On your callback page:
@@ -140,7 +142,7 @@ export default class OAuthAuth {
      */
     async handleCallback(): Promise<void> {
         // @ts-expect-error - We are checking if window exists and not using it if it doesn't.
-        if (typeof window === 'undefined') {
+        if (globalThis.window === undefined) {
             throw new TypeError('OAuthAuth.handleCallback() can only be called in a browser environment.');
         }
 
@@ -207,7 +209,7 @@ export default class OAuthAuth {
     /**
      * Returns a valid access token, refreshing it if it has expired.
      *
-     * @returns {Promise<string>} The access token
+     * @returns The access token
      * @throws {NotLoggedInError} If no tokens are stored (user has not logged in)
      * @throws {AuthExpiredError} If the token has expired and cannot be refreshed
      * @example
@@ -264,8 +266,8 @@ export default class OAuthAuth {
      * - `crossorigin=` query parameter
      * - `Authorization: Bearer <token>` header
      *
-     * @param {string} site The site URL (e.g. `https://www.wikidata.org`)
-     * @returns {Promise<string>} The CSRF token
+     * @param site The site URL (e.g. `https://www.wikidata.org`)
+     * @returns The CSRF token
      * @throws {NotLoggedInError} If the OAuth session is no longer valid
      * @example
      *   const csrfToken = await auth.getCsrfToken('https://www.wikidata.org');
@@ -312,7 +314,7 @@ export default class OAuthAuth {
      * Each request made through this instance will include an `Authorization: Bearer` header
      * populated with a freshly-validated access token.
      *
-     * @returns {AxiosInstance} Configured axios instance
+     * @returns Configured axios instance
      * @example
      *   const ax = auth.getAxiosInstance();
      *   const response = await ax.get('https://www.wikidata.org/w/api.php?...');
@@ -344,7 +346,7 @@ export default class OAuthAuth {
     /**
      * Returns whether the user currently has valid (non-expired) tokens stored.
      *
-     * @returns {boolean} `true` if authenticated
+     * @returns `true` if authenticated
      * @example
      *   if (!auth.isAuthenticated) await auth.login();
      */
@@ -360,7 +362,7 @@ export default class OAuthAuth {
     /**
      * Gets the user agent string
      *
-     * @returns {string} The user agent
+     * @returns The user agent
      * @example
      *   const userAgent = auth.getUserAgent();
      */

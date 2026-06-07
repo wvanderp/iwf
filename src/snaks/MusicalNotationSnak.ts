@@ -1,4 +1,5 @@
 import { MusicalNotationSnak as WikidataMusicalNotationSnak } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -17,7 +18,7 @@ export default class MusicalNotationSnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataMusicalNotationSnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @example
      *  const snak = new MusicalNotationSnak(json);
      */
@@ -28,7 +29,7 @@ export default class MusicalNotationSnak extends Snak {
     }
 
     /**
-     * @returns {WikidataMusicalNotationSnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = musicalNotationSnak.toJSON();
      */
@@ -48,8 +49,8 @@ export default class MusicalNotationSnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {MusicalNotationSnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something

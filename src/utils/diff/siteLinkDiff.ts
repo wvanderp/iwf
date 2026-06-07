@@ -2,8 +2,10 @@ import {
     SiteLink as WikidataSiteLink
 } from '@wmde/wikibase-datamodel-types';
 import diffArray from 'diff-arrays-of-objects';
+
 import { QString } from '../../types/strings';
 import SiteLink from '../../SiteLink';
+
 import { Change } from './Change';
 
 export interface SiteLinkChange extends Change {

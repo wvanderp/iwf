@@ -19,7 +19,7 @@ export default class SiteLink {
     _url: string | undefined;
 
     /**
-     * @param {WikidataSiteLink} siteLink The siteLink for this class.
+     * @param siteLink The siteLink for this class.
      * @example
      *   const siteLink = new SiteLink({
      *       site: 'enwiki',
@@ -39,7 +39,7 @@ export default class SiteLink {
      * If the private property _url is set, then we know the URL already exists.
      * Otherwise, we look it up with the wikidata-properties package.
      *
-     * @returns {string} The URL of the site link.
+     * @returns The URL of the site link.
      */
     get url(): string {
         if (this._url !== undefined) return this._url;
@@ -54,7 +54,7 @@ export default class SiteLink {
     /**
      * Create a unique ID for the site link.
      *
-     * @returns {string} The ID.
+     * @returns The ID.
      */
     public get internalID(): string {
         return `${this.site}:${this.title}`;
@@ -63,8 +63,8 @@ export default class SiteLink {
     /**
      * This function checks if SiteLinks are equal.
      *
-     * @param {SiteLink} other The other SiteLink.
-     * @returns {boolean} True if the SiteLinks are equal.
+     * @param other The other SiteLink.
+     * @returns True if the SiteLinks are equal.
      * @example
      *     const siteLink1 = new SiteLink({ site: 'enwiki', title: 'foo' });
      *     const siteLink2 = new SiteLink({ site: 'enwiki', title: 'bar' });
@@ -81,7 +81,7 @@ export default class SiteLink {
     }
 
     /**
-     * @returns {WikidataSiteLink} The SiteLink in a JSON format.
+     * @returns The SiteLink in a JSON format.
      * @example
      *      const json = siteLink.toJSON();
      */
@@ -97,11 +97,11 @@ export default class SiteLink {
     /**
      * Create a SiteLink from a language and a value.
      *
-     * @param {string} site To what wiki is the site link.
-     * @param {string} title The title of the page.
-     * @param {string[]} [badges] The badges of the site link, like featured article.
-     * @param {string} [url] The URL of the page with domain.
-     * @returns {SiteLink} The SiteLink object.
+     * @param site To what wiki is the site link.
+     * @param title The title of the page.
+     * @param [badges] The badges of the site link, like featured article.
+     * @param [url] The URL of the page with domain.
+     * @returns The SiteLink object.
      * @example
      *  const siteLink = SiteLink.fromString('enwiki', 'Berlin');
      *

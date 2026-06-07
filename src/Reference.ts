@@ -39,7 +39,7 @@ export default class Reference {
     snaks: Snak[];
 
     /**
-     * @param {WikidataReference} reference The Reference in JSON format.
+     * @param reference The Reference in JSON format.
      * @example
      *   const reference = new Reference(json);
      */
@@ -55,7 +55,7 @@ export default class Reference {
     /**
      * Creates a unique ID for the Reference.
      *
-     * @returns {string} The ID.
+     * @returns The ID.
      */
     public get internalID(): string {
         if (this._internalID === '') {
@@ -66,7 +66,7 @@ export default class Reference {
     }
 
     /**
-     * @returns {WikidataReference} The Reference in a JSON format.
+     * @returns The Reference in a JSON format.
      * @example
      *      const json = reference.toJSON();
      */
@@ -86,8 +86,8 @@ export default class Reference {
     /**
      * Checks if References are equal.
      *
-     * @param {Reference} other The other Reference.
-     * @returns {boolean} True if the References are equal.
+     * @param other The other Reference.
+     * @returns True if the References are equal.
      * @example
      *     const reference = Reference.fromSnaks([
      *        new Snak('P123', 'Q42'),
@@ -110,8 +110,8 @@ export default class Reference {
      * Creates a new Reference from snaks.
      *
      * @static
-     * @param {Snak[]} snaks The snaks for the Reference.
-     * @returns {Reference} The Reference object.
+     * @param snaks The snaks for the Reference.
+     * @returns The Reference object.
      * @example
      *    const reference = Reference.fromSnaks([
      *       new Snak('P123', 'Q42'),

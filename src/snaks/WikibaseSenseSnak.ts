@@ -1,4 +1,5 @@
 import { WikibaseSenseSnak as WikidataWikibaseSenseSnak } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -18,7 +19,7 @@ export default class WikibaseSenseSnak extends Snak {
     datatype = 'wikibase-sense';
 
     /**
-     * @param {WikidataWikibaseSenseSnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @example
      *  const snak = new WikibaseSenseSnak(json);
      */
@@ -34,7 +35,7 @@ export default class WikibaseSenseSnak extends Snak {
      * The lexeme ID will take the form L{number}-S{number}.
      *
      * @alias id
-     * @returns {string | undefined} The value of the snak.
+     * @returns The value of the snak.
      */
     public get id(): string | undefined {
         return this.hasValue ? `L${this._lexemeId}-S${this._senseId}` : undefined;
@@ -42,7 +43,7 @@ export default class WikibaseSenseSnak extends Snak {
 
     /**
      * @alias id
-     * @param {string | undefined} value The value of the snak.
+     * @param value The value of the snak.
      */
     public set id(value: string | undefined) {
         if (value === undefined) {
@@ -58,7 +59,7 @@ export default class WikibaseSenseSnak extends Snak {
 
     /**
      * @alias lexemeId
-     * @returns {number | undefined} The value of the snak.
+     * @returns The value of the snak.
      */
     public get lexemeId(): number | undefined {
         return this._lexemeId;
@@ -66,7 +67,7 @@ export default class WikibaseSenseSnak extends Snak {
 
     /**
      * @alias lexemeId
-     * @param {number | undefined} value The value of the snak.
+     * @param value The value of the snak.
      */
     public set lexemeId(value: number | undefined) {
         if (value === undefined) {
@@ -78,7 +79,7 @@ export default class WikibaseSenseSnak extends Snak {
 
     /**
      * @alias senseId
-     * @returns {number | undefined} The value of the snak.
+     * @returns The value of the snak.
      */
     public get senseId(): number | undefined {
         return this._senseId;
@@ -86,7 +87,7 @@ export default class WikibaseSenseSnak extends Snak {
 
     /**
      * @alias senseId
-     * @param {number | undefined} value The value of the snak.
+     * @param value The value of the snak.
      */
     public set senseId(value: number | undefined) {
         if (value === undefined) {
@@ -98,7 +99,7 @@ export default class WikibaseSenseSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataWikibaseSenseSnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = WikibaseSenseSnak.toJson();
      */
@@ -121,8 +122,8 @@ export default class WikibaseSenseSnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {WikibaseSenseSnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something
@@ -137,9 +138,9 @@ export default class WikibaseSenseSnak extends Snak {
     /**
      * Create a new instance of the class from some basic data.
      *
-     * @param {PString} property The property of the snak.
-     * @param {string} id The lexeme ID.
-     * @returns {WikibaseSenseSnak} A new instance of the class.
+     * @param property The property of the snak.
+     * @param id The lexeme ID.
+     * @returns A new instance of the class.
      * @example
      *    const snak = WikibaseSenseSnak.fromData('P123', 123, 456);
      */

@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import qs from 'qs';
+
 import { BotPasswordConfig } from './types';
 import { NotLoggedInError, PermissionDeniedError } from './errors';
 
@@ -50,7 +51,7 @@ export default class BotPasswordAuth {
     /**
      * Creates a new BotPasswordAuth instance
      *
-     * @param {BotPasswordConfig} config Bot password configuration
+     * @param config Bot password configuration
      *
      * @example
      *   const botAuth = new BotPasswordAuth({
@@ -104,8 +105,8 @@ export default class BotPasswordAuth {
     /**
      * Ensures the user is logged in to the specified site
      *
-     * @param {string} site The site URL
-     * @returns {Promise<void>} Resolves when logged in
+     * @param site The site URL
+     * @returns Resolves when logged in
      * @example
      *   await botAuth.ensureLoggedIn('https://en.wikipedia.org');
      */
@@ -161,8 +162,8 @@ export default class BotPasswordAuth {
     /**
      * Get a CSRF token for the specified site
      *
-     * @param {string} site The site URL
-     * @returns {Promise<string>} The CSRF token
+     * @param site The site URL
+     * @returns The CSRF token
      * @example
      *   const csrfToken = await botAuth.getCsrfToken('https://en.wikipedia.org');
      */
@@ -210,7 +211,7 @@ export default class BotPasswordAuth {
     /**
      * Gets the axios instance (for use in upload operations)
      *
-     * @returns {AxiosInstance} The axios instance
+     * @returns The axios instance
      *
      * @example
      *   const axiosInstance = botAuth.getAxiosInstance();
@@ -222,7 +223,7 @@ export default class BotPasswordAuth {
     /**
      * Gets the user agent string
      *
-     * @returns {string} The user agent
+     * @returns The user agent
      *
      * @example
      *   const userAgent = botAuth.getUserAgent();

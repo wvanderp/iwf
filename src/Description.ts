@@ -1,4 +1,5 @@
 import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
+
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
@@ -19,7 +20,7 @@ export default class Description {
     /**
      * Constructor for the Description class.
      *
-     * @param {LabelAndDescription} label The label in JSON format.
+     * @param label The label in JSON format.
      * @example
      *   const description = new Description({ language: 'en', value: 'Douglas Adams' });
      */
@@ -34,7 +35,7 @@ export default class Description {
     /**
      * Create a unique ID for the Description.
      *
-     * @returns {string} The ID.
+     * @returns The ID.
      */
     public get internalID(): string {
         return `${this.language}:${this.value}`;
@@ -43,7 +44,7 @@ export default class Description {
     /**
      * Convert the Description to a JSON format.
      *
-     * @returns {LabelAndDescription} The Description in JSON format.
+     * @returns The Description in JSON format.
      * @example
      *      const json = description.toJSON();
      */
@@ -57,8 +58,8 @@ export default class Description {
     /**
      * Check if two descriptions are equal.
      *
-     * @param {LabelAndDescription} other The other label.
-     * @returns {boolean} True if the descriptions are equal.
+     * @param other The other label.
+     * @returns True if the descriptions are equal.
      * @example
      *   const description1 = new Description({ language: 'en', value: 'foo' });
      *   const description2 = new Description({ language: 'en', value: 'bar' });
@@ -72,9 +73,9 @@ export default class Description {
     /**
      * Create a Description from a language and a value.
      *
-     * @param {string} language The language of the Description.
-     * @param {string} value The value of the Description.
-     * @returns {Description} The Description object.
+     * @param language The language of the Description.
+     * @param value The value of the Description.
+     * @returns The Description object.
      * @example
      *     const description = Description.fromString('en', 'Douglas Adams');
      */

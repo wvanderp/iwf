@@ -1,4 +1,5 @@
 import { MathSnak as WikidataMathSnak } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -18,7 +19,7 @@ export default class MathSnak extends Snak {
     datatype = dataType;
 
     /**
-     * @param {WikidataMathSnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @example
      *   const snak = new MathSnak(json);
      */
@@ -29,7 +30,7 @@ export default class MathSnak extends Snak {
     }
 
     /**
-     * @returns {WikidataMathSnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = mathSnak.toJSON();
      */
@@ -49,8 +50,8 @@ export default class MathSnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {MathSnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *   if (snak.equals(other)) {
      *     // do something

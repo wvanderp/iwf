@@ -1,4 +1,5 @@
 import { TabularDataSnak as WikidataTabularDataSnak } from '@wmde/wikibase-datamodel-types';
+
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -15,7 +16,7 @@ export default class TabularDataSnak extends Snak {
     datatype = 'tabular-data';
 
     /**
-     * @param {WikidataTabularDataSnak} snak The snak for this class in JSON format.
+     * @param snak The snak for this class in JSON format.
      * @example
      *      const snak = new TabularDataSnak(json);
      */
@@ -28,7 +29,7 @@ export default class TabularDataSnak extends Snak {
     /**
      * Gets the link to the Wiki Commons page.
      *
-     * @returns {string} The link to the Wiki Commons page.
+     * @returns The link to the Wiki Commons page.
      */
     public get commonsLink(): string {
         return `https://commons.wikimedia.org/wiki/${this.value}`;
@@ -36,7 +37,7 @@ export default class TabularDataSnak extends Snak {
 
     /**
      *
-     * @returns {WikidataTabularDataSnak} The snak as JSON.
+     * @returns The snak as JSON.
      * @example
      *      const json = tabularSnak.toJSON();
      */
@@ -56,8 +57,8 @@ export default class TabularDataSnak extends Snak {
     /**
      * This function checks if two snaks are equal.
      *
-     * @param {TabularDataSnak} other The other snak.
-     * @returns {boolean} True if the snaks are equal.
+     * @param other The other snak.
+     * @returns True if the snaks are equal.
      * @example
      *    if (snak.equals(other)) {
      *     // do something
