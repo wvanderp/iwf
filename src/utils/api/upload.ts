@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import qs from 'qs';
+import { stringify } from 'qs';
 
 import Item from '../../Item';
 import { WbeditentityResponse } from '../../types/apiResponse';
@@ -72,7 +72,114 @@ export function generateURL(server: string, isNewItem: boolean, origin?: string)
         origin: origin ?? undefined
     };
 
-    return `${base}?${qs.stringify(urlParameters, { arrayFormat: 'repeat' })}`;
+    return `${base}?${stringify(urlParameters, { arrayFormat: 'repeat' })}`;
+}
+
+/**
+ * Applies statement removals to the upload payload.
+ *
+ * @param json The upload payload to mutate.
+ * @param diffs The item diffs to apply.
+ * @example
+ *     applyRemovedStatements(json, diffs);
+ */
+function applyRemovedStatements(json: UploadFormat, diffs: ReturnType<Item['diff']>): void {
+    const removedStatements = diffs.filter((diff) => isStatementChange(diff) && diff.action === 'remove') as StatementChange[];
+
+    for (const removedStatement of removedStatements) {
+        if (!removedStatement.old?.id) {
+            continue;
+        }
+
+        if (!json.claims[removedStatement.old.mainsnak.property]) {
+            json.claims[removedStatement.old.mainsnak.property] = [];
+        }
+
+        json.claims[removedStatement.old.mainsnak.property].push({ remove: '', id: removedStatement.old.id });
+    }
+}
+
+/**
+ * Applies alias removals to the upload payload.
+ *
+ * @param json The upload payload to mutate.
+ * @param diffs The item diffs to apply.
+ * @example
+ *     applyRemovedAliases(json, diffs);
+ */
+function applyRemovedAliases(json: UploadFormat, diffs: ReturnType<Item['diff']>): void {
+    const removedAliases = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'alias') as AliasChange[];
+
+    for (const removedAlias of removedAliases) {
+        if (removedAlias.old?.language && removedAlias.old?.value) {
+            if (!json.aliases[removedAlias.old.language]) {
+                json.aliases[removedAlias.old.language] = [];
+            }
+
+            json.aliases[removedAlias.old.language].push({
+                language: removedAlias.old.language,
+                value: removedAlias.old.value,
+                remove: ''
+            });
+        }
+    }
+}
+
+/**
+ * Applies label removals to the upload payload.
+ *
+ * @param json The upload payload to mutate.
+ * @param diffs The item diffs to apply.
+ * @example
+ *     applyRemovedLabels(json, diffs);
+ */
+function applyRemovedLabels(json: UploadFormat, diffs: ReturnType<Item['diff']>): void {
+    const removedLabels = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'label') as LabelChange[];
+
+    for (const removedLabel of removedLabels) {
+        if (removedLabel.old?.language && removedLabel.old?.value) {
+            json.labels[removedLabel.old.language] = { language: removedLabel.old.language, value: '' };
+        }
+    }
+}
+
+/**
+ * Applies description removals to the upload payload.
+ *
+ * @param json The upload payload to mutate.
+ * @param diffs The item diffs to apply.
+ * @example
+ *     applyRemovedDescriptions(json, diffs);
+ */
+function applyRemovedDescriptions(json: UploadFormat, diffs: ReturnType<Item['diff']>): void {
+    const removedDescriptions = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'description') as LabelChange[];
+
+    for (const removedDescription of removedDescriptions) {
+        if (removedDescription.old?.language && removedDescription.old?.value) {
+            json.descriptions[removedDescription.old.language] = {
+                language: removedDescription.old.language,
+                value: ''
+            };
+        }
+    }
+}
+
+/**
+ * Applies sitelink removals to the upload payload.
+ *
+ * @param json The upload payload to mutate.
+ * @param diffs The item diffs to apply.
+ * @example
+ *     applyRemovedSitelinks(json, diffs);
+ */
+function applyRemovedSitelinks(json: UploadFormat, diffs: ReturnType<Item['diff']>): void {
+    const removedSitelinks = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'siteLink') as SiteLinkChange[];
+
+    for (const removedSitelink of removedSitelinks) {
+        if (removedSitelink.old?.site && removedSitelink.old?.title) {
+            json.sitelinks[removedSitelink.old.site] = { site: removedSitelink.old.site, title: '' };
+        }
+    }
 }
 
 /**
@@ -119,60 +226,11 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
 
     const json = getData(item);
 
-    // Applying the removed items from the diff to the upload data
-    const removedStatements = diffs.filter((diff) => isStatementChange(diff) && diff.action === 'remove') as StatementChange[];
-
-    for (const removedStatement of removedStatements) {
-        if (!removedStatement.old?.id) {
-            // You don't have to remove statements that were never uploaded
-            continue;
-        }
-
-        if (!json.claims[removedStatement.old.mainsnak.property]) {
-            json.claims[removedStatement.old.mainsnak.property] = [];
-        }
-        json.claims[removedStatement.old.mainsnak.property].push({ remove: '', id: removedStatement.old.id });
-    }
-
-    // Removing aliases
-    const removedAliases = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'alias') as AliasChange[];
-
-    for (const removedAlias of removedAliases) {
-        if (removedAlias.old?.language && removedAlias.old?.value) {
-            if (!json.aliases[removedAlias.old.language]) {
-                json.aliases[removedAlias.old.language] = [];
-            }
-            json.aliases[removedAlias.old.language].push({ language: removedAlias.old.language, value: removedAlias.old.value, remove: '' });
-        }
-    }
-
-    // Removing labels
-    const removedLabels = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'label') as LabelChange[];
-
-    for (const removedLabel of removedLabels) {
-        if (removedLabel.old?.language && removedLabel.old?.value) {
-            json.labels[removedLabel.old.language] = { language: removedLabel.old.language, value: '' };
-        }
-    }
-
-    // Removing descriptions
-    const removedDescriptions = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'description') as LabelChange[];
-
-    for (const removedDescription of removedDescriptions) {
-        if (removedDescription.old?.language && removedDescription.old?.value) {
-            json.descriptions[removedDescription.old.language] = { language: removedDescription.old.language, value: '' };
-        }
-    }
-
-    // Removing sitelinks
-    // https://github.com/wikimedia/mediawiki-extensions-Wikibase/blob/master/repo/tests/phpunit/includes/Api/EditEntityTest.php#L165
-    const removedSitelinks = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'siteLink') as SiteLinkChange[];
-
-    for (const removedSitelink of removedSitelinks) {
-        if (removedSitelink.old?.site && removedSitelink.old?.title) {
-            json.sitelinks[removedSitelink.old.site] = { site: removedSitelink.old.site, title: '' };
-        }
-    }
+    applyRemovedStatements(json, diffs);
+    applyRemovedAliases(json, diffs);
+    applyRemovedLabels(json, diffs);
+    applyRemovedDescriptions(json, diffs);
+    applyRemovedSitelinks(json, diffs);
 
     return json as unknown as Record<string, unknown>;
 }
@@ -255,7 +313,7 @@ export default async function upload(item: Item, options: UploadOptions): Promis
         maxlag: options.maxLag
     };
 
-    const postString = qs.stringify(parameters, { arrayFormat: 'repeat' });
+    const postString = stringify(parameters, { arrayFormat: 'repeat' });
 
     const isNewItem = item.id === undefined;
     const url = generateURL(server, isNewItem, options.origin);

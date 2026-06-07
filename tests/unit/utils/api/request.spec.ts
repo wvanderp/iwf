@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 import type { Mocked } from 'vitest';
+import type { Item as WikidataItem } from '@wmde/wikibase-datamodel-types';
 
 import packageJson from '../../../../package.json';
 
@@ -10,6 +11,29 @@ import { requestItem } from '../../../../src';
 
 vi.mock('axios');
 const mockedAxios = axios as Mocked<typeof axios>;
+
+interface EntityData {
+    entities: Record<string, WikidataItem>;
+    success: 1;
+}
+
+/**
+ * Reads the first request API fixture and adds the success flag expected by requestItem.
+ *
+ * @returns The fixture response data.
+ * @example
+ *     const data = readEntityData();
+ */
+function readEntityData(): EntityData {
+    const dataFiles = fs.readdirSync(path.resolve(__dirname, '../../data/'));
+
+    return {
+        ...(JSON.parse(
+            fs.readFileSync(path.resolve(__dirname, `../../data/${dataFiles[0]}`)).toString('utf8')
+        ) as unknown as Omit<EntityData, 'success'>),
+        success: 1
+    };
+}
 
 describe('baseURL functions', () => {
     it('should return the right url when a QID is given', () => {
@@ -42,21 +66,14 @@ describe('baseURL functions', () => {
 
 describe('requestItem functions', () => {
     const contents = {
-        data: {
-            ...JSON.parse(
-                fs.readFileSync(
-                    path.resolve(
-                        __dirname,
-                        `../../data/${fs.readdirSync(path.resolve(__dirname, '../../data/'))[0]
-                        }`
-                    )
-                ).toString('utf8')
-            ),
-            success: 1
-        }
+        data: readEntityData()
     };
     const QID = Object.keys(contents.data.entities)[0];
     const wikidataJSON = contents.data.entities[QID];
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
 
     it('should return the right data when a QID is given', async () => {
         mockedAxios.get.mockResolvedValue(contents);
@@ -65,11 +82,11 @@ describe('requestItem functions', () => {
 
         const data = await requestItem(QID);
         expect(data.toJSON()).toStrictEqual(wikidataJSON);
-        expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-        expect(mockedAxios.get).toHaveBeenCalledWith(
+        expect(mockedAxios.get.mock.calls).toHaveLength(1);
+        expect(mockedAxios.get.mock.calls[0]).toEqual([
             `https://www.wikidata.org/wiki/Special:EntityData/${QID}.json`,
             { headers: { 'User-Agent': userAgent } }
-        );
+        ]);
     });
 
     it('should use custom user-agent when provided', async () => {
@@ -77,10 +94,10 @@ describe('requestItem functions', () => {
 
         const data = await requestItem(QID, { userAgent: 'CustomApp/1.0' });
         expect(data.toJSON()).toStrictEqual(wikidataJSON);
-        expect(mockedAxios.get).toHaveBeenCalledWith(
+        expect(mockedAxios.get.mock.calls[0]).toEqual([
             `https://www.wikidata.org/wiki/Special:EntityData/${QID}.json`,
             { headers: { 'User-Agent': 'CustomApp/1.0' } }
-        );
+        ]);
     });
 
     it('should handle garbage inputs', async () => {

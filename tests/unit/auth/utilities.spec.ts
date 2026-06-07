@@ -2,7 +2,7 @@ import {
     redactHeaders,
     calculateBackoffDelay,
     parseRetryAfter
-} from '../../../src/auth/utils';
+} from '../../../src/auth/utilities';
 
 describe('redactHeaders', () => {
     it('should redact sensitive headers', () => {

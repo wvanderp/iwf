@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import qs from 'qs';
+import { stringify } from 'qs';
 
 import { BotPasswordConfig } from './types';
 import { NotLoggedInError, PermissionDeniedError } from './errors';
@@ -120,7 +120,7 @@ export default class BotPasswordAuth {
 
         // Step 1: Get login token
         const tokenResponse = await this.axiosInstance.get<LoginTokenResponse>(
-            `${apiURL}?${qs.stringify({
+            `${apiURL}?${stringify({
                 action: 'query',
                 meta: 'tokens',
                 type: 'login',
@@ -136,7 +136,7 @@ export default class BotPasswordAuth {
         // Step 2: Perform login
         const loginResponse = await this.axiosInstance.post<LoginResponse>(
             apiURL,
-            qs.stringify({
+            stringify({
                 action: 'login',
                 lgname: this.username,
                 lgpassword: this.password,
@@ -179,7 +179,7 @@ export default class BotPasswordAuth {
         const apiURL = `${siteURL.origin}/w/api.php`;
 
         const response = await this.axiosInstance.get<CsrfTokenResponse>(
-            `${apiURL}?${qs.stringify({
+            `${apiURL}?${stringify({
                 action: 'query',
                 meta: 'tokens',
                 type: 'csrf',

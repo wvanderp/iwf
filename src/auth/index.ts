@@ -26,4 +26,4 @@ export {
     redactHeaders,
     calculateBackoffDelay,
     parseRetryAfter
-} from './utils';
+} from './utilities';

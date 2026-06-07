@@ -160,14 +160,6 @@ export default class TimeSnak extends Snak {
      * @example
      *    const snak = TimeSnak.fromDateObject('P1619', new Date(), 'http://www.wikidata.org/entity/Q1985727');
      */
-     
-    /**
-     *
-     * @param property
-     * @param date
-     * @param calendarModel
-     * @example
-     */
     static fromDateObject(property: PString, date: Date, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985727'): TimeSnak {
         return TimeSnak.fromDate(property, date.getFullYear(), date.getMonth() + 1, date.getDate(), calendarModel);
     }

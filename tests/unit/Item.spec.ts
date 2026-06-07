@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import type { Item as WikidataItem } from '@wmde/wikibase-datamodel-types';
 
 import {
     Alias,
@@ -10,11 +11,30 @@ import {
 
 const testFiles = fs.readdirSync(path.resolve(__dirname, './data/'));
 
+interface EntityData {
+    entities: Record<string, WikidataItem>;
+}
+
+/**
+ * Reads a Wikidata item fixture from the unit test data directory.
+ *
+ * @param file The fixture filename.
+ * @returns The first entity in the fixture.
+ * @example
+ *     const item = readEntity('Earth.json');
+ */
+function readEntity(file: string): WikidataItem {
+    const contents = JSON.parse(
+        fs.readFileSync(path.resolve(__dirname, `./data/${file}`)).toString('utf8')
+    ) as unknown as EntityData;
+
+    return contents.entities[Object.keys(contents.entities)[0]];
+}
+
 describe('load data into the model', () => {
     for (const file of testFiles) {
         it(`should return the same contents with as was ingested from ${file}`, () => {
-            const contents = JSON.parse(fs.readFileSync(path.resolve(__dirname, `./data/${file}`)).toString('utf8'));
-            const wikidataJSON = contents.entities[Object.keys(contents.entities)[0]];
+            const wikidataJSON = readEntity(file);
             const item = new Item(wikidataJSON);
 
             expect(item.toJSON()).toStrictEqual(wikidataJSON);
@@ -177,7 +197,7 @@ describe('findAlias', () => {
         const found = item.findAliases('en');
 
         expect(found.length).toEqual(2);
-        expect(found.map((a) => a.value).toSorted()).toEqual(['Christ', 'Messiah']);
+        expect(new Set(found.map((a) => a.value))).toEqual(new Set(['Christ', 'Messiah']));
     });
 });
 
@@ -280,20 +300,17 @@ describe('removeStatements', () => {
 
 describe('equals', () => {
     it('two different items should not be equal', () => {
-        const contents1 = JSON.parse(fs.readFileSync(path.resolve(__dirname, `./data/${testFiles[0]}`)).toString('utf8'));
-        const wikidataJSON1 = contents1.entities[Object.keys(contents1.entities)[0]];
+        const wikidataJSON1 = readEntity(testFiles[0]);
         const item1 = new Item(wikidataJSON1);
 
-        const contents2 = JSON.parse(fs.readFileSync(path.resolve(__dirname, `./data/${testFiles[2]}`)).toString('utf8'));
-        const wikidataJSON2 = contents2.entities[Object.keys(contents2.entities)[0]];
+        const wikidataJSON2 = readEntity(testFiles[2]);
         const item2 = new Item(wikidataJSON2);
 
         expect(item1.equals(item2)).toBe(false);
     });
 
     it('two of the same item should be equal', () => {
-        const contents1 = JSON.parse(fs.readFileSync(path.resolve(__dirname, `./data/${testFiles[0]}`)).toString('utf8'));
-        const wikidataJSON1 = contents1.entities[Object.keys(contents1.entities)[0]];
+        const wikidataJSON1 = readEntity(testFiles[0]);
         const item1 = new Item(wikidataJSON1);
 
         expect(item1.equals(item1)).toBe(true);

@@ -68,7 +68,7 @@ describe('OAuthAuth', () => {
         vi.restoreAllMocks();
         delete (globalThis as Record<string, unknown>).window;
         delete (globalThis as Record<string, unknown>).location;
-        delete (globalThis as Record<string, unknown>).sessionStorage;
+        Reflect.deleteProperty(globalThis, 'sessionStorage');
     });
 
     it('throws when login is called outside a browser environment', async () => {
@@ -196,11 +196,9 @@ describe('OAuthAuth', () => {
 
         await auth.handleCallback();
 
-        expect(internal.tokens).toEqual({
-            accessToken: 'new-access-token',
-            refreshToken: 'new-refresh-token',
-            expiresAt: expect.any(Number)
-        });
+        expect(internal.tokens?.accessToken).toBe('new-access-token');
+        expect(internal.tokens?.refreshToken).toBe('new-refresh-token');
+        expect(typeof internal.tokens?.expiresAt).toBe('number');
         expect(store.has('iwf_oauth_state')).toBe(false);
         expect(store.has('iwf_oauth_verifier')).toBe(false);
         expect(internal.csrfTokenCache.size).toBe(0);

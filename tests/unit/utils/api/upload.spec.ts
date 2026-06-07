@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/empty-brace-spaces */
-import qs from 'qs';
+import { parse } from 'qs';
 import axios from 'axios';
 import upload, { generateURL, validateAuthentication, generateUploadData } from '../../../../src/utils/api/upload';
 import {
@@ -146,7 +146,7 @@ describe('upload', () => {
             expect(mockedAxios).toHaveBeenCalledTimes(1);
 
             const callArguments = mockedAxios.mock.calls[0][0] as unknown as { data: string };
-            const data = qs.parse(callArguments.data);
+            const data = parse(callArguments.data);
             expect(data.token).toEqual('+\\');
             expect(data.summary).toEqual('Upload summary');
             expect(data.tags).toEqual('');
@@ -173,11 +173,14 @@ describe('upload', () => {
                     success: 1
                 }
             });
+            const getCsrfToken = vi.fn().mockResolvedValue('test-csrf-token');
+            const getAxiosInstance = vi.fn().mockReturnValue(mockAxiosInstance);
+            const getUserAgent = vi.fn().mockReturnValue('test-user-agent');
 
             const mockAuth = {
-                getCsrfToken: vi.fn().mockResolvedValue('test-csrf-token'),
-                getAxiosInstance: vi.fn().mockReturnValue(mockAxiosInstance),
-                getUserAgent: vi.fn().mockReturnValue('test-user-agent')
+                getCsrfToken,
+                getAxiosInstance,
+                getUserAgent
             } as unknown as BotPasswordAuth;
 
             await upload(item, {
@@ -185,12 +188,12 @@ describe('upload', () => {
                 auth: mockAuth
             });
 
-            expect(mockAuth.getCsrfToken).toHaveBeenCalledWith('https://www.wikidata.org');
-            expect(mockAuth.getAxiosInstance).toHaveBeenCalled();
+            expect(getCsrfToken).toHaveBeenCalledWith('https://www.wikidata.org');
+            expect(getAxiosInstance).toHaveBeenCalled();
             expect(mockAxiosInstance).toHaveBeenCalledTimes(1);
 
             const callArguments = mockAxiosInstance.mock.calls[0][0] as unknown as { data: string };
-            const data = qs.parse(callArguments.data);
+            const data = parse(callArguments.data);
             expect(data.token).toEqual('test-csrf-token');
         });
     });

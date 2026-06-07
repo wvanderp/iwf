@@ -29,6 +29,22 @@ import sha256 from './utils/hash';
 type ItemInput = Optional<WikidataItem, 'id'>;
 
 /**
+ * Converts an array to a string-keyed object without relying on Object.fromEntries.
+ *
+ * @param values The values to place in the record.
+ * @param getKey Returns the record key for each value.
+ * @returns A record keyed by getKey.
+ * @example
+ *     const byId = arrayToRecord(items, (item) => item.id);
+ */
+function arrayToRecord<T>(values: T[], getKey: (value: T) => string): Record<string, T> {
+    return values.reduce<Record<string, T>>((accumulator, value) => {
+        accumulator[getKey(value)] = value;
+        return accumulator;
+    }, {});
+}
+
+/**
  * @class
  */
 export default class Item {
@@ -313,13 +329,15 @@ export default class Item {
             type: this.type,
             id: this.id,
 
-            labels: Object.fromEntries(this.labels
-                .map((label) => label.toJSON())
-                .map((value) => [value.language, value])),
+            labels: arrayToRecord(
+                this.labels.map((label) => label.toJSON()),
+                (value) => value.language
+            ),
 
-            descriptions: Object.fromEntries(this.descriptions
-                .map((description) => description.toJSON())
-                .map((value) => [value.language, value])),
+            descriptions: arrayToRecord(
+                this.descriptions.map((description) => description.toJSON()),
+                (value) => value.language
+            ),
 
             aliases: this.aliases
                 .map((alias) => alias.toJSON())
@@ -343,9 +361,10 @@ export default class Item {
                     return accumulator;
                 }, {}),
 
-            sitelinks: Object.fromEntries(this.sitelinks
-                .map((siteLink) => siteLink.toJSON())
-                .map((value) => [value.site, value]))
+            sitelinks: arrayToRecord(
+                this.sitelinks.map((siteLink) => siteLink.toJSON()),
+                (value) => value.site
+            )
 
         }) as WikidataItem;
     }

@@ -89,6 +89,20 @@ const statementJson: WikidataStatement = {
     ]
 };
 
+/**
+ * Creates a statement fixture with a separate qualifier order array for mutation tests.
+ *
+ * @returns A statement JSON object.
+ * @example
+ *     const statement = statementJsonWithQualifierOrder();
+ */
+function statementJsonWithQualifierOrder(): WikidataStatement {
+    return {
+        ...statementJson,
+        'qualifiers-order': [...(statementJson['qualifiers-order'] ?? [])]
+    };
+}
+
 describe('Statement', () => {
     describe('getInternalId', () => {
         it('should return the internal id', () => {
@@ -175,8 +189,8 @@ describe('Statement', () => {
         });
 
         it('should not equal if the qualifiersOrder is changed', () => {
-            const a = new Statement(structuredClone(statementJson));
-            const b = new Statement(structuredClone(statementJson));
+            const a = new Statement(statementJsonWithQualifierOrder());
+            const b = new Statement(statementJsonWithQualifierOrder());
 
             b.qualifiersOrder.pop();
 
