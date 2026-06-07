@@ -43,7 +43,7 @@ export default tseslint.config(
         languageOptions: {
             parserOptions: {
                 projectService: true,
-                tsconfigRootDir: import.meta.dirname,
+                tsconfigRootDir: process.cwd(),
             },
         },
     },
@@ -51,7 +51,7 @@ export default tseslint.config(
     // ──────────────────────────────────────────────
     // Plugin: sonarjs – code quality & bug detection
     // ──────────────────────────────────────────────
-    sonarjs.configs.recommended,
+    sonarjs.configs!.recommended as unknown as Parameters<typeof tseslint.config>[number],
 
     // ──────────────────────────────────────────────
     // Plugin: unicorn – misc best practices
