@@ -22,19 +22,24 @@ jobs:
       max-parallel: 1
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
 
       - name: use node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
+          cache: pnpm
 
-      - run: npm ci
-      - run: npm run build
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
 
-      - run: npm run lint
+      - run: pnpm run lint
 
-      # - run: npm run test:all
+      # - run: pnpm run test:all
 
   coverage:
     name: "📊 Coverage"
@@ -45,16 +50,22 @@ jobs:
       WIKIDATA_PASSWORD: ${{ secrets.WIKIDATA_PASSWORD }}
 
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
+
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: pnpm
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
-      - run: npm run coverage
+      - run: pnpm run coverage
 
       - name: 📊 Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

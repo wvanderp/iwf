@@ -10,16 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🛎️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
+
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: pnpm
 
       - name: 🔧 Install and Build
         run: |
-          npm ci
-          npm run docs
+          pnpm install --frozen-lockfile
+          pnpm run docs
 
       - name: 🚀 Deploy
         uses: JamesIves/github-pages-deploy-action@v4

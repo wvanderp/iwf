@@ -15,6 +15,7 @@
   "homepage": "https://wvanderp.github.io/iwf/",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">= 22.18.0"
   },
@@ -70,9 +71,10 @@
     "lint": "npm-run-all -c -s tsc eslint",
     "tsc": "tsc --noEmit",
     "eslint": "eslint src/ tests/integration tests/unit",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "pnpm run build",
     "test": "vitest run tests/unit --coverage",
     "test:all": "vitest run --coverage",
+    "coverage": "vitest run tests/unit --coverage",
     "clean": "rimraf lib/ .nyc_output/ coverage/ docs/"
   }
 }

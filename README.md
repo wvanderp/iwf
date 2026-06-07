@@ -26,7 +26,7 @@ Wikidata is a free knowledge base that anyone can edit, serving as a central sto
 ## Installation
 
 ```bash
-npm i --save iwf
+pnpm add iwf
 ```
 
 You can easily request an item from Wikidata and list all the labels. For example, Q42 represents Douglas Adams in Wikidata:
