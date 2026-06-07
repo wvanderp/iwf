@@ -13,8 +13,6 @@ const testServer = 'https://test.wikidata.org';
 
 describe('BotPasswordAuth', () => {
     it('should login and get a CSRF token', async function () {
-        jest.setTimeout(60000);
-
         expect(typeof process.env.WIKIDATA_USERNAME).toBe('string');
         expect(typeof process.env.WIKIDATA_PASSWORD).toBe('string');
         expect(process.env.WIKIDATA_USERNAME).not.toEqual('');
@@ -34,8 +32,6 @@ describe('BotPasswordAuth', () => {
     });
 
     it('should fail gracefully when given wrong credentials', async function () {
-        jest.setTimeout(60000);
-
         const auth = new BotPasswordAuth({
             username: 'wrongUsername@wrongBot',
             password: 'theWrongPassword',

@@ -101,4 +101,20 @@ describe('statement diff', () => {
 
         expect(statementDiff(a, b, 'Q2')).toStrictEqual(changes);
     });
+
+    it('should produce an update action when statements share the same internalID', () => {
+        const previous = Statement.fromSnak(WikibaseItemSnak.fromID('P31', 'Q1'));
+        const current = Statement.fromSnak(WikibaseItemSnak.fromID('P31', 'Q2'));
+
+        Object.defineProperty(previous, 'internalID', { get: () => 'same-id' });
+        Object.defineProperty(current, 'internalID', { get: () => 'same-id' });
+
+        expect(statementDiff([previous], [current], 'Q1')).toStrictEqual([{
+            action: 'update',
+            parentID: 'Q1',
+            type: 'statement',
+            old: previous.toJSON(),
+            new: current.toJSON()
+        }]);
+    });
 });

@@ -96,7 +96,7 @@ describe('calculateBackoffDelay', () => {
         const attempt = 2;
         const expectedBase = 4000;
 
-        const spy = jest.spyOn(Math, 'random').mockReturnValue(1);
+        const spy = vi.spyOn(Math, 'random').mockReturnValue(1);
         const delay = calculateBackoffDelay(attempt, baseDelay, maxDelay, true);
         spy.mockRestore();
 
@@ -109,7 +109,7 @@ describe('calculateBackoffDelay', () => {
         const attempt = 2;
         const expectedBase = 4000;
 
-        const spy = jest.spyOn(Math, 'random').mockReturnValue(0);
+        const spy = vi.spyOn(Math, 'random').mockReturnValue(0);
         const delay = calculateBackoffDelay(attempt, baseDelay, maxDelay, true);
         spy.mockRestore();
 
@@ -122,7 +122,7 @@ describe('calculateBackoffDelay', () => {
         const attempt = 2;
         const expectedBase = 4000;
 
-        const spy = jest.spyOn(Math, 'random').mockReturnValue(0.5);
+        const spy = vi.spyOn(Math, 'random').mockReturnValue(0.5);
         const delay = calculateBackoffDelay(attempt, baseDelay, maxDelay, true);
         spy.mockRestore();
 

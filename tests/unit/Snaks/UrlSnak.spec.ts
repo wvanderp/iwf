@@ -74,4 +74,33 @@ describe('URL Snak', () => {
             expect(snak.url).toEqual('https://www.typescriptlang.org/');
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new URLSnak({
+                snaktype: 'novalue',
+                property: 'P854',
+                datatype: 'url'
+            } as unknown as ConstructorParameters<typeof URLSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P854',
+                datatype: 'url'
+            });
+        });
+    });
+
+    describe('value accessor', () => {
+        it('should encode spaces in URL values', () => {
+            const urlSnak = URLSnak.fromURL('P854', 'https://example.com/a b');
+            expect(urlSnak.value).toBe('https://example.com/a%20b');
+        });
+
+        it('should return undefined when value is set to undefined', () => {
+            const urlSnak = URLSnak.fromURL('P854', 'https://example.com/a b');
+            urlSnak.value = undefined;
+            expect(urlSnak.value).toBeUndefined();
+        });
+    });
 });

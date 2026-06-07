@@ -111,4 +111,33 @@ describe('Wikibase Sense Snak', () => {
             expect(a.equals(b)).toBe(false);
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new WikibaseSenseSnak({
+                snaktype: 'novalue',
+                property: 'P5972',
+                datatype: 'wikibase-sense'
+            } as unknown as ConstructorParameters<typeof WikibaseSenseSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P5972',
+                datatype: 'wikibase-sense'
+            });
+        });
+    });
+
+    describe('id accessor', () => {
+        it('should return the id from fromData', () => {
+            const sense = WikibaseSenseSnak.fromData('P5972', 'L42-S7');
+            expect(sense.id).toBe('L42-S7');
+        });
+
+        it('should return undefined when id is set to undefined', () => {
+            const sense = WikibaseSenseSnak.fromData('P5972', 'L42-S7');
+            sense.id = undefined;
+            expect(sense.id).toBeUndefined();
+        });
+    });
 });

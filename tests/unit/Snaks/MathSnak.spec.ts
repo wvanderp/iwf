@@ -44,4 +44,20 @@ describe('Math Snak', () => {
             expect(snak.equals(snak2)).toBe(false);
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new MathSnak({
+                snaktype: 'novalue',
+                property: 'P2534',
+                datatype: 'math'
+            } as unknown as ConstructorParameters<typeof MathSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P2534',
+                datatype: 'math'
+            });
+        });
+    });
 });

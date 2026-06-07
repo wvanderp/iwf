@@ -1,11 +1,12 @@
 /**
  * Authentication module for iwf
- * Provides Bot Password authentication for MediaWiki APIs
+ * Provides Bot Password and OAuth 2.0 authentication for MediaWiki APIs
  */
 
 export { default as BotPasswordAuth } from './BotPasswordAuth';
+export { default as OAuthAuth } from './OAuthAuth';
 
-export { BotPasswordConfig } from './types';
+export type { BotPasswordConfig, OAuthConfig } from './types';
 
 export {
     IWFError,

@@ -112,8 +112,7 @@ describe('Statement', () => {
 
         it('should change when the snak changes', () => {
             const statement = new Statement(statementJson);
-            // eslint-disable-next-line prefer-destructuring
-            const property = statement.property;
+            const { property } = statement;
             statement.mainsnak = StringSnak.fromString('P1', 'foo');
             expect(statement.property).not.toEqual(property);
         });

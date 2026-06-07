@@ -325,4 +325,72 @@ describe('Quantity Snak', () => {
         expect(snak.lowerBound).toEqual(0.5);
         expect(snak.unit).toEqual('http://www.wikidata.org/entity/Q42');
     });
+
+    describe('quantity serialization branches', () => {
+        it('should omit bounds when they are zero', () => {
+            const quantity = QuantitySnak.fromNumbers('P1215', 1, 0, 0, 'Q42');
+
+            expect(quantity.toJSON()).toStrictEqual({
+                snaktype: 'value',
+                property: 'P1215',
+                datavalue: {
+                    value: {
+                        amount: '+1',
+                        unit: 'http://www.wikidata.org/entity/Q42'
+                    },
+                    type: 'quantity'
+                },
+                datatype: 'quantity'
+            });
+        });
+
+        it('should return undefined amount when amount is missing from data', () => {
+            const noAmountQuantity = new QuantitySnak({
+                snaktype: 'value',
+                property: 'P1215',
+                datatype: 'quantity',
+                datavalue: {
+                    value: {
+                        unit: '1'
+                    },
+                    type: 'quantity'
+                }
+            } as never);
+
+            expect(noAmountQuantity.amount).toBeUndefined();
+            expect(() => noAmountQuantity.toJSON()).toThrow('amount is undefined');
+        });
+
+        it('should serialize a no-value snak without datavalue', () => {
+            expect(new QuantitySnak({
+                snaktype: 'novalue',
+                property: 'P1215',
+                datatype: 'quantity',
+                datavalue: {
+                    value: {
+                        unit: '1'
+                    },
+                    type: 'quantity'
+                }
+            } as never).toJSON()).toStrictEqual({
+                snaktype: 'novalue',
+                property: 'P1215',
+                datatype: 'quantity'
+            });
+        });
+
+        it('should throw when unit is not defined', () => {
+            expect(() => new QuantitySnak({
+                snaktype: 'value',
+                property: 'P1215',
+                datatype: 'quantity',
+                datavalue: {
+                    value: {
+                        amount: '+1'
+                    },
+                    type: 'quantity'
+                }
+            } as never)).toThrow('unit is not defined');
+        });
+    });
 });

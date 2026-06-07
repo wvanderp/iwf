@@ -1,9 +1,0 @@
-node_moduals
-.vscode
-.nyc_output
-coverage
-
-dist
-.parcel-cache
-
-tests/browser

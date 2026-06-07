@@ -50,4 +50,37 @@ describe('Commons Media Snak', () => {
             expect(snak.equals(snak2)).toBe(false);
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new GeoShapeSnak({
+                snaktype: 'novalue',
+                property: 'P3896',
+                datatype: 'geo-shape'
+            } as unknown as ConstructorParameters<typeof GeoShapeSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P3896',
+                datatype: 'geo-shape'
+            });
+        });
+    });
+
+    describe('commonsLink accessor', () => {
+        it('should have the commonsLink property', () => {
+            expect(GeoShapeSnak.prototype.hasOwnProperty('commonsLink')).toBe(true);
+        });
+
+        it('should return the correct commonsLink for a value snak', () => {
+            const snak = new GeoShapeSnak({
+                snaktype: 'value',
+                property: 'P3896',
+                datatype: 'geo-shape',
+                datavalue: { value: 'Data:Example.map', type: 'string' }
+            } as unknown as ConstructorParameters<typeof GeoShapeSnak>[0]);
+
+            expect(snak.commonsLink).toBe('https://commons.wikimedia.org/wiki/Data:Example.map');
+        });
+    });
 });

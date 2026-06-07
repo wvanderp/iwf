@@ -245,11 +245,16 @@ export default class Item {
         const nsEqual = this.ns === other.ns;
         const titleEqual = this.title === other.title;
         const lastrevidEqual = this.lastrevid === other.lastrevid;
-        const modifiedEqual = (this.modified === undefined && other.modified === undefined)
-            ? true
-            : ((this.modified === undefined || other.modified === undefined)
-                ? false
-                : dateFormatter(this.modified) === dateFormatter(other.modified));
+
+        let modifiedEqual: boolean;
+        if (this.modified === undefined && other.modified === undefined) {
+            modifiedEqual = true;
+        } else if (this.modified === undefined || other.modified === undefined) {
+            modifiedEqual = false;
+        } else {
+            modifiedEqual = dateFormatter(this.modified) === dateFormatter(other.modified);
+        }
+
         const idEqual = this.id === other.id;
         const typeEqual = this.type === other.type;
 
@@ -324,24 +329,24 @@ export default class Item {
             aliases: this.aliases
                 .map((alias) => alias.toJSON())
                 .reduce<Record<string, LabelAndDescription[]>>((accumulator, value) => {
-                if (accumulator[value.language] === undefined) {
-                    accumulator[value.language] = [];
-                }
+                    if (!(value.language in accumulator)) {
+                        accumulator[value.language] = [];
+                    }
 
-                accumulator[value.language].push(value);
-                return accumulator;
-            }, {}),
+                    accumulator[value.language].push(value);
+                    return accumulator;
+                }, {}),
 
             claims: this.statements
                 .map((statement) => statement.toJSON())
                 .reduce<Record<string, WikidataStatement[]>>((accumulator, value) => {
-                if (accumulator[value.mainsnak.property] === undefined) {
-                    accumulator[value.mainsnak.property] = [];
-                }
+                    if (!(value.mainsnak.property in accumulator)) {
+                        accumulator[value.mainsnak.property] = [];
+                    }
 
-                accumulator[value.mainsnak.property].push(value);
-                return accumulator;
-            }, {}),
+                    accumulator[value.mainsnak.property].push(value);
+                    return accumulator;
+                }, {}),
 
             sitelinks: Object.fromEntries(this.sitelinks
                 .map((siteLink) => siteLink.toJSON())

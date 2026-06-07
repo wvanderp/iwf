@@ -31,7 +31,7 @@ export { default as upload } from './utils/api/upload';
 // Auth module exports
 export * from './auth';
 
-export {
+export type {
     QString,
     PString,
     EString,

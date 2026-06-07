@@ -56,7 +56,6 @@ describe('equal functions', () => {
             });
             it('should not equal if on of them is undefined', () => {
                 expect(arrayEqualWith(undefined, arrayOfABC, (a, b) => a === b)).toBe(false);
-                // eslint-disable-next-line unicorn/no-useless-undefined
                 expect(arrayEqualWith(arrayOfABC, undefined, (a, b) => a === b)).toBe(false);
             });
             it('should not equal if the length is different', () => {

@@ -44,4 +44,26 @@ describe('String Snak', () => {
             expect(snak.equals(snak2)).toBe(false);
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new StringSnak({
+                snaktype: 'novalue',
+                property: 'P1545',
+                datatype: 'string'
+            } as unknown as ConstructorParameters<typeof StringSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P1545',
+                datatype: 'string'
+            });
+        });
+    });
+
+    describe('fromString', () => {
+        it('should create a snak and return the correct value', () => {
+            expect(StringSnak.fromString('P1545', '1').value).toBe('1');
+        });
+    });
 });

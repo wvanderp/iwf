@@ -116,4 +116,33 @@ describe('Wikibase Lexeme Snak', () => {
             expect(snak.numericID).toEqual(1234);
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new WikibaseLexemeSnak({
+                snaktype: 'novalue',
+                property: 'P5137',
+                datatype: 'wikibase-lexeme'
+            } as unknown as ConstructorParameters<typeof WikibaseLexemeSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P5137',
+                datatype: 'wikibase-lexeme'
+            });
+        });
+    });
+
+    describe('id/numericID accessors', () => {
+        it('should return the id from fromData', () => {
+            const lexeme = WikibaseLexemeSnak.fromData('P5137', 'L42');
+            expect(lexeme.id).toBe('L42');
+        });
+
+        it('should return undefined id when numericID is set to undefined', () => {
+            const lexeme = WikibaseLexemeSnak.fromData('P5137', 'L42');
+            lexeme.numericID = undefined;
+            expect(lexeme.id).toBeUndefined();
+        });
+    });
 });

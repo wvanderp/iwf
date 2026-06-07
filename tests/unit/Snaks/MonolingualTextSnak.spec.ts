@@ -55,4 +55,36 @@ describe('Monolingual Text Snak', () => {
             expect(snak.toJSON()).toStrictEqual(monolingualTextSnak);
         });
     });
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new MonolingualTextSnak({
+                snaktype: 'novalue',
+                property: 'P1476',
+                datatype: 'monolingualtext'
+            } as unknown as ConstructorParameters<typeof MonolingualTextSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P1476',
+                datatype: 'monolingualtext'
+            });
+        });
+    });
+
+    describe('fromString toJSON', () => {
+        it('should produce correct JSON for a value snak', () => {
+            expect(MonolingualTextSnak.fromString('P1476', 'en', 'Title').toJSON()).toEqual({
+                snaktype: 'value',
+                property: 'P1476',
+                datavalue: {
+                    value: {
+                        text: 'Title',
+                        language: 'en'
+                    },
+                    type: 'monolingualtext'
+                },
+                datatype: 'monolingualtext'
+            });
+        });
+    });
 });

@@ -44,4 +44,20 @@ describe('Musical Notation Snak', () => {
             expect(snak.equals(snak2)).toBe(false);
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new MusicalNotationSnak({
+                snaktype: 'novalue',
+                property: 'P6604',
+                datatype: 'musical-notation'
+            } as unknown as ConstructorParameters<typeof MusicalNotationSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P6604',
+                datatype: 'musical-notation'
+            });
+        });
+    });
 });

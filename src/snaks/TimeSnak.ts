@@ -123,6 +123,8 @@ export default class TimeSnak extends Snak {
      * @example
      *    const snak = TimeSnak.fromDate('P1619', 2020, 1, 30, 'http://www.wikidata.org/entity/Q1985727');
      */
+    // Wikidata calendar model URIs use http:// by convention (entity identifiers, not network protocols)
+    // eslint-disable-next-line sonarjs/no-clear-text-protocols
     static fromDate(property: PString, year: number, month: number, day: number, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985727'): TimeSnak {
         const isoString = formatISOString(year, month, day);
         return new TimeSnak({
@@ -157,6 +159,7 @@ export default class TimeSnak extends Snak {
      * @example
      *    const snak = TimeSnak.fromDateObject('P1619', new Date(), 'http://www.wikidata.org/entity/Q1985727');
      */
+    // eslint-disable-next-line sonarjs/no-clear-text-protocols
     static fromDateObject(property: PString, date: Date, calendarModel: CalendarModels = 'http://www.wikidata.org/entity/Q1985727'): TimeSnak {
         return TimeSnak.fromDate(property, date.getFullYear(), date.getMonth() + 1, date.getDate(), calendarModel);
     }

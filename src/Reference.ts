@@ -15,7 +15,7 @@ import sha256 from './utils/hash';
  * @returns {Record<string, Snaks[]>} An object with groups of snaks by ID.
  */
 function groupByPropertyReducer(accumulator: Record<string, Snaks[]>, value: Snaks): Record<string, Snaks[]> {
-    if (accumulator[value.property] === undefined) {
+    if (!(value.property in accumulator)) {
         accumulator[value.property] = [];
     }
 
@@ -76,9 +76,9 @@ export default class Reference {
             snaks: this.snaks
                 .map((snak) => snak.toJSON())
                 .reduce<wikidataReferenceSnaks>(
-                (accumulator, value) => groupByPropertyReducer(accumulator, value),
-                {}
-            ),
+                    (accumulator, value) => groupByPropertyReducer(accumulator, value),
+                    {}
+                ),
             'snaks-order': this.snaksOrder
         });
     }
@@ -123,9 +123,9 @@ export default class Reference {
             snaks: snaks
                 .map((snak) => snak.toJSON())
                 .reduce<wikidataReferenceSnaks>(
-                (accumulator, value) => groupByPropertyReducer(accumulator, value),
-                {}
-            )
+                    (accumulator, value) => groupByPropertyReducer(accumulator, value),
+                    {}
+                )
         });
     }
 }

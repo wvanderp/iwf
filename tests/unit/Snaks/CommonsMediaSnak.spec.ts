@@ -65,4 +65,32 @@ describe('Commons Media Snak', () => {
             expect(snak.property).toEqual('P42');
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new CommonsMediaSnak({
+                snaktype: 'novalue',
+                property: 'P18',
+                datatype: 'commonsMedia'
+            } as unknown as ConstructorParameters<typeof CommonsMediaSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P18',
+                datatype: 'commonsMedia'
+            });
+        });
+    });
+
+    describe('accessors', () => {
+        it('should return the correct imageLink', () => {
+            expect(CommonsMediaSnak.fromFileName('P18', 'Example.jpg').imageLink)
+                .toBe('https://commons.wikimedia.org/wiki/Special:Redirect/file/Example.jpg');
+        });
+
+        it('should return the correct commonsLink', () => {
+            expect(CommonsMediaSnak.fromFileName('P18', 'Example.jpg').commonsLink)
+                .toBe('https://commons.wikimedia.org/wiki/File:Example.jpg');
+        });
+    });
 });

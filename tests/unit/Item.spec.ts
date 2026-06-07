@@ -500,4 +500,32 @@ describe('Edge cases according to O1', () => {
 
         expect(item1.equals(item2)).toBe(false);
     });
+
+    it('should not be equal when modified dates differ', () => {
+        const left = Item.fromNothing();
+        const right = Item.fromNothing();
+
+        left.modified = new Date('2024-01-01T00:00:00.000Z');
+
+        expect(left.equals(right)).toBe(false);
+
+        right.modified = new Date('2024-01-01T00:00:00.000Z');
+
+        expect(left.equals(right)).toBe(true);
+    });
+
+    it('should handle null alias language arrays gracefully', () => {
+        const aliasFriendlyItem = new Item({
+            type: 'item',
+            labels: {},
+            descriptions: {},
+            aliases: {
+                en: null
+            },
+            claims: {},
+            sitelinks: {}
+        } as never);
+
+        expect(aliasFriendlyItem.aliases).toEqual([]);
+    });
 });

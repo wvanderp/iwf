@@ -56,6 +56,7 @@ export function calculateBackoffDelay(
 
     // Add random jitter: ±25% of the delay
     const jitterAmount = cappedDelay * 0.25;
+    // eslint-disable-next-line sonarjs/pseudo-random -- jitter for retry delays is non-cryptographic
     const jitterValue = (Math.random() - 0.5) * 2 * jitterAmount;
     return Math.max(0, cappedDelay + jitterValue);
 }

@@ -5,6 +5,10 @@
     "lib": [
       "ES2019"
     ],
+    "types": [
+      "node",
+      "vitest/globals"
+    ],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,

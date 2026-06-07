@@ -12,17 +12,17 @@ import { UploadFormat } from '../../../../src/types/uploadFormat';
 import requestItem from '../../../../src/utils/api/request';
 
 // Mock axios
-jest.mock('axios');
-const mockedAxios = axios as jest.MockedFunction<typeof axios>;
+vi.mock('axios');
+const mockedAxios = vi.mocked(axios);
 
 // Mock requestItem
-jest.mock('../../../../src/utils/api/request');
-const mockRequestItem = requestItem as jest.MockedFunction<typeof requestItem>;
+vi.mock('../../../../src/utils/api/request');
+const mockRequestItem = vi.mocked(requestItem);
 
 // Mock BotPasswordAuth for testing
 const mockBotPasswordAuth = {
-    getCsrfToken: jest.fn().mockResolvedValue('mock-csrf-token'),
-    getAxiosInstance: jest.fn().mockReturnValue(jest.fn())
+    getCsrfToken: vi.fn().mockResolvedValue('mock-csrf-token'),
+    getAxiosInstance: vi.fn().mockReturnValue(vi.fn())
 } as unknown as BotPasswordAuth;
 
 describe('generate url', () => {
@@ -117,11 +117,11 @@ describe('validateAuthentication', () => {
 describe('upload', () => {
     const item = Item.fromNothing();
 
-    let consoleErrorSpy: jest.SpyInstance;
+    let consoleErrorSpy: { mockRestore: () => void };
 
     beforeEach(() => {
-        consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
-        jest.clearAllMocks();
+        consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+        vi.clearAllMocks();
     });
 
     afterEach(() => {
@@ -167,7 +167,7 @@ describe('upload', () => {
         });
 
         it('should use BotPasswordAuth when auth is provided', async () => {
-            const mockAxiosInstance = jest.fn().mockResolvedValue({
+            const mockAxiosInstance = vi.fn().mockResolvedValue({
                 data: {
                     entity: Item.fromNothing().toJSON(),
                     success: 1
@@ -175,9 +175,9 @@ describe('upload', () => {
             });
 
             const mockAuth = {
-                getCsrfToken: jest.fn().mockResolvedValue('test-csrf-token'),
-                getAxiosInstance: jest.fn().mockReturnValue(mockAxiosInstance),
-                getUserAgent: jest.fn().mockReturnValue('test-user-agent')
+                getCsrfToken: vi.fn().mockResolvedValue('test-csrf-token'),
+                getAxiosInstance: vi.fn().mockReturnValue(mockAxiosInstance),
+                getUserAgent: vi.fn().mockReturnValue('test-user-agent')
             } as unknown as BotPasswordAuth;
 
             await upload(item, {
@@ -200,7 +200,7 @@ describe('generateUploadData', () => {
     const server = 'https://www.wikidata.org';
 
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it('should add a remove entry for removed statements that have an id', async () => {
@@ -301,5 +301,102 @@ describe('generateUploadData', () => {
 
         // Sitelinks should be set to an empty title
         expect(data.sitelinks.enwiki).toEqual({ site: 'enwiki', title: '' });
+    });
+
+    it('should reuse existing claims array when property already has entries', async () => {
+        const kept = Statement.fromSnak(WikibaseItemSnak.fromID('P111', 'Q10'));
+        kept.id = 'S-kept';
+
+        const removed = Statement.fromSnak(WikibaseItemSnak.fromID('P111', 'Q20'));
+        removed.id = 'S-removed';
+
+        const original = new Item({
+            type: 'item',
+            id: 'Q4',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: { P111: [kept.toJSON(), removed.toJSON()] },
+            sitelinks: {}
+        });
+
+        const updated = new Item({
+            type: 'item',
+            id: 'Q4',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: { P111: [kept.toJSON()] },
+            sitelinks: {}
+        });
+
+        mockRequestItem.mockResolvedValue(original);
+
+        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+
+        // The kept statement should be in the array along with the remove entry
+        expect(data.claims.P111.length).toBeGreaterThanOrEqual(2);
+        expect(data.claims.P111).toContainEqual({ remove: '', id: 'S-removed' });
+    });
+
+    it('should reuse existing aliases array when language already has entries', async () => {
+        const original = Item.fromNothing();
+        original.id = 'Q5';
+
+        // Mock diff to return an alias removal for 'en' while the updated item
+        // already has 'en' aliases, covering the false branch of the inner
+        // "if (!json.aliases[language])" guard.
+        vi.spyOn(original, 'diff').mockReturnValue([
+            { type: 'alias', action: 'remove', parentID: 'Q5', old: { language: 'en', value: 'Alias2' } },
+        ] as never);
+
+        mockRequestItem.mockResolvedValue(original);
+
+        const updated = new Item({
+            type: 'item',
+            id: 'Q5',
+            labels: {},
+            descriptions: {},
+            aliases: { en: [{ language: 'en', value: 'Alias1' }] },
+            claims: {},
+            sitelinks: {}
+        });
+
+        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+
+        expect(data.aliases.en).toBeDefined();
+        expect(data.aliases.en).toContainEqual({ language: 'en', value: 'Alias2', remove: '' });
+    });
+
+    it('should skip removal entries when diff old data is incomplete', async () => {
+        const original = Item.fromNothing();
+        original.id = 'Q6';
+
+        vi.spyOn(original, 'diff').mockReturnValue([
+            { type: 'alias', action: 'remove', parentID: 'Q6', old: undefined },
+            { type: 'label', action: 'remove', parentID: 'Q6', old: undefined },
+            { type: 'description', action: 'remove', parentID: 'Q6', old: undefined },
+            { type: 'siteLink', action: 'remove', parentID: 'Q6', old: undefined },
+        ] as never);
+
+        mockRequestItem.mockResolvedValue(original);
+
+        const updated = new Item({
+            type: 'item',
+            id: 'Q6',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: {},
+            sitelinks: {}
+        });
+
+        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+
+        // None of the removals should have been applied since old data was missing
+        expect(Object.keys(data.aliases)).toHaveLength(0);
+        expect(Object.keys(data.labels)).toHaveLength(0);
+        expect(Object.keys(data.descriptions)).toHaveLength(0);
+        expect(Object.keys(data.sitelinks)).toHaveLength(0);
     });
 });

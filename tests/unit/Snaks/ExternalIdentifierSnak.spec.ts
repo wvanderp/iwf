@@ -53,4 +53,26 @@ describe('External Identifier Snak', () => {
             expect(snak.property).toEqual('P2013');
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new ExternalIdentifierSnak({
+                snaktype: 'novalue',
+                property: 'P698',
+                datatype: 'external-id'
+            } as unknown as ConstructorParameters<typeof ExternalIdentifierSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P698',
+                datatype: 'external-id'
+            });
+        });
+    });
+
+    describe('accessors', () => {
+        it('should return the id from fromID', () => {
+            expect(ExternalIdentifierSnak.fromID('P698', '123456').id).toBe('123456');
+        });
+    });
 });

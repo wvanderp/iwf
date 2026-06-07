@@ -95,7 +95,6 @@ export default class BotPasswordAuth {
                 const cookieHeader = storedCookies
                     .map((c) => c.split(';')[0])
                     .join('; ');
-                // eslint-disable-next-line no-param-reassign
                 requestConfig.headers.Cookie = cookieHeader;
             }
             return requestConfig;

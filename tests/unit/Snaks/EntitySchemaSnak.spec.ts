@@ -84,4 +84,33 @@ describe('EntitySchemaSnak', () => {
             expect(snak.numericID).toBe(999999);
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new EntitySchemaSnak({
+                snaktype: 'novalue',
+                property: 'P12861',
+                datatype: 'entity-schema'
+            } as unknown as ConstructorParameters<typeof EntitySchemaSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P12861',
+                datatype: 'entity-schema'
+            });
+        });
+    });
+
+    describe('id accessors', () => {
+        it('should return the id from fromID', () => {
+            const entitySchema = EntitySchemaSnak.fromID('P12861', 'E42');
+            expect(entitySchema.id).toBe('E42');
+        });
+
+        it('should return undefined when id is set to undefined', () => {
+            const entitySchema = EntitySchemaSnak.fromID('P12861', 'E42');
+            entitySchema.id = undefined;
+            expect(entitySchema.id).toBeUndefined();
+        });
+    });
 });

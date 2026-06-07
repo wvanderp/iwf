@@ -27,7 +27,7 @@ export default class Description {
         if (label.language === 'mul') {
             throw new Error("The 'mul' language is not allowed for descriptions.");
         }
-        this.language = label.language as Exclude<LabelLanguages, 'mul'>;
+        this.language = label.language;
         this.value = label.value;
     }
 

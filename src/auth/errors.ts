@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 /**
  * Base class for all iwf authentication errors
  */

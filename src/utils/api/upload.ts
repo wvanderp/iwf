@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
-/* eslint-disable unicorn/no-nested-ternary */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 
@@ -14,6 +12,7 @@ import { LabelChange } from '../diff/labelDiff';
 import { SiteLinkChange } from '../diff/siteLinkDiff';
 import corsCheck from './corsCheck';
 import BotPasswordAuth from '../../auth/BotPasswordAuth';
+import OAuthAuth from '../../auth/OAuthAuth';
 
 /**
  * API Documentation is scarce, so here is a semi-comprehensive list of all pages that contain information about the API:
@@ -29,7 +28,7 @@ import BotPasswordAuth from '../../auth/BotPasswordAuth';
  */
 
 interface UploadOptions {
-    auth?: BotPasswordAuth; // BotPasswordAuth instance for authentication
+    auth?: BotPasswordAuth | OAuthAuth; // Authentication instance (BotPasswordAuth or OAuthAuth)
     anonymous?: boolean; // If true, the upload will be anonymous
 
     summary: string; // The summary for the edit (displayed in the history of Wikidata)
@@ -94,7 +93,7 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
         return 'auth';
     }
 
-    throw new Error('You need to provide an auth method. Either auth (BotPasswordAuth) or set anonymous to true.');
+    throw new Error('You need to provide an auth method. Either auth (BotPasswordAuth or OAuthAuth) or set anonymous to true.');
 }
 
 /**
@@ -184,7 +183,7 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
  * @param {UploadOptions} options The options for uploading
  * @param {string} options.summary The summary for the edit (displayed in the history of Wikidata)
  * @param {string[]} [options.tags] The tags for the edit (displayed in the history of Wikidata)
- * @param {BotPasswordAuth} [options.auth] The BotPasswordAuth instance to use for authentication
+ * @param {BotPasswordAuth|OAuthAuth} [options.auth] The authentication instance to use (BotPasswordAuth or OAuthAuth)
  * @param {boolean} [options.anonymous] If true, the upload will be anonymous
  * @param {number} [options.maxLag] The max lag in seconds for the API request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
  * @param {string} [options.server] The API endpoint to use (defaults to Wikidata)

@@ -86,17 +86,17 @@ export default class Statement {
         const qualifiers = this.qualifiers
             .map((qualifier) => qualifier.toJSON())
             .reduce<wikidataQualifiers>(
-            (accumulator, value) => {
-                if (accumulator[value.property] === undefined) {
-                    accumulator[value.property] = [];
-                }
+                (accumulator, value) => {
+                    if (!(value.property in accumulator)) {
+                        accumulator[value.property] = [];
+                    }
 
-                accumulator[value.property].push(value);
+                    accumulator[value.property].push(value);
 
-                return accumulator;
-            },
-            {}
-        );
+                    return accumulator;
+                },
+                {}
+            );
 
         return normalizeOutput({
             mainsnak: this.mainsnak.toJSON(),

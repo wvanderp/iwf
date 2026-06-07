@@ -1,14 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
+import type { Mocked } from 'vitest';
 
 import packageJson from '../../../../package.json';
 
 import { baseURL } from '../../../../src/utils/api/request';
 import { requestItem } from '../../../../src';
 
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+vi.mock('axios');
+const mockedAxios = axios as Mocked<typeof axios>;
 
 describe('baseURL functions', () => {
     it('should return the right url when a QID is given', () => {

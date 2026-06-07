@@ -50,4 +50,33 @@ describe('Tabular Data Snak', () => {
             expect(snak.equals(snak2)).toBe(false);
         });
     });
+
+    describe('no-value', () => {
+        it('should serialize a no-value snak without datavalue', () => {
+            const snak = new TabularDataSnak({
+                snaktype: 'novalue',
+                property: 'P4150',
+                datatype: 'tabular-data'
+            } as unknown as ConstructorParameters<typeof TabularDataSnak>[0]);
+
+            expect(snak.toJSON()).toEqual({
+                snaktype: 'novalue',
+                property: 'P4150',
+                datatype: 'tabular-data'
+            });
+        });
+    });
+
+    describe('commonsLink accessor', () => {
+        it('should return the correct commonsLink for a value snak', () => {
+            const tabular = new TabularDataSnak({
+                snaktype: 'value',
+                property: 'P4150',
+                datatype: 'tabular-data',
+                datavalue: { value: 'Data:Weather.tab', type: 'string' }
+            } as unknown as ConstructorParameters<typeof TabularDataSnak>[0]);
+
+            expect(tabular.commonsLink).toBe('https://commons.wikimedia.org/wiki/Data:Weather.tab');
+        });
+    });
 });

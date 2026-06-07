@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
-
 import { TimeSnak } from '../../../src';
 import { formatISOString } from '../../../src/snaks/TimeSnak';
 
