@@ -16,7 +16,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "engines": {
-    "node": ">= 16.0.0"
+    "node": ">= 22.18.0"
   },
   "browserslist": [
     ">0.3%, last 2 versions, not dead, not op_mini all"
