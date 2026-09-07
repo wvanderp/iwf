@@ -1,4 +1,4 @@
-import { Snaks as WikidataSnaks, SnakType as WikidataSnakType } from '@wmde/wikibase-datamodel-types';
+import { Snaks as WikidataSnaks, SnakType as WikidataSnakType } from '@wvanderp/wikibase-datamodel-types';
 
 import { PString } from './types/strings';
 import { isPString } from './utils/guards/strings';

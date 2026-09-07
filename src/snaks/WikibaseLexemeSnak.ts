@@ -1,4 +1,4 @@
-import { WikiBaseLexemeSnak as WikidataWikiBaseLexemeSnak } from '@wmde/wikibase-datamodel-types';
+import { WikiBaseLexemeSnak as WikidataWikiBaseLexemeSnak } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
 import { LString, PString } from '../types/strings';

@@ -1,4 +1,4 @@
-import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
+import { LabelAndDescription } from '@wvanderp/wikibase-datamodel-types';
 import { Description } from '../../src';
 
 const descriptionJson = {

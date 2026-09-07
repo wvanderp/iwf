@@ -1,4 +1,4 @@
-import { MusicalNotationSnak as WikidataMusicalNotationSnak } from '@wmde/wikibase-datamodel-types';
+import { MusicalNotationSnak as WikidataMusicalNotationSnak } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';

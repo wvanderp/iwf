@@ -1,4 +1,4 @@
-import { EntitySchemaSnak as WikidataEntitySchemaSnak } from '@wmde/wikibase-datamodel-types';
+import { EntitySchemaSnak as WikidataEntitySchemaSnak } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
 import { EString, PString } from '../types/strings';

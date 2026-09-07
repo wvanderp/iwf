@@ -1,4 +1,4 @@
-import { Statement as WikidataStatement } from '@wmde/wikibase-datamodel-types';
+import { Statement as WikidataStatement } from '@wvanderp/wikibase-datamodel-types';
 import {
     Statement, StringSnak, URLSnak, WikibaseItemSnak
 } from '../../src';

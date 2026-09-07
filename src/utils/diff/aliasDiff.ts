@@ -1,5 +1,5 @@
-import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
-import diffArray from 'diff-arrays-of-objects';
+import { LabelAndDescription } from '@wvanderp/wikibase-datamodel-types';
+import diffArray from '@wvanderp/diff-arrays-of-objects';
 
 import { QString } from '../../types/strings';
 import Alias from '../../Alias';

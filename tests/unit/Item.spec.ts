@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import type { Item as WikidataItem } from '@wmde/wikibase-datamodel-types';
+import type { Item as WikidataItem } from '@wvanderp/wikibase-datamodel-types';
 
 import {
     Alias,

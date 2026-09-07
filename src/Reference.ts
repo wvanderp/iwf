@@ -1,4 +1,4 @@
-import { Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks, Snaks } from '@wmde/wikibase-datamodel-types';
+import { Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks, Snaks } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from './Snak';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';

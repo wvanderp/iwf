@@ -1,4 +1,4 @@
-import { Statement as wikidataStatement, Qualifiers as wikidataQualifiers } from '@wmde/wikibase-datamodel-types';
+import { Statement as wikidataStatement, Qualifiers as wikidataQualifiers } from '@wvanderp/wikibase-datamodel-types';
 
 import Reference from './Reference';
 import Snak from './Snak';

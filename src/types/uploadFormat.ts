@@ -1,6 +1,6 @@
 import {
     LabelLanguages, Sitelinks, Statement
-} from '@wmde/wikibase-datamodel-types';
+} from '@wvanderp/wikibase-datamodel-types';
 
 export type StatementPlus = Statement | { id: string, remove?: '' };
 

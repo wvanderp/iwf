@@ -16,7 +16,7 @@ import {
     WikibaseSenseSnak as WikidataWikibaseSenseSnak,
     WikiBaseLexemeSnak as WikidataWikiBaseLexemeSnak,
     EntitySchemaSnak as WikidataEntitySchemaSnak
-} from '@wmde/wikibase-datamodel-types';
+} from '@wvanderp/wikibase-datamodel-types';
 
 import {
     CommonsMediaSnak,

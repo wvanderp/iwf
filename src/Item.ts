@@ -2,7 +2,7 @@ import {
     Item as WikidataItem,
     Statement as WikidataStatement,
     LabelAndDescription
-} from '@wmde/wikibase-datamodel-types';
+} from '@wvanderp/wikibase-datamodel-types';
 
 import Alias from './Alias';
 import Statement from './Statement';

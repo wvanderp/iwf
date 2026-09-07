@@ -1,4 +1,4 @@
-import { WikibaseItemSnak as WikidataWikibaseItemSnak } from '@wmde/wikibase-datamodel-types';
+import { WikibaseItemSnak as WikidataWikibaseItemSnak } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
 import { PString, QString } from '../types/strings';

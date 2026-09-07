@@ -1,4 +1,4 @@
-import { LabelAndDescription, LabelLanguages } from '@wmde/wikibase-datamodel-types';
+import { LabelAndDescription, LabelLanguages } from '@wvanderp/wikibase-datamodel-types';
 
 import normalizeOutput from './utils/normalizeOutput';
 

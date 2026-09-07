@@ -1,4 +1,4 @@
-import { MathSnak as WikidataMathSnak } from '@wmde/wikibase-datamodel-types';
+import { MathSnak as WikidataMathSnak } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';

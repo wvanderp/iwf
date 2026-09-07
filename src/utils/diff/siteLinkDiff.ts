@@ -1,7 +1,7 @@
 import {
     SiteLink as WikidataSiteLink
-} from '@wmde/wikibase-datamodel-types';
-import diffArray from 'diff-arrays-of-objects';
+} from '@wvanderp/wikibase-datamodel-types';
+import diffArray from '@wvanderp/diff-arrays-of-objects';
 
 import { QString } from '../../types/strings';
 import SiteLink from '../../SiteLink';

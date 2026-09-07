@@ -1,4 +1,4 @@
-import { Item as WikibaseItem } from '@wmde/wikibase-datamodel-types';
+import { Item as WikibaseItem } from '@wvanderp/wikibase-datamodel-types';
 
 export interface WbeditentityResponse {
     entity?: WikibaseItem;

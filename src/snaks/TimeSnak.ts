@@ -1,4 +1,4 @@
-import { TimeSnak as WikidataTimeSnak, CalendarModels } from '@wmde/wikibase-datamodel-types';
+import { TimeSnak as WikidataTimeSnak, CalendarModels } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
 import { PString } from '../types/strings';

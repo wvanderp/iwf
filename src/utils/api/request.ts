@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { WikidataResponse } from '@wmde/wikibase-datamodel-types';
+import { WikidataResponse } from '@wvanderp/wikibase-datamodel-types';
 
 import Item from '../../Item';
 import { isQString } from '../guards/strings';

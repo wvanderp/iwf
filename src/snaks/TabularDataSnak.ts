@@ -1,4 +1,4 @@
-import { TabularDataSnak as WikidataTabularDataSnak } from '@wmde/wikibase-datamodel-types';
+import { TabularDataSnak as WikidataTabularDataSnak } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';

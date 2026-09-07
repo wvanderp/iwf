@@ -1,4 +1,4 @@
-import { LabelAndDescription } from '@wmde/wikibase-datamodel-types';
+import { LabelAndDescription } from '@wvanderp/wikibase-datamodel-types';
 import { Alias } from '../../src';
 
 const aliasJson = {

@@ -1,4 +1,4 @@
-import { QuantitySnak as WikidataQuantitySnak } from '@wmde/wikibase-datamodel-types';
+import { QuantitySnak as WikidataQuantitySnak } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
 import { PString, QString } from '../types/strings';

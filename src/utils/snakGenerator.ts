@@ -14,7 +14,7 @@ import {
     MusicalNotationSnak as WikidataMusicSnak,
     GeoShapeSnak as WikidataGeoShapeSnak,
     WikibasePropertySnak as WikidataWikibasePropertySnak,
-} from '@wmde/wikibase-datamodel-types';
+} from '@wvanderp/wikibase-datamodel-types';
 
 import CommonsMediaSnak from '../snaks/CommonsMediaSnak';
 import ExternalIdentifierSnak from '../snaks/ExternalIdentifierSnak';

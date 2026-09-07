@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 import type { Mocked } from 'vitest';
-import type { Item as WikidataItem } from '@wmde/wikibase-datamodel-types';
+import type { Item as WikidataItem } from '@wvanderp/wikibase-datamodel-types';
 
 import packageJson from '../../../../package.json';
 

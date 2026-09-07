@@ -1,4 +1,4 @@
-import { Reference as wikidataReference } from '@wmde/wikibase-datamodel-types';
+import { Reference as wikidataReference } from '@wvanderp/wikibase-datamodel-types';
 import { Reference } from '../../src';
 import snakGenerator from '../../src/utils/snakGenerator';
 import URLSnak from '../../src/snaks/URLSnak';

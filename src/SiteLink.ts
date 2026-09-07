@@ -1,4 +1,4 @@
-import { SiteLink as WikidataSiteLink } from '@wmde/wikibase-datamodel-types';
+import { SiteLink as WikidataSiteLink } from '@wvanderp/wikibase-datamodel-types';
 import properties from 'wikidata-properties';
 
 import normalizeOutput from './utils/normalizeOutput';

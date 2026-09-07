@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/filename-case */
-import { URLSnak as WikidataURLSnak } from '@wmde/wikibase-datamodel-types';
+import { URLSnak as WikidataURLSnak } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
 import { PString } from '../types/strings';
