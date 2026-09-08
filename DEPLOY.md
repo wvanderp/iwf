@@ -18,4 +18,13 @@ See if the results are acceptable. Then, push the result to Github.
 
 ## Automatic Release
 
-When a new release tag is published, the workflow checks out code, installs Node.js 20, updates package.json to the release tag, builds and tests, then automatically publishes to npm and pushes the version bump back to GitHub.
+When a new release is published, the workflow checks out its tag, installs Node.js 24, updates the package version from the release tag, builds and tests, then publishes to npm using a short-lived OIDC credential. The workflow can also be started manually for an existing release tag.
+
+Before the first OIDC publish, configure npm trusted publishing for the `iwf` package:
+
+1. Open the package's **Settings → Trusted publishing** page on npm.
+2. Select **GitHub Actions**.
+3. Set the GitHub user to `wvanderp`, repository to `iwf`, and workflow filename to `publish.yml`.
+4. Allow direct `npm publish` and save the trusted publisher.
+
+No npm token is required by the workflow. After verifying the first OIDC publish, revoke any obsolete automation token and set npm publishing access to require two-factor authentication while disallowing tokens.
