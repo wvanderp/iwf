@@ -1,6 +1,11 @@
 import {
+    Aliases,
+    Descriptions,
     Item as WikidataItem,
+    Labels,
+    Sitelinks,
     Statement as WikidataStatement,
+    StatementMap,
     LabelAndDescription
 } from '@wvanderp/wikibase-datamodel-types';
 
@@ -27,6 +32,27 @@ import sha256 from './utils/hash';
  * This type omits the id because if an item is new there will be no id.
  */
 type ItemInput = Optional<WikidataItem, 'id'>;
+
+/**
+ * The JSON shape produced by Item.toJSON().
+ *
+ * Unlike an API response, all entity collections are present. The id is
+ * optional because newly-created items do not have one yet.
+ */
+export interface ItemJSON {
+    pageid?: number;
+    ns?: number;
+    title?: string;
+    lastrevid?: number;
+    modified?: string;
+    type: 'item';
+    id?: QString;
+    labels: Labels;
+    descriptions: Descriptions;
+    aliases: Aliases;
+    claims: StatementMap;
+    sitelinks: Sitelinks;
+}
 
 /**
  * Converts an array to a string-keyed object without relying on Object.fromEntries.
@@ -115,18 +141,18 @@ export default class Item {
 
         this.type = item.type;
 
-        this.labels = Object.values(item.labels).map((label) => new Label(label));
-        this.descriptions = Object.values(item.descriptions).map((description) => new Description(description));
-        this.aliases = Object.values(item.aliases)
+        this.labels = Object.values(item.labels ?? {}).map((label) => new Label(label));
+        this.descriptions = Object.values(item.descriptions ?? {}).map((description) => new Description(description));
+        this.aliases = Object.values(item.aliases ?? {})
             .flatMap(
                 (alias) => (alias == null ? [] : alias.map((alias2) => new Alias(alias2)))
             );
 
-        this.statements = Object.values(item.claims)
+        this.statements = Object.values(item.claims ?? {})
             .flat()
             .map((statement) => new Statement(statement));
 
-        this.sitelinks = Object.values(item.sitelinks).map((siteLink) => new SiteLink(siteLink));
+        this.sitelinks = Object.values(item.sitelinks ?? {}).map((siteLink) => new SiteLink(siteLink));
     }
 
     /**
@@ -319,7 +345,7 @@ export default class Item {
      * @example
      *      const json = item.toJSON();
      */
-    toJSON(): WikidataItem {
+    toJSON(): ItemJSON {
         return normalizeOutput({
             pageid: this.pageid,
             ns: this.ns,
@@ -366,7 +392,7 @@ export default class Item {
                 (value) => value.site
             )
 
-        }) as WikidataItem;
+        });
     }
 
     /**

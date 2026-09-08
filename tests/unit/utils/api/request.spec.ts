@@ -2,7 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 import type { Mocked } from 'vitest';
-import type { Item as WikidataItem } from '@wvanderp/wikibase-datamodel-types';
+import type {
+    Item as WikidataItem,
+    Property as WikidataProperty
+} from '@wvanderp/wikibase-datamodel-types';
 
 import packageJson from '../../../../package.json';
 
@@ -13,7 +16,7 @@ vi.mock('axios');
 const mockedAxios = axios as Mocked<typeof axios>;
 
 interface EntityData {
-    entities: Record<string, WikidataItem>;
+    entities: Record<string, WikidataItem | WikidataProperty>;
     success: 1;
 }
 
@@ -98,6 +101,47 @@ describe('requestItem functions', () => {
             `https://www.wikidata.org/wiki/Special:EntityData/${QID}.json`,
             { headers: { 'User-Agent': 'CustomApp/1.0' } }
         ]);
+    });
+
+    it('should normalize a lowercase QID for the request and entity lookup', async () => {
+        mockedAxios.get.mockResolvedValue(contents);
+
+        const data = await requestItem(QID.toLowerCase(), { userAgent: 'CustomApp/1.0' });
+
+        expect(data.toJSON()).toStrictEqual(wikidataJSON);
+        expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+            `https://www.wikidata.org/wiki/Special:EntityData/${QID}.json`
+        );
+    });
+
+    it('should reject a property response instead of treating it as an item', async () => {
+        mockedAxios.get.mockResolvedValue({
+            data: {
+                success: 1,
+                entities: {
+                    Q1: {
+                        type: 'property',
+                        id: 'P1',
+                        datatype: 'string'
+                    }
+                }
+            }
+        });
+
+        await expect(requestItem('Q1', { userAgent: 'CustomApp/1.0' }))
+            .rejects.toThrow('Expected Q1 to be an item, but received property');
+    });
+
+    it('should reject a response without the requested entity', async () => {
+        mockedAxios.get.mockResolvedValue({
+            data: {
+                success: 1,
+                entities: {}
+            }
+        });
+
+        await expect(requestItem('Q1', { userAgent: 'CustomApp/1.0' }))
+            .rejects.toThrow('No entity data returned for Q1');
     });
 
     it('should handle garbage inputs', async () => {

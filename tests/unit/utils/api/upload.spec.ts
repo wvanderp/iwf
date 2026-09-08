@@ -8,7 +8,6 @@ import {
     Statement,
     WikibaseItemSnak
 } from '../../../../src';
-import { UploadFormat } from '../../../../src/types/uploadFormat';
 import requestItem from '../../../../src/utils/api/request';
 
 // Mock axios
@@ -232,7 +231,7 @@ describe('generateUploadData', () => {
 
         mockRequestItem.mockResolvedValue(original);
 
-        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+        const data = await generateUploadData(updated, server);
 
         expect(data.claims.P111).toBeDefined();
         expect(data.claims.P111[0]).toEqual({ remove: '', id: 'S1' });
@@ -264,7 +263,7 @@ describe('generateUploadData', () => {
 
         mockRequestItem.mockResolvedValue(original);
 
-        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+        const data = await generateUploadData(updated, server);
 
         expect(data.claims.P222).toBeUndefined();
     });
@@ -292,7 +291,7 @@ describe('generateUploadData', () => {
 
         mockRequestItem.mockResolvedValue(original);
 
-        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+        const data = await generateUploadData(updated, server);
 
         // Labels and descriptions should be set to an empty value
         expect(data.labels.en).toEqual({ language: 'en', value: '' });
@@ -335,7 +334,7 @@ describe('generateUploadData', () => {
 
         mockRequestItem.mockResolvedValue(original);
 
-        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+        const data = await generateUploadData(updated, server);
 
         // The kept statement should be in the array along with the remove entry
         expect(data.claims.P111.length).toBeGreaterThanOrEqual(2);
@@ -365,7 +364,7 @@ describe('generateUploadData', () => {
             sitelinks: {}
         });
 
-        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+        const data = await generateUploadData(updated, server);
 
         expect(data.aliases.en).toBeDefined();
         expect(data.aliases.en).toContainEqual({ language: 'en', value: 'Alias2', remove: '' });
@@ -394,12 +393,28 @@ describe('generateUploadData', () => {
             sitelinks: {}
         });
 
-        const data = await generateUploadData(updated, server) as unknown as UploadFormat;
+        const data = await generateUploadData(updated, server);
 
         // None of the removals should have been applied since old data was missing
         expect(Object.keys(data.aliases)).toHaveLength(0);
         expect(Object.keys(data.labels)).toHaveLength(0);
         expect(Object.keys(data.descriptions)).toHaveLength(0);
         expect(Object.keys(data.sitelinks)).toHaveLength(0);
+    });
+
+    it('should return the upload shape for a new item without inventing an id', async () => {
+        const data = await generateUploadData(Item.fromNothing(), server);
+
+        expectTypeOf(data).toEqualTypeOf<import('../../../../src/types/uploadFormat').UploadFormat>();
+        expect(data).not.toHaveProperty('id');
+        expect(data).toMatchObject({
+            type: 'item',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: {},
+            sitelinks: {}
+        });
+        expect(mockRequestItem).not.toHaveBeenCalled();
     });
 });

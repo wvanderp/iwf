@@ -1,6 +1,8 @@
 import {
-    LabelLanguages, Sitelinks, Statement
+    LabelLanguages, Statement
 } from '@wvanderp/wikibase-datamodel-types';
+
+import type { ItemJSON } from '../Item';
 
 export type StatementPlus = Statement | { id: string, remove?: '' };
 
@@ -26,20 +28,9 @@ export interface LabelAndDescriptionPlus {
     remove?: '';
 }
 
-export interface UploadFormat {
-    pageid?: number;
-    ns?: number;
-    title?: string;
-
-    lastrevid?: number;
-    modified?: string; // ISO 8601 date string
-
-    type: 'item';
-    id: string; // Q-string
-
+export interface UploadFormat extends Omit<ItemJSON, 'labels' | 'descriptions' | 'aliases' | 'claims'> {
     labels: LabelsPlus;
     descriptions: DescriptionsPlus;
     aliases: AliasesPlus;
     claims: StatementMapPlus;
-    sitelinks: Sitelinks;
 }

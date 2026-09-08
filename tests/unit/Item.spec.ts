@@ -43,9 +43,46 @@ describe('load data into the model', () => {
 });
 
 describe('constructor', () => {
+    it('should normalize omitted entity collections to empty collections', () => {
+        const item = new Item({
+            type: 'item',
+            id: 'Q1'
+        });
+
+        expect(item.labels).toEqual([]);
+        expect(item.descriptions).toEqual([]);
+        expect(item.aliases).toEqual([]);
+        expect(item.statements).toEqual([]);
+        expect(item.sitelinks).toEqual([]);
+        expect(item.toJSON()).toStrictEqual({
+            type: 'item',
+            id: 'Q1',
+            labels: {},
+            descriptions: {},
+            aliases: {},
+            claims: {},
+            sitelinks: {}
+        });
+    });
+
+    it('should describe the fields that toJSON actually returns', () => {
+        const json = Item.fromNothing().toJSON();
+
+        expectTypeOf(json.id).toEqualTypeOf<import('../../src/types/strings').QString | undefined>();
+        expectTypeOf(json.labels).not.toEqualTypeOf<undefined>();
+        expectTypeOf(json.descriptions).not.toEqualTypeOf<undefined>();
+        expectTypeOf(json.aliases).not.toEqualTypeOf<undefined>();
+        expectTypeOf(json.claims).not.toEqualTypeOf<undefined>();
+        expectTypeOf(json.sitelinks).not.toEqualTypeOf<undefined>();
+        expect(json).toMatchObject({
+            labels: {}, descriptions: {}, aliases: {}, claims: {}, sitelinks: {}
+        });
+    });
+
     it('should throw an error the id of the item is a string but not a QString', () => {
         const item = Item.fromNothing();
         const json = item.toJSON();
+        // @ts-expect-error Deliberately exercise runtime validation with an invalid ID.
         json.id = 'string';
 
         expect(() => new Item(json)).toThrow();

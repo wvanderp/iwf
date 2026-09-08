@@ -45,7 +45,8 @@ interface RequestConfig {
  */
 export default async function requestItem(qid: string, config?: RequestConfig): Promise<Item> {
     if (!qid) throw new Error('No QID provided');
-    if (!isQString(qid.toUpperCase())) throw new Error('QID is not a string');
+    const normalizedQid = qid.toUpperCase();
+    if (!isQString(normalizedQid)) throw new Error('QID is not a string');
 
     const defaultUserAgent = `iwf/${PackageJSON.version}`;
 
@@ -56,12 +57,18 @@ export default async function requestItem(qid: string, config?: RequestConfig): 
             + 'Consider setting a custom user-agent to identify your application.');
     }
 
-    const url = baseURL(qid, config?.server);
+    const url = baseURL(normalizedQid, config?.server);
     const { data } = await axios.get<WikidataResponse>(url, {
         headers: { 'User-Agent': userAgent }
     });
 
-    const statementData = Object.values(data.entities)[0];
+    const statementData = data.entities[normalizedQid];
+    if (!statementData) {
+        throw new Error(`No entity data returned for ${normalizedQid}`);
+    }
+    if (statementData.type !== 'item') {
+        throw new Error(`Expected ${normalizedQid} to be an item, but received ${statementData.type}`);
+    }
 
     return new Item(statementData);
 }

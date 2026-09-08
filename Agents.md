@@ -7,3 +7,11 @@ In this project we fix every error we find. even if we did not introduce the err
 ---
 
 In this project we try to mock as little as possible. we prefer to write integration tests that test the whole system, rather than unit tests that test individual components. we prefer to use real data and real APIs, rather than mock data and mock APIs. the only thing we mock are the side effects, such as network requests and file system access. we do not mock the logic of the code, we want to test the logic of the code as much as possible.
+
+---
+
+in this project we make our outside api simple and burry all the complexity for the consumer of the library. for the complexation that we cant hide we document it clearly in the jsdoc.
+
+---
+
+we lean into the typescript as our first defense against bugs, we do this by both having clear types and having the typescript compiler infer others

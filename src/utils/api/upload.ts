@@ -213,18 +213,15 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
  * @throws {Error} If an invalid authentication method is provided
  * @param {Item} item The item to upload
  * @param {string} server The server to request from
- * @returns {Promise<Record<string, unknown>>} The data to upload
+ * @returns {Promise<UploadFormat>} The data to upload
  */
-export async function generateUploadData(item: Item, server: string): Promise<Record<string, unknown>> {
+export async function generateUploadData(item: Item, server: string): Promise<UploadFormat> {
     // Get diff from the original item
     const originalItem = item.id ? await requestItem(item.id, { server }) : Item.fromNothing();
 
     const diffs = originalItem.diff(item);
 
-    // eslint-disable-next-line unicorn/prevent-abbreviations
-    const getData = (i: Item): UploadFormat => i.toJSON();
-
-    const json = getData(item);
+    const json = item.toJSON();
 
     applyRemovedStatements(json, diffs);
     applyRemovedAliases(json, diffs);
@@ -232,7 +229,7 @@ export async function generateUploadData(item: Item, server: string): Promise<Re
     applyRemovedDescriptions(json, diffs);
     applyRemovedSitelinks(json, diffs);
 
-    return json as unknown as Record<string, unknown>;
+    return json;
 }
 
 /**
