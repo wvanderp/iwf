@@ -14,7 +14,7 @@ const wikibasePropertySnak = {
     datatype: 'wikibase-property' as const
 };
 
-describe('Wikibase Item Snak', () => {
+describe('Wikibase Property Snak', () => {
     describe('get ID', () => {
         it('should return the id including the P when there is a ID', () => {
             const snak = new WikibasePropertySnak(wikibasePropertySnak);
@@ -78,6 +78,29 @@ describe('Wikibase Item Snak', () => {
             const snak = new WikibasePropertySnak(wikibasePropertySnak);
 
             expect(snak.toJSON()).toStrictEqual(wikibasePropertySnak);
+        });
+
+        for (const snaktype of ['novalue', 'somevalue'] as const) {
+            it(`should serialize a ${snaktype} snak without datavalue`, () => {
+                const json = {
+                    snaktype,
+                    property: 'P1659' as const,
+                    datatype: 'wikibase-property' as const
+                };
+
+                expect(new WikibasePropertySnak(json).toJSON()).toStrictEqual(json);
+            });
+        }
+
+        it('should drop the datavalue after the id is unset', () => {
+            const snak = new WikibasePropertySnak(wikibasePropertySnak);
+            snak.id = undefined;
+
+            expect(snak.toJSON()).toStrictEqual({
+                snaktype: 'novalue',
+                property: 'P1963',
+                datatype: 'wikibase-property'
+            });
         });
     });
 

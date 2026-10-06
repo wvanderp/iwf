@@ -1,13 +1,13 @@
 import { WikibaseSenseSnak as WikidataWikibaseSenseSnak } from '@wvanderp/wikibase-datamodel-types';
 
 import Snak from '../Snak';
-import { PString } from '../types/strings';
+import { PString, SenseString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
 
 /**
  * Class for the WikibaseSenseSnak.
  *
- * Most used property of this type...
+ * An example of a property of this type is P5972 (translation).
  *
  * @class
  */
@@ -138,13 +138,13 @@ export default class WikibaseSenseSnak extends Snak {
     /**
      * Create a new instance of the class from some basic data.
      *
-     * @param property The property of the snak.
-     * @param id The lexeme ID.
+     * @param property The property of the snak in 'P-form'.
+     * @param id The sense ID in 'L{number}-S{number}' form.
      * @returns A new instance of the class.
      * @example
-     *    const snak = WikibaseSenseSnak.fromData('P123', 123, 456);
+     *    const snak = WikibaseSenseSnak.fromData('P5972', 'L123-S4');
      */
-    static fromData(property: PString, id: string): WikibaseSenseSnak {
+    static fromData(property: PString, id: SenseString): WikibaseSenseSnak {
         return new WikibaseSenseSnak({
             snaktype: 'value',
             property,

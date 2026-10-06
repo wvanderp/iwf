@@ -53,7 +53,8 @@ export default [
     // ──────────────────────────────────────────────
     // Plugin: sonarjs – code quality & bug detection
     // ──────────────────────────────────────────────
-    sonarjs.configs!.recommended as unknown as FlatConfig,
+    (sonarjs.configs as NonNullable<typeof sonarjs.configs>)
+        .recommended as unknown as FlatConfig,
 
     // ──────────────────────────────────────────────
     // Plugin: unicorn – misc best practices
@@ -251,7 +252,7 @@ export default [
             // TypeScript handles these
             'import-x/no-unresolved': 'off',
             'import-x/named': 'off',
-            'sonarjs/no-clear-text-protocols': 'off',
+            'sonarjs/no-clear-text-protocols': 'off'
         },
     },
 
@@ -271,6 +272,27 @@ export default [
             '@typescript-eslint/no-unsafe-member-access': 'off',
             '@typescript-eslint/no-unsafe-call': 'off',
             '@typescript-eslint/no-unsafe-assignment': 'off',
+        },
+    },
+
+    // ──────────────────────────────────────────────
+    // Config files: exempt from rules that don't apply
+    // ──────────────────────────────────────────────
+    {
+        files: ['eslint.config.ts', 'tsdown.config.mjs', 'vitest.config.mts'],
+        languageOptions: {
+            parserOptions: {
+                projectService: {
+                    allowDefaultProject: ['tsdown.config.mjs', 'vitest.config.mts'],
+                },
+                tsconfigRootDir: process.cwd(),
+            },
+        },
+        rules: {
+            // Config files import devDependencies (eslint plugins, etc.)
+            'n/no-unpublished-import': 'off',
+            'import-x/no-named-as-default': 'off',
+            'import-x/no-named-as-default-member': 'off',
         },
     },
 

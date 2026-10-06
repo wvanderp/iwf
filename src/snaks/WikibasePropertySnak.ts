@@ -86,14 +86,14 @@ export default class WikibasePropertySnak extends Snak {
             snaktype: this.snaktype,
             property: this.property,
             hash: this.hash,
-            datavalue: {
+            datavalue: this.hasValue ? {
                 value: {
                     'entity-type': 'property' as const,
                     'numeric-id': this._numericID,
                     id: this.id
                 },
                 type: 'wikibase-entityid' as const
-            },
+            } : undefined,
             datatype: this.datatype
         }) as WikidataWikibasePropertySnak;
     }

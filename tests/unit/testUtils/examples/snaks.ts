@@ -15,6 +15,7 @@ import {
     WikibasePropertySnak as WikidataWikibasePropertySnak,
     WikibaseSenseSnak as WikidataWikibaseSenseSnak,
     WikiBaseLexemeSnak as WikidataWikiBaseLexemeSnak,
+    WikibaseFormSnak as WikidataWikibaseFormSnak,
     EntitySchemaSnak as WikidataEntitySchemaSnak
 } from '@wvanderp/wikibase-datamodel-types';
 
@@ -32,6 +33,7 @@ import {
     TabularDataSnak,
     TimeSnak,
     URLSnak,
+    WikibaseFormSnak,
     WikibaseItemSnak,
     WikibaseLexemeSnak,
     WikibasePropertySnak,
@@ -297,6 +299,23 @@ const wikibaseLexemeJson: WikidataWikiBaseLexemeSnak = {
 
 const wikibaseLexemeSnak = new WikibaseLexemeSnak(wikibaseLexemeJson);
 export { wikibaseLexemeSnak as exampleWikibaseLexemeSnak };
+
+// WikibaseFormSnak
+const wikibaseFormJson: WikidataWikibaseFormSnak = {
+    snaktype: 'value',
+    property: 'P5830',
+    datavalue: {
+        value: {
+            'entity-type': 'form',
+            id: 'L123-F4'
+        },
+        type: wikibaseEntityId
+    },
+    datatype: 'wikibase-form'
+};
+
+const wikibaseFormSnak = new WikibaseFormSnak(wikibaseFormJson);
+export { wikibaseFormSnak as exampleWikibaseFormSnak };
 
 // EntitySchemaSnak
 const entitySchemaJson: WikidataEntitySchemaSnak = {

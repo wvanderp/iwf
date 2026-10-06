@@ -1,9 +1,9 @@
 import {
-    EString, LString, PString, QString,
+    EString, FormString, LString, PString, QString,
     SenseString
 } from '../../types/strings';
 
-const QStringRegex = /Q\d+$/m;
+const QStringRegex = /^Q\d+$/;
 
 /**
  * Tests if a string is a QString.
@@ -22,7 +22,7 @@ export function isQString(string_: string): string_ is QString {
     return QStringRegex.test(string_);
 }
 
-const PStringRegex = /P\d+$/m;
+const PStringRegex = /^P\d+$/;
 
 /**
  * Tests if a string is a PString.
@@ -41,7 +41,7 @@ export function isPString(string_: string): string_ is PString {
     return PStringRegex.test(string_);
 }
 
-const LStringRegex = /L\d+$/m;
+const LStringRegex = /^L\d+$/;
 
 /**
  * Tests if a string is a LString.
@@ -54,13 +54,13 @@ const LStringRegex = /L\d+$/m;
  *    if (!isLString(property)) {
  *        throw new Error('Not a LString');
  *    }
- *    WikibaseLexemeSnak.fromID(property);
+ *    WikibaseLexemeSnak.fromData('P6553', property);
  */
 export function isLString(string_: string): string_ is LString {
     return LStringRegex.test(string_);
 }
 
-const EStringRegex = /E\d+$/m;
+const EStringRegex = /^E\d+$/;
 
 /**
  * Tests if a string is an EString.
@@ -79,7 +79,7 @@ export function isEString(string_: string): string_ is EString {
     return EStringRegex.test(string_);
 }
 
-const SenseStringRegex = /L\d+-S\d+$/m;
+const SenseStringRegex = /^L\d+-S\d+$/;
 
 /**
  * Tests if a string is a SenseString.
@@ -92,8 +92,27 @@ const SenseStringRegex = /L\d+-S\d+$/m;
  *    if (!isSenseString(property)) {
  *        throw new Error('Not a SenseString');
  *    }
- *    WikibaseSenseSnak.fromID(property);
+ *    WikibaseSenseSnak.fromData('P5972', property);
  */
 export function isSenseString(string_: string): string_ is SenseString {
     return SenseStringRegex.test(string_);
+}
+
+const FormStringRegex = /^L\d+-F\d+$/;
+
+/**
+ * Tests if a string is a FormString.
+ * Can also be used as a type guard.
+ *
+ * @param string_ The string to test.
+ * @returns True if the string is a FormString.
+ * @example
+ *    const id = 'L123-F4';
+ *    if (!isFormString(id)) {
+ *        throw new Error('Not a FormString');
+ *    }
+ *    WikibaseFormSnak.fromData('P5830', id);
+ */
+export function isFormString(string_: string): string_ is FormString {
+    return FormStringRegex.test(string_);
 }

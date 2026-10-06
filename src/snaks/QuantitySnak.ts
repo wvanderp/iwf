@@ -51,6 +51,10 @@ export default class QuantitySnak extends Snak {
 
     private _lowerBound: string | undefined = undefined;
 
+    /**
+     * The unit as a Wikidata entity URI, or '1' when the quantity has no unit.
+     * Snaks without a value (novalue/somevalue) default to '1'.
+     */
     unit: string;
 
     datatype = dataType;
@@ -86,11 +90,17 @@ export default class QuantitySnak extends Snak {
         this._upperBound = upperBound ? formatNumberFromString(upperBound) : undefined;
         this._lowerBound = lowerBound ? formatNumberFromString(lowerBound) : undefined;
 
+        // novalue and somevalue snaks have no datavalue, so they have no unit either
+        if (snak.snaktype !== 'value' && snak.datavalue === undefined) {
+            this.unit = '1';
+            return;
+        }
+
         if (!snak.datavalue?.value.unit) {
             throw new Error('unit is not defined');
         }
 
-        this.unit = snak.datavalue?.value.unit;
+        this.unit = snak.datavalue.value.unit;
     }
 
     /**

@@ -12,6 +12,7 @@ import {
     exampleTabularDataSnak,
     exampleTimeSnak,
     exampleUrlSnak,
+    exampleWikibaseFormSnak,
     exampleWikibaseItemSnak,
     exampleWikibaseLexemeSnak,
     exampleWikibasePropertySnak,
@@ -31,6 +32,7 @@ import {
     isTabularDataSnak,
     isTimeSnak,
     isURLSnak,
+    isWikibaseFormSnak,
     isWikibaseItemSnak,
     isWikibaseLexemeSnak,
     isWikibasePropertySnak,
@@ -197,6 +199,16 @@ describe('isWikibaseLexemeSnak', function () {
 
     it('should return false if the snak is not a isWikibaseLexemeSnak', function () {
         expect(isWikibaseLexemeSnak(exampleCommonsMediaSnak)).toBe(false);
+    });
+});
+
+describe('isWikibaseFormSnak', function () {
+    it('should return true if the snak is a WikibaseFormSnak', function () {
+        expect(isWikibaseFormSnak(exampleWikibaseFormSnak)).toBe(true);
+    });
+
+    it('should return false if the snak is not a WikibaseFormSnak', function () {
+        expect(isWikibaseFormSnak(exampleWikibaseSenseSnak)).toBe(false);
     });
 });
 

@@ -379,6 +379,21 @@ describe('Quantity Snak', () => {
             });
         });
 
+        for (const snaktype of ['novalue', 'somevalue'] as const) {
+            it(`should accept a ${snaktype} snak without datavalue, as Wikidata returns it`, () => {
+                const json = {
+                    snaktype,
+                    property: 'P1971' as const,
+                    hash: 'ef7a6eb2a1b1e9bd1e15ec8b8d4bbb2d6d0cfd0e',
+                    datatype: 'quantity' as const
+                };
+                const snak = new QuantitySnak(json);
+
+                expect(snak.amount).toBeUndefined();
+                expect(snak.toJSON()).toStrictEqual(json);
+            });
+        }
+
         it('should throw when unit is not defined', () => {
             expect(() => new QuantitySnak({
                 snaktype: 'value',

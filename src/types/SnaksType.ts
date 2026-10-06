@@ -1,4 +1,5 @@
 import CommonsMediaSnak from '../snaks/CommonsMediaSnak';
+import EntitySchemaSnak from '../snaks/EntitySchemaSnak';
 import ExternalIdentifierSnak from '../snaks/ExternalIdentifierSnak';
 import GeoShapeSnak from '../snaks/GeoShapeSnak';
 import GlobeCoordinateSnak from '../snaks/GlobeCoordinateSnak';
@@ -10,11 +11,15 @@ import StringSnak from '../snaks/StringSnak';
 import TabularDataSnak from '../snaks/TabularDataSnak';
 import TimeSnak from '../snaks/TimeSnak';
 import URLSnak from '../snaks/URLSnak';
+import WikibaseFormSnak from '../snaks/WikibaseFormSnak';
 import WikibaseItemSnak from '../snaks/WikibaseItemSnak';
+import WikibaseLexemeSnak from '../snaks/WikibaseLexemeSnak';
 import WikibasePropertySnak from '../snaks/WikibasePropertySnak';
+import WikibaseSenseSnak from '../snaks/WikibaseSenseSnak';
 
 export type Snaks =
     CommonsMediaSnak
+    | EntitySchemaSnak
     | ExternalIdentifierSnak
     | GeoShapeSnak
     | GlobeCoordinateSnak
@@ -26,5 +31,8 @@ export type Snaks =
     | TabularDataSnak
     | TimeSnak
     | URLSnak
+    | WikibaseFormSnak
     | WikibaseItemSnak
-    | WikibasePropertySnak;
+    | WikibaseLexemeSnak
+    | WikibasePropertySnak
+    | WikibaseSenseSnak;

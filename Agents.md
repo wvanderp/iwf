@@ -2,7 +2,7 @@ code quality is more important then getting things done fast. documentation, tes
 
 ---
 
-In this project we fix every error we find. even if we did not introduce the error, we will fix it. and we dont fix the symptoms, we fix the root cause. if we find a bug, we will write a test that reproduces the bug, and then we will fix the bug.
+In this project we fix every error we find. even if we did not introduce the error, we will fix it. and we don't fix the symptoms, we fix the root cause. if we find a bug, we will write a test that reproduces the bug, and then we will fix the bug.
 
 ---
 
@@ -15,3 +15,7 @@ in this project we make our outside api simple and burry all the complexity for 
 ---
 
 we lean into the typescript as our first defense against bugs, we do this by both having clear types and having the typescript compiler infer others
+
+---
+
+we always run `npm run lint` and `npm run test` before committing code. we solve all linting and test errors and make sure that the coverage is 100% before committing code. we do not commit code that does not pass the linter or the tests.

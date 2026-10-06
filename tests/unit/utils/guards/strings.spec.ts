@@ -1,5 +1,5 @@
 import {
-    isPString, isQString, isLString, isEString, isSenseString
+    isPString, isQString, isLString, isEString, isSenseString, isFormString
 } from '../../../../src';
 
 const QStrings: [string, boolean][] = [
@@ -11,7 +11,10 @@ const QStrings: [string, boolean][] = [
     ['QABC', false],
     ['Q123ABC', false],
     ['Q123ABC123', false],
-    ['Q12321 312321', false]
+    ['Q12321 312321', false],
+    ['XQ123', false],
+    ['Q123\nX', false],
+    ['X\nQ123', false]
 ];
 
 const PStrings: [string, boolean][] = [
@@ -23,7 +26,10 @@ const PStrings: [string, boolean][] = [
     ['PABC', false],
     ['P123ABC', false],
     ['P123ABC123', false],
-    ['P12321 312321', false]
+    ['P12321 312321', false],
+    ['XP123', false],
+    ['P123\nX', false],
+    ['X\nP123', false]
 ];
 
 const LStrings: [string, boolean][] = [
@@ -35,7 +41,10 @@ const LStrings: [string, boolean][] = [
     ['LABC', false],
     ['L123ABC', false],
     ['L123ABC123', false],
-    ['L12321 312321', false]
+    ['L12321 312321', false],
+    ['XL123', false],
+    ['L123\nX', false],
+    ['X\nL123', false]
 ];
 
 const EStrings: [string, boolean][] = [
@@ -47,7 +56,10 @@ const EStrings: [string, boolean][] = [
     ['EABC', false],
     ['E123ABC', false],
     ['E123ABC123', false],
-    ['E12321 312321', false]
+    ['E12321 312321', false],
+    ['XE123', false],
+    ['E123\nX', false],
+    ['X\nE123', false]
 ];
 
 const SenseStrings: [string, boolean][] = [
@@ -60,13 +72,29 @@ const SenseStrings: [string, boolean][] = [
     ['L123S456', false],
     ['L123-S456ABC', false],
     ['L12321-S312321', true],
-    ['L12321-S312321 ', false]
+    ['L12321-S312321 ', false],
+    ['XL123-S456', false],
+    ['L123-S456\nX', false]
+];
+
+const FormStrings: [string, boolean][] = [
+    ['L1-F1', true],
+    ['L123-F456', true],
+    ['L1-F', false],
+    ['L-F1', false],
+    ['L1F1', false],
+    ['L123-f456', false],
+    ['L123-S456', false],
+    ['L123-F456ABC', false],
+    ['XL123-F456', false],
+    ['L123-F456\nL1', false],
+    ['L12321-F312321 ', false]
 ];
 
 describe('Statement', () => {
     describe('QString', () => {
         for (const [string, expected] of QStrings) {
-            it(`should ${expected ? 'accept' : 'reject'} ${string} as a QString`, () => {
+            it(`should ${expected ? 'accept' : 'reject'} ${JSON.stringify(string)} as a QString`, () => {
                 expect(isQString(string)).toEqual(expected);
             });
         }
@@ -74,7 +102,7 @@ describe('Statement', () => {
 
     describe('PString', () => {
         for (const [string, expected] of PStrings) {
-            it(`should ${expected ? 'accept' : 'reject'} ${string} as a PString`, () => {
+            it(`should ${expected ? 'accept' : 'reject'} ${JSON.stringify(string)} as a PString`, () => {
                 expect(isPString(string)).toEqual(expected);
             });
         }
@@ -82,7 +110,7 @@ describe('Statement', () => {
 
     describe('LString', () => {
         for (const [string, expected] of LStrings) {
-            it(`should ${expected ? 'accept' : 'reject'} ${string} as a LString`, () => {
+            it(`should ${expected ? 'accept' : 'reject'} ${JSON.stringify(string)} as a LString`, () => {
                 expect(isLString(string)).toEqual(expected);
             });
         }
@@ -90,7 +118,7 @@ describe('Statement', () => {
 
     describe('EString', () => {
         for (const [string, expected] of EStrings) {
-            it(`should ${expected ? 'accept' : 'reject'} ${string} as an EString`, () => {
+            it(`should ${expected ? 'accept' : 'reject'} ${JSON.stringify(string)} as an EString`, () => {
                 expect(isEString(string)).toEqual(expected);
             });
         }
@@ -98,8 +126,16 @@ describe('Statement', () => {
 
     describe('SenseString', () => {
         for (const [string, expected] of SenseStrings) {
-            it(`should ${expected ? 'accept' : 'reject'} ${string} as a SenseString`, () => {
+            it(`should ${expected ? 'accept' : 'reject'} ${JSON.stringify(string)} as a SenseString`, () => {
                 expect(isSenseString(string)).toEqual(expected);
+            });
+        }
+    });
+
+    describe('FormString', () => {
+        for (const [string, expected] of FormStrings) {
+            it(`should ${expected ? 'accept' : 'reject'} ${JSON.stringify(string)} as a FormString`, () => {
+                expect(isFormString(string)).toEqual(expected);
             });
         }
     });

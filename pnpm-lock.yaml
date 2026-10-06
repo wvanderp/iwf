@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       '@wvanderp/wikibase-datamodel-types':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.1.0
+        version: 1.1.0
       axios:
         specifier: 1.17.0
         version: 1.17.0
@@ -827,8 +827,8 @@ packages:
     resolution: {integrity: sha512-Vpd/XzjY/qD6475YBw128INgaVtQ5oMU9knXOjNGPCNWL9cCrBYFJeUzF/4QJdoy2hzyjamOJeENaxaYmtjbog==}
     engines: {node: '>=22.13.0'}
 
-  '@wvanderp/wikibase-datamodel-types@1.0.0':
-    resolution: {integrity: sha512-m9Kch4to5mI2Kop7pDfai8J589RqOGDxIAVHPYjaCxWtigEsvMQxgJhUQvmVeSTY/Gt8JQCT8qfgHxV1ibsyyw==}
+  '@wvanderp/wikibase-datamodel-types@1.1.0':
+    resolution: {integrity: sha512-V5mnfUF/zUJ1fdavpoNjJNjPQXOdghaBdzLJiQraldTKxLVRHKed7bJ6udHNQ3QQD1/DCxlKR+pyj1YPP+DSLg==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -3082,7 +3082,7 @@ snapshots:
 
   '@wvanderp/diff-arrays-of-objects@1.0.0': {}
 
-  '@wvanderp/wikibase-datamodel-types@1.0.0': {}
+  '@wvanderp/wikibase-datamodel-types@1.1.0': {}
 
   acorn-jsx@5.3.2(acorn@8.16.0):
     dependencies:

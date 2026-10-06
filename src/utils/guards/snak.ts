@@ -16,6 +16,7 @@ import WikibasePropertySnak from '../../snaks/WikibasePropertySnak';
 import EntitySchemaSnak from '../../snaks/EntitySchemaSnak';
 import WikibaseSenseSnak from '../../snaks/WikibaseSenseSnak';
 import WikibaseLexemeSnak from '../../snaks/WikibaseLexemeSnak';
+import WikibaseFormSnak from '../../snaks/WikibaseFormSnak';
 
 /**
  * Tests if a snak is a CommonsMediaSnak.
@@ -253,4 +254,18 @@ export function isWikibaseSenseSnak(snak: Snak): snak is WikibaseSenseSnak {
  */
 export function isWikibaseLexemeSnak(snak: Snak): snak is WikibaseLexemeSnak {
     return snak instanceof WikibaseLexemeSnak;
+}
+
+/**
+ * Tests if a snak is a WikibaseFormSnak.
+ *
+ * @param snak The snak to check.
+ * @returns True if the snak is a WikibaseFormSnak.
+ * @example
+ * if (isWikibaseFormSnak(snak)) {
+ *  // Do something
+ * }
+ */
+export function isWikibaseFormSnak(snak: Snak): snak is WikibaseFormSnak {
+    return snak instanceof WikibaseFormSnak;
 }

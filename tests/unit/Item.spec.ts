@@ -6,7 +6,8 @@ import {
     Alias,
     Description,
     Item, Label, SiteLink, Statement, WikibaseItemSnak,
-    URLSnak
+    URLSnak,
+    WikibaseLexemeSnak
 } from '../../src';
 
 const testFiles = fs.readdirSync(path.resolve(__dirname, './data/'));
@@ -40,6 +41,19 @@ describe('load data into the model', () => {
             expect(item.toJSON()).toStrictEqual(wikidataJSON);
         });
     }
+});
+
+describe('lexeme valued statements', () => {
+    it('should load P6553 (personal pronoun) statements as WikibaseLexemeSnaks', () => {
+        const item = new Item(readEntity('F1NN5TER.json'));
+
+        const pronouns = item.statements
+            .filter((statement) => statement.property === 'P6553')
+            .map((statement) => statement.mainsnak);
+
+        expect(pronouns.every((snak) => snak instanceof WikibaseLexemeSnak)).toBe(true);
+        expect(pronouns.map((snak) => (snak as WikibaseLexemeSnak).id)).toEqual(['L485', 'L484']);
+    });
 });
 
 describe('constructor', () => {

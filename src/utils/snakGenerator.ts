@@ -14,9 +14,14 @@ import {
     MusicalNotationSnak as WikidataMusicSnak,
     GeoShapeSnak as WikidataGeoShapeSnak,
     WikibasePropertySnak as WikidataWikibasePropertySnak,
+    WikiBaseLexemeSnak as WikidataWikibaseLexemeSnak,
+    WikibaseSenseSnak as WikidataWikibaseSenseSnak,
+    WikibaseFormSnak as WikidataWikibaseFormSnak,
+    EntitySchemaSnak as WikidataEntitySchemaSnak,
 } from '@wvanderp/wikibase-datamodel-types';
 
 import CommonsMediaSnak from '../snaks/CommonsMediaSnak';
+import EntitySchemaSnak from '../snaks/EntitySchemaSnak';
 import ExternalIdentifierSnak from '../snaks/ExternalIdentifierSnak';
 import GeoShapeSnak from '../snaks/GeoShapeSnak';
 import GlobeCoordinateSnak from '../snaks/GlobeCoordinateSnak';
@@ -29,8 +34,11 @@ import StringSnak from '../snaks/StringSnak';
 import TabularDataSnak from '../snaks/TabularDataSnak';
 import TimeSnak from '../snaks/TimeSnak';
 import URLSnak from '../snaks/URLSnak';
+import WikibaseFormSnak from '../snaks/WikibaseFormSnak';
 import WikibaseItemSnak from '../snaks/WikibaseItemSnak';
+import WikibaseLexemeSnak from '../snaks/WikibaseLexemeSnak';
 import WikibasePropertySnak from '../snaks/WikibasePropertySnak';
+import WikibaseSenseSnak from '../snaks/WikibaseSenseSnak';
 
 /**
  * This function takes the JSON version of a snak and passes it to the proper constructor.
@@ -96,6 +104,22 @@ export default function snakGenerator(snak: wikidataSnak): Snaks {
 
         case 'wikibase-property': {
             return new WikibasePropertySnak(snak as WikidataWikibasePropertySnak);
+        }
+
+        case 'wikibase-lexeme': {
+            return new WikibaseLexemeSnak(snak as WikidataWikibaseLexemeSnak);
+        }
+
+        case 'wikibase-sense': {
+            return new WikibaseSenseSnak(snak as WikidataWikibaseSenseSnak);
+        }
+
+        case 'wikibase-form': {
+            return new WikibaseFormSnak(snak as WikidataWikibaseFormSnak);
+        }
+
+        case 'entity-schema': {
+            return new EntitySchemaSnak(snak as WikidataEntitySchemaSnak);
         }
 
         default: {

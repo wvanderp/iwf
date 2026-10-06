@@ -20,6 +20,7 @@ export { default as StringSnak } from './snaks/StringSnak';
 export { default as TabularDataSnak } from './snaks/TabularDataSnak';
 export { default as TimeSnak } from './snaks/TimeSnak';
 export { default as URLSnak } from './snaks/URLSnak';
+export { default as WikibaseFormSnak } from './snaks/WikibaseFormSnak';
 export { default as WikibaseItemSnak } from './snaks/WikibaseItemSnak';
 export { default as WikibaseLexemeSnak } from './snaks/WikibaseLexemeSnak';
 export { default as WikibasePropertySnak } from './snaks/WikibasePropertySnak';
@@ -37,6 +38,7 @@ export type {
     EString,
     LString,
     SenseString,
+    FormString,
 } from './types/strings';
 
 export {
@@ -45,6 +47,7 @@ export {
     isEString,
     isLString,
     isSenseString,
+    isFormString,
 } from './utils/guards/strings';
 export { default as isStatementChange } from './utils/guards/Changes';
 
@@ -62,6 +65,7 @@ export {
     isTabularDataSnak,
     isTimeSnak,
     isURLSnak,
+    isWikibaseFormSnak,
     isWikibaseItemSnak,
     isWikibaseLexemeSnak,
     isWikibasePropertySnak,

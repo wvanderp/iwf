@@ -7,7 +7,7 @@ import normalizeOutput from '../utils/normalizeOutput';
 /**
  * Class for the WikibaseLexemeSnak.
  *
- * Most used property of this type...
+ * An example of a property of this type is P6553 (personal pronoun).
  *
  * @class
  */
