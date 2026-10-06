@@ -26,6 +26,14 @@ jobs:
         with:
           ref: ${{ env.RELEASE_TAG }}
 
+      - name: Verify release tag matches package.json version
+        run: |
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+          if [ "$RELEASE_TAG" != "v$PACKAGE_VERSION" ]; then
+            echo "::error::Release tag '$RELEASE_TAG' does not match package.json version '$PACKAGE_VERSION' (expected tag 'v$PACKAGE_VERSION')."
+            exit 1
+          fi
+
       - uses: pnpm/action-setup@v6
         with:
           version: 10.33.0
@@ -37,12 +45,6 @@ jobs:
           package-manager-cache: false
 
       - run: pnpm install --frozen-lockfile
-
-      - run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - run: pnpm version --no-git-tag-version "$RELEASE_TAG"
 
       - run: pnpm run build
 

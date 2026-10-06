@@ -10,15 +10,17 @@ See if the results are acceptable. Then, push the result to Github.
 
 ## Tagging
 
+* Bump the `version` field in `package.json` (for example with `pnpm version --no-git-tag-version X.Y.Z`) and commit it
 * Create tag a new version on Github
   * The tag should be in the format `vX.Y.Z` where X is the major version, Y is the minor version, and Z is the build number
   * Increment the minor or the build number
+  * The tag must equal `v` followed by the `package.json` version (for example `v1.2.3` for version `1.2.3`), otherwise the publish workflow fails
 * Write the change notes
 * When the tag is saved, Github actions will trigger a build and upload to npm, and the building of the new documentation
 
 ## Automatic Release
 
-When a new release is published, the workflow checks out its tag, installs Node.js 24, updates the package version from the release tag, builds and tests, then publishes to npm using a short-lived OIDC credential. The workflow can also be started manually for an existing release tag.
+When a new release is published, the workflow checks out its tag, verifies that the release tag matches the `package.json` version, installs Node.js 24, builds and tests, then publishes to npm using a short-lived OIDC credential. The workflow can also be started manually for an existing release tag.
 
 Before the first OIDC publish, configure npm trusted publishing for the `iwf` package:
 
