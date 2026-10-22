@@ -5,8 +5,9 @@
 
 export { default as BotPasswordAuth } from './BotPasswordAuth';
 export { default as OAuthAuth } from './OAuthAuth';
+export { default as BearerTokenAuth } from './BearerTokenAuth';
 
-export type { BotPasswordConfig, OAuthConfig } from './types';
+export type { AuthProvider, BearerTokenConfig, BotPasswordConfig, OAuthConfig } from './types';
 
 export {
     IWFError,

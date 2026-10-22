@@ -19,7 +19,7 @@ Wikidata is a free knowledge base that anyone can edit, serving as a central sto
 
 ## Requirements
 
-- Node.js 16 or higher
+- Node.js 22.18.0 or higher
 - For browser usage: Modern browsers supporting ES2020+
 - For authenticated operations: A Wikidata account
 
@@ -69,9 +69,11 @@ await upload(item, {
 
 ## Authentication
 
-The library supports Bot Password authentication for editing operations. Bot passwords are app-specific passwords that can be created in your Wikidata account settings.
+The library supports bot passwords, browser OAuth 2.0 with PKCE (`OAuthAuth`), and already-issued OAuth 2.0 bearer tokens (`BearerTokenAuth`). All implement the public `AuthProvider` interface accepted by `upload()`.
 
-Example with Bot Password:
+### Bot passwords
+
+Bot passwords are app-specific passwords that can be created in your Wikidata account settings. Use the account and bot name together as `YourUsername@YourBotName`.
 
 ```typescript
 import { Item, BotPasswordAuth, Label, Statement, WikibaseItemSnak } from 'iwf';
@@ -91,6 +93,76 @@ item.statements.push(Statement.fromSnak(WikibaseItemSnak.fromID('P31', 'Q634')))
 // Get CSRF token for API calls
 const csrfToken = await auth.getCsrfToken('https://www.wikidata.org');
 ```
+
+### Server-side OAuth access tokens
+
+Use `BearerTokenAuth` in a TypeScript/Node server when Wikimedia has already issued your application an access token. No browser, redirect, PKCE, or session storage is required.
+
+```typescript
+import { BearerTokenAuth, requestItem, upload } from 'iwf';
+
+const auth = new BearerTokenAuth({
+    accessToken: process.env.WIKIDATA_ACCESS_TOKEN!,
+    userAgent: 'wikidata-bench-editor/1.0',
+});
+
+const item = await requestItem('Q42', {
+    userAgent: auth.getUserAgent(),
+});
+// Review and modify this item before saving. Keep its original lastrevid.
+if (item.lastrevid === undefined) {
+    throw new Error('A reviewed revision is required before saving.');
+}
+
+await upload(item, {
+    auth,
+    summary: 'Reviewed Wikidata suggestions',
+    baseRevisionId: item.lastrevid,
+    assert: 'user',
+    maxLag: 5,
+});
+```
+
+The provider adds `Authorization: Bearer ...` and the configured User-Agent to its HTTP client. It retrieves CSRF tokens with `assert=user`, rejects missing or anonymous tokens, and caches authenticated CSRF tokens per site origin. Use its client only with trusted Wikimedia/Wikibase endpoints. Keep the access token on your server.
+
+#### Expiry and replacement
+
+Optionally pass `expiresAt` as Unix epoch **seconds**. The provider rejects the token **60 seconds before expiry**, checking before every authenticated request and before using a cached CSRF token. Tokens without an expiry remain usable until the API rejects them; JWT claims are not decoded or verified locally.
+
+No refresh is attempted. Create a new provider with a replacement access token after `AuthExpiredError`. A token rejected by the API remains rejected for the lifetime of its provider.
+
+#### Bearer errors and CSRF recovery
+
+- HTTP 401 and the API codes `invalid_token` and `mwoauth-invalid-authorization` throw `AuthExpiredError` and invalidate the access token.
+- Session assertion failures such as `assertuserfailed` throw `NotLoggedInError`; they do not permanently invalidate the access token.
+- HTTP 403 throws `PermissionDeniedError`. Other HTTP failures throw `NetworkError`.
+- A `badtoken` response throws `PermissionDeniedError` and clears the bearer provider's cached CSRF token for that site. The next explicit upload or `getCsrfToken()` call fetches a fresh CSRF token. IWF does not retry the failed write automatically.
+
+Bearer errors omit raw Axios configs, responses, and causes to protect credentials. API errors use fixed messages and omit raw API descriptions and details.
+
+## Upload options and errors
+
+`AuthProvider` and `UploadOptions` are exported for custom providers and typed integrations. Existing upload calls can omit `baseRevisionId` and `assert`.
+
+### Reviewed revisions: `baseRevisionId`
+
+`baseRevisionId` is optional for existing items and is sent unchanged as `baserevid`. New items have no revision to review: supplying `baseRevisionId` for an item without an ID throws `TypeError` before any network request.
+
+IWF fetches the existing item to detect removals and rejects the upload if its revision differs from `baseRevisionId`. Preserve the revision you reviewed, rather than replacing it with a revision fetched just before saving.
+
+For changes between that read and the write, IWF relies on Wikibase's conflict handling. Wikibase can merge some concurrent changes, so this is not an atomic “reject every stale revision” guarantee. See the [Wikibase conflict reference](https://doc.wikimedia.org/Wikibase/master/php/interfaceWikibase_1_1Repo_1_1EditEntity_1_1EditEntity.html).
+
+Both preflight conflicts and API `editconflict` responses expose `APIError.apiCode === 'editconflict'`, regardless of authentication provider. Conflicts are not retried; fetch and review the item again.
+
+### Session assertions: `assert`
+
+The optional [`assert`](https://www.mediawiki.org/wiki/API:Assert) option accepts `'user'` or `'bot'` with an authenticated provider, or `'anon'` with `anonymous: true`. Authentication and anonymous mode are mutually exclusive. Contradictory options are rejected by TypeScript and at runtime for JavaScript callers.
+
+### Consistent API errors
+
+Uploads with bearer tokens, bot passwords, browser OAuth, and anonymous sessions map API error codes to the same exported error types. For example, `assertuserfailed` produces `NotLoggedInError`, `badtoken` produces `PermissionDeniedError`, and `maxlag` produces `RateLimitedError`. Unknown API codes produce `APIError` with the original code in `apiCode`; mapped errors retain it in `details.apiCode`.
+
+API error messages are fixed and do not include the API's raw `info` or response details. Missing or malformed unsuccessful responses throw `APIError`. Bearer access-token rejection follows the additional `AuthExpiredError` rules above.
 
 ## Documentation
 

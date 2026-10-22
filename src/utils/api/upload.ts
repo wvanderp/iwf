@@ -9,8 +9,8 @@ import { UploadFormat } from '../../types/uploadFormat';
 import { AliasChange } from '../diff/aliasDiff';
 import { LabelChange } from '../diff/labelDiff';
 import { SiteLinkChange } from '../diff/siteLinkDiff';
-import BotPasswordAuth from '../../auth/BotPasswordAuth';
-import OAuthAuth from '../../auth/OAuthAuth';
+import { AuthProvider } from '../../auth/types';
+import { APIError, mapAPIError } from '../../auth/errors';
 
 import corsCheck from './corsCheck';
 import requestItem from './request';
@@ -28,21 +28,36 @@ import requestItem from './request';
  * for more information about CORS and why the Wikimedia servers block CORS requests from non-Wikimedia domains.
  */
 
-interface UploadOptions {
-    auth?: BotPasswordAuth | OAuthAuth; // Authentication instance (BotPasswordAuth or OAuthAuth)
-    anonymous?: boolean; // If true, the upload will be anonymous
-
+interface CommonUploadOptions {
     summary: string; // The summary for the edit (displayed in the history of Wikidata)
     tags?: string[]; // The tags for the edit (displayed in the history of Wikidata)
 
     maxLag?: number; // The max lag in seconds for the API request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
 
+    /** Reviewed revision sent as baserevid. Known stale revisions fail before posting; conflicts are never retried. */
+    baseRevisionId?: number;
     server?: string; // The API endpoint to use (defaults to Wikidata)
     origin?: string; // The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
 
     axiosOptions?: AxiosRequestConfig; // The options to pass to axios
     userAgent?: string; // The user agent to use for the request (required for anonymous uploads)
 }
+
+/** Upload settings with mutually exclusive authenticated and anonymous sessions. */
+export type UploadOptions = CommonUploadOptions & (
+    | {
+        auth: AuthProvider;
+        anonymous?: false;
+        /** Require a registered user or bot account for this authenticated edit. */
+        assert?: 'user' | 'bot';
+    }
+    | {
+        auth?: never;
+        anonymous: true;
+        /** Require an anonymous session for this edit. */
+        assert?: 'anon';
+    }
+);
 
 type AuthMethod = 'auth' | 'anonymous';
 
@@ -194,14 +209,20 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
     }
 
     if (options.anonymous) {
+        if (options.assert !== undefined && options.assert !== 'anon') {
+            throw new TypeError('Anonymous uploads only support assert: "anon".');
+        }
         return 'anonymous';
     }
 
     if (options.auth) {
+        if (options.assert !== undefined && options.assert !== 'user' && options.assert !== 'bot') {
+            throw new TypeError('Authenticated uploads only support assert: "user" or "bot".');
+        }
         return 'auth';
     }
 
-    throw new Error('You need to provide an auth method. Either auth (BotPasswordAuth or OAuthAuth) or set anonymous to true.');
+    throw new Error('Provide an AuthProvider through auth, or set anonymous to true.');
 }
 
 /**
@@ -213,11 +234,24 @@ export function validateAuthentication(options: UploadOptions): AuthMethod {
  * @throws {Error} If an invalid authentication method is provided
  * @param {Item} item The item to upload
  * @param {string} server The server to request from
+ * @param [baseRevisionId] Reviewed revision; a mismatch with the fetched revision rejects the upload
+ * @param [userAgent] User-Agent to identify the application during the preflight request
  * @returns {Promise<UploadFormat>} The data to upload
  */
-export async function generateUploadData(item: Item, server: string): Promise<UploadFormat> {
+export async function generateUploadData(
+    item: Item,
+    server: string,
+    baseRevisionId?: number,
+    userAgent?: string
+): Promise<UploadFormat> {
+    validateBaseRevisionId(item, baseRevisionId);
+
     // Get diff from the original item
-    const originalItem = item.id ? await requestItem(item.id, { server }) : Item.fromNothing();
+    const originalItem = item.id ? await requestItem(item.id, { server, userAgent }) : Item.fromNothing();
+
+    if (baseRevisionId !== undefined && originalItem.lastrevid !== baseRevisionId) {
+        throw new APIError('The item changed since the reviewed revision. Fetch and review it again.', 'editconflict');
+    }
 
     const diffs = originalItem.diff(item);
 
@@ -233,15 +267,32 @@ export async function generateUploadData(item: Item, server: string): Promise<Up
 }
 
 /**
+ * Rejects reviewed revisions for items that do not exist yet.
+ *
+ * @param item The item to upload.
+ * @param baseRevisionId The caller's reviewed revision.
+ * @throws {TypeError} If a new item has a base revision.
+ * @example
+ *     validateBaseRevisionId(existingItem, 123);
+ */
+function validateBaseRevisionId(item: Item, baseRevisionId?: number): void {
+    if (baseRevisionId !== undefined && !item.id) {
+        throw new TypeError('baseRevisionId can only be used with an existing item that has an ID.');
+    }
+}
+
+/**
  * Uploads an Item to a Wikibase instance (e.g., Wikidata)
  *
  * @param item The item you want to upload to Wikidata
  * @param options The options for uploading
  * @param options.summary The summary for the edit (displayed in the history of Wikidata)
  * @param [options.tags] The tags for the edit (displayed in the history of Wikidata)
- * @param [options.auth] The authentication instance to use (BotPasswordAuth or OAuthAuth)
+ * @param [options.auth] The authentication provider to use
  * @param [options.anonymous] If true, the upload will be anonymous
  * @param [options.maxLag] The max lag in seconds for the API request (see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter)
+ * @param [options.baseRevisionId] Reviewed revision to check and send as baserevid; never replaced with a fetched revision
+ * @param [options.assert] Session assertion sent to the API (user, bot, or anon)
  * @param [options.server] The API endpoint to use (defaults to Wikidata)
  * @param [options.origin] The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
  * @param [options.axiosOptions] The options to pass to axios
@@ -270,6 +321,8 @@ export async function generateUploadData(item: Item, server: string): Promise<Up
  *      });
  */
 export default async function upload(item: Item, options: UploadOptions): Promise<Item> {
+    validateBaseRevisionId(item, options.baseRevisionId);
+
     const authMethod = validateAuthentication(options);
 
     const server = options.server ?? 'https://www.wikidata.org';
@@ -287,7 +340,7 @@ export default async function upload(item: Item, options: UploadOptions): Promis
     let axiosInstance: AxiosInstance;
 
     if (authMethod === 'auth' && options.auth) {
-        // Use BotPasswordAuth - get CSRF token and use its axios instance
+        // Use the provider's authenticated CSRF token and client
         csrfToken = await options.auth.getCsrfToken(server);
         axiosInstance = options.auth.getAxiosInstance();
     } else {
@@ -299,7 +352,7 @@ export default async function upload(item: Item, options: UploadOptions): Promis
     // Checking for CORS, browser, and origin
     corsCheck(server, options?.origin);
 
-    const data = await generateUploadData(item, server);
+    const data = await generateUploadData(item, server, options.baseRevisionId, userAgent);
 
     const parameters = {
         tags: options.tags,
@@ -307,7 +360,9 @@ export default async function upload(item: Item, options: UploadOptions): Promis
         id: item.id,
         summary: options.summary,
         token: csrfToken,
-        maxlag: options.maxLag
+        maxlag: options.maxLag,
+        baserevid: options.baseRevisionId,
+        assert: options.assert
     };
 
     const postString = stringify(parameters, { arrayFormat: 'repeat' });
@@ -329,14 +384,19 @@ export default async function upload(item: Item, options: UploadOptions): Promis
     const response = await axiosInstance<WbeditentityResponse>(editEntityConfig);
     const { data: responseData } = response;
 
+    if (typeof responseData?.error?.code === 'string') {
+        // API descriptions and response details may echo credentials or edit content.
+        throw mapAPIError(responseData.error.code, 'The upload was rejected by the API.');
+    }
+
     if (
-        responseData.success !== 1
+        responseData?.success !== 1
         || responseData.error !== undefined
-        || responseData.entity === undefined
+        || typeof responseData.entity !== 'object'
+        || !responseData.entity
+        || Array.isArray(responseData.entity)
     ) {
-        // eslint-disable-next-line no-console
-        console.error(JSON.stringify(responseData.error, null, 2));
-        throw new Error('API request went wrong');
+        throw new APIError('The upload returned an invalid or unsuccessful API response.');
     }
 
     return new Item(responseData.entity);

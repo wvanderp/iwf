@@ -69,6 +69,7 @@ describe('validateAuthentication', () => {
     describe('unknown', () => {
         it('should throw if anonymous key not set but there is no other auth method', () => {
             expect(
+                // @ts-expect-error Intentionally invalid authentication options exercise runtime validation.
                 () => validateAuthentication({
                     summary: 'Upload summary',
                     tags: ['']
@@ -102,6 +103,7 @@ describe('validateAuthentication', () => {
 
         it('should throw if auth is available but the anonymous key is set', () => {
             expect(
+                // @ts-expect-error Intentionally invalid authentication options exercise runtime validation.
                 () => validateAuthentication({
                     summary: 'Upload summary',
                     tags: [''],

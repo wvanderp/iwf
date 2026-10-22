@@ -1,3 +1,5 @@
+import { AxiosInstance } from 'axios';
+
 /**
  * Bot password configuration
  */
@@ -17,4 +19,38 @@ export interface OAuthConfig {
     redirectUri: string;
     /** User-Agent header sent with API requests */
     userAgent: string;
+}
+
+/** Authentication operations required by upload(), including custom providers. */
+export interface AuthProvider {
+    /**
+     * Return a CSRF token for the authenticated account on the given site.
+     *
+     * @param site Server origin, such as `https://www.wikidata.org`, rather than an API endpoint.
+     * @returns An authenticated, non-anonymous CSRF token; reject anonymous sessions and propagate authentication failures.
+     */
+    getCsrfToken(site: string): Promise<string>;
+    /**
+     * Return the HTTP client used to post edits. Configure it with the provider's credentials or session
+     * cookies and required authentication headers. The client must propagate transport and authentication
+     * failures without exposing credentials; upload() maps unsuccessful MediaWiki API response bodies.
+     *
+     * @returns The authenticated Axios client.
+     */
+    getAxiosInstance(): AxiosInstance;
+    /**
+     * Identify the calling application. upload() sends this User-Agent on preflight reads and edit requests;
+     * provider-owned token and login requests must use the same identification themselves.
+     *
+     * @returns A descriptive application User-Agent, ideally including contact information.
+     */
+    getUserAgent(): string;
+}
+
+/** Configuration for a previously issued OAuth 2.0 bearer access token. */
+export interface BearerTokenConfig {
+    accessToken: string;
+    userAgent: string;
+    /** Optional expiry as Unix epoch seconds. Tokens expire locally 60 seconds early; no refresh is attempted. */
+    expiresAt?: number;
 }

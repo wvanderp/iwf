@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 
 import { generateCodeVerifier, generateCodeChallenge } from '../utils/pkce';
 
-import { OAuthConfig } from './types';
+import { AuthProvider, OAuthConfig } from './types';
 import { AuthExpiredError, NotLoggedInError, PermissionDeniedError } from './errors';
 
 const AUTH_BASE_URL = 'https://meta.wikimedia.org/w/rest.php/oauth2';
@@ -60,7 +60,7 @@ interface CsrfTokenResponse {
  *   // Now you can use the auth instance with upload()
  *   await upload(item, { auth, summary: 'OAuth upload' });
  */
-export default class OAuthAuth {
+export default class OAuthAuth implements AuthProvider {
     private readonly clientId: string;
 
     private readonly redirectUri: string;

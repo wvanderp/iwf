@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { stringify } from 'qs';
 
-import { BotPasswordConfig } from './types';
+import { AuthProvider, BotPasswordConfig } from './types';
 import { NotLoggedInError, PermissionDeniedError } from './errors';
 
 interface LoginTokenResponse {
@@ -33,7 +33,7 @@ interface CsrfTokenResponse {
  * Bot Password authentication provider
  * Uses MediaWiki Action API login with bot passwords
  */
-export default class BotPasswordAuth {
+export default class BotPasswordAuth implements AuthProvider {
     private readonly username: string;
 
     private readonly password: string;
