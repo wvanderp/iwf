@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { WikidataResponse } from '@wvanderp/wikibase-datamodel-types';
+import { WikidataResponseSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
 import Item from '../../Item';
 import { isQString } from '../guards/strings';
@@ -38,6 +38,7 @@ interface RequestConfig {
 /**
  * @param qid The ID of the entity.
  * @param config The config object.
+ * @throws {Error} If the QID is invalid or returned data fails Wikidata schema validation.
  * @returns The promise of a Wikidata Item.
  * @example
  *     const item = requestItem('Q42');
@@ -58,11 +59,12 @@ export default async function requestItem(qid: string, config?: RequestConfig): 
     }
 
     const url = baseURL(normalizedQid, config?.server);
-    const { data } = await axios.get<WikidataResponse>(url, {
+    const { data } = await axios.get<unknown>(url, {
         headers: { 'User-Agent': userAgent }
     });
 
-    const statementData = data.entities[normalizedQid];
+    const response = WikidataResponseSchema.parse(data);
+    const statementData = response.entities[normalizedQid];
     if (!statementData) {
         throw new Error(`No entity data returned for ${normalizedQid}`);
     }

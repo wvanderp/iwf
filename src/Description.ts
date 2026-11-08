@@ -1,5 +1,6 @@
-import { LabelAndDescription, LabelLanguages } from '@wvanderp/wikibase-datamodel-types';
+import { LabelAndDescriptionSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { LabelAndDescription, LabelLanguages } from './types/wikidata';
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
@@ -20,11 +21,13 @@ export default class Description {
     /**
      * Constructor for the Description class.
      *
+     * @throws {Error} If the input does not match the Wikidata schema.
      * @param label The label in JSON format.
      * @example
      *   const description = new Description({ language: 'en', value: 'Douglas Adams' });
      */
     constructor(label: LabelAndDescription) {
+        label = LabelAndDescriptionSchema.parse(label);
         if (label.language === 'mul') {
             throw new Error("The 'mul' language is not allowed for descriptions.");
         }

@@ -1,5 +1,6 @@
-import { Statement as wikidataStatement, Qualifiers as wikidataQualifiers } from '@wvanderp/wikibase-datamodel-types';
+import { StatementSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { Statement as wikidataStatement, Qualifiers as wikidataQualifiers } from './types/wikidata';
 import Reference from './Reference';
 import Snak from './Snak';
 import { Snaks } from './types/SnaksType';
@@ -32,10 +33,14 @@ export default class Statement {
 
     /**
      * @param statement The statement in a JSON format
+     * @throws {Error} If statement fields or nested snaks fail Wikidata schema validation,
+     * including unsupported datatypes or value snaks without a datavalue.
      * @example
      *     const statement = new Statement(json);
      */
     constructor(statement: wikidataStatement) {
+        StatementSchema.parse(statement);
+
         this.id = statement.id;
         this.type = statement.type;
 

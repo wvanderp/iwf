@@ -1,5 +1,6 @@
-import { TabularDataSnak as WikidataTabularDataSnak } from '@wvanderp/wikibase-datamodel-types';
+import { TabularDataSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { TabularDataSnak as WikidataTabularDataSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -16,12 +17,13 @@ export default class TabularDataSnak extends Snak {
     datatype = 'tabular-data';
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *      const snak = new TabularDataSnak(json);
      */
     constructor(snak: WikidataTabularDataSnak) {
-        super(snak);
+        super(snak, TabularDataSnakSchema);
 
         this.value = snak.datavalue?.value;
     }

@@ -1,5 +1,6 @@
-import { CommonsMediaSnak as WikidataCommonsMediaSnak } from '@wvanderp/wikibase-datamodel-types';
+import { CommonsMediaSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { CommonsMediaSnak as WikidataCommonsMediaSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 import { PString } from '../types/strings';
@@ -20,12 +21,13 @@ export default class CommonsMediaSnak extends Snak {
     datatype = dataType;
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *    const snak = new CommonsMediaSnak(json);
      */
     constructor(snak: WikidataCommonsMediaSnak) {
-        super(snak);
+        super(snak, CommonsMediaSnakSchema);
 
         this.fileName = snak.datavalue?.value ?? null;
     }

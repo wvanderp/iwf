@@ -1,6 +1,6 @@
-/* eslint-disable unicorn/filename-case */
-import { URLSnak as WikidataURLSnak } from '@wvanderp/wikibase-datamodel-types';
+import { URLSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { URLSnak as WikidataURLSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -18,12 +18,13 @@ export default class URLSnak extends Snak {
     datatype = 'url';
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *     const snak = new URLSnak(json);
      */
     constructor(snak: WikidataURLSnak) {
-        super(snak);
+        super(snak, URLSnakSchema);
 
         this.url = snak.datavalue?.value;
     }

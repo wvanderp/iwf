@@ -1,5 +1,6 @@
-import { MonolingualTextSnak as WikidataMonolingualTextSnak, MonolingualLanguages } from '@wvanderp/wikibase-datamodel-types';
+import { MonolingualTextSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { MonolingualTextSnak as WikidataMonolingualTextSnak, MonolingualLanguages } from '../types/wikidata';
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -23,12 +24,13 @@ export default class MonolingualTextSnak extends Snak {
     datatype = dataType;
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak that will be parsed.
      * @example
      *   const snak = new MonolingualTextSnak(json);
      */
     constructor(snak: WikidataMonolingualTextSnak) {
-        super(snak);
+        super(snak, MonolingualTextSnakSchema);
 
         this.language = snak.datavalue?.value.language;
         this.text = snak.datavalue?.value.text;

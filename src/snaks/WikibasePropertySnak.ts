@@ -1,5 +1,6 @@
-import { WikibasePropertySnak as WikidataWikibasePropertySnak } from '@wvanderp/wikibase-datamodel-types';
+import { WikibasePropertySnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { WikibasePropertySnak as WikidataWikibasePropertySnak } from '../types/wikidata';
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -18,12 +19,13 @@ export default class WikibasePropertySnak extends Snak {
     datatype = 'wikibase-property';
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *   const snak = new WikibasePropertySnak(snak);
      */
     constructor(snak: WikidataWikibasePropertySnak) {
-        super(snak);
+        super(snak, WikibasePropertySnakSchema);
 
         this._numericID = snak.datavalue?.value['numeric-id'];
     }

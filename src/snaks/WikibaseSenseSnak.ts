@@ -1,5 +1,6 @@
-import { WikibaseSenseSnak as WikidataWikibaseSenseSnak } from '@wvanderp/wikibase-datamodel-types';
+import { WikibaseSenseSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { WikibaseSenseSnak as WikidataWikibaseSenseSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import { PString, SenseString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -19,12 +20,13 @@ export default class WikibaseSenseSnak extends Snak {
     datatype = 'wikibase-sense';
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *  const snak = new WikibaseSenseSnak(json);
      */
     constructor(snak: WikidataWikibaseSenseSnak) {
-        super(snak);
+        super(snak, WikibaseSenseSnakSchema);
 
         // example: L123-S456 -> lexemeId = 123, senseId = 456
         this._lexemeId = Number.parseInt(snak.datavalue?.value.id.split('-')[0].slice(1) ?? '', 10) || undefined;

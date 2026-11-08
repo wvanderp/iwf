@@ -1,5 +1,6 @@
-import { LabelAndDescription, LabelLanguages } from '@wvanderp/wikibase-datamodel-types';
+import { LabelAndDescriptionSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { LabelAndDescription, LabelLanguages } from './types/wikidata';
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
@@ -15,11 +16,13 @@ export default class Label {
     value: string;
 
     /**
+     * @throws {Error} If the input does not match the Wikidata schema.
      * @param label The label for this class in JSON format.
      * @example
      *  const label = new Label({ language: 'en', value: 'Douglas Adams' });
      */
     constructor(label: LabelAndDescription) {
+        label = LabelAndDescriptionSchema.parse(label);
         this.language = label.language;
         this.value = label.value;
     }

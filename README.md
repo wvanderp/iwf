@@ -67,6 +67,27 @@ await upload(item, {
 });
 ```
 
+## Wikidata input validation
+
+Constructors and convenience factories validate Wikidata JSON with the Zod schemas
+from `@wvanderp/wikibase-datamodel-types/zod`. This covers items, labels, descriptions,
+aliases, sitelinks, statements, qualifiers, references, and every supported snak
+datatype. Their TypeScript JSON types are inferred from those same schemas.
+Malformed fields throw an error during construction.
+
+`requestItem()` validates API responses, and `upload()` validates edited model data
+before making requests, then validates the returned entity. New items may omit
+their ID, and omitted item collections become empty collections as before.
+
+Value snaks require a `datavalue` with the correct shape and `type`. A direct snak
+constructor can infer an omitted `datatype` from its class, but rejects a conflicting
+one. `somevalue` and `novalue` snaks may omit `datavalue`. For example, URL snaks use
+`datatype: "url"` with `datavalue.type: "string"`.
+
+Validation follows the upstream schemas and retains the library's additional ID
+and value checks. It does not look up a property's actual datatype or verify that
+referenced entities exist; Wikidata can still reject an upload.
+
 ## Authentication
 
 The library supports bot passwords, browser OAuth 2.0 with PKCE (`OAuthAuth`), and already-issued OAuth 2.0 bearer tokens (`BearerTokenAuth`). All implement the public `AuthProvider` interface accepted by `upload()`.
@@ -183,3 +204,5 @@ There is a [FUTURE.md](FUTURE.md) file that contains ideas for future developmen
 [MIT](LICENSE)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwvanderp%2Fiwf.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwvanderp%2Fiwf?ref=badge_large)
+
+Type checking uses TypeScript 7 through the typescript7 package alias. TypeScript 6 remains installed for ESLint and TypeDoc, which require its compiler API.

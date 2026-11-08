@@ -1,5 +1,6 @@
-import { TimeSnak as WikidataTimeSnak, CalendarModels } from '@wvanderp/wikibase-datamodel-types';
+import { TimeSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { TimeSnak as WikidataTimeSnak, CalendarModels } from '../types/wikidata';
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -51,12 +52,13 @@ export default class TimeSnak extends Snak {
     datatype = 'time';
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *     const snak = new TimeSnak(json);
      */
     constructor(snak: WikidataTimeSnak) {
-        super(snak);
+        super(snak, TimeSnakSchema);
 
         this.time = snak.datavalue?.value.time;
         this.timezone = snak.datavalue?.value.timezone;

@@ -1,5 +1,4 @@
-import { LabelAndDescription } from '@wvanderp/wikibase-datamodel-types';
-
+import { LabelAndDescription } from '../../types/wikidata';
 import Label from '../../Label';
 import { QString } from '../../types/strings';
 

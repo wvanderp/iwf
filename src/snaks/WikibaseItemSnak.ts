@@ -1,5 +1,6 @@
-import { WikibaseItemSnak as WikidataWikibaseItemSnak } from '@wvanderp/wikibase-datamodel-types';
+import { WikibaseItemSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { WikibaseItemSnak as WikidataWikibaseItemSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import { PString, QString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -17,12 +18,13 @@ export default class WikibaseItemSnak extends Snak {
     datatype = 'wikibase-item';
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *     const snak = new WikibaseItemSnak(snak);
      */
     constructor(snak: WikidataWikibaseItemSnak) {
-        super(snak);
+        super(snak, WikibaseItemSnakSchema);
 
         this._numericID = snak.datavalue?.value['numeric-id'];
     }

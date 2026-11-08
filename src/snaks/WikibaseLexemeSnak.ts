@@ -1,5 +1,6 @@
-import { WikiBaseLexemeSnak as WikidataWikiBaseLexemeSnak } from '@wvanderp/wikibase-datamodel-types';
+import { WikiBaseLexemeSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { WikiBaseLexemeSnak as WikidataWikiBaseLexemeSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import { LString, PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -17,12 +18,13 @@ export default class WikibaseLexemeSnak extends Snak {
     datatype = 'wikibase-lexeme';
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *  const snak = new WikibaseLexemeSnak(json);
      */
     constructor(snak: WikidataWikiBaseLexemeSnak) {
-        super(snak);
+        super(snak, WikiBaseLexemeSnakSchema);
 
         this._numericID = snak.datavalue?.value['numeric-id'];
     }

@@ -1,5 +1,6 @@
-import { MathSnak as WikidataMathSnak } from '@wvanderp/wikibase-datamodel-types';
+import { MathSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { MathSnak as WikidataMathSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -19,12 +20,13 @@ export default class MathSnak extends Snak {
     datatype = dataType;
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *   const snak = new MathSnak(json);
      */
     constructor(snak: WikidataMathSnak) {
-        super(snak);
+        super(snak, MathSnakSchema);
 
         this.value = snak.datavalue?.value;
     }

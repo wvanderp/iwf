@@ -34,7 +34,7 @@ describe('upload authentication providers', () => {
         botMock.onGet().replyOnce(200, { query: { tokens: { logintoken: 'fake-login-token' } } })
             .onGet().reply(200, csrf);
         botMock.onPost().replyOnce(200, { login: { result: 'Success' } })
-            .onPost().reply(200, { success: 1, entity: Item.fromNothing().toJSON() });
+            .onPost().reply(200, { success: 1, entity: { ...Item.fromNothing().toJSON(), id: 'Q42' } });
         try {
             await expect(upload(Item.fromNothing(), { auth: bot, summary: 'Bot edit' })).resolves.toBeInstanceOf(Item);
             expect(botMock.history.post).toHaveLength(2);
@@ -66,7 +66,7 @@ describe('upload authentication providers', () => {
         await oauth.handleCallback();
         vi.unstubAllGlobals();
         publicMock.onGet().reply(200, csrf);
-        publicMock.onPost().reply(200, { success: 1, entity: Item.fromNothing().toJSON() });
+        publicMock.onPost().reply(200, { success: 1, entity: { ...Item.fromNothing().toJSON(), id: 'Q42' } });
         await expect(upload(Item.fromNothing(), { auth: oauth, summary: 'OAuth edit' })).resolves.toBeInstanceOf(Item);
         const request = publicMock.history.post[1];
         expect(request.headers?.Authorization).toBe(`Bearer ${accessToken}`);
@@ -118,7 +118,7 @@ describe('upload authentication providers', () => {
 
     it('omits new options for existing upload calls and sanitizes API error fields', async () => {
         mock.onGet().reply(200, csrf);
-        mock.onPost().replyOnce(200, { success: 1, entity: Item.fromNothing().toJSON() })
+        mock.onPost().replyOnce(200, { success: 1, entity: { ...Item.fromNothing().toJSON(), id: 'Q42' } })
             .onPost().reply(200, { error: { code: accessToken, info: accessToken } });
         await upload(Item.fromNothing(), { auth, summary: 'New item' });
         const body = new URLSearchParams(mock.history.post[0].data as string);

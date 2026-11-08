@@ -144,6 +144,17 @@ describe('requestItem functions', () => {
             .rejects.toThrow('No entity data returned for Q1');
     });
 
+    it.each([
+        null,
+        { entities: [] },
+        { entities: { Q1: { type: 'item', id: 'Q1', lastrevid: 'invalid' } } },
+        { entities: { Q1: { type: 'item' } } }
+    ])('rejects malformed entity API data', async (data) => {
+        mockedAxios.get.mockResolvedValue({ data });
+
+        await expect(requestItem('Q1', { userAgent: 'test-editor/1.0' })).rejects.toThrow();
+    });
+
     it('should handle garbage inputs', async () => {
         await expect(() => requestItem('')).rejects.toThrow();
         await expect(() => requestItem('Q42', { server: 'dasdasdsad' })).rejects.toThrow();

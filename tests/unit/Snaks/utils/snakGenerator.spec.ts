@@ -74,6 +74,27 @@ describe('snakGenerator', () => {
                 expect(snakGenerator(json).toJSON()).toStrictEqual(json);
             });
 
+            const invalidTypes = ['url', 'unsupported', 'string', 'quantity', 'time', 'monolingualtext', 'globecoordinate', 'wikibase-entityid', undefined]
+                .filter((type) => type !== example.toJSON().datavalue?.type);
+
+            it.each(invalidTypes)(
+                'should reject incompatible datavalue.type %s', (type) => {
+                    const json = example.toJSON();
+                    const malformed = {
+                        ...json,
+                        datavalue: { ...json.datavalue, type }
+                    };
+
+                    expect(() => snakGenerator(malformed)).toThrow(/datavalue\.type/);
+                }
+            );
+
+            it('should reject a value snak without datavalue', () => {
+                const json = { snaktype: 'value' as const, property: example.property, datatype };
+
+                expect(() => snakGenerator(json)).toThrow(/datavalue\.type/);
+            });
+
             for (const snaktype of ['novalue', 'somevalue'] as const) {
                 it(`should handle a ${snaktype} snak without datavalue`, () => {
                     const json = { snaktype, property: example.property, datatype };

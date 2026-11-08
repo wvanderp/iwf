@@ -1,5 +1,6 @@
-import { QuantitySnak as WikidataQuantitySnak } from '@wvanderp/wikibase-datamodel-types';
+import { QuantitySnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { QuantitySnak as WikidataQuantitySnak } from '../types/wikidata';
 import Snak from '../Snak';
 import { PString, QString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -15,7 +16,7 @@ function formatNumberFromNumber(amount: number): string {
     if (amount >= (0)) {
         return `+${amount}`;
     }
-    return `${amount}`;
+    return String(amount);
 }
 
 /**
@@ -66,7 +67,7 @@ export default class QuantitySnak extends Snak {
      *     const snak = new QuantitySnak(json);
      */
     constructor(snak: WikidataQuantitySnak) {
-        super(snak);
+        super(snak, QuantitySnakSchema);
 
         if (
             snak.datavalue?.value.lowerBound

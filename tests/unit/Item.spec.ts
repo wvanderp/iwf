@@ -582,8 +582,8 @@ describe('Edge cases according to O1', () => {
         expect(left.equals(right)).toBe(true);
     });
 
-    it('should handle null alias language arrays gracefully', () => {
-        const aliasFriendlyItem = new Item({
+    it('should reject null alias language arrays', () => {
+        expect(() => new Item({
             type: 'item',
             labels: {},
             descriptions: {},
@@ -592,8 +592,6 @@ describe('Edge cases according to O1', () => {
             },
             claims: {},
             sitelinks: {}
-        } as never);
-
-        expect(aliasFriendlyItem.aliases).toEqual([]);
+        } as never)).toThrow();
     });
 });

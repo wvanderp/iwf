@@ -104,6 +104,38 @@ function statementJsonWithQualifierOrder(): WikidataStatement {
 }
 
 describe('Statement', () => {
+    describe('datavalue.type validation', () => {
+        const urlSnak = URLSnak.fromURL('P856', 'https://example.org').toJSON();
+
+        for (const location of ['mainsnak', 'qualifier', 'reference'] as const) {
+            it.each(['url', 'quantity', undefined])(`should reject invalid URL value types in a ${location}`, (type) => {
+                const snak = { ...urlSnak, datavalue: { value: 'https://example.org', type } };
+                const json = {
+                    type: 'statement' as const,
+                    rank: 'normal' as const,
+                    mainsnak: location === 'mainsnak' ? snak : urlSnak,
+                    qualifiers: location === 'qualifier' ? { P856: [snak] } : undefined,
+                    references: location === 'reference' ? [{ snaks: { P856: [snak] } }] : undefined
+                };
+
+                // @ts-expect-error - model-generated JSON can contain invalid value types.
+                expect(() => new Statement(json)).toThrow(/datavalue/);
+            });
+        }
+
+        it('should preserve valid URL values in mainsnaks, qualifiers and references', () => {
+            const json: WikidataStatement = {
+                type: 'statement',
+                rank: 'normal',
+                mainsnak: urlSnak,
+                qualifiers: { P856: [urlSnak] },
+                references: [{ snaks: { P856: [urlSnak] } }]
+            };
+
+            expect(new Statement(json).toJSON()).toStrictEqual(json);
+        });
+    });
+
     describe('getInternalId', () => {
         it('should return the internal id', () => {
             const statement = new Statement(statementJson);

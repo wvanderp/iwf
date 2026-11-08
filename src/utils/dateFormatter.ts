@@ -6,7 +6,7 @@
  * @returns {string} The number with or without the leading zero.
  */
 function addZero(number: number): string {
-    return number.toString().length === 1 ? `0${number}` : `${number}`;
+    return number.toString().length === 1 ? `0${number}` : String(number);
 }
 
 /**

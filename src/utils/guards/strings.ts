@@ -1,9 +1,7 @@
 import {
     EString, FormString, LString, PString, QString,
-    SenseString
+    SenseString, QStringSchema, PStringSchema, LStringSchema, EStringSchema, SenseStringSchema, FormStringSchema
 } from '../../types/strings';
-
-const QStringRegex = /^Q\d+$/;
 
 /**
  * Tests if a string is a QString.
@@ -19,10 +17,8 @@ const QStringRegex = /^Q\d+$/;
  *    WikibaseItemSnak.fromID('P42', id);
  */
 export function isQString(string_: string): string_ is QString {
-    return QStringRegex.test(string_);
+    return QStringSchema.safeParse(string_).success;
 }
-
-const PStringRegex = /^P\d+$/;
 
 /**
  * Tests if a string is a PString.
@@ -38,10 +34,8 @@ const PStringRegex = /^P\d+$/;
  *    WikibaseItemSnak.fromID(property, 'Q123');
  */
 export function isPString(string_: string): string_ is PString {
-    return PStringRegex.test(string_);
+    return PStringSchema.safeParse(string_).success;
 }
-
-const LStringRegex = /^L\d+$/;
 
 /**
  * Tests if a string is a LString.
@@ -57,10 +51,8 @@ const LStringRegex = /^L\d+$/;
  *    WikibaseLexemeSnak.fromData('P6553', property);
  */
 export function isLString(string_: string): string_ is LString {
-    return LStringRegex.test(string_);
+    return LStringSchema.safeParse(string_).success;
 }
-
-const EStringRegex = /^E\d+$/;
 
 /**
  * Tests if a string is an EString.
@@ -76,10 +68,8 @@ const EStringRegex = /^E\d+$/;
  *    EntitySchemaSnak.fromID('P698', property);
  */
 export function isEString(string_: string): string_ is EString {
-    return EStringRegex.test(string_);
+    return EStringSchema.safeParse(string_).success;
 }
-
-const SenseStringRegex = /^L\d+-S\d+$/;
 
 /**
  * Tests if a string is a SenseString.
@@ -95,10 +85,8 @@ const SenseStringRegex = /^L\d+-S\d+$/;
  *    WikibaseSenseSnak.fromData('P5972', property);
  */
 export function isSenseString(string_: string): string_ is SenseString {
-    return SenseStringRegex.test(string_);
+    return SenseStringSchema.safeParse(string_).success;
 }
-
-const FormStringRegex = /^L\d+-F\d+$/;
 
 /**
  * Tests if a string is a FormString.
@@ -114,5 +102,5 @@ const FormStringRegex = /^L\d+-F\d+$/;
  *    WikibaseFormSnak.fromData('P5830', id);
  */
 export function isFormString(string_: string): string_ is FormString {
-    return FormStringRegex.test(string_);
+    return FormStringSchema.safeParse(string_).success;
 }

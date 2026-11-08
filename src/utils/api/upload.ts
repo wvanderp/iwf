@@ -3,6 +3,7 @@ import { stringify } from 'qs';
 
 import Item from '../../Item';
 import { WbeditentityResponse } from '../../types/apiResponse';
+import { WbeditentityResponseSchema } from '../../schemas/wikidata';
 import { StatementChange } from '../diff/statementsDiff';
 import isStatementChange from '../guards/Changes';
 import { UploadFormat } from '../../types/uploadFormat';
@@ -126,7 +127,7 @@ function applyRemovedAliases(json: UploadFormat, diffs: ReturnType<Item['diff']>
     const removedAliases = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'alias') as AliasChange[];
 
     for (const removedAlias of removedAliases) {
-        if (removedAlias.old?.language && removedAlias.old?.value) {
+        if (removedAlias.old?.language && removedAlias.old.value) {
             if (!json.aliases[removedAlias.old.language]) {
                 json.aliases[removedAlias.old.language] = [];
             }
@@ -152,7 +153,7 @@ function applyRemovedLabels(json: UploadFormat, diffs: ReturnType<Item['diff']>)
     const removedLabels = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'label') as LabelChange[];
 
     for (const removedLabel of removedLabels) {
-        if (removedLabel.old?.language && removedLabel.old?.value) {
+        if (removedLabel.old?.language && removedLabel.old.value) {
             json.labels[removedLabel.old.language] = { language: removedLabel.old.language, value: '' };
         }
     }
@@ -170,7 +171,7 @@ function applyRemovedDescriptions(json: UploadFormat, diffs: ReturnType<Item['di
     const removedDescriptions = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'description') as LabelChange[];
 
     for (const removedDescription of removedDescriptions) {
-        if (removedDescription.old?.language && removedDescription.old?.value) {
+        if (removedDescription.old?.language && removedDescription.old.value) {
             json.descriptions[removedDescription.old.language] = {
                 language: removedDescription.old.language,
                 value: ''
@@ -191,7 +192,7 @@ function applyRemovedSitelinks(json: UploadFormat, diffs: ReturnType<Item['diff'
     const removedSitelinks = diffs.filter((diff) => diff.action === 'remove' && diff.type === 'siteLink') as SiteLinkChange[];
 
     for (const removedSitelink of removedSitelinks) {
-        if (removedSitelink.old?.site && removedSitelink.old?.title) {
+        if (removedSitelink.old?.site && removedSitelink.old.title) {
             json.sitelinks[removedSitelink.old.site] = { site: removedSitelink.old.site, title: '' };
         }
     }
@@ -245,6 +246,9 @@ export async function generateUploadData(
     userAgent?: string
 ): Promise<UploadFormat> {
     validateBaseRevisionId(item, baseRevisionId);
+    // Public model fields can be edited after construction. Validate the full
+    // entity before any preflight request or removal markers are introduced.
+    item = new Item(item.toJSON());
 
     // Get diff from the original item
     const originalItem = item.id ? await requestItem(item.id, { server, userAgent }) : Item.fromNothing();
@@ -297,7 +301,7 @@ function validateBaseRevisionId(item: Item, baseRevisionId?: number): void {
  * @param [options.origin] The origin to use for the API calls, aka the "domain" of the web app (only needed for CORS)
  * @param [options.axiosOptions] The options to pass to axios
  * @param [options.userAgent] The user agent to use for the request (required for anonymous uploads)
- * @throws {Error} If no authentication method is provided or the upload fails
+ * @throws {Error} If input or response data fails Wikidata schema validation, no authentication method is provided, or the upload fails
  * @returns A Promise for the item after uploading
  * @example
  *      // Using BotPasswordAuth (recommended)
@@ -322,6 +326,7 @@ function validateBaseRevisionId(item: Item, baseRevisionId?: number): void {
  */
 export default async function upload(item: Item, options: UploadOptions): Promise<Item> {
     validateBaseRevisionId(item, options.baseRevisionId);
+    item = new Item(item.toJSON());
 
     const authMethod = validateAuthentication(options);
 
@@ -399,5 +404,6 @@ export default async function upload(item: Item, options: UploadOptions): Promis
         throw new APIError('The upload returned an invalid or unsuccessful API response.');
     }
 
-    return new Item(responseData.entity);
+    const validatedResponse = WbeditentityResponseSchema.parse(responseData);
+    return new Item(validatedResponse.entity);
 }

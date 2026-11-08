@@ -1,5 +1,6 @@
-import { Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks, Snaks } from '@wvanderp/wikibase-datamodel-types';
+import { ReferenceSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { Reference as WikidataReference, ReferenceSnaks as wikidataReferenceSnaks, Snaks } from './types/wikidata';
 import Snak from './Snak';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
 import normalizeOutput from './utils/normalizeOutput';
@@ -40,10 +41,12 @@ export default class Reference {
 
     /**
      * @param reference The Reference in JSON format.
+     * @throws {Error} If reference fields or nested snaks fail Wikidata schema validation.
      * @example
      *   const reference = new Reference(json);
      */
     constructor(reference: WikidataReference) {
+        ReferenceSchema.parse(reference);
         this.hash = reference.hash;
         this.snaksOrder = reference['snaks-order'];
 

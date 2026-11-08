@@ -1,5 +1,7 @@
-import { Snaks as WikidataSnaks, SnakType as WikidataSnakType } from '@wvanderp/wikibase-datamodel-types';
+import type { z } from 'zod';
+import { SnakSchema, SnaksSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { Snaks as WikidataSnaks, SnakType as WikidataSnakType } from './types/wikidata';
 import { PString } from './types/strings';
 import { isPString } from './utils/guards/strings';
 import sha256 from './utils/hash';
@@ -25,10 +27,24 @@ export default abstract class Snak {
      * Creates an instance of Snak.
      *
      * @param snak - The snak in a JSON format.
+     * @param schema The upstream schema for the concrete snak class; defaults to the supported snak union for custom subclasses.
+     * @throws {Error} If the input fails schema validation, or a value snak has no datavalue.
      * @example
      * const snak = new Snak(json);
      */
-    constructor(snak: WikidataSnaks) {
+    constructor(snak: WikidataSnaks, schema: z.ZodType<WikidataSnaks> = SnaksSchema) {
+        const result = schema.safeParse(snak);
+        if (!result.success) {
+            const { property, datatype } = SnakSchema.parse(snak);
+            const details = result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`).join('; ');
+            throw new Error(`Invalid datavalue.type or value for ${property} (datatype "${datatype}"): ${details}`);
+        }
+        // Upstream schemas allow an omitted datavalue for all snak types.
+        // This library requires it when the snak declares an actual value.
+        if (snak.snaktype === 'value' && snak.datavalue === undefined) {
+            throw new Error(`Missing datavalue.type and value for ${snak.property}.`);
+        }
+
         this.snaktype = snak.snaktype;
 
         if (isPString(snak.property)) {

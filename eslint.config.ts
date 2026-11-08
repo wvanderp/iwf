@@ -59,7 +59,7 @@ export default [
     // ──────────────────────────────────────────────
     // Plugin: unicorn – misc best practices
     // ──────────────────────────────────────────────
-    unicorn.configs['flat/recommended'],
+    unicorn.configs.recommended,
 
     // ──────────────────────────────────────────────
     // Plugin: jsdoc – documentation rules (TypeScript)
@@ -175,7 +175,7 @@ export default [
                 },
             ],
             'unicorn/no-null': 'off',
-            'unicorn/prevent-abbreviations': [
+            'unicorn/name-replacements': [
                 'error',
                 {
                     replacements: {
@@ -190,6 +190,38 @@ export default [
             'unicorn/prefer-object-from-entries': 'off',
             'unicorn/expiring-todo-comments': 'off',
             'unicorn/numeric-separators-style': 'off',
+
+            // Keep the project's existing documentation, class layout, and
+            // expression styles when upgrading Unicorn's recommended preset.
+            'unicorn/no-asterisk-prefix-in-documentation-comments': 'off',
+            'unicorn/single-line-block-comment-style': 'off',
+            'unicorn/consistent-boolean-name': 'off',
+            'unicorn/consistent-class-member-order': 'off',
+            'unicorn/no-top-level-assignment-in-function': 'off',
+            'unicorn/prefer-await': 'off',
+            'unicorn/no-computed-property-existence-check': 'off',
+            'unicorn/prefer-ternary': 'off',
+            'unicorn/prefer-split-limit': 'off',
+            'unicorn/prefer-smaller-scope': 'off',
+            'unicorn/prefer-unicode-code-point-escapes': 'off',
+            'unicorn/max-nested-calls': 'off',
+            'unicorn/prefer-private-class-fields': 'off',
+            'unicorn/prefer-combined-guards': 'off',
+            'unicorn/prefer-else-if': 'off',
+            'unicorn/no-non-function-verb-prefix': 'off',
+            'unicorn/no-declarations-before-early-exit': 'off',
+            'unicorn/logical-assignment-operators': 'off',
+            'unicorn/class-reference-in-static-methods': 'off',
+            'unicorn/prefer-continue': 'off',
+            'unicorn/consistent-conditional-object-spread': 'off',
+            'unicorn/prefer-single-object-destructuring': 'off',
+            'unicorn/prefer-global-number-constants': 'off',
+            'unicorn/no-unnecessary-parameters': 'off',
+            // Wikidata entity URIs use HTTP as their canonical identifiers.
+            'unicorn/prefer-https': 'off',
+            // Keep ES2019 compatibility and intentional radix-based parsing.
+            'unicorn/prefer-string-replace-all': 'off',
+            'unicorn/prefer-number-coercion': 'off',
 
             // ── JSDoc ──
             // In TypeScript, JSDoc type annotations are redundant; keep as warning

@@ -1,5 +1,6 @@
-import { ExternalIdentifierSnak as WikidataExternalIdentifierSnak } from '@wvanderp/wikibase-datamodel-types';
+import { ExternalIdentifierSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { ExternalIdentifierSnak as WikidataExternalIdentifierSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import { PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -19,12 +20,13 @@ export default class ExternalIdentifierSnak extends Snak {
     datatype = dataType;
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *    const snak = new ExternalIdentifierSnak(json);
      */
     constructor(snak: WikidataExternalIdentifierSnak) {
-        super(snak);
+        super(snak, ExternalIdentifierSnakSchema);
 
         this.id = snak.datavalue?.value ?? null;
     }

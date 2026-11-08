@@ -14,7 +14,7 @@ describe('upload extra coverage', () => {
     it('uses an explicit anonymous user agent and merges custom headers', async () => {
         mockedAxios.mockResolvedValue({
             data: {
-                entity: Item.fromNothing().toJSON(),
+                entity: { ...Item.fromNothing().toJSON(), id: 'Q42' },
                 success: 1
             }
         });

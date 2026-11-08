@@ -133,7 +133,7 @@ describe('upload', () => {
         it('should use the anonymous token when anonymous flag is set', async () => {
             mockedAxios.mockResolvedValue({
                 data: {
-                    entity: Item.fromNothing().toJSON(),
+                    entity: { ...Item.fromNothing().toJSON(), id: 'Q42' },
                     success: 1
                 }
             });
@@ -170,7 +170,7 @@ describe('upload', () => {
         it('should use BotPasswordAuth when auth is provided', async () => {
             const mockAxiosInstance = vi.fn().mockResolvedValue({
                 data: {
-                    entity: Item.fromNothing().toJSON(),
+                    entity: { ...Item.fromNothing().toJSON(), id: 'Q42' },
                     success: 1
                 }
             });

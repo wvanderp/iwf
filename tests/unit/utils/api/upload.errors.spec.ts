@@ -113,7 +113,7 @@ describe.each(providers)('%s upload errors', (provider) => {
         { success: 1, entity: [] }, { success: 1, entity: secret },
         { error: null }, { error: secret }, { error: { info: secret } },
         { error: { code: 42, info: secret } },
-        { success: 1, entity: Item.fromNothing().toJSON(), error: { info: secret } }
+        { success: 1, entity: { ...Item.fromNothing().toJSON(), id: 'Q42' }, error: { info: secret } }
     ])('safely rejects empty or malformed upload response %j', async (responseData) => {
         const { auth, mock } = await authenticate(provider);
         mock.onPost().reply(200, responseData);

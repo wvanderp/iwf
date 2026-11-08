@@ -1,8 +1,9 @@
+import type { ItemJSON } from '../Item';
+
 import {
     LabelLanguages, Statement
-} from '@wvanderp/wikibase-datamodel-types';
+} from './wikidata';
 
-import type { ItemJSON } from '../Item';
 
 export type StatementPlus = Statement | { id: string, remove?: '' };
 

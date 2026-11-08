@@ -1,5 +1,6 @@
-import { WikibaseFormSnak as WikidataWikibaseFormSnak } from '@wvanderp/wikibase-datamodel-types';
+import { WikibaseFormSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { WikibaseFormSnak as WikidataWikibaseFormSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import { FormString, PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -45,12 +46,13 @@ export default class WikibaseFormSnak extends Snak {
     datatype = dataType;
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *  const snak = new WikibaseFormSnak(json);
      */
     constructor(snak: WikidataWikibaseFormSnak) {
-        super(snak);
+        super(snak, WikibaseFormSnakSchema);
 
         const { lexemeId, formId } = parseFormId(snak.datavalue?.value.id);
         this._lexemeId = lexemeId;
@@ -82,6 +84,7 @@ export default class WikibaseFormSnak extends Snak {
         const { lexemeId, formId } = parseFormId(value);
 
         if (lexemeId === undefined || formId === undefined) {
+            // eslint-disable-next-line unicorn/no-incorrect-template-string-interpolation -- Describe the literal ID format to the caller.
             throw new Error(`${value} is not a valid form ID (expected L{number}-F{number})`);
         }
 

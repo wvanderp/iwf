@@ -1,5 +1,6 @@
-import { GlobeCoordinateSnak as WikidataGlobeCoordinateSnak } from '@wvanderp/wikibase-datamodel-types';
+import { GlobeCoordinateSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { GlobeCoordinateSnak as WikidataGlobeCoordinateSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import normalizeOutput from '../utils/normalizeOutput';
 
@@ -34,12 +35,13 @@ export default class GlobeCoordinateSnak extends Snak {
     datatype = dataType;
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *   const snak = new GlobeCoordinateSnak(json);
      */
     constructor(snak: WikidataGlobeCoordinateSnak) {
-        super(snak);
+        super(snak, GlobeCoordinateSnakSchema);
 
         this.latitude = snak.datavalue?.value.latitude;
         this.longitude = snak.datavalue?.value.longitude;

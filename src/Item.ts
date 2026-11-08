@@ -1,14 +1,10 @@
-import {
-    Aliases,
-    Descriptions,
-    Item as WikidataItem,
-    Labels,
-    Sitelinks,
-    Statement as WikidataStatement,
-    StatementMap,
-    LabelAndDescription
-} from '@wvanderp/wikibase-datamodel-types';
+import type { z } from 'zod';
 
+import { ItemInputSchema, ItemJSONSchema } from './schemas/wikidata';
+import {
+    Statement as WikidataStatement,
+    LabelAndDescription
+} from './types/wikidata';
 import Alias from './Alias';
 import Statement from './Statement';
 import Description from './Description';
@@ -17,7 +13,6 @@ import SiteLink from './SiteLink';
 import dateFormatter from './utils/dateFormatter';
 import normalizeOutput from './utils/normalizeOutput';
 import arrayEqual, { arrayEqualWith } from './utils/arrayEqual';
-import { Optional } from './types/Optional';
 import { Changes } from './utils/diff/Changes';
 import labelDiff from './utils/diff/labelDiff';
 import aliasDiff from './utils/diff/aliasDiff';
@@ -31,7 +26,7 @@ import sha256 from './utils/hash';
 /**
  * This type omits the id because if an item is new there will be no id.
  */
-type ItemInput = Optional<WikidataItem, 'id'>;
+type ItemInput = z.infer<typeof ItemInputSchema>;
 
 /**
  * The JSON shape produced by Item.toJSON().
@@ -39,20 +34,7 @@ type ItemInput = Optional<WikidataItem, 'id'>;
  * Unlike an API response, all entity collections are present. The id is
  * optional because newly-created items do not have one yet.
  */
-export interface ItemJSON {
-    pageid?: number;
-    ns?: number;
-    title?: string;
-    lastrevid?: number;
-    modified?: string;
-    type: 'item';
-    id?: QString;
-    labels: Labels;
-    descriptions: Descriptions;
-    aliases: Aliases;
-    claims: StatementMap;
-    sitelinks: Sitelinks;
-}
+export type ItemJSON = z.infer<typeof ItemJSONSchema>;
 
 /**
  * Converts an array to a string-keyed object without relying on Object.fromEntries.
@@ -115,7 +97,7 @@ export default class Item {
 
     /**
      * @param item The item in JSON format.
-     * @throws {Error} If the id is not a QString.
+     * @throws {Error} If the input fails Wikidata schema validation or the id is not a QString.
      * @example
      *     const item = new Item({
      *          type: "item",
@@ -128,6 +110,7 @@ export default class Item {
      *     })
      */
     constructor(item: ItemInput) {
+        ItemInputSchema.parse(item);
         this.pageid = item.pageid;
         this.ns = item.ns;
         this.title = item.title;
@@ -145,7 +128,7 @@ export default class Item {
         this.descriptions = Object.values(item.descriptions ?? {}).map((description) => new Description(description));
         this.aliases = Object.values(item.aliases ?? {})
             .flatMap(
-                (alias) => (alias == null ? [] : alias.map((alias2) => new Alias(alias2)))
+                (aliases) => aliases.map((alias) => new Alias(alias))
             );
 
         this.statements = Object.values(item.claims ?? {})

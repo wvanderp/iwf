@@ -1,6 +1,7 @@
-import { SiteLink as WikidataSiteLink } from '@wvanderp/wikibase-datamodel-types';
+import { SiteLinkSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 import properties from 'wikidata-properties';
 
+import { SiteLink as WikidataSiteLink } from './types/wikidata';
 import normalizeOutput from './utils/normalizeOutput';
 import arrayEqual from './utils/arrayEqual';
 
@@ -19,6 +20,7 @@ export default class SiteLink {
     _url: string | undefined;
 
     /**
+     * @throws {Error} If the input does not match the Wikidata schema.
      * @param siteLink The siteLink for this class.
      * @example
      *   const siteLink = new SiteLink({
@@ -29,6 +31,7 @@ export default class SiteLink {
      *   });
      */
     constructor(siteLink: WikidataSiteLink) {
+        siteLink = SiteLinkSchema.parse(siteLink);
         this.site = siteLink.site;
         this.title = siteLink.title;
         this._url = siteLink.url;
@@ -46,7 +49,7 @@ export default class SiteLink {
 
         const url = properties.siteDetails[this.site]
             .pageUrl
-            .replace('$1', this.title);
+            .replace('$1', () => this.title);
 
         return `https:${url}`;
     }

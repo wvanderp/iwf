@@ -1,5 +1,6 @@
-import { EntitySchemaSnak as WikidataEntitySchemaSnak } from '@wvanderp/wikibase-datamodel-types';
+import { EntitySchemaSnakSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { EntitySchemaSnak as WikidataEntitySchemaSnak } from '../types/wikidata';
 import Snak from '../Snak';
 import { EString, PString } from '../types/strings';
 import normalizeOutput from '../utils/normalizeOutput';
@@ -19,12 +20,13 @@ export default class EntitySchemaSnak extends Snak {
     datatype = dataType;
 
     /**
+     * @throws {Error} If the input does not match this datatype's Wikidata schema.
      * @param snak The snak for this class in JSON format.
      * @example
      *  const snak = new EntitySchemaSnak(json);
      */
     constructor(snak: WikidataEntitySchemaSnak) {
-        super(snak);
+        super(snak, EntitySchemaSnakSchema);
 
         // the ID is prefixed with E so we need to remove it
         this._numericID = snak.datavalue?.value.id

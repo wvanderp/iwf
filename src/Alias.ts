@@ -1,5 +1,6 @@
-import { LabelAndDescription, LabelLanguages } from '@wvanderp/wikibase-datamodel-types';
+import { LabelAndDescriptionSchema } from '@wvanderp/wikibase-datamodel-types/zod';
 
+import { LabelAndDescription, LabelLanguages } from './types/wikidata';
 import normalizeOutput from './utils/normalizeOutput';
 
 /**
@@ -17,11 +18,13 @@ export default class Alias {
     /**
      * Constructor for Alias.
      *
+     * @throws {Error} If the input does not match the Wikidata schema.
      * @param alias The alias in JSON format.
      * @example
      *    const alias = new Alias({ language: 'en', value: 'Douglas Adams' });
      */
     constructor(alias: LabelAndDescription) {
+        alias = LabelAndDescriptionSchema.parse(alias);
         this.language = alias.language;
         this.value = alias.value;
     }

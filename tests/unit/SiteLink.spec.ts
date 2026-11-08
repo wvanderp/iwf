@@ -34,6 +34,13 @@ describe('siteLink', () => {
 
             expect(siteLink.url).toStrictEqual('https://zu.wikipedia.org/wiki/Umuntu');
         });
+
+        it('preserves dollar replacement sequences in page titles', () => {
+            const title = 'Price $& and $$';
+            const siteLink = SiteLink.fromString('enwiki', title);
+
+            expect(siteLink.url).toBe(`https://en.wikipedia.org/wiki/${title}`);
+        });
     });
 
     describe('equals', () => {

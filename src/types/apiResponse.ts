@@ -1,14 +1,13 @@
-import { Item as WikibaseItem } from '@wvanderp/wikibase-datamodel-types';
+import type { z } from 'zod';
 
-export interface WbeditentityResponse {
-    entity?: WikibaseItem;
-    success?: number;
+import type { WbeditentityResponseSchema } from '../schemas/wikidata';
+
+export type WbeditentityResponse = Partial<z.infer<typeof WbeditentityResponseSchema>> & {
     error?: {
         code?: string,
         info?: string
     };
-    servedby?: string;
-}
+};
 
 export interface ActionLoginResponse {
     warnings: {

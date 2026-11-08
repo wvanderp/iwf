@@ -18,8 +18,7 @@ import {
     WikibaseSenseSnak as WikidataWikibaseSenseSnak,
     WikibaseFormSnak as WikidataWikibaseFormSnak,
     EntitySchemaSnak as WikidataEntitySchemaSnak,
-} from '@wvanderp/wikibase-datamodel-types';
-
+} from '../types/wikidata';
 import CommonsMediaSnak from '../snaks/CommonsMediaSnak';
 import EntitySchemaSnak from '../snaks/EntitySchemaSnak';
 import ExternalIdentifierSnak from '../snaks/ExternalIdentifierSnak';

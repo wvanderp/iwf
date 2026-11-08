@@ -25,7 +25,6 @@ describe('equal functions', () => {
             });
             it('should not equal if on of them is undefined', () => {
                 expect(arrayEqual(undefined, arrayOfABC)).toBe(false);
-                // eslint-disable-next-line unicorn/no-useless-undefined
                 expect(arrayEqual(arrayOfABC, undefined)).toBe(false);
             });
             it('should not equal if the length is different', () => {

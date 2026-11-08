@@ -1,8 +1,8 @@
-import {
-    Statement as wikidataStatement
-} from '@wvanderp/wikibase-datamodel-types';
 import diffArray from '@wvanderp/diff-arrays-of-objects';
 
+import {
+    Statement as wikidataStatement
+} from '../../types/wikidata';
 import Statement from '../../Statement';
 import { QString } from '../../types/strings';
 

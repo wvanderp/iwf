@@ -105,6 +105,7 @@ describe('Quantity Snak', () => {
                 // @ts-expect-error cant access private members in ts but in js you can
                 expect(snak._amount).toEqual(undefined);
                 expect(snak.amount).toEqual(undefined);
+                expect(() => snak.toJSON()).toThrow('amount is undefined');
             });
         });
 
@@ -344,8 +345,8 @@ describe('Quantity Snak', () => {
             });
         });
 
-        it('should return undefined amount when amount is missing from data', () => {
-            const noAmountQuantity = new QuantitySnak({
+        it('should reject a payload with a missing amount', () => {
+            expect(() => new QuantitySnak({
                 snaktype: 'value',
                 property: 'P1215',
                 datatype: 'quantity',
@@ -355,28 +356,7 @@ describe('Quantity Snak', () => {
                     },
                     type: 'quantity'
                 }
-            } as never);
-
-            expect(noAmountQuantity.amount).toBeUndefined();
-            expect(() => noAmountQuantity.toJSON()).toThrow('amount is undefined');
-        });
-
-        it('should serialize a no-value snak without datavalue', () => {
-            expect(new QuantitySnak({
-                snaktype: 'novalue',
-                property: 'P1215',
-                datatype: 'quantity',
-                datavalue: {
-                    value: {
-                        unit: '1'
-                    },
-                    type: 'quantity'
-                }
-            } as never).toJSON()).toStrictEqual({
-                snaktype: 'novalue',
-                property: 'P1215',
-                datatype: 'quantity'
-            });
+            } as never)).toThrow('datavalue.value.amount');
         });
 
         for (const snaktype of ['novalue', 'somevalue'] as const) {
@@ -405,7 +385,14 @@ describe('Quantity Snak', () => {
                     },
                     type: 'quantity'
                 }
-            } as never)).toThrow('unit is not defined');
+            } as never)).toThrow('datavalue.value.unit');
+        });
+
+        it('should reject an empty unit', () => {
+            expect(() => new QuantitySnak({
+                ...quantitySnak,
+                datavalue: { ...quantitySnak.datavalue, value: { ...quantitySnak.datavalue.value, unit: '' } }
+            })).toThrow('unit is not defined');
         });
     });
 });
